@@ -105,4 +105,50 @@ Tenemos un error, ya que las declaraciones de strict_types deben ser lo primero 
 ***
 </br>
 
+## Práctica 04
+
+> 📂 
+> ¿ Da error ? ¿ Por qué ?
+>
+
+Al probar el código proporcionado, observamos que no hay error y en efecto la función funciona correctamente. Esto es debido a que estamos devolviendo un resultado que tiene el tipo de variable que se espera.
+
+- Captura:
+
+<div align="center">
+<img src="./img/p4-1.png"/>
+</div>
+
+</br>
+
+> 📂 
+> Quitar el comentario a: return $a; ¿ Da error ahora ? ¿ Por qué ?
+>
+
+Al realizar el cambio, nos encontramos con un error puesto que en la función igualamos '$a' a una cadena de texto y al ahora retornar este argumento en vez de '$b' tenemos un error, ya que la propia función especifica que devuleve un valor entero.
+
+- Captura:
+
+<div align="center">
+<img src="./img/p4-2.png"/>
+</div>
+
+</br>
+
+> 📂 
+> Quitar comentario a: print fun(“e”,3); ¿ Da error ?
+>
+
+Tras realizar este cambio, también tenemos un error. En este caso es por pasarle por parametros a la función un tipo de dato distinto al esperado.
+
+- Captura:
+
+<div align="center">
+<img src="./img/p4-3.png"/>
+</div>
+
+***
+</br>
+
+
 </div>

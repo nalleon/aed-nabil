@@ -72,6 +72,7 @@ Gracias al operador '.' nos es posible concatener cadenas de texto sin importar 
 
 </br>
 
+## Práctica 03
 
 > 📂 
 > Realizar el código anterior y tomar captura de pantalla del resultado. ¿ qué es lo

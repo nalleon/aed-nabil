@@ -1,5 +1,5 @@
 <?php
-declare( strict_types=1);
+declare(strict_types=1);
 ?>
 <!DOCTYPE html>
 <html>
@@ -9,7 +9,7 @@ declare( strict_types=1);
 </head>
 <body>
 <?php
-function fun( int $a, int $b): int {
+function fun( int $a, int $b) : int{
 $a = "o";
 //return $a;
 return $b ;

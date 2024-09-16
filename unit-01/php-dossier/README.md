@@ -150,5 +150,65 @@ Tras realizar este cambio, también tenemos un error. En este caso es por pasarl
 ***
 </br>
 
+## Práctica 05
+
+> 📂 
+> Probar el código anterior. Probar ahora con números ¿ también funcionan las referencias ?
+>
+
+Originalmente funciona de esta manera.
+- Captura:
+
+<div align="center">
+<img src="./img/p5-1.png"/>
+</div>
+
+
+Al realizar con numero se muestra de esta forma:
+- Captura:
+
+<div align="center">
+<img src="./img/p5-1-1.png"/>
+<img src="./img/p5-1-2.png"/>
+</div>
+
+***
+</br>
+
+## Práctica 05.5
+
+> 📂 
+> Crear un array: $mivar = []; Introducir datos: array_push($mivar,”uno”); y hacer una asignación a otras variables. Una por referencia y la otra por valor: $arr1 = $mivar; $arr2 = &$mivar; modificar la posición cero de esas variable : $arr1[0] = “una variación”; $arr2[0] = “variando array2 ”; y mostrar el contenido de $mivar[0] y $arr1[0] ¿ qué es lo que ha ocurrido ? ( tomar captura de pantalla y explicarlo )
+>
+
+
+- Captura:
+
+<div align="center">
+<img src="./img/p5-1-3.png"/>
+</div>
+
+***
+</br>
+
+## Práctica 06
+
+> 📂 
+> Hacer un script php que haga echo de $_SERVER y de $_SERVER
+[PHP_SELF] tomar captura de pantalla de los resultados
+>
+
+- Código:
+```
+
+```
+
+- Captura:
+<div align="center">
+<img src="./img/p6.png"/>
+</div>
+
+
+***
 
 </div>

@@ -406,5 +406,76 @@ echo decompositionNum(3102);
 ***
 </br>
 
+## Práctica 11
+
+> 📂 
+> Ejectuar el script y tomar captura de pantalla
+>
+
+- Código:
+```
+<?php
+$var = "";
+    if(empty($var)){ // true because "" is considered empty
+        echo '<br>empty($var) para $var="" ';
+    }else{
+        echo '<br>!empty($var) para $var="" ';
+    }
+
+    if(isset($var)){ //true because var is set
+        echo '<br>isset($var) para $var="" ';
+    }else{
+        echo '<br> !isset($var) para $var="" ';
+    } if(empty($otherVar)){ //true because $otherVar is null
+        echo '<br>empty($otherVar) para $otherVar que no se ha establecido ';
+    } else {
+        echo '<br> !empty($otherVar) para $otherVar que no se ha establecido ';
+    }
+    if(isset($otherVar)){ //false because $otherVar is not set
+        echo '<br>isset($otherVar) para $otherVar que no se ha establecido ';
+    } else {
+        echo '<br> !isset($otherVar) para $otherVar que no se ha establecido ';
+    }
+?>
+```
+
+- Captura:
+<div align="center">
+<img src="./img/p11.png"/>
+</div>
+
+***
+</br>
+
+## Práctica 12
+
+> 📂 
+>Probar el script anterior y observar que ocurre. ¿ qué mensaje de error se observa ?
+>
+
+- Código:
+```
+<?php
+    $array = array('uno' =>1, 'dos'=>2, 'tres'=>40, 'cuatro'=>55);
+    $str = "La posición 'tres' contiene el dato $array['tres']";
+?>
+```
+Se nos muestra un error de sintax al estar llamando a la variable '$array' de esta forma.
+- Captura:
+<div align="center">
+<img src="./img/p12.png"/>
+</div>
+
+Para poder solucionarlo debemos de utilizar la siguiente sintaxis:
+
+```
+<?php
+    $array = array('uno' =>1, 'dos'=>2, 'tres'=>40, 'cuatro'=>55);
+    $str = "La posición 'tres' contiene el dato {$array['tres']}";
+?>
+```
+
+***
+</br>
 
 </div>

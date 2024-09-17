@@ -210,7 +210,11 @@ Al realizar el cambio a valores númericos se muestra de la siguiente forma, don
 
 - Código:
 ```
-
+    <?php
+        var_dump ($_REQUEST);  
+        var_dump ($_SERVER["SERVER_NAME"]);
+        var_dump ($_SERVER[PHP_SELF]);  
+    ?>
 ```
 
 - Captura:

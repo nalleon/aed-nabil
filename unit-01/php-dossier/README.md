@@ -365,7 +365,46 @@ uso del operador: ** Ir concatenando las salidas en pantall de las potencias en 
 <img src="./img/p9.png"/>
 </div>
 
+***
+</br>
+
+## Práctica 10
+
+> 📂 
+> Crear un programa en php que obtenga la descomposición de un número que
+esté almacenado en la variable: $numero Por ejemplo: $numero = 3102 Se pretende que se utilicen en el programa los operadores: .= , **. Para el ejemplo anterior se debe mostrar en pantalla: 2 * 1 + 0 * 10 + 1 * 100 + 3 * 1000
+>
+
+- Código:
+```
+<?php
+
+function decompositionNum($num) {
+    $numAux = $num;
+
+    $units = (int) $numAux % 10;
+    $numAux = (int) ($numAux / 10);
+    $tens = (int) $numAux % 10;
+    $numAux = (int) ($numAux / 10);
+    $hundreds = (int) $numAux % 10;
+    $numAux = (int) ($numAux / 10);
+    $thousand = (int) $numAux % 10;
+
+    return $units . " * 1 + " . $tens . " * 10 + " . $hundreds . " * 100 + " . $thousand . " * 1000";    
+}
+
+echo decompositionNum(3102);
+
+?>
+```
+
+- Captura:
+<div align="center">
+<img src="./img/p10.png"/>
+</div>
 
 ***
+</br>
+
 
 </div>

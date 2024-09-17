@@ -251,6 +251,88 @@ A simple vista, podemos apreciar como establpecer un valor nulo en la variable s
 
 
 ***
+</br>
 
+## Práctica 08
+
+> 📂 
+> Ejecutar el script anterior ¿ hay alguna diferencia antes y después del cast ?
+Tomar captura de pantalla
+>
+
+- Código:
+```
+<?php
+    $unavar = 1.3;
+    var_dump($unavar);
+    echo "<br>";
+    $unavar = (int) $unavar;
+    var_dump($unavar);
+?>
+```
+
+Podemos apreciar una diferencia clara puesto que el valor de '$unavar' a cambiado de un  float a un entero por lo que ha perdido su parte decimal al truncarse.
+
+- Captura:
+<div align="center">
+<img src="./img/p8.png"/>
+</div>
+
+
+***
+## Práctica 08.5
+
+> 📂 
+> ¿ Qué ámbito tienen las constantes ? ¿ realmente no se puede poner varios
+valores en un constante ?
+>
+
+Las constantes tienen un ámbito global, es decir que se puede acceder a ellas unas vez declaradas desden cualquier método del scripts. Una vez ya hayamos declarado el valor de una constante no podremos redefinirlo o modificarlo.
+
+
+> 📂 
+> Probar fuera de una función a crear constante:
+const PULGADA = 2.53; ahora tratar de establecerla de nuevo mediante: PULGADA = 7; const PULGADA = 8; $PULGADA = 9; hacer echo en cada caso.
+>
+- Código:
+```
+<?php
+    const PULGADA = 2.53;
+    var_dump(PULGADA);
+    echo "</br>";
+    const PULGADA = 8;
+    var_dump(PULGADA);
+    echo "</br>";
+    $PULGADA = 9;
+    var_dump(PULGADA);
+?>
+```
+
+> 📂 
+>Crear la constante en ámbito global ( fuera de función ) ¿ se puede acceder dentro de una función ? ¿ se puede establecer: const PULGADA = 10 dentro de una función ?
+Tomar capturas de pantalla en cada caso y explicar lo que ha ocurrido
+>
+
+
+- Código:
+```
+<?php
+    const PULGADA = 2.53;
+    
+    function testConstants(){
+        //const PULGADA_LOCAL = 10; NO se pueden establecer dentro de una función
+        return PULGADA;
+    }
+?>
+```
+Si hemos creado la variable globalmente no tendremos problema en llamarla dentro de una función para utilizarla, en cambio si intentamos declarar en este caso la constante 'PULGADA_LOCAL' dentro de la función tendremos un error de sintaxis.
+
+- Captura:
+<div align="center">
+<img src="./img/p8-5.png"/>
+</div>
+
+
+***
 
 </div>

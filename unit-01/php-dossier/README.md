@@ -278,8 +278,9 @@ Podemos apreciar una diferencia clara puesto que el valor de '$unavar' a cambiad
 <img src="./img/p8.png"/>
 </div>
 
-
 ***
+</br>
+
 ## Práctica 08.5
 
 > 📂 
@@ -330,6 +331,38 @@ Si hemos creado la variable globalmente no tendremos problema en llamarla dentro
 - Captura:
 <div align="center">
 <img src="./img/p8-5.png"/>
+</div>
+
+***
+</br>
+
+## Práctica 09
+
+> 📂 
+> Crear un script que muestre las potencias del número 2 desde 2¹ hasta 2⁹ hacer
+uso del operador: ** Ir concatenando las salidas en pantall de las potencias en una string mediante el operador de concatenación y asignación: .=
+>
+
+- Código:
+```
+<?php
+    function exponentation(){
+        $num = 2;
+        for($i = 0; $i < 10; $i++){
+            $str = $num;
+            $str .= "^".$i;
+            echo $str. " = ". ($num**$i). "<br>";
+        }
+    }   
+
+    exponentation(); 
+    echo "<br>";
+?>
+```
+
+- Captura:
+<div align="center">
+<img src="./img/p9.png"/>
 </div>
 
 

@@ -6,6 +6,15 @@
 - [Práctica 02](./php-dossier/practice02.php)
 - [Práctica 03](./php-dossier/practice03.php)
 - [Práctica 04](./php-dossier/practice04.php)
+- [Práctica 05](./php-dossier/practice05.php)
+- [Práctica 06](./php-dossier/practice06.php)
+- [Práctica 07](./php-dossier/practice07.php)
+- [Práctica 08](./php-dossier/practice08.php)
+- [Práctica 09](./php-dossier/practice09.php)
+- [Práctica 10](./php-dossier/practice10.php)
+- [Práctica 11](./php-dossier/practice11.php)
+- [Práctica 12](./php-dossier/practice12.php)
+
 
 ***
 
@@ -164,7 +173,8 @@ Originalmente funciona de esta manera.
 </div>
 
 
-Al realizar con numero se muestra de esta forma:
+Al realizar el cambio a valores númericos se muestra de la siguiente forma, donde podemos apreciar que sigue funcionando;
+
 - Captura:
 
 <div align="center">

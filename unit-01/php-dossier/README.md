@@ -210,11 +210,11 @@ Al realizar el cambio a valores númericos se muestra de la siguiente forma, don
 
 - Código:
 ```
-    <?php
-        var_dump ($_REQUEST);  
-        var_dump ($_SERVER["SERVER_NAME"]);
-        var_dump ($_SERVER[PHP_SELF]);  
-    ?>
+<?php
+    var_dump ($_REQUEST);  
+    var_dump ($_SERVER["SERVER_NAME"]);
+    var_dump ($_SERVER[PHP_SELF]);  
+?>
 ```
 
 - Captura:
@@ -224,5 +224,33 @@ Al realizar el cambio a valores númericos se muestra de la siguiente forma, don
 
 
 ***
+## Práctica 07
+
+> 📂 
+> Visualizar lo anterior ¿ se encuentran diferencias entre null y unset() ? Tomar
+captura de pantalla
+>
+
+- Código:
+```
+<?php
+    $variable = null;
+    var_dump($variable);
+    echo "</br>";
+    unset($variable);
+    var_dump($variable);
+?>
+```
+
+A simple vista, podemos apreciar como establpecer un valor nulo en la variable simplemente lo define como tal mientras que si utilizamos unset se nos especifica donde hemos dejado la variable nula.
+
+- Captura:
+<div align="center">
+<img src="./img/p7.png"/>
+</div>
+
+
+***
+
 
 </div>

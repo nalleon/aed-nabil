@@ -685,25 +685,35 @@ Funciona exactamente igual tanto si dejamos las variables como '$key' y '$value'
 ## Práctica 16
 
 > 📂 
-> Ejecutar el script anterior. ¿ Tenemos que usar los nombres de variables $key
-y $val ? Sustituir por otros nombres de variables y ver si hay algún problema
+> Ejecutar el script anterior. En Java eliminar elementos de un array en un
+foreach implica un error ¿ también en php ? Tomar captura de pantalla del resultado
 >
 
 - Código:
 ```
 <?php
-    $array = array('perro', 'gato', 'avestruz');
-    foreach ($array as $index => $animals) {
-        print "array[ $index ] = $animals </br>";
+    $array = [];
+    for($i=0;$i<5;$i++){
+        $array[] = "a" . $i;
+    }
+
+    $j=count($array);
+    foreach( $array as $key => $val){
+        $j--;
+        unset($array[$j]);
+        echo "<br>";
+        var_dump($array);
+        echo "<br> $key => $val ";
+        echo "<br>";
     }
 ?>
 ```
 
-Funciona exactamente igual tanto si dejamos las variables como '$key' y '$value' que intercambiandolos por otros nombres mientras se cumpla bien la sintaxis.
+En PHP he podido apreciar que hay ningun tipo de error al elimnar los valores de un array usando un for each, en cambio como apreciamos como los va eliminando correctamente.
 
 - Captura:
 <div align="center">
-<img src="./img/p16.png"/>
+<img src="./img/p17.png"/>
 </div>
 
 ***

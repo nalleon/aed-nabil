@@ -39,6 +39,11 @@
 
     echo decompositionNumRecursive(3102);
 
+
+    function descNumRecursiveClass(){
+
+    }
+    
    ?>
 </body>
 </html>

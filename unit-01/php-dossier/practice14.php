@@ -11,6 +11,7 @@
     for($i=0; $i<10; $i++){
         ${$var.$i} = $i;
     }
+    
     echo "<br> ${'dato0'} ";
     echo "<br> ${'dato1'} ";
     echo "<br> ${'dato2'} ";

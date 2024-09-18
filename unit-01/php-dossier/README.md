@@ -14,6 +14,13 @@
 - [Práctica 10](./php-dossier/practice10.php)
 - [Práctica 11](./php-dossier/practice11.php)
 - [Práctica 12](./php-dossier/practice12.php)
+- [Práctica 13](./php-dossier/practice13.php)
+- [Práctica 14](./php-dossier/practice14.php)
+- [Práctica 15](./php-dossier/practice15.php)
+- [Práctica 16](./php-dossier/practice16.php)
+- [Práctica 16](./php-dossier/practice17.php)
+
+
 
 
 ***

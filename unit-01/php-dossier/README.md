@@ -655,27 +655,59 @@ Muestra correctamente valor con su clave asociada sin generar errores.
 ***
 </br>
 
+## Práctica 17
+
 > 📂 
-> Realizar el mismo script pero en lugar de crear el array mediante los
-corchetes: $array = [] hacerlo con la función array() ¿ hay diferencias en la salida en
-pantalla ? Ejecutar var_dump($array) después de cada asignación de un valor al array.
-Tomar captura de pantalla de los resultados
+> Ejecutar el script anterior. ¿ Tenemos que usar los nombres de variables $key
+y $val ? Sustituir por otros nombres de variables y ver si hay algún problema
 >
 
 - Código:
 ```
 <?php
-
-
+    $array = array('perro', 'gato', 'avestruz');
+    foreach ($array as $index => $animals) {
+        print "array[ $index ] = $animals </br>";
+    }
 ?>
 ```
 
+Funciona exactamente igual tanto si dejamos las variables como '$key' y '$value' que intercambiandolos por otros nombres mientras se cumpla bien la sintaxis.
+
 - Captura:
 <div align="center">
-<img src="./img/p15-2.png"/>
+<img src="./img/p16.png"/>
 </div>
 
 ***
 </br>
+
+## Práctica 16
+
+> 📂 
+> Ejecutar el script anterior. ¿ Tenemos que usar los nombres de variables $key
+y $val ? Sustituir por otros nombres de variables y ver si hay algún problema
+>
+
+- Código:
+```
+<?php
+    $array = array('perro', 'gato', 'avestruz');
+    foreach ($array as $index => $animals) {
+        print "array[ $index ] = $animals </br>";
+    }
+?>
+```
+
+Funciona exactamente igual tanto si dejamos las variables como '$key' y '$value' que intercambiandolos por otros nombres mientras se cumpla bien la sintaxis.
+
+- Captura:
+<div align="center">
+<img src="./img/p16.png"/>
+</div>
+
+***
+</br>
+
 
 </div>

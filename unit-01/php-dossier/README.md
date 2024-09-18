@@ -18,9 +18,7 @@
 - [Práctica 14](./php-dossier/practice14.php)
 - [Práctica 15](./php-dossier/practice15.php)
 - [Práctica 16](./php-dossier/practice16.php)
-- [Práctica 16](./php-dossier/practice17.php)
-
-
+- [Práctica 17](./php-dossier/practice17.php)
 
 
 ***
@@ -662,7 +660,7 @@ Muestra correctamente valor con su clave asociada sin generar errores.
 ***
 </br>
 
-## Práctica 17
+## Práctica 16
 
 > 📂 
 > Ejecutar el script anterior. ¿ Tenemos que usar los nombres de variables $key
@@ -689,7 +687,7 @@ Funciona exactamente igual tanto si dejamos las variables como '$key' y '$value'
 ***
 </br>
 
-## Práctica 16
+## Práctica 17
 
 > 📂 
 > Ejecutar el script anterior. En Java eliminar elementos de un array en un

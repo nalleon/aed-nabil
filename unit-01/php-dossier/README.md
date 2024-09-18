@@ -478,4 +478,58 @@ Para poder solucionarlo debemos de utilizar la siguiente sintaxis:
 ***
 </br>
 
+## Práctica 13
+
+> 📂 
+> Probar el script anterior y observar que ocurre. Probar ahora con llaves:
+${$variable} ¿ hay diferencia ?
+>
+
+- Código:
+```
+<?php
+    $variable = 'dato';
+    $dato = 5;
+    echo ${$variable}.'<br>';
+?>
+```
+
+No hay ninguna diferencia, se nos sigue mostrando el valor de '$dato' como 5;
+- Captura:
+<div align="center">
+<img src="./img/p13.png"/>
+</div>
+
+
+***
+</br>
+
+## Práctica 14
+
+> 📂 
+> Toma el código anterior e introduce una expresión “variable de variables” que
+permita definir las variables: $dato0, $dato1, …, $dato9 Cada una de ellas con el valor
+correspondiente: 0, 1,…,9
+>
+
+- Código:
+```
+<?php
+for($i=0;$i<10;$i++){
+}
+echo "<br> $dato3 ";
+echo "<br> $dato8 ";
+?>
+```
+
+No hay ninguna diferencia, se nos sigue mostrando el valor de '$dato' como 5;
+- Captura:
+<div align="center">
+<img src="./img/p13.png"/>
+</div>
+
+
+***
+</br>
+
 </div>

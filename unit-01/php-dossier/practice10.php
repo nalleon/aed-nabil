@@ -24,6 +24,21 @@
 
     echo decompositionNum(3102);
     
+    function decompositionNumRecursive($num) {
+        if ($num < 10) {
+            return $num;
+        }
+        
+        $digit = $num % 10;
+        $remainingDigits = (int) ($num / 10);
+
+        return $digit. " * 10^". decompositionNumRecursive($remainingDigits);
+    }
+
+    echo "</br>";
+
+    echo decompositionNumRecursive(3102);
+
    ?>
 </body>
 </html>

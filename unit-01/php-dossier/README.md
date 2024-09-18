@@ -541,5 +541,141 @@ correspondiente: 0, 1,…,9
 ***
 </br>
 
+## Práctica 15
+
+> 📂 
+> Ejecutar el script anterior ¿ se muestran las posiciones anteriores a la 2 ? ¿ y
+entre la 2 y la 7 ?. Realizar el mismo script pero en lugar de crear el array mediante los
+corchetes: $array = [] hacerlo con la función array() ¿ hay diferencias en la salida en
+pantalla ? Ejecutar var_dump($array) después de cada asignación de un valor al array.
+Tomar captura de pantalla de los resultados
+>
+
+- Código:
+```
+<?php
+    $array = [];
+    $array[2]="mensaje";
+    $array[7]="lalala!";
+    $array[]="yepa yepa!!";
+    var_dump($array);
+?>
+```
++
+NO se muestran las posiciones anteriores a la 2 ni entre esta y la 7, puesto que están vacias.
+
+- Captura:
+<div align="center">
+<img src="./img/p15-1.png"/>
+</div>
+
+</br>
+
+> 📂 
+> Realizar el mismo script pero en lugar de crear el array mediante los
+corchetes: $array = [] hacerlo con la función array() ¿ hay diferencias en la salida en
+pantalla ? Ejecutar var_dump($array) después de cada asignación de un valor al array.
+Tomar captura de pantalla de los resultados
+>
+
+- Código:
+```
+<?php
+    $array = [];
+
+    $array[2]="mensaje";
+    var_dump($array);
+    echo "</br>";
+
+
+    $array[7]="lalala!";
+    var_dump($array);
+    echo "</br>";
+
+
+    $array[]="yepa yepa!!";
+    var_dump($array);
+    echo "</br>";
+
+    $array2 = array();
+    $array2[2]="mensaje";
+    var_dump($array2);
+    echo "</br>";
+
+    $array2[7]="lalala!";
+    var_dump($array2);
+    echo "</br>";
+
+    $array2[]="yepa yepa!!";
+    var_dump($array2);
+
+?>
+```
+
+- Captura:
+<div align="center">
+<img src="./img/p15-2.png"/>
+</div>
+
+***
+</br>
+
+## Práctica 15.5
+
+> 📂 
+> Crear un array asociativo dejando sin poner en algunas ocasiones la parte de la clave dejando únicamente el valor ( al estilo de si fuera un array no asociativo ) hacer un var_dump() y recorrerlo con un for ( no con un foreach) ¿ muestra algún valor ? ¿ genera error ?
+>
+
+- Código:
+```
+<?php
+    $array = [];
+    $array[2]="mensaje";
+    $array[7]="lalala!";
+    $array[]="yepa yepa!!";
+
+    echo "<br>";
+
+    for($i = 0; $i < 9; $i++){
+        if(isset($array[$i])){
+            var_dump($array[$i]);
+        } 
+    }
+?>
+```
+
+Muestra correctamente valor con su clave asociada sin generar errores.
+
+
+- Captura:
+<div align="center">
+<img src="./img/p15-3.png"/>
+</div>
+
+***
+</br>
+
+> 📂 
+> Realizar el mismo script pero en lugar de crear el array mediante los
+corchetes: $array = [] hacerlo con la función array() ¿ hay diferencias en la salida en
+pantalla ? Ejecutar var_dump($array) después de cada asignación de un valor al array.
+Tomar captura de pantalla de los resultados
+>
+
+- Código:
+```
+<?php
+
+
+?>
+```
+
+- Captura:
+<div align="center">
+<img src="./img/p15-2.png"/>
+</div>
+
+***
+</br>
 
 </div>

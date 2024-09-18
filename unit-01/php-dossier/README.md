@@ -515,21 +515,31 @@ correspondiente: 0, 1,…,9
 - Código:
 ```
 <?php
-for($i=0;$i<10;$i++){
-}
-echo "<br> $dato3 ";
-echo "<br> $dato8 ";
+    $var = 'dato';
+    for($i=0; $i<10; $i++){
+        ${$var.$i} = $i;
+    }
+    echo "<br> ${'dato0'} ";
+    echo "<br> ${'dato1'} ";
+    echo "<br> ${'dato2'} ";
+    echo "<br> ${'dato3'} ";
+    echo "<br> ${'dato4'} ";
+    echo "<br> ${'dato5'} ";
+    echo "<br> ${'dato6'} ";
+    echo "<br> ${'dato7'} ";
+    echo "<br> ${'dato8'} ";
+    echo "<br> ${'dato9'} ";
 ?>
 ```
 
-No hay ninguna diferencia, se nos sigue mostrando el valor de '$dato' como 5;
 - Captura:
 <div align="center">
-<img src="./img/p13.png"/>
+<img src="./img/p14.png"/>
 </div>
 
 
 ***
 </br>
+
 
 </div>

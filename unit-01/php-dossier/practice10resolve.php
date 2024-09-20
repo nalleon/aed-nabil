@@ -8,8 +8,9 @@
 <body>
     
  <?php
-    if (!isset($_REQUEST["num"])) {
-        echo "Num was mot submitted.";
+    if (empty($_REQUEST["num"])) {
+        echo "Num was not submitted.";
+        exit();
     } 
 
     $numDesc = $_REQUEST["num"]; 

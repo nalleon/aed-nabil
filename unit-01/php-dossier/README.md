@@ -966,4 +966,37 @@ como queda el array en cada iteración
 ***
 </br>
 
+## Práctica 23
+
+> 📂
+> Haz una página PHP que utilice foreach para mostrar todos los valores del
+array $_SERVER en una tabla con dos columnas. La primera columna debe contener el nombre de la variable, y la segunda su valor
+
+- Código:
+```
+<?php
+    echo "<table>";
+    echo "<tr>";
+    echo "<th>Var</th>";
+    echo "<th>Value</th>";
+    echo "</tr>";
+
+    foreach ($_SERVER as $key => $value) {
+            echo "<tr>";
+            echo "<td>$key</td>";
+            echo "<td>$value</td>";
+            echo "<tr>";
+    }
+    
+    echo "</table>";
+?>
+```
+
+- Captura:
+<div align="center">
+<img src="./img/p23.png"/>
+</div>
+
+***
+</br>
 </div>

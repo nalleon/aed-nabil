@@ -30,10 +30,7 @@ nombre completo. Tomar captura de pantalla del resultado
 >
 
 - Captura:
-
-<<<<<<< Tabnine <<<<<<<
 <div align="center">
->>>>>>> Tabnine >>>>>>>undefined {"conversationId":"7724b2e3-c164-4813-b816-f61bc40b05de","source":"instruct"}
 <img src="./img/p1.png"/>
 </div>
 

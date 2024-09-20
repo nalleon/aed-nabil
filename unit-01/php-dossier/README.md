@@ -1191,5 +1191,61 @@ rand ( int $min , int $max ) : int) y luego hacer uso de array_search() para loc
 ***
 </br>
 
+## Práctica 27
+
+> 📂
+> Crear un array con los valores: [7,2,8,1,9,4] Hacer búsqueda con array_search() de: 4. Ordenar el array con usort y repetir la búsqueda de: 4; Mostrar los array antes y después de ordenación así como lo que devuelve array_search()
+>
+
+- Código:
+
+```
+<?php
+    $arr = [7,2,8,1,9,4];
+
+    print_r($arr);
+    echo "</br>";
+
+    $key = array_search(4, $arr);
+    found($key);
+
+    function found($key) {
+        if( $key === FALSE) {
+            echo "Value not found in array";
+        } else {
+            echo "Value found at index " . $key;
+        }
+    }
+
+    echo "</br>";
+
+    function compare($val1, $val2) {
+        return $val1 <=> $val2;
+    }
+
+    echo "</br>";
+    usort($arr, "compare");
+    $sortArr = [];
+
+    foreach ($arr as $value) {
+        $sortArr[] = $value;
+    }
+
+    print_r($sortArr);
+    echo "</br>";
+
+    $key = array_search(4, $sortArr);
+    found($key);
+?>
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p27.png"/>
+</div>
+
+***
+</br>
 
 </div>

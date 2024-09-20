@@ -31,7 +31,9 @@ nombre completo. Tomar captura de pantalla del resultado
 
 - Captura:
 
+<<<<<<< Tabnine <<<<<<<
 <div align="center">
+>>>>>>> Tabnine >>>>>>>undefined {"conversationId":"7724b2e3-c164-4813-b816-f61bc40b05de","source":"instruct"}
 <img src="./img/p1.png"/>
 </div>
 
@@ -1152,5 +1154,42 @@ rand ( int $min , int $max ) : int) y luego hacer uso de array_search() para loc
 
 ***
 </br>
+
+## Práctica 26
+
+> 📂
+> Variar el ejemplo anterior para que se haga uso del operador nave espacial:
+<=>
+
+- Código:
+
+```
+<?php
+    function cmp($a, $b) {
+        return $a <=> $b;
+    }
+
+    $a = array(3, 2, 5, 6, 1);
+    echo "Original array : ";
+    print_r($a);
+    echo "</br>";
+
+    echo "Sorted array : ";
+    usort($a, "cmp");
+    foreach ($a as $valor) {
+        echo " $valor, ";
+    }
+?>
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p26.png"/>
+</div>
+
+***
+</br>
+
 
 </div>

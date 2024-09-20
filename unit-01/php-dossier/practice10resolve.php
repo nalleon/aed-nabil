@@ -8,11 +8,31 @@
 <body>
     
  <?php
-    echo $_REQUEST["descompositionNum"];
+    if (!isset($_REQUEST["num"])) {
+        echo "Num was mot submitted.";
+    } 
 
-    /**
-     * Homework
-     */
+    $numDesc = $_REQUEST["num"]; 
+
+    echo "Num send: ". $numDesc. "</br>";
+    
+    function decompositionNum($num) {
+        $actual = 0;
+        $operator = 1;
+        $result = "";
+
+        for ($i = 1; $i <= $num; $num/=10) {
+            $actual = $num % 10;
+            $result .= $actual . " * " .  $operator;
+            if ($num > 10) {
+                $result .= " + ";
+            }
+            $operator*=10;
+        }
+        echo $result;
+    }
+
+    decompositionNum($numDesc);
  ?>
 </body>
 </html>

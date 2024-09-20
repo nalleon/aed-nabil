@@ -8,7 +8,7 @@
 <body>
     <?php
     
-    function decompositionNum($num) {
+    /**function decompositionNum($num) {
        $numAux = $num;
 
        $units = (int) $numAux % 10;
@@ -21,6 +21,25 @@
 
        return $units . " * 1 + " . $tens . " * 10 + " . $hundreds . " * 100 + " . $thousand . " * 1000";    
     }
+    */
+
+    function decompositionNum($num) {
+        $actual = 0;
+        $operator = 1;
+        $result = "";
+
+        for ($i = 1; $i <= $num; $num/=10) {
+            $actual = $num % 10;
+            $result .= $actual . " * " .  $operator;
+            if ($num > 10) {
+                $result .= " + ";
+            }
+            $operator*=10;
+        }
+        echo $result;
+
+    }
+
 
     echo decompositionNum(3102);
     
@@ -39,10 +58,6 @@
 
     echo decompositionNumRecursive(3102);
 
-
-    function descNumRecursiveClass(){
-
-    }
     
    ?>
 </body>

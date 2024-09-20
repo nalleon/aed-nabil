@@ -884,4 +884,86 @@ llamamos a $array ( recordar que con comillas simples no interpreta ) Tomar capt
 ***
 </br>
 
+## Práctica 22
+
+> 📂
+> Crear un script que por medio de un bucle for que vaya de 1 a 10 agregue esos
+números en un array mediante array_unshift() En cada iteración mostrar el contenido del
+array. Después en un bucle for de 1 a 5 ir ejecutando sentencias array_shift() y mostrar
+como queda el array en cada iteración
+
+- Código:
+```
+<?php   
+    $arr = [];
+
+    for($i=0; $i<10; $i++){
+        $arr[] = $i;
+        echo "Array unshift values $i: ";
+        print_r($arr);
+        echo "</br>";
+    }
+    
+    echo "</br>";
+
+    for($j=0; $j<5; $j++){
+        $arrShift = array_shift($arr);
+        echo "Shifted array value $j: ";
+        print_r($arr);
+        echo "</br>";
+        echo "Value shifted: " . $arrShift;
+        echo "</br>";
+    }
+?>
+```
+
+- Captura:
+<div align="center">
+<img src="./img/p22.png"/>
+</div>
+
+***
+</br>
+
+## Práctica 22
+
+> 📂
+> Crear un script que por medio de un bucle for que vaya de 1 a 10 agregue esos
+números en un array mediante array_unshift() En cada iteración mostrar el contenido del
+array. Después en un bucle for de 1 a 5 ir ejecutando sentencias array_shift() y mostrar
+como queda el array en cada iteración
+
+- Código:
+```
+<?php   
+    $arr = [];
+
+    for($i=0; $i<10; $i++){
+        $arr[] = $i;
+        echo "Array unshift values $i: ";
+        print_r($arr);
+        echo "</br>";
+    }
+    
+    echo "</br>";
+
+    for($j=0; $j<5; $j++){
+        $arrShift = array_shift($arr);
+        echo "Shifted array value $j: ";
+        print_r($arr);
+        echo "</br>";
+        echo "Value shifted: " . $arrShift;
+        echo "</br>";
+    }
+?>
+```
+
+- Captura:
+<div align="center">
+<img src="./img/p22.png"/>
+</div>
+
+***
+</br>
+
 </div>

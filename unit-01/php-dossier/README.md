@@ -19,7 +19,16 @@
 - [Práctica 15](./php-dossier/practice15.php)
 - [Práctica 16](./php-dossier/practice16.php)
 - [Práctica 17](./php-dossier/practice17.php)
-
+- [Práctica 18](./php-dossier/practice18.php)
+- [Práctica 19](./php-dossier/practice19.php)
+- [Práctica 20](./php-dossier/practice20.php)
+- [Práctica 21](./php-dossier/practice21.php)
+- [Práctica 22](./php-dossier/practice22.php)
+- [Práctica 23](./php-dossier/practice23.php)
+- [Práctica 24](./php-dossier/practice24.php)
+- [Práctica 25](./php-dossier/practice25.php)
+- [Práctica 26](./php-dossier/practice26.php)
+- [Práctica 27](./php-dossier/practice27.php)
 ***
 
 ### Práctica 01

@@ -1115,6 +1115,42 @@ captura del resultado de la ejecución
 ***
 </br>
 
+## Práctica 25
 
+> 📂
+> Rellenar un array con 10 números aleatorios entre 20 y 25 ( hacer uso de:
+rand ( int $min , int $max ) : int) y luego hacer uso de array_search() para localizar el valor: “22” Se debe mostrar en pantalla el array completo y el valor devuelto por array_search()
+
+- Código:
+
+```
+<?php
+    $arr = [];
+    for ($i = 0; $i < 10; $i++) {
+        $arr[$i] = rand (20, 25);
+    }
+
+    print_r($arr);
+
+    echo "</br>";
+
+    $key = array_search(22, $arr);
+    if( $key === FALSE) {
+        echo "Value not found in array";
+    } else {
+        echo "Value found at index " . $key;
+    }
+?>
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p25-1.png"/>
+<img src="./img/p25-2.png"/>
+</div>
+
+***
+</br>
 
 </div>

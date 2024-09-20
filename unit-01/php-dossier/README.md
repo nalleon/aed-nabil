@@ -724,5 +724,164 @@ En PHP he podido apreciar que hay ningun tipo de error al elimnar los valores de
 ***
 </br>
 
+## Práctica 18
+
+> 📂 
+> Ejecutar el script anterior. Modificar los echo para que se sepa cuando
+llamamos a $array ( recordar que con comillas simples no interpreta ) Tomar captura de pantalla
+>
+
+- Código:
+```
+<?php
+    $array = ["a","a","a","a","a"];
+    $j=count($array);
+    foreach( $array as $key => &$val){
+        $j--;
+        $array[$j] .= $j;
+        echo "<br>";
+        var_dump($array);
+        echo "<br> $key => $val";
+        echo "<br> $key => $array[$key]";
+        echo "<br>";
+    }
+
+    $arr = array(1, 2, 3, 4);
+    foreach ($arr as &$val) {
+        $val = $val * 2;
+        print_r($arr);
+        echo "<br><br>";
+    }
+
+    foreach ($arr as $key => $val2) {
+        echo "{$key} => {$val2} <br>";
+        print_r($arr);
+        echo "<br><br>";
+    }
+?>
+```
+- Captura:
+<div align="center">
+<img src="./img/p18.png"/>
+</div>
+
+***
+</br>
+
+## Práctica 19
+
+> 📂 
+> Ejecutar el script anterior. Tomar captura de pantalla del resultado
+>
+
+- Código:
+```
+<?php
+    $array = ["a","a","a","a","a"];
+    $j=count($array);
+    foreach( $array as $key => &$val){
+        $j--;
+        $array[$j] .= $j;
+        echo "<br>";
+        var_dump($array);
+        echo "<br> $key => $val";
+        echo "<br> $key => $array[$key]";
+        echo "<br>";
+    }
+?>
+```
+- Captura:
+<div align="center">
+<img src="./img/p19.png"/>
+</div>
+
+***
+</br>
+
+## Práctica 20
+
+> 📂
+> Ejecutar el script anterior. ¿ qué valor devuelve ?Tomar captura de pantalla
+>
+
+- Código:
+```
+<?php
+    $arr= ["1","2","3","4"];
+    $va = array_pop($arr);
+    echo "el array ahora queda: <br>";
+    print_r($arr);
+    echo "<br>el valor extraido es: " . $va;
+?>
+```
+
+- Captura:
+<div align="center">
+<img src="./img/p20.png"/>
+</div>
+
+***
+</br>
+
+## Práctica 20
+
+> 📂
+> Ejecutar el script anterior. ¿ qué valor devuelve ?Tomar captura de pantalla
+>
+
+- Código:
+```
+<?php
+    $arr= ["1","2","3","4"];
+    $va = array_pop($arr);
+    echo "el array ahora queda: <br>";
+    print_r($arr);
+    echo "<br>el valor extraido es: " . $va;
+?>
+```
+
+- Captura:
+<div align="center">
+<img src="./img/p20.png"/>
+</div>
+
+***
+</br>
+
+## Práctica 21
+
+> 📂
+> Crear un script que por medio de un bucle for que vaya de 1 a 10 agregue esos números en un array En cada iteración mostrar el contenido del array. Después en un bucle for de 1 a 5 ir ejecutando sentencias array_pop() y mostrar como queda el array en cada iteración
+
+- Código:
+```
+<?php   
+    $arr = [];
+
+    for($i=0; $i<10; $i++){
+        $arr[] = $i;
+        echo "Array value $i: ";
+        print_r($arr);
+        echo "</br>";
+    }
+
+    for($j=0; $j<5; $j++){
+        $arrPop = array_pop($arr);
+        echo "Popped array value $j: ";
+        print_r($arr);
+        echo "</br>";
+        echo "Value popped: " . $arrPop;
+        echo "</br>";
+    }
+?>
+```
+
+- Captura:
+<div align="center">
+<img src="./img/p21.png"/>
+</div>
+
+***
+</br>
 
 </div>

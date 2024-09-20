@@ -13,6 +13,5 @@
         echo "<br> $key => $val ";
         echo "<br>";
     }
-
     var_dump($array)
 ?>

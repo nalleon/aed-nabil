@@ -1349,4 +1349,33 @@ Tomar captura de pantalla
 
 ***
 </br>
+
+## Práctica 31
+
+> 📂
+> Hacer lo anterior, comprobar el resultado. Ahora debiera mostrar todos los
+datos del array. Tomar captura de pantalla.
+>
+
+- Código:
+
+```
+<?php
+    function modify(array &$arr): void {
+        $arr[] = 4;
+    }
+    $a = [1];
+    modify($a);
+    print_r($a);
+?>
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p31.png"/>
+</div>
+
+***
+</br>
 </div>

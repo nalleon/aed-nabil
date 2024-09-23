@@ -1320,4 +1320,33 @@ Podemos observar como los cambios que gacemos dentro de la función no influyen 
 
 ***
 </br>
+
+## Práctica 30
+
+> 📂
+> Ejecutar el ejemplo y observar que ahora la variable sí se ve modificada.
+Tomar captura de pantalla
+>
+
+- Código:
+
+```
+<?php
+    function modify(int &$a): void {
+        $a = 3;
+    }
+    $a = 2;
+    modify($a);
+    print_r($a);
+?>
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p30.png"/>
+</div>
+
+***
+</br>
 </div>

@@ -1290,4 +1290,34 @@ echo "las operaciones para sum1 y sum2 dan: $sum1 , $sum2";
 ***
 </br>
 
+
+## Práctica 29
+
+> 📂
+> Probar el código anterior. Observamos que no se ha modificado el valor de la variable después de la ejecución de la función Así que ¿ estamos en un caso de paso por valor o por referencia ? Tomar captura de pantalla
+>
+
+Podemos observar como los cambios que gacemos dentro de la función no influyen en el valor de la variable, por lo tanto estamos ante un caso de paso por valor.
+
+- Código:
+
+```
+<?php
+    function modify(int $a): void {
+        $a = 3;
+    }
+    $a = 2;
+    modify($a);
+    print_r($a);
+?>
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p28.png"/>
+</div>
+
+***
+</br>
 </div>

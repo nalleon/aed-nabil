@@ -1404,4 +1404,29 @@ Tomar captura de pantalla
 
 ***
 </br>
+
+## Práctica 32
+
+> 📂
+> Hacer lo anterior, pero se debe comprobar la diferencia de pasar el texto con urlencode y sin urlencode. Así que se propone poner dos parámetros: prueba y prueba2 unode ellos con urlencode y el otro sin él pasando en ambos casos el mismo texto en el value. Tomar captura de pantalla de lo obtenido
+>
+
+- Código:
+
+```
+<?php
+
+
+?>
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p32.png"/>
+</div>
+
+***
+</br>
+
 </div>

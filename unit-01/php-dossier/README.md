@@ -1254,4 +1254,40 @@ rand ( int $min , int $max ) : int) y luego hacer uso de array_search() para loc
 ***
 </br>
 
+## Práctica 28
+
+> 📂
+> Modifica el código anterior y quita el valor por defecto del parámetro $print. Ejecuta el programa y toma captura de pantalla de los mensajes del IDE y responde: ¿ se obtiene resultado o se detiene el programa ?
+>
+
+
+Al quitar que el valor de "$print" sea false tendremos un error al ejecutarlo, deteniendose el prograsma
+
+- Código:
+
+```
+<?php
+function sumar($a, $b, $print): float
+{
+$suma = $a + $b;
+if ($print) {
+echo "resultado suma: $suma <br>";
+}
+return $suma;
+}
+$sum1=sumar(1,2);
+$sum2=sumar(4,5,true);
+echo "las operaciones para sum1 y sum2 dan: $sum1 , $sum2";
+?>
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p28.png"/>
+</div>
+
+***
+</br>
+
 </div>

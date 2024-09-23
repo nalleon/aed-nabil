@@ -1378,4 +1378,30 @@ datos del array. Tomar captura de pantalla.
 
 ***
 </br>
+
+## Práctica 32
+
+> 📂
+> Hacer lo anterior, pero usando require en lugar de include. Para que se note la diferencia la llamada de require debiera ser a un nombre de fichero incorrecto. Por ejemplo haremos que llame a: vars1.php cuando como sabemos el fichero es vars.php
+Tomar captura de pantalla
+>
+
+- Código:
+
+```
+<?php
+    echo "Una $fruta $color"; 
+    require 'vars1.php';
+    echo "Una $fruta $color"; 
+?>
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p32.png"/>
+</div>
+
+***
+</br>
 </div>

@@ -6,17 +6,22 @@
     <title>Document</title>
 </head>
 <body>
-<!-- Unlerncode -->
+
 <?php
-    echo "<a href=index.php?prueba='Pasando datos diría.. que hay que usar urlencode'>p
-    asando datos</a>";
-
     $conUrlEncode = urlencode('Pasando datos diría.. que hay que usar urlencode');
-    $recibidoUrlEncode = $_GET["prueba"] ?? "nadita";
+    
+    echo "<a href='practica33.php?prueba={$conUrlEncode}'>pasando datos con urlencode</a>";
+    echo "</br>";
+    echo "<a href='practica33.php?prueba2=Pasando datos diría.. que hay que usar urlencode'>pasando datos sin utlencode</a>";
 
+
+    
+    $recibidoUrlEncode = $_GET["prueba"] ?? "nadita";
+    $recibidoSinUrlEncode = $_GET["prueba2"] ?? "nadita";
     
     echo "<h3>se ha recibido:</h3>";
     echo "prueba: ". $recibidoUrlEncode . "<br>";
+    echo "prueba2: ". $recibidoSinUrlEncode . "<br>";
 ?>
 </body>
 </html>

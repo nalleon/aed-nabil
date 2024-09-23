@@ -1455,14 +1455,13 @@ para la actividad anterior
 ***
 </br>
 
-
 ## Práctica 35
 
 > 📂
 > Realiza una página con un formulario que se llame a si misma para mostrar la
 tabla de un número introducido por el usuario. Se deberá controlar que el usuario haya
 introducido un número entero positivo. Hacer uso para ello de la función: is_int()
-buscando su funcionamiento en el manual oficial: php.ne
+buscando su funcionamiento en el manual oficial: php.net
 >
 
 Tras haber consultado en php.net, he concluido que debemos de utilziar is_numeric() en vez de is_int() ya que esta última no identifica los string con contenido númerico como como son los inputs de los formularios y nunca se cumpliría la condición.
@@ -1521,6 +1520,33 @@ Tras haber consultado en php.net, he concluido que debemos de utilziar is_numeri
 <img src="./img/p35-1.png"/>
 <img src="./img/p35-2.png"/>
 <img src="./img/p35-3.png"/>
+</div>
+
+***
+
+</br>
+
+## Práctica 36
+
+> 📂
+> Realizar una página con un formulario que se llame a si misma donde el
+usuario introduzca en un input una cadena de números separada por espacios ( ej: 2 5 8 7 3
+4 ) y muestre un número por línea, mostrando primero los números impares y luego los
+pares. ( hacer uso de la función usort() y de la función explode() )
+>
+
+
+
+- Código:
+
+```
+
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p36-1.png"/>
 </div>
 
 ***

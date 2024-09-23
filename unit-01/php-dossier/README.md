@@ -1405,7 +1405,7 @@ Tomar captura de pantalla
 ***
 </br>
 
-## Práctica 32
+## Práctica 33
 
 > 📂
 > Hacer lo anterior, pero se debe comprobar la diferencia de pasar el texto con urlencode y sin urlencode. Así que se propone poner dos parámetros: prueba y prueba2 unode ellos con urlencode y el otro sin él pasando en ambos casos el mismo texto en el value. Tomar captura de pantalla de lo obtenido
@@ -1423,10 +1423,107 @@ Tomar captura de pantalla
 - Captura:
 
 <div align="center">
-<img src="./img/p32.png"/>
+<img src="./img/p33.png"/>
 </div>
 
 ***
 </br>
 
+
+## Práctica 34
+
+> 📂
+> Recorrer el array $_GET con un foreach y mostrar el conjunto de clave valor
+para la actividad anterior
+>
+
+- Código:
+
+```
+<?php
+
+
+?>
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p34.png"/>
+</div>
+
+***
+</br>
+
+
+## Práctica 35
+
+> 📂
+> Realiza una página con un formulario que se llame a si misma para mostrar la
+tabla de un número introducido por el usuario. Se deberá controlar que el usuario haya
+introducido un número entero positivo. Hacer uso para ello de la función: is_int()
+buscando su funcionamiento en el manual oficial: php.ne
+>
+
+Tras haber consultado en php.net, he concluido que debemos de utilziar is_numeric() en vez de is_int() ya que esta última no identifica los string con contenido númerico como como son los inputs de los formularios y nunca se cumpliría la condición.
+
+- Código:
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="practice35.php" method="post">
+        <input type="text" id="num" name="num"> 
+        <input type="submit" id="submitNum" name="submitNum" value="Send"> <!-- id client, js || name server--> 
+    </form>
+
+    <?php
+
+        if (empty($_POST["num"]) || !is_numeric($_POST["num"])){
+            echo "Please enter a valid integer num.";
+            exit();
+        }   
+
+        $numMulti = $_POST["num"]; 
+
+        if ($numMulti < 1){
+            echo "Num must be positive.";
+            exit();  
+        }
+
+        echo "Recived last petition </br>";
+        echo "Num send: ". $numMulti. "</br>";
+
+
+        function multiplicationTables($num) {
+            for ($i = 1; $i <= 10; $i++) {
+                $result = $num * $i;	
+                echo "$num *  $i  = ". $result. "</br>"; 
+            }
+        }
+
+        echo "</br>";
+        multiplicationTables($numMulti);
+    ?>
+</body>
+</html>
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p35-1.png"/>
+<img src="./img/p35-2.png"/>
+<img src="./img/p35-3.png"/>
+</div>
+
+***
+
+</br>
 </div>

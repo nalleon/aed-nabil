@@ -10,14 +10,13 @@
 <?php
     $conUrlEncode = urlencode('Pasando datos diría.. que hay que usar urlencode');
     
-    echo "<a href='practica33.php?prueba={$conUrlEncode}'>pasando datos con urlencode</a>";
+    echo "<a href=practica33.php?prueba='Pasando datos diría.. que hay que usar urlencode'>pasando datos sin utlencode</a>";
     echo "</br>";
-    echo "<a href='practica33.php?prueba2=Pasando datos diría.. que hay que usar urlencode'>pasando datos sin utlencode</a>";
+    echo "<a href=practica33.php?prueba2={$conUrlEncode}>pasando datos sin utlencode</a>";
 
 
-    
-    $recibidoUrlEncode = $_GET["prueba"] ?? "nadita";
-    $recibidoSinUrlEncode = $_GET["prueba2"] ?? "nadita";
+    $recibidoSinUrlEncode = $_GET["prueba"] ?? "nadita";
+    $recibidoConUrlEncode = $_GET["prueba2"] ?? "nadita";
     
     echo "<h3>se ha recibido:</h3>";
     echo "prueba: ". $recibidoUrlEncode . "<br>";

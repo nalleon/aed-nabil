@@ -8,7 +8,7 @@
 <body>
     <form action="practice35.php" method="post">
         <input type="text" id="num" name="num"> 
-        <input type="submit" id="submitNum" name="submitNum" value="Send"> <!-- id client, js || name server--> 
+        <input type="submit" id="submitNum" name="submitNum" value="Send">
     </form>
 
     <?php

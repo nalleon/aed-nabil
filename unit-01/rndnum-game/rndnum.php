@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,15 +9,19 @@
     <title>Document</title>
 </head>
 <body>
+    <h2>Guess the number </h2>
     <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method="post">
         <input type="text" id="num" name="num"/>
         <input type="submit" id="submit" name="submit" value="Send"/>
         <input type="submit" id="restart" name="restart" value="Restart"/>
     </form>
     <?php
+    echo " user info: " . $_SESSION['username'];
+
+        $username=$_SESSION['username'];
 
         // TODO: informacion session y cookies
-        //session_start();
+        // cookies -> client
 
         function startGame(){
             if(!file_exists("rndnumgame.txt") || filesize("rndnumgame.txt") == 0  ) {
@@ -69,6 +76,25 @@
         }
 
         displayHistory();
+
+        function saveBets(){
+            file_put_contents("bets.csv", $username . ", " . $userNum . "\n", FILE_APPEND);
+        }
+
+        function displayBets(){
+            if (file_exists("bets.csv") && filesize("bets.csv") > 0) {
+                $betsContent = file_get_contents("bets.csv");
+                echo "<h2>Bets:</h2>";
+                echo "<table border='1'>
+                <tr>
+                    <th>Username</th>
+                    <th>Guess</th>
+                </tr>
+                $betsContent
+                </table>";
+            }
+        }
+      
 ?>
 
 <!--

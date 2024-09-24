@@ -6,11 +6,10 @@
     <title>Document</title>
 </head>
 <body>
-<form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method="post">
+    <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method="post">
         <input type="text" id="num" name="num"/>
         <input type="submit" id="submit" name="submit" value="Send"/>
     </form>
-
 <?php
     if(!isset($_POST["num"]) || empty($_POST["num"])) {
         exit();

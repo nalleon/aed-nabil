@@ -2,33 +2,51 @@
 
 ## PHP Dossier
 
-- [Práctica 01](./php-dossier/practice01.php)
-- [Práctica 02](./php-dossier/practice02.php)
-- [Práctica 03](./php-dossier/practice03.php)
-- [Práctica 04](./php-dossier/practice04.php)
-- [Práctica 05](./php-dossier/practice05.php)
-- [Práctica 06](./php-dossier/practice06.php)
-- [Práctica 07](./php-dossier/practice07.php)
-- [Práctica 08](./php-dossier/practice08.php)
-- [Práctica 09](./php-dossier/practice09.php)
-- [Práctica 10](./php-dossier/practice10.php)
-- [Práctica 11](./php-dossier/practice11.php)
-- [Práctica 12](./php-dossier/practice12.php)
-- [Práctica 13](./php-dossier/practice13.php)
-- [Práctica 14](./php-dossier/practice14.php)
-- [Práctica 15](./php-dossier/practice15.php)
-- [Práctica 16](./php-dossier/practice16.php)
-- [Práctica 17](./php-dossier/practice17.php)
-- [Práctica 18](./php-dossier/practice18.php)
-- [Práctica 19](./php-dossier/practice19.php)
-- [Práctica 20](./php-dossier/practice20.php)
-- [Práctica 21](./php-dossier/practice21.php)
-- [Práctica 22](./php-dossier/practice22.php)
-- [Práctica 23](./php-dossier/practice23.php)
-- [Práctica 24](./php-dossier/practice24.php)
-- [Práctica 25](./php-dossier/practice25.php)
-- [Práctica 26](./php-dossier/practice26.php)
-- [Práctica 27](./php-dossier/practice27.php)
+- [Práctica 01](#práctica-01)
+- [Práctica 02](#práctica-02)
+- [Práctica 03](#práctica-03)
+- [Práctica 04](#práctica-04)
+- [Práctica 05](#práctica-05)
+- [Práctica 06](#práctica-06)
+- [Práctica 07](#práctica-07)
+- [Práctica 08](#práctica-08)
+- [Práctica 09](#práctica-09)
+- [Práctica 10](#práctica-10)
+    - [Práctica 10 - Recursividad](#práctica-10)
+- [Práctica 11](#práctica-11)
+- [Práctica 12](#práctica-12)
+- [Práctica 13](#práctica-13)
+- [Práctica 14](#práctica-14)
+- [Práctica 15](#práctica-15)
+- [Práctica 16](#práctica-16)
+- [Práctica 17](#práctica-17)
+- [Práctica 18](#práctica-18)
+- [Práctica 19](#práctica-19)
+- [Práctica 20](#práctica-20)
+- [Práctica 21](#práctica-21)
+- [Práctica 22](#práctica-22)
+- [Práctica 23](#práctica-23)
+- [Práctica 24](#práctica-24)
+- [Práctica 25](#práctica-25)
+- [Práctica 26](#práctica-26)
+- [Práctica 27](#práctica-27)
+- [Práctica 28](#práctica-28)
+- [Práctica 29](#práctica-29)
+- [Práctica 30](#práctica-30)
+- [Práctica 31](#práctica-31)
+- [Práctica 32](#práctica-32)
+- [Práctica 33](#práctica-33)
+- [Práctica 34](#práctica-34)
+- [Práctica 35](#práctica-35)
+- [Práctica 36](#práctica-36)
+- [Práctica 37](#práctica-37)
+
+#### Extras:
+
+- [Formulario - Descomponer Número]()
+- [Formulario - Tablas]()
+
+
 ***
 
 ### Práctica 01
@@ -1589,5 +1607,72 @@ Si enviamos valores como: "1 a 2" tendremos un error ya que todos los elementos 
 
 </br>
 
+## Práctica 37
+
+> 📂
+> Realizar una página como la anterior que se valide a si misma. Obligando que
+el correo sea válido, que el nombre no sea vacío al igual que el género. Si los datos están
+correctamente introducidos se mostrarán por debajo de “Datos ingresados” si no superan la
+validación se dirá los campos que no la superan con texto en rojo
+
+- Código:
+
+```
+
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p37-1.png"/>
+<img src="./img/p37-2.png"/>
+</div>
+
+***
+
+</br>
+
+
+## Formulario - Descomponer Número
+
+> 📂
+> 
+
+- Código:
+
+```
+
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p37-1.png"/>
+</div>
+
+***
+
+</br>
+
+## Formulario - Tablas
+
+> 📂
+> 
+
+- Código:
+
+```
+
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p37-1.png"/>
+</div>
+
+***
+
+</br>
 
 </div>

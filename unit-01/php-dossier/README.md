@@ -1470,15 +1470,30 @@ para la actividad anterior
 
 ```
 <?php
+    $conUrlEncode = urlencode('Pasando datos diría.. que hay que usar urlencode');
+    echo "<a href=practice34.php?prueba='Pasando datos diría.. que hay que usar urlencode'>pasando datos</a>";
+    echo "<br></br>";
+    echo "<a href=practice34.php?prueba2={$conUrlEncode}>pasando datos</a>";
+
+    $recibido = $_GET["prueba"] ?? "nadita";
+    $recibidoConEncode = $_GET["prueba2"] ?? "nadita";
 
 
+    foreach ($_GET as $key => $value) {
+        echo "<br></br>";
+        echo $key. ": ". $value;
+        echo "<br></br>";
+    }
 ?>
+
 ```
 
 - Captura:
 
 <div align="center">
-<img src="./img/p34.png"/>
+<img src="./img/p34-1.png"/>
+<img src="./img/p34-2.png"/>
+<img src="./img/p34-3.png"/>
 </div>
 
 ***

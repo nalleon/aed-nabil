@@ -1,7 +1,7 @@
 <?php 
     session_start();
-    $rnd = rand(1,10);
-    $_SESSION['rnd'] = $rnd;
+    //$rnd = rand(1,10);
+    //$_SESSION['rnd'] = $rnd;
 ?>
 <!DOCTYPE html>
 <html lang="en">

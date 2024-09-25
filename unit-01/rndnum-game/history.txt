@@ -1,1 +1,3 @@
-</br>Congratulations! You guessed the correct number: 9
+</br>1 < hidden number
+</br>3 < hidden number
+</br>2 < hidden number

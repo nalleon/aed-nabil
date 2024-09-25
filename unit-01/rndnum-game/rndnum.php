@@ -7,7 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <meta http-equiv="refresh" content="30">
+    <meta author="Nabil L.A.">
+    <meta http-equiv="refresh" content="20">
 </head>
 <body>
     <h2>Guess the number </h2>
@@ -84,12 +85,19 @@
 
         displayHistory();
 
+        /**
+         * Function to save the current game bets history
+         */
+
         function saveBets(){
             $sessionId = session_id();
             file_put_contents("bets.csv", $sessionId . ", " . $_SESSION['username'] . ", " . $_POST['num'] . "\n", FILE_APPEND);
         }
 
         
+        /**
+         * Function to display the current game bets history
+         */
 
         function displayBets(){
             if (file_exists("bets.csv") && filesize("bets.csv") > 0) {

@@ -1,8 +1,0 @@
-</br>1 < hidden number
-</br>3 < hidden number
-</br>2 < hidden number
-</br>2 < hidden number
-</br>3 < hidden number
-</br>1 < hidden number
-</br>Congratulations prueba! You guessed the hidden number: 6
-</br>2 > hidden number

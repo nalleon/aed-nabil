@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <meta author="Nabil L.A.">
-    <meta http-equiv="refresh" content="20">
+    <meta http-equiv="refresh" content="10">
 </head>
 <body>
     <h2>Guess the number </h2>
@@ -26,6 +26,12 @@
         // cookies -> client
 
         function startGame(){
+            if(filesize("history.txt") > 0){
+                unlink("history.txt");
+            } elseif ( filesize("bets.csv") > 0){
+                unlink("bets.csv");
+            }
+
             if(!file_exists("rndnumgame.txt") || filesize("rndnumgame.txt") == 0  ) {
                 $rndNum = rand(1, 10);
                 file_put_contents("rndnumgame.txt", $rndNum);
@@ -99,6 +105,25 @@
          * Function to display the current game bets history
          */
 
+
+        
+        function displayBetsDidInClass(){
+            if (file_exists("bets.csv") && filesize("bets.csv") > 0) {
+                $betsContent = file_get_contents("bets.csv");
+                $betsArray = explode("\n", $betsContent);
+
+
+                foreach ($betsArray as $bet) {
+                    $betData = explode(", ", $bet);
+                    $username = $betData[1];
+                    $guess = $betData[2];
+                    echo "<p>" . $username . ":". $guess . "</p>";
+                }
+            }
+        }
+
+        displayBetsDidInClass();
+
         function displayBets(){
             if (file_exists("bets.csv") && filesize("bets.csv") > 0) {
                 $betsContent = file_get_contents("bets.csv");
@@ -111,21 +136,20 @@
                         </tr>";
                    
                 foreach ($betsArray as $bet) {
-                        if (!empty($bet)) {
-                            $betData = explode(", ", $bet);
-                            $username = $betData[1];
-                            $guess = $betData[2];
-                            echo "<tr>
+                        $betData = explode(", ", $bet);
+                        $username = $betData[1];
+                        $guess = $betData[2];
+                        echo "<tr>
                                 <td>$username</td>
                                 <td>$guess</td>
                             </tr>";
-                        }
+                        
                 }
                 echo "</table>";
             }
         }
 
-        displayBets();
+        //displayBets();
       
 ?>
 

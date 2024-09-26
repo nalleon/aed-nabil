@@ -12,7 +12,6 @@
 - [Práctica 08](#práctica-08)
 - [Práctica 09](#práctica-09)
 - [Práctica 10](#práctica-10)
-    - [Práctica 10 - Recursividad](#práctica-10)
 - [Práctica 11](#práctica-11)
 - [Práctica 12](#práctica-12)
 - [Práctica 13](#práctica-13)
@@ -218,7 +217,7 @@ Al realizar el cambio a valores númericos se muestra de la siguiente forma, don
 ## Práctica 05.5
 
 > 📂
-> Crear un array: $mivar = []; Introducir datos: array_push($mivar,”uno”); y hacer una asignación a otras variables. Una por referencia y la otra por valor: $arr1 = $mivar; $arr2 = &$mivar; modificar la posición cero de esas variable : $arr1[0] = “una variación”; $arr2[0] = “variando array2 ”; y mostrar el contenido de $mivar[0] y $arr1[0] ¿ qué es lo que ha ocurrido ? ( tomar captura de pantalla y explicarlo )
+> Crear un array: $mivar = []; Introducir datos: array_push($mivar,”uno”); y hacer una asignación a otras variables. Una por referencia y la otra por valor: $arr1 = $mivar; $arr2 = &$mivar; modificar la posición cero de esas variable : $arr1[0] = “una variación”; $arr2[0] = “variando array2 ”; y mostrar el contenido de $mivar[0] y $arr1[0] ¿ qué es lo que ha ocurrido ? 
 >
 
 - Captura:
@@ -1644,14 +1643,37 @@ validación se dirá los campos que no la superan con texto en rojo
 - Código:
 
 ```
+<?php
+    if (!empty($_POST)) {
+        $name = $_POST["name"];
+        $email = $_POST["email"];
+        $gender = $_POST["gender"];
 
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            echo "<p>Correo: Dato ingresado correctamente</p><br>";
+        } else {
+            echo "<p style=\"color: red\">Correo: El correo es ínvalido </p><br>";
+        }
+    
+        if (!empty($name)) {
+            echo "<p>Nombre: Dato ingresado correctamente</p><br>";
+        } else {
+            echo "<p style=\"color: red\">Nombre: El nombre no ha sido introducido</p><br>";
+        }
+    
+        if (!empty($gender)) {
+            echo "<p>Género: Dato ingresado correctamente</p><br>";
+        } else {
+            echo "<p style=\"color: red\">Género: El género no ha sido seleccionado</p><br>";
+        }
+    }
+?>
 ```
 
 - Captura:
 
 <div align="center">
-<img src="./img/p37-1.png"/>
-<img src="./img/p37-2.png"/>
+<img src="./img/p37.png"/>
 </div>
 
 ***
@@ -1661,19 +1683,47 @@ validación se dirá los campos que no la superan con texto en rojo
 
 ## Formulario - Descomponer Número
 
-> 📂
-> 
 
 - Código:
 
 ```
+    <form action="formNum.php" method="post">
+        <input type="text" id="num" name="num"> 
+        <input type="submit" id="submitNum" name="submitNum" value="Send"> <!-- id client, js || name server--> 
+    </form>
+ <?php
+    if (!isset($_POST["num"])){
+        exit();
+    }
+    echo "recived last petition";
+    echo "</br>";
+    echo "Num send: ". $_POST["num"]. "</br>";
 
+
+    function decompositionNum($num) {
+        $actual = 0;
+        $operator = 1;
+        $result = "";
+
+        for ($i = 1; $i <= $num; $num/=10) {
+            $actual = $num % 10;
+            $result .= $actual . " * " .  $operator;
+            if ($num > 10) {
+                $result .= " + ";
+            }
+            $operator*=10;
+        }
+        echo $result;
+    }
+    echo "</br>";
+    decompositionNum($_POST["num"]);
+ ?>
 ```
 
 - Captura:
 
 <div align="center">
-<img src="./img/p37-1.png"/>
+<img src="./img/extra-numdesc.png"/>
 </div>
 
 ***
@@ -1682,19 +1732,47 @@ validación se dirá los campos que no la superan con texto en rojo
 
 ## Formulario - Tablas
 
-> 📂
-> 
 
 - Código:
 
 ```
+<form action="./tables.php" method="post">
+    <input type="text" id="num" name="num"> 
+    <input type="submit" id="submitNum" name="submitNum" value="Send">
+</form>
+<?php
+    if (empty($_POST["num"]) || !is_numeric($_POST["num"])){
+        echo "Please enter a valid integer num.";
+        exit();
+    }   
+
+    $numMulti = $_POST["num"]; 
+
+    if ($numMulti < 1){
+        echo "Num must be positive.";
+        exit();  
+    }
+
+    echo "Recived last petition </br>";
+    echo "Num send: ". $numMulti. "</br>";
+
+
+    function multiplicationTables($num) {
+        for ($i = 1; $i <= 10; $i++) {
+            $result = $num * $i;	
+            echo "$num *  $i  = ". $result. "</br>"; 
+        }
+    }
+
+    echo "</br>";
+    multiplicationTables($numMulti);
+?>
 
 ```
 
 - Captura:
-
 <div align="center">
-<img src="./img/p37-1.png"/>
+<img src="./img/extra-table.png"/>
 </div>
 
 ***

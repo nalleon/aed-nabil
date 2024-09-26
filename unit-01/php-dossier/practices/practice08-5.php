@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <meta name="author" content="Nabil L.A.">
 </head>
 <body>
 <?php
@@ -17,7 +18,7 @@
     var_dump(PULGADA);
 
     function testConstants(){
-        const PULGADA_LOCAL = 10;
+        //const PULGADA_LOCAL = 10;
         return PULGADA;
     }
 

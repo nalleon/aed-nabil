@@ -12,23 +12,15 @@
         <input type="submit" id="submitNum" name="submitNum" value="Send"> <!-- id client, js || name server--> 
     </form>
  <?php
-/*
-    if (empty($_REQUEST["num"])) {
-        echo "Num was not submitted.";
-        exit();
-    } 
-*/
-
-    $numDesc = $_REQUEST["num"]; 
-    echo "recived last petition";
-    echo "Num send: ". $numDesc. "</br>";
-
-    if (!isset($numDesc)){
+    if (!isset($_POST["num"])){
         exit();
     }
+    echo "recived last petition";
+    echo "</br>";
+    echo "Num send: ". $_POST["num"]. "</br>";
 
 
-      function decompositionNum($num) {
+    function decompositionNum($num) {
         $actual = 0;
         $operator = 1;
         $result = "";
@@ -43,9 +35,8 @@
         }
         echo $result;
     }
-
     echo "</br>";
-    decompositionNum($numDesc);
+    decompositionNum($_POST["num"]);
  ?>
 </body>
 </html>

@@ -18,9 +18,11 @@
         <input type="submit" id="restart" name="restart" value="Restart"/>
     </form>
     <?php
-   // echo " user info: " . $_SESSION['username'];
 
-        $username=$_SESSION['username'];
+    require('./player.php');
+
+
+    $gameFinished = false;
 
         // TODO: informacion session y cookies
         // cookies -> client
@@ -59,7 +61,15 @@
             exit();
         }
 
+        $username=$_SESSION['username'];
         $userNum = $_POST['num'];
+
+        $player = new Player($username, $userNum);
+        $userBetsArray = [];
+
+
+
+ 
         $fileNum = file_get_contents("rndnumgame.txt");
 
         if ($userNum > $fileNum) {
@@ -71,7 +81,7 @@
             file_put_contents("history.txt", "</br>" . $message, FILE_APPEND);
             saveBets();
         } elseif ($userNum == $fileNum) {
-            $message="Congratulations $username! You guessed the hidden number: $fileNum\n";
+            $message="Congratulations $player! You guessed the hidden number: $fileNum\n";
             file_put_contents("history.txt","</br>" . $message, FILE_APPEND);
             saveBets();
             unlink("rndnumgame.txt");

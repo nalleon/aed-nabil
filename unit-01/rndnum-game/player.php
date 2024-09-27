@@ -15,8 +15,6 @@
         public function getUserNum(){
             return $this->userNum;
         }
-    
-        
     }
 
 ?>

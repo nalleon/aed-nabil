@@ -1,0 +1,1988 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<div align="justify">
+<h2 id="php-dossier">PHP Dossier</h2>
+<ul>
+<li><a href="#pr%C3%A1ctica-01">Práctica 01</a></li>
+<li><a href="#pr%C3%A1ctica-02">Práctica 02</a></li>
+<li><a href="#pr%C3%A1ctica-03">Práctica 03</a></li>
+<li><a href="#pr%C3%A1ctica-04">Práctica 04</a></li>
+<li><a href="#pr%C3%A1ctica-05">Práctica 05</a></li>
+<li><a href="#pr%C3%A1ctica-06">Práctica 06</a></li>
+<li><a href="#pr%C3%A1ctica-07">Práctica 07</a></li>
+<li><a href="#pr%C3%A1ctica-08">Práctica 08</a></li>
+<li><a href="#pr%C3%A1ctica-09">Práctica 09</a></li>
+<li><a href="#pr%C3%A1ctica-10">Práctica 10</a></li>
+<li><a href="#pr%C3%A1ctica-11">Práctica 11</a></li>
+<li><a href="#pr%C3%A1ctica-12">Práctica 12</a></li>
+<li><a href="#pr%C3%A1ctica-13">Práctica 13</a></li>
+<li><a href="#pr%C3%A1ctica-14">Práctica 14</a></li>
+<li><a href="#pr%C3%A1ctica-15">Práctica 15</a></li>
+<li><a href="#pr%C3%A1ctica-16">Práctica 16</a></li>
+<li><a href="#pr%C3%A1ctica-17">Práctica 17</a></li>
+<li><a href="#pr%C3%A1ctica-18">Práctica 18</a></li>
+<li><a href="#pr%C3%A1ctica-19">Práctica 19</a></li>
+<li><a href="#pr%C3%A1ctica-20">Práctica 20</a></li>
+<li><a href="#pr%C3%A1ctica-21">Práctica 21</a></li>
+<li><a href="#pr%C3%A1ctica-22">Práctica 22</a></li>
+<li><a href="#pr%C3%A1ctica-23">Práctica 23</a></li>
+<li><a href="#pr%C3%A1ctica-24">Práctica 24</a></li>
+<li><a href="#pr%C3%A1ctica-25">Práctica 25</a></li>
+<li><a href="#pr%C3%A1ctica-26">Práctica 26</a></li>
+<li><a href="#pr%C3%A1ctica-27">Práctica 27</a></li>
+<li><a href="#pr%C3%A1ctica-28">Práctica 28</a></li>
+<li><a href="#pr%C3%A1ctica-29">Práctica 29</a></li>
+<li><a href="#pr%C3%A1ctica-30">Práctica 30</a></li>
+<li><a href="#pr%C3%A1ctica-31">Práctica 31</a></li>
+<li><a href="#pr%C3%A1ctica-32">Práctica 32</a></li>
+<li><a href="#pr%C3%A1ctica-33">Práctica 33</a></li>
+<li><a href="#pr%C3%A1ctica-34">Práctica 34</a></li>
+<li><a href="#pr%C3%A1ctica-35">Práctica 35</a></li>
+<li><a href="#pr%C3%A1ctica-36">Práctica 36</a></li>
+<li><a href="#pr%C3%A1ctica-37">Práctica 37</a></li>
+</ul>
+<h4 id="extras">Extras:</h4>
+<ul>
+<li><a href="">Formulario - Descomponer Número</a></li>
+<li><a href="">Formulario - Tablas</a></li>
+</ul>
+<hr>
+<h3 id="pr%C3%A1ctica-01">Práctica 01</h3>
+<blockquote>
+<p>📂
+Crear el script como se ha comentado sustituyendo “alumno” por nuestro
+nombre completo. Tomar captura de pantalla del resultado</p>
+</blockquote>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p1.png"/>
+</div>
+<hr>
+</br>
+<h3 id="pr%C3%A1ctica-02">Práctica 02</h3>
+<blockquote>
+<p>📂
+Crear el script anterior. Modificarlo para sumar a $un_str el valor de $un_int y mostrarlo en pantalla ¿ qué ocurre ?</p>
+</blockquote>
+<p>Podemos observar como la operación no se puede realizar porque los dos variables que estamos sumando son de distintos tipos.</p>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p2-1.png"/>
+</div>
+</br>
+<blockquote>
+<p>📂
+Sumar $un_str con $un_str2 ¿ qué ocurre ?</p>
+</blockquote>
+<p>No se nos permite concatener cadenas de texto utilizando operadores como '+' al contrario que en Java.</p>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p2-2.png"/>
+</div>
+</br>
+<blockquote>
+<p>📂
+¿ Se puede concatenar una cadena con comillas
+simples con una con comillas dobles ?</p>
+</blockquote>
+<p>Gracias al operador '.' nos es posible concatener cadenas de texto sin importar si estas son de comillas simples o dobles.</p>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p2-3.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-03">Práctica 03</h2>
+<blockquote>
+<p>📂
+Realizar el código anterior y tomar captura de pantalla del resultado. ¿ qué es lo
+que ha ocurrido ?</p>
+</blockquote>
+<p>Se nos muestra el parrafo del echo. La suma se visualiza gracias al uso del print en vez de a la declaración de la variable resultado.</p>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p3-1.png"/>
+</div>
+</br>
+<blockquote>
+<p>📂
+Poner código html antes de la declaración de strict_types y probar de
+nuevo ¿ qué ocurre ahora ?</p>
+</blockquote>
+<p>Tenemos un error, ya que las declaraciones de strict_types deben ser lo primero en nuestro fichero php.</p>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p3-2.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-04">Práctica 04</h2>
+<blockquote>
+<p>📂
+¿ Da error ? ¿ Por qué ?</p>
+</blockquote>
+<p>Al probar el código proporcionado, observamos que no hay error y en efecto la función funciona correctamente. Esto es debido a que estamos devolviendo un resultado que tiene el tipo de variable que se espera.</p>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p4-1.png"/>
+</div>
+</br>
+<blockquote>
+<p>📂
+Quitar el comentario a: return $a; ¿ Da error ahora ? ¿ Por qué ?</p>
+</blockquote>
+<p>Al realizar el cambio, nos encontramos con un error puesto que en la función igualamos '$a' a una cadena de texto y al ahora retornar este argumento en vez de '$b' tenemos un error, ya que la propia función especifica que devuleve un valor entero.</p>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p4-2.png"/>
+</div>
+</br>
+<blockquote>
+<p>📂
+Quitar comentario a: print fun(“e”,3); ¿ Da error ?</p>
+</blockquote>
+<p>Tras realizar este cambio, también tenemos un error. En este caso es por pasarle por parametros a la función un tipo de dato distinto al esperado.</p>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p4-3.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-05">Práctica 05</h2>
+<blockquote>
+<p>📂
+Probar el código anterior. Probar ahora con números ¿ también funcionan las referencias ?</p>
+</blockquote>
+<p>Originalmente funciona de esta manera.</p>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p5-1.png"/>
+</div>
+<p>Al realizar el cambio a valores númericos se muestra de la siguiente forma, donde podemos apreciar que sigue funcionando;</p>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p5-1-1.png"/>
+<img src="./img/p5-1-2.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-055">Práctica 05.5</h2>
+<blockquote>
+<p>📂
+Crear un array: $mivar = []; Introducir datos: array_push($mivar,”uno”); y hacer una asignación a otras variables. Una por referencia y la otra por valor: $arr1 = $mivar; $arr2 = &amp;$mivar; modificar la posición cero de esas variable : $arr1[0] = “una variación”; $arr2[0] = “variando array2 ”; y mostrar el contenido de $mivar[0] y $arr1[0] ¿ qué es lo que ha ocurrido ?</p>
+</blockquote>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p5-1-3.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-06">Práctica 06</h2>
+<blockquote>
+<p>📂
+Hacer un script php que haga echo de $_SERVER y de $_SERVER
+[PHP_SELF] tomar captura de pantalla de los resultados</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    var_dump ($_REQUEST);  
+    var_dump ($_SERVER[&quot;SERVER_NAME&quot;]);
+    var_dump ($_SERVER[PHP_SELF]);  
+?&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p6.png"/>
+</div>
+<hr>
+<h2 id="pr%C3%A1ctica-07">Práctica 07</h2>
+<blockquote>
+<p>📂
+Visualizar lo anterior ¿ se encuentran diferencias entre null y unset() ? Tomar
+captura de pantalla</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    $variable = null;
+    var_dump($variable);
+    echo &quot;&lt;/br&gt;&quot;;
+    unset($variable);
+    var_dump($variable);
+?&gt;
+</div></code></pre>
+<p>A simple vista, podemos apreciar como establpecer un valor nulo en la variable simplemente lo define como tal mientras que si utilizamos unset se nos especifica donde hemos dejado la variable nula.</p>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p7.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-08">Práctica 08</h2>
+<blockquote>
+<p>📂
+Ejecutar el script anterior ¿ hay alguna diferencia antes y después del cast ?
+Tomar captura de pantalla</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    $unavar = 1.3;
+    var_dump($unavar);
+    echo &quot;&lt;br&gt;&quot;;
+    $unavar = (int) $unavar;
+    var_dump($unavar);
+?&gt;
+</div></code></pre>
+<p>Podemos apreciar una diferencia clara puesto que el valor de '$unavar' a cambiado de un  float a un entero por lo que ha perdido su parte decimal al truncarse.</p>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p8.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-085">Práctica 08.5</h2>
+<blockquote>
+<p>📂
+¿ Qué ámbito tienen las constantes ? ¿ realmente no se puede poner varios
+valores en un constante ?</p>
+</blockquote>
+<p>Las constantes tienen un ámbito global, es decir que se puede acceder a ellas unas vez declaradas desden cualquier método del scripts. Una vez ya hayamos declarado el valor de una constante no podremos redefinirlo o modificarlo.</p>
+<blockquote>
+<p>📂
+Probar fuera de una función a crear constante:
+const PULGADA = 2.53; ahora tratar de establecerla de nuevo mediante: PULGADA = 7; const PULGADA = 8; $PULGADA = 9; hacer echo en cada caso.</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    const PULGADA = 2.53;
+    var_dump(PULGADA);
+    echo &quot;&lt;/br&gt;&quot;;
+    const PULGADA = 8;
+    var_dump(PULGADA);
+    echo &quot;&lt;/br&gt;&quot;;
+    $PULGADA = 9;
+    var_dump(PULGADA);
+?&gt;
+</div></code></pre>
+<blockquote>
+<p>📂
+Crear la constante en ámbito global ( fuera de función ) ¿ se puede acceder dentro de una función ? ¿ se puede establecer: const PULGADA = 10 dentro de una función ?
+Tomar capturas de pantalla en cada caso y explicar lo que ha ocurrido</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    const PULGADA = 2.53;
+    
+    function testConstants(){
+        //const PULGADA_LOCAL = 10; NO se pueden establecer dentro de una función
+        return PULGADA;
+    }
+?&gt;
+</div></code></pre>
+<p>Si hemos creado la variable globalmente no tendremos problema en llamarla dentro de una función para utilizarla, en cambio si intentamos declarar en este caso la constante 'PULGADA_LOCAL' dentro de la función tendremos un error de sintaxis.</p>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p8-5.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-09">Práctica 09</h2>
+<blockquote>
+<p>📂
+Crear un script que muestre las potencias del número 2 desde 2¹ hasta 2⁹ hacer
+uso del operador: ** Ir concatenando las salidas en pantall de las potencias en una string mediante el operador de concatenación y asignación: .=</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    function exponentation(){
+        $num = 2;
+        for($i = 0; $i &lt; 10; $i++){
+            $str = $num;
+            $str .= &quot;^&quot;.$i;
+            echo $str. &quot; = &quot;. ($num**$i). &quot;&lt;br&gt;&quot;;
+        }
+    }   
+
+    exponentation(); 
+    echo &quot;&lt;br&gt;&quot;;
+?&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p9.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-10">Práctica 10</h2>
+<blockquote>
+<p>📂
+Crear un programa en php que obtenga la descomposición de un número que
+esté almacenado en la variable: $numero Por ejemplo: $numero = 3102 Se pretende que se utilicen en el programa los operadores: .= , **. Para el ejemplo anterior se debe mostrar en pantalla: 2 <em>1 + 0</em> 10 + 1 <em>100 + 3</em> 1000</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+
+function decompositionNum($num) {
+    $numAux = $num;
+
+    $units = (int) $numAux % 10;
+    $numAux = (int) ($numAux / 10);
+    $tens = (int) $numAux % 10;
+    $numAux = (int) ($numAux / 10);
+    $hundreds = (int) $numAux % 10;
+    $numAux = (int) ($numAux / 10);
+    $thousand = (int) $numAux % 10;
+
+    return $units . &quot; * 1 + &quot; . $tens . &quot; * 10 + &quot; . $hundreds . &quot; * 100 + &quot; . $thousand . &quot; * 1000&quot;;    
+}
+
+echo decompositionNum(3102);
+
+?&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p10.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-11">Práctica 11</h2>
+<blockquote>
+<p>📂
+Ejectuar el script y tomar captura de pantalla</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+$var = &quot;&quot;;
+    if(empty($var)){ // true because &quot;&quot; is considered empty
+        echo '&lt;br&gt;empty($var) para $var=&quot;&quot; ';
+    }else{
+        echo '&lt;br&gt;!empty($var) para $var=&quot;&quot; ';
+    }
+
+    if(isset($var)){ //true because var is set
+        echo '&lt;br&gt;isset($var) para $var=&quot;&quot; ';
+    }else{
+        echo '&lt;br&gt; !isset($var) para $var=&quot;&quot; ';
+    } if(empty($otherVar)){ //true because $otherVar is null
+        echo '&lt;br&gt;empty($otherVar) para $otherVar que no se ha establecido ';
+    } else {
+        echo '&lt;br&gt; !empty($otherVar) para $otherVar que no se ha establecido ';
+    }
+    if(isset($otherVar)){ //false because $otherVar is not set
+        echo '&lt;br&gt;isset($otherVar) para $otherVar que no se ha establecido ';
+    } else {
+        echo '&lt;br&gt; !isset($otherVar) para $otherVar que no se ha establecido ';
+    }
+?&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p11.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-12">Práctica 12</h2>
+<blockquote>
+<p>📂
+Probar el script anterior y observar que ocurre. ¿ qué mensaje de error se observa ?</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    $array = array('uno' =&gt;1, 'dos'=&gt;2, 'tres'=&gt;40, 'cuatro'=&gt;55);
+    $str = &quot;La posición 'tres' contiene el dato $array['tres']&quot;;
+?&gt;
+</div></code></pre>
+<p>Se nos muestra un error de sintax al estar llamando a la variable '$array' de esta forma.</p>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p12.png"/>
+</div>
+<p>Para poder solucionarlo debemos de utilizar la siguiente sintaxis:</p>
+<pre class="hljs"><code><div>&lt;?php
+    $array = array('uno' =&gt;1, 'dos'=&gt;2, 'tres'=&gt;40, 'cuatro'=&gt;55);
+    $str = &quot;La posición 'tres' contiene el dato {$array['tres']}&quot;;
+?&gt;
+</div></code></pre>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-13">Práctica 13</h2>
+<blockquote>
+<p>📂
+Probar el script anterior y observar que ocurre. Probar ahora con llaves:
+${$variable} ¿ hay diferencia ?</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    $variable = 'dato';
+    $dato = 5;
+    echo ${$variable}.'&lt;br&gt;';
+?&gt;
+</div></code></pre>
+<p>No hay ninguna diferencia, se nos sigue mostrando el valor de '$dato' como 5;</p>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p13.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-14">Práctica 14</h2>
+<blockquote>
+<p>📂
+Toma el código anterior e introduce una expresión “variable de variables” que
+permita definir las variables: $dato0, $dato1, …, $dato9 Cada una de ellas con el valor
+correspondiente: 0, 1,…,9</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    $var = 'dato';
+    for($i=0; $i&lt;10; $i++){
+        ${$var.$i} = $i;
+    }
+    echo &quot;&lt;br&gt; ${'dato0'} &quot;;
+    echo &quot;&lt;br&gt; ${'dato1'} &quot;;
+    echo &quot;&lt;br&gt; ${'dato2'} &quot;;
+    echo &quot;&lt;br&gt; ${'dato3'} &quot;;
+    echo &quot;&lt;br&gt; ${'dato4'} &quot;;
+    echo &quot;&lt;br&gt; ${'dato5'} &quot;;
+    echo &quot;&lt;br&gt; ${'dato6'} &quot;;
+    echo &quot;&lt;br&gt; ${'dato7'} &quot;;
+    echo &quot;&lt;br&gt; ${'dato8'} &quot;;
+    echo &quot;&lt;br&gt; ${'dato9'} &quot;;
+?&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p14.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-15">Práctica 15</h2>
+<blockquote>
+<p>📂
+Ejecutar el script anterior ¿ se muestran las posiciones anteriores a la 2 ? ¿ y
+entre la 2 y la 7 ?. Realizar el mismo script pero en lugar de crear el array mediante los
+corchetes: $array = [] hacerlo con la función array() ¿ hay diferencias en la salida en
+pantalla ? Ejecutar var_dump($array) después de cada asignación de un valor al array.
+Tomar captura de pantalla de los resultados</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    $array = [];
+    $array[2]=&quot;mensaje&quot;;
+    $array[7]=&quot;lalala!&quot;;
+    $array[]=&quot;yepa yepa!!&quot;;
+    var_dump($array);
+?&gt;
+</div></code></pre>
+<ul>
+<li></li>
+</ul>
+<p>NO se muestran las posiciones anteriores a la 2 ni entre esta y la 7, puesto que están vacias.</p>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p15-1.png"/>
+</div>
+</br>
+<blockquote>
+<p>📂
+Realizar el mismo script pero en lugar de crear el array mediante los
+corchetes: $array = [] hacerlo con la función array() ¿ hay diferencias en la salida en
+pantalla ? Ejecutar var_dump($array) después de cada asignación de un valor al array.
+Tomar captura de pantalla de los resultados</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    $array = [];
+
+    $array[2]=&quot;mensaje&quot;;
+    var_dump($array);
+    echo &quot;&lt;/br&gt;&quot;;
+
+
+    $array[7]=&quot;lalala!&quot;;
+    var_dump($array);
+    echo &quot;&lt;/br&gt;&quot;;
+
+
+    $array[]=&quot;yepa yepa!!&quot;;
+    var_dump($array);
+    echo &quot;&lt;/br&gt;&quot;;
+
+    $array2 = array();
+    $array2[2]=&quot;mensaje&quot;;
+    var_dump($array2);
+    echo &quot;&lt;/br&gt;&quot;;
+
+    $array2[7]=&quot;lalala!&quot;;
+    var_dump($array2);
+    echo &quot;&lt;/br&gt;&quot;;
+
+    $array2[]=&quot;yepa yepa!!&quot;;
+    var_dump($array2);
+
+?&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p15-2.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-155">Práctica 15.5</h2>
+<blockquote>
+<p>📂
+Crear un array asociativo dejando sin poner en algunas ocasiones la parte de la clave dejando únicamente el valor ( al estilo de si fuera un array no asociativo ) hacer un var_dump() y recorrerlo con un for ( no con un foreach) ¿ muestra algún valor ? ¿ genera error ?</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    $array = [];
+    $array[2]=&quot;mensaje&quot;;
+    $array[7]=&quot;lalala!&quot;;
+    $array[]=&quot;yepa yepa!!&quot;;
+
+    echo &quot;&lt;br&gt;&quot;;
+
+    for($i = 0; $i &lt; 9; $i++){
+        if(isset($array[$i])){
+            var_dump($array[$i]);
+        } 
+    }
+?&gt;
+</div></code></pre>
+<p>Muestra correctamente valor con su clave asociada sin generar errores.</p>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p15-3.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-16">Práctica 16</h2>
+<blockquote>
+<p>📂
+Ejecutar el script anterior. ¿ Tenemos que usar los nombres de variables $key
+y $val ? Sustituir por otros nombres de variables y ver si hay algún problema</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    $array = array('perro', 'gato', 'avestruz');
+    foreach ($array as $index =&gt; $animals) {
+        print &quot;array[ $index ] = $animals &lt;/br&gt;&quot;;
+    }
+?&gt;
+</div></code></pre>
+<p>Funciona exactamente igual tanto si dejamos las variables como '$key' y '$value' que intercambiandolos por otros nombres mientras se cumpla bien la sintaxis.</p>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p16.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-17">Práctica 17</h2>
+<blockquote>
+<p>📂
+Ejecutar el script anterior. En Java eliminar elementos de un array en un
+foreach implica un error ¿ también en php ? Tomar captura de pantalla del resultado</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    $array = [];
+    for($i=0;$i&lt;5;$i++){
+        $array[] = &quot;a&quot; . $i;
+    }
+
+    $j=count($array);
+    foreach( $array as $key =&gt; $val){
+        $j--;
+        unset($array[$j]);
+        echo &quot;&lt;br&gt;&quot;;
+        var_dump($array);
+        echo &quot;&lt;br&gt; $key =&gt; $val &quot;;
+        echo &quot;&lt;br&gt;&quot;;
+    }
+?&gt;
+</div></code></pre>
+<p>En PHP he podido apreciar que hay ningun tipo de error al elimnar los valores de un array usando un for each, en cambio como apreciamos como los va eliminando correctamente.</p>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p17.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-18">Práctica 18</h2>
+<blockquote>
+<p>📂
+Ejecutar el script anterior. Modificar los echo para que se sepa cuando
+llamamos a $array ( recordar que con comillas simples no interpreta ) Tomar captura de pantalla</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    $array = [&quot;a&quot;,&quot;a&quot;,&quot;a&quot;,&quot;a&quot;,&quot;a&quot;];
+    $j=count($array);
+    foreach( $array as $key =&gt; &amp;$val){
+        $j--;
+        $array[$j] .= $j;
+        echo &quot;&lt;br&gt;&quot;;
+        var_dump($array);
+        echo &quot;&lt;br&gt; $key =&gt; $val&quot;;
+        echo &quot;&lt;br&gt; $key =&gt; $array[$key]&quot;;
+        echo &quot;&lt;br&gt;&quot;;
+    }
+
+    $arr = array(1, 2, 3, 4);
+    foreach ($arr as &amp;$val) {
+        $val = $val * 2;
+        print_r($arr);
+        echo &quot;&lt;br&gt;&lt;br&gt;&quot;;
+    }
+
+    foreach ($arr as $key =&gt; $val2) {
+        echo &quot;{$key} =&gt; {$val2} &lt;br&gt;&quot;;
+        print_r($arr);
+        echo &quot;&lt;br&gt;&lt;br&gt;&quot;;
+    }
+?&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p18.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-19">Práctica 19</h2>
+<blockquote>
+<p>📂
+Ejecutar el script anterior. Tomar captura de pantalla del resultado</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    $array = [&quot;a&quot;,&quot;a&quot;,&quot;a&quot;,&quot;a&quot;,&quot;a&quot;];
+    $j=count($array);
+    foreach( $array as $key =&gt; &amp;$val){
+        $j--;
+        $array[$j] .= $j;
+        echo &quot;&lt;br&gt;&quot;;
+        var_dump($array);
+        echo &quot;&lt;br&gt; $key =&gt; $val&quot;;
+        echo &quot;&lt;br&gt; $key =&gt; $array[$key]&quot;;
+        echo &quot;&lt;br&gt;&quot;;
+    }
+?&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p19.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-20">Práctica 20</h2>
+<blockquote>
+<p>📂
+Ejecutar el script anterior. ¿ qué valor devuelve ?Tomar captura de pantalla</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    $arr= [&quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;];
+    $va = array_pop($arr);
+    echo &quot;el array ahora queda: &lt;br&gt;&quot;;
+    print_r($arr);
+    echo &quot;&lt;br&gt;el valor extraido es: &quot; . $va;
+?&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p20.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-20">Práctica 20</h2>
+<blockquote>
+<p>📂
+Ejecutar el script anterior. ¿ qué valor devuelve ?Tomar captura de pantalla</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    $arr= [&quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;];
+    $va = array_pop($arr);
+    echo &quot;el array ahora queda: &lt;br&gt;&quot;;
+    print_r($arr);
+    echo &quot;&lt;br&gt;el valor extraido es: &quot; . $va;
+?&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p20.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-21">Práctica 21</h2>
+<blockquote>
+<p>📂
+Crear un script que por medio de un bucle for que vaya de 1 a 10 agregue esos números en un array En cada iteración mostrar el contenido del array. Después en un bucle for de 1 a 5 ir ejecutando sentencias array_pop() y mostrar como queda el array en cada iteración</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php   
+    $arr = [];
+
+    for($i=0; $i&lt;10; $i++){
+        $arr[] = $i;
+        echo &quot;Array value $i: &quot;;
+        print_r($arr);
+        echo &quot;&lt;/br&gt;&quot;;
+    }
+
+    for($j=0; $j&lt;5; $j++){
+        $arrPop = array_pop($arr);
+        echo &quot;Popped array value $j: &quot;;
+        print_r($arr);
+        echo &quot;&lt;/br&gt;&quot;;
+        echo &quot;Value popped: &quot; . $arrPop;
+        echo &quot;&lt;/br&gt;&quot;;
+    }
+?&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p21.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-22">Práctica 22</h2>
+<blockquote>
+<p>📂
+Crear un script que por medio de un bucle for que vaya de 1 a 10 agregue esos
+números en un array mediante array_unshift() En cada iteración mostrar el contenido del
+array. Después en un bucle for de 1 a 5 ir ejecutando sentencias array_shift() y mostrar
+como queda el array en cada iteración</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php   
+    $arr = [];
+
+    for($i=0; $i&lt;10; $i++){
+        $arr[] = $i;
+        echo &quot;Array unshift values $i: &quot;;
+        print_r($arr);
+        echo &quot;&lt;/br&gt;&quot;;
+    }
+    
+    echo &quot;&lt;/br&gt;&quot;;
+
+    for($j=0; $j&lt;5; $j++){
+        $arrShift = array_shift($arr);
+        echo &quot;Shifted array value $j: &quot;;
+        print_r($arr);
+        echo &quot;&lt;/br&gt;&quot;;
+        echo &quot;Value shifted: &quot; . $arrShift;
+        echo &quot;&lt;/br&gt;&quot;;
+    }
+?&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p22.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-22">Práctica 22</h2>
+<blockquote>
+<p>📂
+Crear un script que por medio de un bucle for que vaya de 1 a 10 agregue esos
+números en un array mediante array_unshift() En cada iteración mostrar el contenido del
+array. Después en un bucle for de 1 a 5 ir ejecutando sentencias array_shift() y mostrar
+como queda el array en cada iteración</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php   
+    $arr = [];
+
+    for($i=0; $i&lt;10; $i++){
+        $arr[] = $i;
+        echo &quot;Array unshift values $i: &quot;;
+        print_r($arr);
+        echo &quot;&lt;/br&gt;&quot;;
+    }
+    
+    echo &quot;&lt;/br&gt;&quot;;
+
+    for($j=0; $j&lt;5; $j++){
+        $arrShift = array_shift($arr);
+        echo &quot;Shifted array value $j: &quot;;
+        print_r($arr);
+        echo &quot;&lt;/br&gt;&quot;;
+        echo &quot;Value shifted: &quot; . $arrShift;
+        echo &quot;&lt;/br&gt;&quot;;
+    }
+?&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p22.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-23">Práctica 23</h2>
+<blockquote>
+<p>📂
+Haz una página PHP que utilice foreach para mostrar todos los valores del
+array $_SERVER en una tabla con dos columnas. La primera columna debe contener el nombre de la variable, y la segunda su valor</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    echo &quot;&lt;table&gt;&quot;;
+    echo &quot;&lt;tr&gt;&quot;;
+    echo &quot;&lt;th&gt;Var&lt;/th&gt;&quot;;
+    echo &quot;&lt;th&gt;Value&lt;/th&gt;&quot;;
+    echo &quot;&lt;/tr&gt;&quot;;
+
+    foreach ($_SERVER as $key =&gt; $value) {
+            echo &quot;&lt;tr&gt;&quot;;
+            echo &quot;&lt;td&gt;$key&lt;/td&gt;&quot;;
+            echo &quot;&lt;td&gt;$value&lt;/td&gt;&quot;;
+            echo &quot;&lt;tr&gt;&quot;;
+    }
+    
+    echo &quot;&lt;/table&gt;&quot;;
+?&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p23.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-24">Práctica 24</h2>
+<blockquote>
+<p>📂
+Ejecutar los códigos de in_array(), array_search(), array_values() tomar
+captura del resultado de la ejecución</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php 
+    echo &quot;in_array code:&quot;;
+    echo &quot;&lt;/br&gt;&quot;;
+
+    $os = array(&quot;Mac&quot;, &quot;NT&quot;, &quot;Irix&quot;, &quot;Linux&quot;);
+    if (in_array(&quot;Irix&quot;, $os)) {
+        echo &quot;Existe Irix&quot;;
+    }
+    if (in_array(&quot;mac&quot;, $os)) {
+        echo &quot;Existe mac&quot;;
+    }
+
+    echo &quot;&lt;/br&gt;&quot;;
+
+    $a = array('1.10', 12.4, 1.13);
+    if (in_array('12.4', $a, true)) {
+        echo &quot;Se encontró '12.4' con comprobación estricta\n&quot;;
+    }
+    if (in_array(1.13, $a, true)) {
+        echo &quot;Se encontró 1.13 con comprobación estricta\n&quot;;
+    }
+
+    echo &quot;&lt;/br&gt;&quot;;
+    echo &quot;array_search code:&quot;;
+    echo &quot;&lt;/br&gt;&quot;;
+
+    $array = array(0 =&gt; 'azul', 1 =&gt; 'rojo', 2 =&gt; 'verde', 3 =&gt; 'rojo');
+    $clave = array_search('verde', $array);
+    echo $clave . &quot;&lt;br&gt;&quot;;
+    $clave = array_search('marrón', $array);
+    if( $clave === FALSE) {
+        echo &quot;no se ha localizado el valor&quot;;
+    } else {
+        echo $clave;
+    }
+
+    echo &quot;&lt;/br&gt;&quot;;
+    echo &quot;array_values code:&quot;;
+    echo &quot;&lt;/br&gt;&quot;;
+
+    $array = array('azul', 'rojo', 'verde', 'amarillo', &quot;blanco&quot;);
+    unset($array[2]);
+    unset($array[3]);
+    print_r($array);
+    $array = array_values($array);
+    echo &quot;&lt;/br&gt;&quot;;
+    print_r($array);
+?&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p24.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-25">Práctica 25</h2>
+<blockquote>
+<p>📂
+Rellenar un array con 10 números aleatorios entre 20 y 25 ( hacer uso de:
+rand ( int $min , int $max ) : int) y luego hacer uso de array_search() para localizar el valor: “22” Se debe mostrar en pantalla el array completo y el valor devuelto por array_search()</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    $arr = [];
+    for ($i = 0; $i &lt; 10; $i++) {
+        $arr[$i] = rand (20, 25);
+    }
+
+    print_r($arr);
+
+    echo &quot;&lt;/br&gt;&quot;;
+
+    $key = array_search(22, $arr);
+    if( $key === FALSE) {
+        echo &quot;Value not found in array&quot;;
+    } else {
+        echo &quot;Value found at index &quot; . $key;
+    }
+?&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p25-1.png"/>
+<img src="./img/p25-2.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-26">Práctica 26</h2>
+<blockquote>
+<p>📂
+Variar el ejemplo anterior para que se haga uso del operador nave espacial:
+&lt;=&gt;</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    function cmp($a, $b) {
+        return $a &lt;=&gt; $b;
+    }
+
+    $a = array(3, 2, 5, 6, 1);
+    echo &quot;Original array : &quot;;
+    print_r($a);
+    echo &quot;&lt;/br&gt;&quot;;
+
+    echo &quot;Sorted array : &quot;;
+    usort($a, &quot;cmp&quot;);
+    foreach ($a as $valor) {
+        echo &quot; $valor, &quot;;
+    }
+?&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p26.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-27">Práctica 27</h2>
+<blockquote>
+<p>📂
+Crear un array con los valores: [7,2,8,1,9,4] Hacer búsqueda con array_search() de: 4. Ordenar el array con usort y repetir la búsqueda de: 4; Mostrar los array antes y después de ordenación así como lo que devuelve array_search()</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    $arr = [7,2,8,1,9,4];
+
+    print_r($arr);
+    echo &quot;&lt;/br&gt;&quot;;
+
+    $key = array_search(4, $arr);
+    found($key);
+
+    function found($key) {
+        if( $key === FALSE) {
+            echo &quot;Value not found in array&quot;;
+        } else {
+            echo &quot;Value found at index &quot; . $key;
+        }
+    }
+
+    echo &quot;&lt;/br&gt;&quot;;
+
+    function compare($val1, $val2) {
+        return $val1 &lt;=&gt; $val2;
+    }
+
+    echo &quot;&lt;/br&gt;&quot;;
+    usort($arr, &quot;compare&quot;);
+    $sortArr = [];
+
+    foreach ($arr as $value) {
+        $sortArr[] = $value;
+    }
+
+    print_r($sortArr);
+    echo &quot;&lt;/br&gt;&quot;;
+
+    $key = array_search(4, $sortArr);
+    found($key);
+?&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p27.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-28">Práctica 28</h2>
+<blockquote>
+<p>📂
+Modifica el código anterior y quita el valor por defecto del parámetro $print. Ejecuta el programa y toma captura de pantalla de los mensajes del IDE y responde: ¿ se obtiene resultado o se detiene el programa ?</p>
+</blockquote>
+<p>Al quitar que el valor de &quot;$print&quot; sea false tendremos un error al ejecutarlo, deteniendose el prograsma</p>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+function sumar($a, $b, $print): float
+{
+$suma = $a + $b;
+if ($print) {
+echo &quot;resultado suma: $suma &lt;br&gt;&quot;;
+}
+return $suma;
+}
+$sum1=sumar(1,2);
+$sum2=sumar(4,5,true);
+echo &quot;las operaciones para sum1 y sum2 dan: $sum1 , $sum2&quot;;
+?&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p28.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-29">Práctica 29</h2>
+<blockquote>
+<p>📂
+Probar el código anterior. Observamos que no se ha modificado el valor de la variable después de la ejecución de la función Así que ¿ estamos en un caso de paso por valor o por referencia ? Tomar captura de pantalla</p>
+</blockquote>
+<p>Podemos observar como los cambios que gacemos dentro de la función no influyen en el valor de la variable, por lo tanto estamos ante un caso de paso por valor.</p>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    function modify(int $a): void {
+        $a = 3;
+    }
+    $a = 2;
+    modify($a);
+    print_r($a);
+?&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p28.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-30">Práctica 30</h2>
+<blockquote>
+<p>📂
+Ejecutar el ejemplo y observar que ahora la variable sí se ve modificada.
+Tomar captura de pantalla</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    function modify(int &amp;$a): void {
+        $a = 3;
+    }
+    $a = 2;
+    modify($a);
+    print_r($a);
+?&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p30.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-31">Práctica 31</h2>
+<blockquote>
+<p>📂
+Hacer lo anterior, comprobar el resultado. Ahora debiera mostrar todos los
+datos del array. Tomar captura de pantalla.</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    function modify(array &amp;$arr): void {
+        $arr[] = 4;
+    }
+    $a = [1];
+    modify($a);
+    print_r($a);
+?&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p31.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-32">Práctica 32</h2>
+<blockquote>
+<p>📂
+Hacer lo anterior, pero usando require en lugar de include. Para que se note la diferencia la llamada de require debiera ser a un nombre de fichero incorrecto. Por ejemplo haremos que llame a: vars1.php cuando como sabemos el fichero es vars.php
+Tomar captura de pantalla</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    echo &quot;Una $fruta $color&quot;; 
+    require 'vars1.php';
+    echo &quot;Una $fruta $color&quot;; 
+?&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p32.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-33">Práctica 33</h2>
+<blockquote>
+<p>📂
+Hacer lo anterior, pero se debe comprobar la diferencia de pasar el texto con urlencode y sin urlencode. Así que se propone poner dos parámetros: prueba y prueba2 unode ellos con urlencode y el otro sin él pasando en ambos casos el mismo texto en el value. Tomar captura de pantalla de lo obtenido</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    $conUrlEncode = urlencode('Pasando datos diría.. que hay que usar urlencode');
+    echo &quot;&lt;a href=practice33.php?prueba='Pasando datos diría.. que hay que usar urlencode'&gt;pasando datos&lt;/a&gt;&quot;;
+    echo &quot;&lt;br&gt;&lt;/br&gt;&quot;;
+    echo &quot;&lt;a href=practice33.php?prueba2={$conUrlEncode}&gt;pasando datos&lt;/a&gt;&quot;;
+
+    $recibido = $_GET[&quot;prueba&quot;] ?? &quot;nadita&quot;;
+    $recibidoConEncode = $_GET[&quot;prueba2&quot;] ?? &quot;nadita&quot;;
+    echo &quot;&lt;h3&gt;se ha recibido:&lt;/h3&gt;&quot;;
+    echo &quot;prueba: &quot;. $recibido . &quot;&lt;br&gt;&quot;;
+    echo &quot;prueba: &quot;. $recibidoConEncode . &quot;&lt;br&gt;&quot;;
+?&gt;
+
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p33-1.png"/>
+<img src="./img/p33-2.png"/>
+<img src="./img/p33-3.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-34">Práctica 34</h2>
+<blockquote>
+<p>📂
+Recorrer el array $_GET con un foreach y mostrar el conjunto de clave valor
+para la actividad anterior</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    $conUrlEncode = urlencode('Pasando datos diría.. que hay que usar urlencode');
+    echo &quot;&lt;a href=practice34.php?prueba='Pasando datos diría.. que hay que usar urlencode'&gt;pasando datos&lt;/a&gt;&quot;;
+    echo &quot;&lt;br&gt;&lt;/br&gt;&quot;;
+    echo &quot;&lt;a href=practice34.php?prueba2={$conUrlEncode}&gt;pasando datos&lt;/a&gt;&quot;;
+
+    $recibido = $_GET[&quot;prueba&quot;] ?? &quot;nadita&quot;;
+    $recibidoConEncode = $_GET[&quot;prueba2&quot;] ?? &quot;nadita&quot;;
+
+
+    foreach ($_GET as $key =&gt; $value) {
+        echo &quot;&lt;br&gt;&lt;/br&gt;&quot;;
+        echo $key. &quot;: &quot;. $value;
+        echo &quot;&lt;br&gt;&lt;/br&gt;&quot;;
+    }
+?&gt;
+
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p34-1.png"/>
+<img src="./img/p34-2.png"/>
+<img src="./img/p34-3.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-35">Práctica 35</h2>
+<blockquote>
+<p>📂
+Realiza una página con un formulario que se llame a si misma para mostrar la
+tabla de un número introducido por el usuario. Se deberá controlar que el usuario haya
+introducido un número entero positivo. Hacer uso para ello de la función: is_int()
+buscando su funcionamiento en el manual oficial: php.net</p>
+</blockquote>
+<p>Tras haber consultado en php.net, he concluido que debemos de utilziar is_numeric() en vez de is_int() ya que esta última no identifica los string con contenido númerico como como son los inputs de los formularios y nunca se cumpliría la condición.</p>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;form action=&quot;practice35.php&quot; method=&quot;post&quot;&gt;
+        &lt;input type=&quot;text&quot; id=&quot;num&quot; name=&quot;num&quot;&gt; 
+        &lt;input type=&quot;submit&quot; id=&quot;submitNum&quot; name=&quot;submitNum&quot; value=&quot;Send&quot;&gt; &lt;!-- id client, js || name server--&gt; 
+    &lt;/form&gt;
+
+    &lt;?php
+
+        if (empty($_POST[&quot;num&quot;]) || !is_numeric($_POST[&quot;num&quot;])){
+            echo &quot;Please enter a valid integer num.&quot;;
+            exit();
+        }   
+
+        $numMulti = $_POST[&quot;num&quot;]; 
+
+        if ($numMulti &lt; 1){
+            echo &quot;Num must be positive.&quot;;
+            exit();  
+        }
+
+        echo &quot;Recived last petition &lt;/br&gt;&quot;;
+        echo &quot;Num send: &quot;. $numMulti. &quot;&lt;/br&gt;&quot;;
+
+
+        function multiplicationTables($num) {
+            for ($i = 1; $i &lt;= 10; $i++) {
+                $result = $num * $i;	
+                echo &quot;$num *  $i  = &quot;. $result. &quot;&lt;/br&gt;&quot;; 
+            }
+        }
+
+        echo &quot;&lt;/br&gt;&quot;;
+        multiplicationTables($numMulti);
+    ?&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p35-1.png"/>
+<img src="./img/p35-2.png"/>
+<img src="./img/p35-3.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-36">Práctica 36</h2>
+<blockquote>
+<p>📂
+Realizar una página con un formulario que se llame a si misma donde el
+usuario introduzca en un input una cadena de números separada por espacios ( ej: 2 5 8 7 3
+4 ) y muestre un número por línea, mostrando primero los números impares y luego los
+pares. ( hacer uso de la función usort() y de la función explode() )</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;form action=&lt;?php echo htmlspecialchars($_SERVER[&quot;PHP_SELF&quot;]);?&gt; method=&quot;post&quot;&gt;
+        &lt;input type=&quot;text&quot; id=&quot;num&quot; name=&quot;num&quot;/&gt;
+        &lt;input type=&quot;submit&quot; id=&quot;submit&quot; name=&quot;submit&quot; value=&quot;Send&quot;/&gt;
+    &lt;/form&gt;
+
+&lt;?php
+    if(!isset($_POST[&quot;num&quot;]) || empty($_POST[&quot;num&quot;])) {
+       exit();
+    }
+
+    $numsUser = $_POST[&quot;num&quot;];
+    $numArray = explode(&quot; &quot;, $numsUser); // same as java split
+
+    foreach ($numArray as $num) {
+        if (!is_numeric($num)) {
+            echo &quot;Error: All values must be numbers.&quot;;
+            exit();
+        }
+    }
+
+    usort($numArray, function($a, $b) {
+        if (!($a % 2 == 0) &amp;&amp; ($b % 2 == 0)) {
+            return -1;
+        } elseif (($a % 2 == 0) &amp;&amp; !($b % 2 == 0)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    });
+
+    echo &quot;&lt;p&gt; Sorted array: &lt;/p&gt;&quot;;  
+    foreach($numArray as $num) {
+        echo $num. &quot;&lt;br&gt;&lt;/br&gt; &quot;;
+    }
+
+?&gt;
+</div></code></pre>
+<p>Si enviamos valores como: &quot;1 a 2&quot; tendremos un error ya que todos los elementos deben de ser numéricos.</p>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p36-1.png"/>
+<img src="./img/p36-2.png"/>
+</div>
+<hr>
+</br>
+<h2 id="pr%C3%A1ctica-37">Práctica 37</h2>
+<blockquote>
+<p>📂
+Realizar una página como la anterior que se valide a si misma. Obligando que
+el correo sea válido, que el nombre no sea vacío al igual que el género. Si los datos están
+correctamente introducidos se mostrarán por debajo de “Datos ingresados” si no superan la
+validación se dirá los campos que no la superan con texto en rojo</p>
+</blockquote>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;?php
+    if (!empty($_POST)) {
+        $name = $_POST[&quot;name&quot;];
+        $email = $_POST[&quot;email&quot;];
+        $gender = $_POST[&quot;gender&quot;];
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            echo &quot;&lt;p&gt;Correo: Dato ingresado correctamente&lt;/p&gt;&lt;br&gt;&quot;;
+        } else {
+            echo &quot;&lt;p style=\&quot;color: red\&quot;&gt;Correo: El correo es ínvalido &lt;/p&gt;&lt;br&gt;&quot;;
+        }
+    
+        if (!empty($name)) {
+            echo &quot;&lt;p&gt;Nombre: Dato ingresado correctamente&lt;/p&gt;&lt;br&gt;&quot;;
+        } else {
+            echo &quot;&lt;p style=\&quot;color: red\&quot;&gt;Nombre: El nombre no ha sido introducido&lt;/p&gt;&lt;br&gt;&quot;;
+        }
+    
+        if (!empty($gender)) {
+            echo &quot;&lt;p&gt;Género: Dato ingresado correctamente&lt;/p&gt;&lt;br&gt;&quot;;
+        } else {
+            echo &quot;&lt;p style=\&quot;color: red\&quot;&gt;Género: El género no ha sido seleccionado&lt;/p&gt;&lt;br&gt;&quot;;
+        }
+    }
+?&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p37.png"/>
+</div>
+<hr>
+</br>
+<h2 id="formulario---descomponer-n%C3%BAmero">Formulario - Descomponer Número</h2>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>    &lt;form action=&quot;formNum.php&quot; method=&quot;post&quot;&gt;
+        &lt;input type=&quot;text&quot; id=&quot;num&quot; name=&quot;num&quot;&gt; 
+        &lt;input type=&quot;submit&quot; id=&quot;submitNum&quot; name=&quot;submitNum&quot; value=&quot;Send&quot;&gt; &lt;!-- id client, js || name server--&gt; 
+    &lt;/form&gt;
+ &lt;?php
+    if (!isset($_POST[&quot;num&quot;])){
+        exit();
+    }
+    echo &quot;recived last petition&quot;;
+    echo &quot;&lt;/br&gt;&quot;;
+    echo &quot;Num send: &quot;. $_POST[&quot;num&quot;]. &quot;&lt;/br&gt;&quot;;
+
+
+    function decompositionNum($num) {
+        $actual = 0;
+        $operator = 1;
+        $result = &quot;&quot;;
+
+        for ($i = 1; $i &lt;= $num; $num/=10) {
+            $actual = $num % 10;
+            $result .= $actual . &quot; * &quot; .  $operator;
+            if ($num &gt; 10) {
+                $result .= &quot; + &quot;;
+            }
+            $operator*=10;
+        }
+        echo $result;
+    }
+    echo &quot;&lt;/br&gt;&quot;;
+    decompositionNum($_POST[&quot;num&quot;]);
+ ?&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/extra-numdesc.png"/>
+</div>
+<hr>
+</br>
+<h2 id="formulario---tablas">Formulario - Tablas</h2>
+<ul>
+<li>Código:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;form action=&quot;./tables.php&quot; method=&quot;post&quot;&gt;
+    &lt;input type=&quot;text&quot; id=&quot;num&quot; name=&quot;num&quot;&gt; 
+    &lt;input type=&quot;submit&quot; id=&quot;submitNum&quot; name=&quot;submitNum&quot; value=&quot;Send&quot;&gt;
+&lt;/form&gt;
+&lt;?php
+    if (empty($_POST[&quot;num&quot;]) || !is_numeric($_POST[&quot;num&quot;])){
+        echo &quot;Please enter a valid integer num.&quot;;
+        exit();
+    }   
+
+    $numMulti = $_POST[&quot;num&quot;]; 
+
+    if ($numMulti &lt; 1){
+        echo &quot;Num must be positive.&quot;;
+        exit();  
+    }
+
+    echo &quot;Recived last petition &lt;/br&gt;&quot;;
+    echo &quot;Num send: &quot;. $numMulti. &quot;&lt;/br&gt;&quot;;
+
+
+    function multiplicationTables($num) {
+        for ($i = 1; $i &lt;= 10; $i++) {
+            $result = $num * $i;	
+            echo &quot;$num *  $i  = &quot;. $result. &quot;&lt;/br&gt;&quot;; 
+        }
+    }
+
+    echo &quot;&lt;/br&gt;&quot;;
+    multiplicationTables($numMulti);
+?&gt;
+
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/extra-table.png"/>
+</div>
+<hr>
+</br>
+</div>
+
+</body>
+</html>

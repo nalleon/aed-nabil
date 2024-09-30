@@ -65,4 +65,7 @@ Route::get('/processform', [ControllerRndNum::class, 'processForm']);
 
 Route::get('/processform/generaterndnum', [ControllerRndNum::class, 'generateRandomNumbers']);
 
-Route::get('/subjects', [ControllerSubject::class, 'index']);
+Route::get('/subjects', [ControllerSubjects::class, 'index']);
+
+
+Route::get('/practice12', [Controller_Practice12::class, 'index']);

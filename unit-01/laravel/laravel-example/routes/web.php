@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+use Illuminate\Http\Request;
+
+use App\Http\Controllers\ControllerRndNum;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,6 +51,18 @@ Route::get('/', function (){
     echo "Página raíz de nuestra aplicación";
 });
 
-Route::get('/', 'HomeController@index')->name('home.controller');
+//Route::get('/', 'HomeController@index')->name('home.controller');
 
 
+//Route::get('/hello', [ControllerTest::class, 'greetings']);
+
+Route::get('/form', function(){
+    return view('formrndnum');
+});
+
+
+Route::get('/processform', [ControllerRndNum::class, 'processForm']);
+
+Route::get('/processform/generaterndnum', [ControllerRndNum::class, 'generateRandomNumbers']);
+
+Route::get('/subjects', [ControllerSubject::class, 'index']);

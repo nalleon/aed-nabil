@@ -66,7 +66,7 @@ Route::post('/pruebita', function () {
 - Captura:
 
 <div align="center">
-<img src="./img/p2-1.png"/>
+<img src="./img/p2.png"/>
 </div>
 
 </br>
@@ -88,7 +88,9 @@ Route::any('/relatos/numeros/{num}', function ($num) {
 - Captura:
 
 <div align="center">
-<img src="./img/p2-1.png"/>
+<img src="./img/p3-1.png"/>
+<img src="./img/p3-2.png"/>
+
 </div>
 
 </br>
@@ -108,7 +110,7 @@ Route::get('/', function (){
 - Captura:
 
 <div align="center">
-<img src="./img/p2-1.png"/>
+<img src="./img/p4.png"/>
 </div>
 
 </br>
@@ -128,7 +130,33 @@ Route::get('/', function (){
 - Captura:
 
 <div align="center">
-<img src="./img/p2-1.png"/>
+<img src="./img/p5-1.png"/>
+<img src="./img/p5-2.png"/>
+</div>
+
+</br>
+
+### Práctica 06
+
+> 📂
+> Crear un controlador llamado: ListarProductos que sea redireccionado en web.php cuando se acceda al raíz: “/” y muestre un mensaje que diga: “Ejecutando el controlador ListarProductos mediante get”. ( si la llamada fue get. En el caso de que la llamada fuera post deberá decirlo )
+>
+
+```code
+<?php
+class Practice06 {
+    /**
+     * @var string 
+     */
+    protected $name;
+}
+?>
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p6.png"/>
 </div>
 
 </br>

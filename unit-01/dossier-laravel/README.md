@@ -383,8 +383,7 @@ Route::get('/processwords', [Practice11Controller::class, 'processWords']);
 class Practice11Controller extends Controller
 {
     public function processWords(Request $request) {
-        $words = $request->input('words')??null;
-        $words = explode(',', $request->input('words'));
+        $words = explode(',',  $request->input('words')??null);
 
         return view('practice11result', [
             'words' => $words,
@@ -410,8 +409,8 @@ class Practice11Controller extends Controller
 - Captura:
 
 <div align="center">
-<img src="./img/p10-1.png"/>
-<img src="./img/p10-2.png"/>
+<img src="./img/p11-1.png"/>
+<img src="./img/p11-2.png"/>
 </div>
 
 </br>

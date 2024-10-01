@@ -122,9 +122,19 @@ Route::get('/', function (){
 >
 
 ```code
-Route::get('/', function (){
-    echo "Página raíz de nuestra aplicación";
-});
+Route::any('/', [ListarProductos::class, 'index']);
+
+class ListarProductos extends Controller
+{
+    public function index(Request $request) {
+        if ($request->isMethod('GET')){
+            echo "Ejecutando el controlador ListarProductos mediante get";
+        } elseif ($request->isMethod('POST')) {
+            echo "Ejecutando el controlador ListarProductos mediante POST";
+        }
+    }
+}
+
 ```
 
 - Captura:
@@ -139,7 +149,8 @@ Route::get('/', function (){
 ### Práctica 06
 
 > 📂
-> Crear un controlador llamado: ListarProductos que sea redireccionado en web.php cuando se acceda al raíz: “/” y muestre un mensaje que diga: “Ejecutando el controlador ListarProductos mediante get”. ( si la llamada fue get. En el caso de que la llamada fuera post deberá decirlo )
+> Comprobar que la anotación @var para un objeto permite que el ide con
+inteliphense nos ayude con los atributos y los métodos
 >
 
 ```code
@@ -157,6 +168,53 @@ class Practice06 {
 
 <div align="center">
 <img src="./img/p6.png"/>
+</div>
+
+</br>
+
+### Práctica 07
+
+> 📂
+> Reproducir la vista descrita. Crear una tabla html por cada primo con un
+encabezado en la tabla que nos diga que campo estamos visualizando.
+>
+
+```code
+Route::any('/practice07', [Practice07Controller::class, 'primeNums']);
+```
+
+```code
+class Practice07Controller extends Controller
+{
+    public function primeNums()
+    {
+    $primeArray = collect([1,2,3,5,7,11,13,17,19]);
+    return view('practice07',compact('primeArray'));
+    }
+}
+```
+
+```code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body class="antialiased">
+    @foreach ($primeArray as $num)
+    <p> num: {{$num}} </p>
+    @endforeach
+</body>
+</html>
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p7.png"/>
 </div>
 
 </br>

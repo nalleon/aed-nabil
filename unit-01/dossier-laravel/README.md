@@ -262,4 +262,44 @@ class Practice08Controller extends Controller
 
 </br>
 
+### Práctica 09
+
+> 📂
+> El comando sleep() en php permite pausar la ejecución la cantidad de segundo especificada como parámetro. Modificar el ejemplo anterior para que lo muestre 3 veces con una espera de 1 segundo entre una iteración y la siguiente, mostrando de forma actualizada la información de los segundos desde 1970
+>
+
+```code
+Route::get('/practice09', function(){
+    return view('practice09');
+});
+```
+
+
+```code
+    @php
+        $dataSecondsArray = [];
+
+        for($i=0; $i < 3; $i++){
+            $seconds = time();
+            $dataSecondsArray[$i] = $seconds;
+            sleep(1);
+        }
+        
+    @endphp
+
+    @foreach ($dataSecondsArray as $seconds ){
+        <h1>Since 1-01-1970 have passed: {{$seconds}} seconds</h1>
+    }
+        
+    @endforeach
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p9.png"/>
+</div>
+
+</br>
+
 </div>

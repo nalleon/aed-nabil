@@ -357,5 +357,64 @@ Route::get('/practice10', [Practice10Controller::class, 'rndNum']);
 </br>
 
 
+### Práctica 10
+
+> 📂
+> Enviar en un textarea una lista de palabras separadas por comas. Mostrar en
+una lista html esas palabras recibidas (una palabra por cada <li> de la lista ) convertidas todas a mayúsculas. Para ello se usará el bucle: @for ( cuidado! No el foreach ) Observar que eso implicará “contar” el número de elementos que tiene la colección de palabras
+>
+
+```code
+Route::get('/processwords', [Practice11Controller::class, 'processWords']);
+```
+
+- practice11.blade.php
+
+```code
+    <form action="processwords" method="GET">
+        <textarea name="words" placeholder="Word's list">ç</textarea>
+        <input type="submit" value="Send">
+    </form>
+```
+
+- practice11Controller.php
+
+```code
+class Practice11Controller extends Controller
+{
+    public function processWords(Request $request) {
+        $words = $request->input('words')??null;
+        $words = explode(',', $request->input('words'));
+
+        return view('practice11result', [
+            'words' => $words,
+        ]);
+    }
+}
+```
+
+- practice11result.blade.php
+
+```code
+    @php
+    $length = count($words);
+    @endphp
+
+    <ul>
+        @for ($i=0; $i<$length; $i++)
+            <li>{{$words[$i]}}</li>
+        @endfor
+    </ul>
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p10-1.png"/>
+<img src="./img/p10-2.png"/>
+</div>
+
+</br>
+
 
 </div>

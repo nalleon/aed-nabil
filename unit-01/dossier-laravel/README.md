@@ -219,4 +219,47 @@ class Practice07Controller extends Controller
 
 </br>
 
+### Práctica 08
+
+> 📂
+> Agregar al comienzo de la vista el mensaje(sustituye por la hora/día actual): Son las: 17:53 del día: 29-11-2020 Nota: buscar información y usar la función PHP date()
+>
+
+```code
+Route::get('/practice08', [Practice08Controller::class, 'date']);
+```
+
+```code
+class Practice08Controller extends Controller
+{
+    public function date() {
+        $currentDateTime = date('H:i \d\e l, d-m-Y');
+        return view('practice08', compact('currentDateTime'));
+    }
+}
+```
+
+```code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body class="antialiased">
+        <h1>{{$currentDateTime}}</h1>
+</body>
+</html>
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p8.png"/>
+</div>
+
+</br>
+
 </div>

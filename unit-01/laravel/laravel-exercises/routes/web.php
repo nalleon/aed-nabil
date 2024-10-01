@@ -10,6 +10,7 @@ use App\Http\Controllers\Practice08Controller;
 use App\Http\Controllers\Practice10Controller;
 use App\Http\Controllers\Practice11Controller;
 use App\Http\Controllers\Practice12Controller;
+use App\Http\Controllers\ToDoTaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,3 +80,10 @@ Route::get('/practice11', function() {
 Route::get('/processwords', [Practice11Controller::class, 'processWords']);
 
 Route::get('/practice12', [Practice12Controller::class, 'showImgs']);
+
+/**
+ * Extra exercise "To do: Task list"
+ */
+Route::get('/', [ToDoTaskController::class, 'main']);
+Route::post('/', [ToDoTaskController::class, 'store']);
+//Route::delete('/{id}', [ToDoTaskController::class, 'destroy'])->name('task.destroy');

@@ -33,9 +33,32 @@ class FormController extends Controller
                 $auxTask = $item;
                 break;
             }
-
         }
 
         return view('tasks', compact('auxTask'));
+    }
+
+        /**
+         * TODO: get data from the request
+         */
+
+    public function postTask(Request $request){
+    
+        $todolist = session()->get('todolist', []);
+
+
+
+            $subject = $request->input('subject');
+            //$id = $request->input('id');
+            $description=$request->input('description');
+            $finished = $request->input('finished');
+
+
+            $newTask = new Task($subject, 1, $description, $finished);
+
+            $todolist[] = $newTask;
+            session()->put('todolist', $todolist); 
+
+        return redirect('startpage');
     }
 }

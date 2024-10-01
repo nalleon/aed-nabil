@@ -101,6 +101,8 @@ Route::any('/relatos/numeros/{num}', function ($num) {
 > Crear una ruta para el raíz: “/” En una primera implementación mostrará el mensaje: “página raíz de nuestra aplicación” que se resolverá en el propio web.php Haremos una segunda versión de esta actividad en la que redireccionará hacia el controlador y la función pertinente y allí se mostrará un mensaje que indique adicionalmente que se ha respondido desde el controlador
 >
 
+- Version 1:
+
 ```code
 Route::get('/', function (){
     echo "Página raíz de nuestra aplicación";
@@ -110,8 +112,31 @@ Route::get('/', function (){
 - Captura:
 
 <div align="center">
-<img src="./img/p4.png"/>
+<img src="./img/p4-1.png"/>
 </div>
+
+
+- Version 2:
+
+```code
+Route::get('/', [Practice04Controller::class, 'controllerResponse']);
+```
+
+```code
+class Practice04Controller extends Controller
+{
+    function controllerResponse(){
+        echo "Responding from the controller!";
+    }
+}
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p4-2.png"/>
+</div>
+
 
 </br>
 

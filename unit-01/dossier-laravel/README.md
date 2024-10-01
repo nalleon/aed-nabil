@@ -302,4 +302,60 @@ Route::get('/practice09', function(){
 
 </br>
 
+### Práctica 10
+
+> 📂
+>Generar una lista de números aleatorios de 0 a100 en el controlador. Desde
+nuestra plantilla blade mostraremos primero la lista de números obtenidos menores de 50 y un poco más abajo en la página los mayores que 50. Hacer uso de las directivas @if para que al mostrar aquellos que sean mayores de 50
+>
+
+```code
+Route::get('/practice10', [Practice10Controller::class, 'rndNum']);
+```
+
+```code
+    public function rndNum() {
+        $array = [];
+        for ($i = 0; $i < 15; $i++) {
+            $array[] = rand(1, 100);
+        }
+        return view('practice10', compact('array'));
+    }
+```
+
+```code
+    <h2>Smaller than 50:</h2>
+    <ul>
+        @foreach ($array as $num )
+            @if ($num < 50)
+                <li>{{$num}}</li>
+            
+            @endif
+        
+        @endforeach
+    </ul>
+
+    <h2>Greater than 50:</h2>
+    <ul>
+        @foreach ($array as $num )
+            @if ($num > 50)
+                <li>{{$num}}</li>
+            
+            @endif
+        
+        @endforeach 
+    </ul>
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p10-1.png"/>
+<img src="./img/p10-2.png"/>
+</div>
+
+</br>
+
+
+
 </div>

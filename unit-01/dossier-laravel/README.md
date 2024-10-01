@@ -357,7 +357,7 @@ Route::get('/practice10', [Practice10Controller::class, 'rndNum']);
 </br>
 
 
-### Práctica 10
+### Práctica 11
 
 > 📂
 > Enviar en un textarea una lista de palabras separadas por comas. Mostrar en
@@ -415,5 +415,46 @@ class Practice11Controller extends Controller
 
 </br>
 
+### Práctica 11
+
+> 📂
+> Ybicar imágenes en la carpeta descrita para las imágenes que quieras mostrar
+( mínimo 5 ). Hacer que se visualicen en el navegador las imágenes en nuestra vista
+>
+
+```code
+Route::get('/practice12', [Practice12Controller::class, 'showImgs']);
+```
+
+- practice12Controller.php
+
+```code
+class Practice12Controller extends Controller
+{
+    function showImgs(){
+        $imgArray =['img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg', 'img5.jpg'];
+    
+        return view('practice12', compact('imgArray' ));
+    }
+}
+```
+
+- practice12.blade.php
+
+```code
+    @foreach ($imgArray as $img)
+        <img src="img/{{$img}}" alt="practice12">
+    @endforeach
+```
+
+
+- Captura:
+
+<div align="center">
+<img src="./img/p12-1.png"/>
+<img src="./img/p12-2.png"/>
+</div>
+
+</br>
 
 </div>

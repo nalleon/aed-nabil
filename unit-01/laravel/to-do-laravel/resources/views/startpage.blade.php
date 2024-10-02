@@ -22,13 +22,12 @@
                         <form action="{{ url('task/delete') }}" method="POST" style="display:inline;">
                             @csrf
                             <input type="hidden" name="id" value="{{ $task->id }}">
-                            <input type="submit" name="delete" value="Delete">
+                            <input type="submit" name="delete" id="delete" value="Delete">
                         </form>
                     </li>
                 @endforeach
             </ul>     
 
-                    
             <form action="{{ url('task/create') }}" method="POST">
                 @csrf
                 <label for="subject">Task Subject:</label>
@@ -38,13 +37,15 @@
                 <textarea cols="50" rows="5" name="description" id="description" placeholder="Task description"></textarea>
                 <br>
                 <label for="finished">Status:</label><br>
-                <input type="radio" value="Open" name="finished" id="finishedOpen" checked> Open<br>
-                <input type="radio" value="Closed" name="finished" id="finishedClosed"> Closed<br>
+                <div class="status-container">
+                    <input type="radio" value="Open" name="finished" id="finishedOpen" checked> 
+                    <label for="finishedOpen">Open</label><br>
+                    <input type="radio" value="Closed" name="finished" id="finishedClosed"> 
+                    <label for="finishedClosed">Closed</label><br>
+                </div>                
                 <br>
                 <input type="submit" name="create" value="Create">
             </form>
-            
-
         </div>   
     </body>
 </html>

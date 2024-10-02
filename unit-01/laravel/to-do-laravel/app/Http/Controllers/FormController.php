@@ -36,10 +36,6 @@ class FormController extends Controller
         return view('tasks', compact('auxTask'));
     }
 
-        /**
-         * TODO: get data from the request
-         */
-
     public function createTask(Request $request){
             $todolist = session()->get('todolist', []);
 
@@ -56,16 +52,13 @@ class FormController extends Controller
         return redirect('/');
     }
 
-    /**
-     * TODO: fix update
-     */
     public function updateForm(Request $request){
         $todolist = session()->get('todolist', []);
 
         $subject = $request->input('subject');
         $id = $request->input('id');
         $description=$request->input('description');
-        $finished = $request->input('finished');
+        $finished = $request->input('finished') === 'Closed' ? true : false; // important to declare
 
         foreach($todolist as $key => $item){
             if($item->getId() == $id){

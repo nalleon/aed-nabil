@@ -24,10 +24,13 @@ class FormController extends Controller
 
         if(($open = fopen($filePath, 'r') )!== false){
             while (($data = fgetcsv($open, 1000, ','))!== false) {
-                $tasks[] = new Task($data[0], 
-                                    $data[1], 
-                                    $data[2],
-                                    $data[3] === 'Closed'? true : false);
+                if(count($data) == 4){
+                    $tasks[] = new Task($data[0], 
+                                        $data[1], 
+                                        $data[2],
+                                        $data[3] === 'Closed'? true : false);
+            
+                }                    
             }
             fclose($open);
             return view('startpage', compact('tasks'));
@@ -45,7 +48,7 @@ class FormController extends Controller
         $filePath = storage_path('app/tasks.csv');
 
         if(!file_exists($filePath)){
-            return redirect()->route('startpage');
+            return redirect('/');
         }
 
         $auxTask = null;
@@ -68,22 +71,54 @@ class FormController extends Controller
         }
     }
 
-    
+    /**
+     * Create a new Task
+     */
+
     public function createTask(Request $request){
-            $todolist = session()->get('todolist', []);
+            $filePath = storage_path('app/tasks.csv');
 
             $subject = $request->input('subject')??null;
-            $id = count($todolist) + 1;
+            $id = $this->getId($filePath);
             $description=$request->input('description')??null;
             $finished = $request->input('finished') === 'Closed' ? true : false; 
 
             $newTask = new Task($subject, $id, $description, $finished);
-            $todolist[] = $newTask;
-    
-            session()->put('todolist', $todolist); 
 
+            $open = fopen($filePath, 'a');
+            if($open){
+                fputcsv($open,[
+                            $newTask->getSubject(),
+                            $newTask->getId(),
+                            $newTask->getDescription(),
+                            $newTask->getFinished() ? 'Closed' : 'Open'
+                        ]);
+                fclose($open);
+            }
+    
         return redirect('/');
     }
+
+    public function getId($filePath){
+        if(file_exists($filePath)){
+            $open = fopen($filePath, 'r');
+            $id = 1;
+            while (($data = fgetcsv($open, 1000, ','))!== false) {
+                if(isset($data[1])){
+                    $actualId = (int)$data[1];
+                }
+                $id = max($id, $actualId);
+            }
+            fclose($open);
+            return $id+1;
+        }
+        
+        return 1;
+    }
+    
+    
+    
+    
 
     public function updateForm(Request $request){
         $todolist = session()->get('todolist', []);

@@ -2,20 +2,33 @@
 
 namespace App\Http\Controllers;
 use App\Models\Task;
+use Storage\App;
 
 use Illuminate\Http\Request;
 // flush and regenerate always
 class FormController extends Controller
 {
+
+    /**
+     * Read file
+     */
     public function show(){
-        $todolist = session()->get('todolist');
-    
-        if (!isset($todolist)) {
-            $todolist = [];
-            session()->put('todolist', $todolist);
+        $filePath = storage_path('app/tasks.csv');
+
+        if(!file_exists($filePath)){
+            return redirect()->route('startpage');
         }
-    
-        return view('startpage', compact('todolist'));
+
+        $tasks = [];
+
+
+        if(($open = fopen($filePath, 'r') )!== false){
+            while (($data = fgetcsv($open, 1000, ','))!== false) {
+                $tasks[] = new Task($data[0], $data[1], $data[2], $data[3] === 'Closed'? true : false);
+            }
+            fclose($open);
+            return view('startpage', compact('tasks'));
+        }
     }
     
 

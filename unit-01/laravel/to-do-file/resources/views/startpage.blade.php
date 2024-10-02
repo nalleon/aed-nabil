@@ -13,7 +13,7 @@
 
             <h2>ALL TASKS</h2>
             <ul>
-                @foreach ($todolist as $task)
+                @foreach ($tasks as $task)
                     <li>
                         <a href="./task?id={{$task->id}}">{{ $task->subject }}</a>
                         <a href="./task?id={{$task->id}}">{{ $task->description }}</a>

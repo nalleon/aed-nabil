@@ -12,7 +12,7 @@ class FormController extends Controller
     /**
      * Read file
      */
-    public function show(){
+    public function getAllTasks(){
         $filePath = storage_path('app/tasks.csv');
 
         if(!file_exists($filePath)){
@@ -24,31 +24,51 @@ class FormController extends Controller
 
         if(($open = fopen($filePath, 'r') )!== false){
             while (($data = fgetcsv($open, 1000, ','))!== false) {
-                $tasks[] = new Task($data[0], $data[1], $data[2], $data[3] === 'Closed'? true : false);
+                $tasks[] = new Task($data[0], 
+                                    $data[1], 
+                                    $data[2],
+                                    $data[3] === 'Closed'? true : false);
             }
             fclose($open);
             return view('startpage', compact('tasks'));
         }
     }
-    
+        
+    /**
+     * Get specific file 
+     */
 
     public function getTask(Request $request){
+
         $id = $request->input('id');
 
-        $todolist = session()->get('todolist');
-        $auxTask = null;
+        $filePath = storage_path('app/tasks.csv');
 
-
-        foreach ($todolist as $item) {
-            if($item->getId() == $id){
-                $auxTask = $item;
-                break;
-            }
+        if(!file_exists($filePath)){
+            return redirect()->route('startpage');
         }
 
-        return view('tasks', compact('auxTask'));
+        $auxTask = null;
+
+        if(($open = fopen($filePath, 'r') )!== false){
+            while (($data = fgetcsv($open, 1000, ','))!== false) {
+                if($data[1] == $id){
+                    $auxTask =  new Task(
+                                $data[0], 
+                                $data[1], 
+                                $data[2],
+                                $data[3] === 'Closed'? true : false);
+                    break;
+                }                    
+
+            }
+
+            fclose($open);
+            return view('tasks', compact('auxTask'));
+        }
     }
 
+    
     public function createTask(Request $request){
             $todolist = session()->get('todolist', []);
 

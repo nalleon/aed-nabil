@@ -14,7 +14,7 @@ use App\Http\Controllers\FormController;
 */
 
 // get
-Route::get('/', [FormController::class, 'show']);
+Route::get('/', [FormController::class, 'getAllTasks']);
 Route::get('/task', [FormController::class, 'getTask']);
 
 // post

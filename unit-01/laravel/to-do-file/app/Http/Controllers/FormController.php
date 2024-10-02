@@ -79,7 +79,7 @@ class FormController extends Controller
             $filePath = storage_path('app/tasks.csv');
 
             $subject = $request->input('subject')??null;
-            $id = $this->getId($filePath);
+            $id = $this->getIdFromCsv($filePath);
             $description=$request->input('description')??null;
             $finished = $request->input('finished') === 'Closed' ? true : false; 
 
@@ -99,7 +99,7 @@ class FormController extends Controller
         return redirect('/');
     }
 
-    public function getId($filePath){
+    public function getIdFromCsv($filePath){
         if(file_exists($filePath)){
             $open = fopen($filePath, 'r');
             $id = 1;
@@ -115,9 +115,6 @@ class FormController extends Controller
         
         return 1;
     }
-    
-    
-    
     
 
     public function updateForm(Request $request){
@@ -143,19 +140,52 @@ class FormController extends Controller
     }
 
 
+    /**
+     * @param Request $request for get the id of the item to delete
+     */
     public function deleteTask(Request $request){
-        $todolist = session()->get('todolist', []);
-        $id = $request->input('id');
 
-        foreach($todolist as $key => $item){
-            if($item->getId() == $id){
-                unset($todolist[$key]);
-                break;
-            }
+        $filePath = storage_path('app/tasks.csv');
+
+        if(!file_exists($filePath)){
+            return redirect('/');
         }
 
-        session()->put('todolist', array_values($todolist));
+
+        $id = $request->input('id');
+        $tasks = [];
+
+        if(($open = fopen($filePath, 'r'))!== false){
+            while (($data = fgetcsv($open, 1000, ','))!== false) {
+                if($data[1] != $id && count($data) >= 4){
+                    $task =  new Task(
+                                $data[0], 
+                                (int)$data[1], 
+                                $data[2],
+                                $data[3] === 'Closed'? true : false
+                            );
+                    $tasks[] = $task;
+                }                    
+               
+            }
+            fclose($open);
+        }
+
+
+        if(($open = fopen($filePath, 'w'))!== false){
+            foreach($tasks as $task){
+                fputcsv($open,[
+                    $task->getSubject(),
+                    $task->getId(),
+                    $task->getDescription(),
+                    $task->getFinished() ? 'Closed' : 'Open'
+                ]);     
+            }
+            fclose($open);
+        }
+
         return redirect('/');
+
     }
 
 

@@ -41,7 +41,7 @@ class FormController extends Controller
          */
 
     public function createTask(Request $request){
-        $todolist = session()->get('todolist', []);
+            $todolist = session()->get('todolist', []);
 
             $subject = $request->input('subject')??null;
             $id = count($todolist) + 1;
@@ -57,7 +57,7 @@ class FormController extends Controller
     }
 
     /**
-     * 
+     * TODO: fix update
      */
     public function updateForm(Request $request){
         $todolist = session()->get('todolist', []);
@@ -78,6 +78,24 @@ class FormController extends Controller
         }
 
         session()->put('todolist', $todolist);
-        return redirect('startpage');
+        return redirect('/');
     }
+
+
+    public function deleteTask(Request $request){
+        $todolist = session()->get('todolist', []);
+        $id = $request->input('id');
+
+        foreach($todolist as $key => $item){
+            if($item->getId() == $id){
+                unset($todolist[$key]);
+                break;
+            }
+        }
+
+        session()->put('todolist', array_values($todolist));
+        return redirect('/');
+    }
+
+
 }

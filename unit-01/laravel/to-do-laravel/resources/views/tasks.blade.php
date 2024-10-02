@@ -8,8 +8,8 @@
 
     </head>
     <body class="antialiased">
-        <!-- For update -->
-        <form action="updateForm" method="POST" id="formTasks">
+        <form action="{{ url('task/update')}}" method="POST" id="formTasks">
+            @csrf
             <label for="subject">Task ID: {{$auxTask->id}}</label>
             <br>
             <input type="text" name="subject" id="subject" placeholder="Task subject" value="{{$auxTask->subject}}" />
@@ -22,6 +22,7 @@
                 <input type="radio" value="Open" name="finished" id="finishedOpen" checked>Open<br>
                 <input type="radio" value="Closed" name="finished" id="finishedClosed">Close<br>
             @endif
+            
             <input type="submit" name="submit" id="submit" value="Update">
         </form>
     </body>

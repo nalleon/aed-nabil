@@ -15,11 +15,14 @@ use App\Http\Controllers\FormController;
 
 // get
 Route::get('/', [FormController::class, 'show']);
+Route::get('/task', [FormController::class, 'getTask']);
 
 // post
 Route::post('/task/create', [FormController::class, 'createTask']);
 
+//delete
+Route::post('/task/delete', [FormController::class, 'deleteTask']);
+
 // put
-//Route::post('/task', [FormController::class, 'postTask']);
-//Route::post('/task/update', [FormController::class, 'updateForm']);
+Route::post('/task/update', [FormController::class, 'updateForm']);
 

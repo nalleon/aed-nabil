@@ -116,26 +116,43 @@ class FormController extends Controller
         return 1;
     }
     
-
     public function updateForm(Request $request){
-        $todolist = session()->get('todolist', []);
+
+        $filePath = storage_path('app/tasks.csv');
+
+        if(!file_exists($filePath)){
+            return redirect('/');
+        }
 
         $subject = $request->input('subject');
         $id = $request->input('id');
         $description=$request->input('description');
-        $finished = $request->input('finished') === 'Closed' ? true : false; // important to declare
+        $finished = $request->input('finished') === 'Closed' ? true : false;
 
-        foreach($todolist as $key => $item){
-            if($item->getId() == $id){
-                $item->setSubject($subject);
-                $item->setDescription($description);
-                $item->setFinished($finished);
-                $todolist[$key] = $item;
-                break;
+        $tasks = [];
+
+        if(($open = fopen($filePath, 'r'))!== false){
+            while (($data = fgetcsv($open, 1000, ','))!== false) {
+                if($data[1] == $id){
+                    $data[0] = $subject;
+                    $data[2] = $description;
+                    $data[3] = $finished ? 'Closed' : 'Open';
+                }                    
+                $tasks[] = $data;
             }
+            fclose($open);
         }
 
-        session()->put('todolist', $todolist);
+        //var_dump($tasks);
+        //die();
+
+        if(($open = fopen($filePath, 'w'))!== false){
+            foreach($tasks as $task){
+                fputcsv($open, $task);
+            }
+            fclose($open);
+        }
+
         return redirect('/');
     }
 

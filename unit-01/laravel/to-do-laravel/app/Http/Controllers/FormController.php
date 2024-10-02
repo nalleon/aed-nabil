@@ -12,8 +12,6 @@ class FormController extends Controller
     
         if (!isset($todolist)) {
             $todolist = [];
-            $todolist[] = new Task('Task 1', 23, 'Description 1', false);
-            $todolist[] = new Task('Task 2', 24, 'Description 2', true);
             session()->put('todolist', $todolist);
         }
     
@@ -42,23 +40,44 @@ class FormController extends Controller
          * TODO: get data from the request
          */
 
-    public function postTask(Request $request){
-    
+    public function createTask(Request $request){
         $todolist = session()->get('todolist', []);
 
+            $subject = $request->input('subject')??null;
+            $id = count($todolist) + 1;
+            $description=$request->input('description')??null;
+            $finished = $request->input('finished') === 'Closed' ? true : false; 
 
-
-            $subject = $request->input('subject');
-            //$id = $request->input('id');
-            $description=$request->input('description');
-            $finished = $request->input('finished');
-
-
-            $newTask = new Task($subject, 1, $description, $finished);
-
+            $newTask = new Task($subject, $id, $description, $finished);
             $todolist[] = $newTask;
+    
             session()->put('todolist', $todolist); 
 
+        return redirect('/');
+    }
+
+    /**
+     * 
+     */
+    public function updateForm(Request $request){
+        $todolist = session()->get('todolist', []);
+
+        $subject = $request->input('subject');
+        $id = $request->input('id');
+        $description=$request->input('description');
+        $finished = $request->input('finished');
+
+        foreach($todolist as $key => $item){
+            if($item->getId() == $id){
+                $item->setSubject($subject);
+                $item->setDescription($description);
+                $item->setFinished($finished);
+                $todolist[$key] = $item;
+                break;
+            }
+        }
+
+        session()->put('todolist', $todolist);
         return redirect('startpage');
     }
 }

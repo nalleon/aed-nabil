@@ -13,8 +13,13 @@ use App\Http\Controllers\FormController;
 |
 */
 
+// get
 Route::get('/', [FormController::class, 'show']);
 
-Route::get('/task', [FormController::class, 'getTask']);
-Route::post('/task', [FormController::class, 'postTask']);
+// post
+Route::post('/task/create', [FormController::class, 'createTask']);
+
+// put
+//Route::post('/task', [FormController::class, 'postTask']);
+//Route::post('/task/update', [FormController::class, 'updateForm']);
 

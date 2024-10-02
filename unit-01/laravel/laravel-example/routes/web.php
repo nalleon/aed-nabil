@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\ControllerRndNum;
+use App\Http\Controllers\Controller_Practice12;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ use App\Http\Controllers\ControllerRndNum;
  */
 
 
- Route::get('/', function () {
+Route::get('/', function () {
     echo "Under construction";
 });
 
@@ -65,7 +65,7 @@ Route::get('/processform', [ControllerRndNum::class, 'processForm']);
 
 Route::get('/processform/generaterndnum', [ControllerRndNum::class, 'generateRandomNumbers']);
 
-Route::get('/subjects', [ControllerSubjects::class, 'index']);
+//Route::get('/subjects', [ControllerSubjects::class, 'index']);
 
 
-Route::get('/practice12', [Controller_Practice12::class, 'index']);
+//Route::get('/practice12', [Controller_Practice12::class, 'index']);

@@ -38,7 +38,7 @@ class Task extends Model
      *
      * */
 
-     public function __construct(string $subject = "", int $id = 1, string $description = "", bool $finished = false){
+     public function __construct(string $subject = "", int $id = 0, string $description = "", bool $finished = false){
         $this->subject = $subject;
         $this->id = $id;
         $this->description = $description;

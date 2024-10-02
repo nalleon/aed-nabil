@@ -12,6 +12,7 @@
             @csrf
             <label for="subject">Task ID: {{$auxTask->id}}</label>
             <br>
+            <input type="hidden" name="id" value="{{ $auxTask->id }}">
             <input type="text" name="subject" id="subject" placeholder="Task subject" value="{{$auxTask->subject}}" />
             <textarea cols="200" rows="5" name="description" placeholder="Task description" id="description" >{{$auxTask->description}}</textarea>
         
@@ -22,7 +23,7 @@
                 <input type="radio" value="Open" name="finished" id="finishedOpen" checked>Open<br>
                 <input type="radio" value="Closed" name="finished" id="finishedClosed">Close<br>
             @endif
-            
+
             <input type="submit" name="submit" id="submit" value="Update">
         </form>
     </body>

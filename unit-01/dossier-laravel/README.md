@@ -440,10 +440,10 @@ class Practice11Controller extends Controller
 
 </br>
 
-### Práctica 11
+### Práctica 12
 
 > 📂
-> Ybicar imágenes en la carpeta descrita para las imágenes que quieras mostrar
+> Ubicar imágenes en la carpeta descrita para las imágenes que quieras mostrar
 ( mínimo 5 ). Hacer que se visualicen en el navegador las imágenes en nuestra vista
 >
 
@@ -478,6 +478,110 @@ class Practice12Controller extends Controller
 <div align="center">
 <img src="./img/p12-1.png"/>
 <img src="./img/p12-2.png"/>
+</div>
+
+</br>
+
+### Práctica 13
+
+> 📂
+> Crear un formulario que envíe nombres de colores en cada ejecución del usuario. Obtendrá por respuesta una página con la lista de colores que ha ido introduciendo (usar session() para almacenar la lista de colores ) ( es un formulario post tendremos que tener en cuenta @csrf leer más abajo )
+>
+
+```code
+Route::get('/practice13', [Practice13Controller::class, 'getColors']);
+Route::post('/add-color', [Practice13Controller::class, 'addColor']);
+Route::post('/delete-color/{id}', [Practice13Controller::class, 'deleteColor']);
+```
+
+- practice13Controller.php
+
+```code
+class Practice13Controller extends Controller
+{
+    public function getColors() {
+        $colors = session()->get('colors', []);
+
+        if(!isset($colors)){
+            $colors = [];
+            session()->put('colors', $colors);
+        }
+      
+        return view('practice13', compact('colors'));    
+    }
+    
+    public function addColor(Request $request){
+        $colors = session()->get('colors', []);
+
+        $name = $request->input('color')??null;
+        $id = count($colors) + 1;
+      
+
+        $newColor = new Color( $id, $name);
+        $colors[] = $newColor;
+
+        session()->put('colors', $colors); 
+
+        return redirect('/practice13');
+    }
+
+    public function deleteColor(Request $request){
+        $colors = session()->get('colors', []);
+        $id = $request->input('id');
+
+        foreach($colors as $key => $item){
+            if($item->getId() == $id){
+                unset($colors[$key]);
+                break;
+            }
+        }
+
+        session()->put('colors', array_values($colors));
+        return redirect('/practice13');
+    }
+
+}
+```
+
+- practice13.blade.php
+
+```code
+   <form method="POST" action="{{ url('/add-color')}}">
+        @csrf
+        @if(isset($color))
+            <input type="hidden" name="id" value="{{ $color->id }}">
+        @endif
+        <label for="color">Color's name: </label>
+        <input type="text" name="color" id="color">
+        <br>
+        <input type="submit" name="submit" id="submit" value="Send">
+    </form>
+    <br>
+    <div class="history">
+        <ul>
+            @if(!empty($colors))
+                @foreach ($colors as $color)
+                <li>
+                    {{ $color->getName() }}
+                    <form method="POST" action="{{ url('/delete-color/'.$color->id) }}">
+                        @csrf
+                        <input type="hidden" name="id" value="{{ $color->id }}">
+                        <button type="submit">Delete</button>
+                    </form>
+                </li>
+                @endforeach
+            @else
+                <li>Empty list.</li>
+            @endif
+        </ul>
+    </div>
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p13-1.png"/>
+<img src="./img/p13-2.png"/>
 </div>
 
 </br>

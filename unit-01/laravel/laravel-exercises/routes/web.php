@@ -10,6 +10,7 @@ use App\Http\Controllers\Practice08Controller;
 use App\Http\Controllers\Practice10Controller;
 use App\Http\Controllers\Practice11Controller;
 use App\Http\Controllers\Practice12Controller;
+use App\Http\Controllers\Practice13Controller;
 use App\Http\Controllers\ToDoTaskController;
 
 /*
@@ -81,9 +82,8 @@ Route::get('/processwords', [Practice11Controller::class, 'processWords']);
 
 Route::get('/practice12', [Practice12Controller::class, 'showImgs']);
 
-/**
- * Extra exercise "To do: Task list"
- */
-Route::get('/', [ToDoTaskController::class, 'main']);
-Route::post('/', [ToDoTaskController::class, 'store']);
-//Route::delete('/{id}', [ToDoTaskController::class, 'destroy'])->name('task.destroy');
+
+Route::get('/practice13', [Practice13Controller::class, 'getColors']);
+Route::post('/add-color', [Practice13Controller::class, 'addColor']);
+Route::post('/delete-color/{id}', [Practice13Controller::class, 'deleteColor']);
+//Route::post('/update-color/{id}', [Practice13Controller::class, 'updateColor']);

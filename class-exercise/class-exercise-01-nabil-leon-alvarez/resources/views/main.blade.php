@@ -15,16 +15,17 @@
     
             @if(isset($newUser))
                 <p>User: <b>{{ $newUser->username }}</b></p>
-                <form action="{{ url('/writeMessage') }}" method="POST">
-                    @csrf
-                    <input type="hidden" id="userId" name="userId" value="{{ $newUser->id }}">
-                    <input type="hidden" id="username" name="username" value="{{ $newUser->username }}">
-                    <input type="text" id="message" name="message"/>
-                    <input type="submit" id="submit" name="submit" value="Send"/>
-                </form>
             @else
                 <p>No user found.</p>
             @endif
+
+            <form action="{{ url('/writeMessage') }}" method="POST">
+                @csrf
+                <input type="hidden" id="userId" name="userId" value="{{ $newUser->id }}">
+                <input type="hidden" id="username" name="username" value="{{ $newUser->username }}">
+                <input type="text" id="message" name="message"/>
+                <input type="submit" id="submit" name="submit" value="Send"/>
+            </form>
     
         
             <div class="messages">

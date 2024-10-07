@@ -14,7 +14,7 @@ class UserModel extends Model
     public $username;
 
 
-    public function __constructor(int $id=0, string $username=""){
+    public function __construct (int $id=0, string $username=""){
         $this->id=$id;
         $this->username=$username;
     }

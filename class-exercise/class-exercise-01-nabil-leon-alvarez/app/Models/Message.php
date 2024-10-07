@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use App\Https\Models\UserModel;
+use App\Models\UserModel;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
 
 class Message extends Model
 {
@@ -19,7 +20,7 @@ class Message extends Model
 
 
 
-    public function __constructor(int $id=0, UserModel $user= new UserModel(), string $message=""){
+    public function __construct (int $id=0, String $user= "", string $message=""){
         $this->id=$id;
         $this->user=$user;
         $this->message=$message;

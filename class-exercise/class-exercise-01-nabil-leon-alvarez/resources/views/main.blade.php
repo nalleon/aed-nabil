@@ -12,10 +12,16 @@
         <div class="main-container">
             <h2>Startpage</h2>
         
+            @php
+                $user = session('user');
+                $userId = $user ? $user->getId() : null;
+                $username = $user ? $user->getUsername() : null;
+            @endphp
+
             @if(isset($username))
                 <p>User: <b>{{ $username }}</b></p>
             @else
-                <p>No user found.</p>
+                <p>User: <b>Anonymous</b></p>
             @endif
         
             <form action="{{ url('/writeMessage') }}" method="POST">

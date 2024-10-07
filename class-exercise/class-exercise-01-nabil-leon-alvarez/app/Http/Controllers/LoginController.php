@@ -8,20 +8,19 @@ use Illuminate\Http\Request;
 class LoginController extends Controller
 {
 
-
    public function createUser(Request $request){
-    $filePath = storage_path('app/users.csv');
+        $filePath = storage_path('app/users.csv');
 
-    $username = $request->input('username');
-    $id = $this->createId($filePath);
+        $username = $request->input('username');
+        $id = $this->createId($filePath);
 
-    $newUser = new UserModel();
-    $newUser->setId($id);
-    $newUser->setUsername($username);
+        $newUser = new UserModel();
+        $newUser->setId($id);
+        $newUser->setUsername($username);
 
-    session(['user' => $newUser]);
+        session(['user' => $newUser]);
 
-    $open = fopen($filePath, 'a');
+        $open = fopen($filePath, 'a');
         if($open){
             fputcsv($open, [
                         $newUser->getId(),
@@ -29,8 +28,8 @@ class LoginController extends Controller
                     ]);
             fclose($open);
         }
-        
-        return view('main', compact('newUser'));
+            
+        return redirect('/main');
     }
 
 
@@ -64,14 +63,15 @@ class LoginController extends Controller
 
         $auxUser = null;
 
-        if(($open = fopen($filePath, 'r')) !== false){
-            while(($data = fgetcsv($open, 1000, ',')) !== false){
-                    if($data[0]== $id){
-                        $auxUser = new UserModel();
-                        $auxUser->setId($data[0]);
-                        $auxUser->setUsername($data[1]);
-                        break;
-                    }
+        if (($open = fopen($filePath, 'r')) !== false) {
+            while (($data = fgetcsv($open, 1000, ',')) !== false) {
+                if ($data[0] == $id) {
+                    $auxUser = new UserModel();
+                    $auxUser->setId($data[0]);
+                    $auxUser->setUsername($data[1]);
+                    break;
+
+                }
             }
         }
 

@@ -28,10 +28,11 @@ Route::get('/', function (){
     return view('login');
 });
 
+Route::get('/main', [MessageController::class, 'getAllMessages']);
+
+
 Route::post('/login', [LoginController::class, 'createUser']);
 
-
-Route::get('/main', [MessageController::class, 'getAllMessages']);
 
 Route::post('/writeMessage', [MessageController::class, 'writeMessage']);
 

@@ -12,8 +12,14 @@ class LoginController extends Controller
         $filePath = storage_path('app/users.csv');
 
         $username = $request->input('username');
-        $id = $this->createId($filePath);
 
+        $userExists = $this->getUserIfExists($username, $filePath);
+        if($userExists !== null){
+            session(['user' => $userExists]);
+            return redirect('/main');
+        }
+        
+        $id = $this->createId($filePath);
         $newUser = new UserModel();
         $newUser->setId($id);
         $newUser->setUsername($username);
@@ -50,12 +56,7 @@ class LoginController extends Controller
     return 1;
    }
 
-   public function getUser(Request $request){
-        $filePath = storage_path('app/users.csv');
-    
-
-        $id = $request->input('id');
-
+   public function getUserIfExists($username, $filePath){
 
         if(!file_exists($filePath)){
             return redirect('/');
@@ -65,17 +66,17 @@ class LoginController extends Controller
 
         if (($open = fopen($filePath, 'r')) !== false) {
             while (($data = fgetcsv($open, 1000, ',')) !== false) {
-                if ($data[0] == $id) {
+                if (isset($data[1]) && $data[1]== $username) {
                     $auxUser = new UserModel();
                     $auxUser->setId($data[0]);
                     $auxUser->setUsername($data[1]);
-                    break;
-
+                    return $auxUser;
                 }
             }
+            fclose($open);
         }
 
-        return view('main', compact('auxUser'));
+        return null;
 
     }
 

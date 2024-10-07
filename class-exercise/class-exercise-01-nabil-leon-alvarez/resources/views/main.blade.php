@@ -15,14 +15,11 @@
             @php
                 $user = session('user');
                 $userId = $user ? $user->getId() : null;
-                $username = $user ? $user->getUsername() : null;
+                $username = $user ? $user->getUsername() : 'anonymous';
             @endphp
-
-            @if(isset($username))
-                <p>User: <b>{{ $username }}</b></p>
-            @else
-                <p>User: <b>Anonymous</b></p>
-            @endif
+       
+            <p>User: <b>{{ $username }}</b></p>
+          
         
             <form action="{{ url('/writeMessage') }}" method="POST">
                 @csrf

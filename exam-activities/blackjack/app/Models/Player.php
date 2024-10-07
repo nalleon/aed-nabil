@@ -30,5 +30,5 @@ class Player extends Model
         $this->score = 0;
     }
 
-
+    
 }

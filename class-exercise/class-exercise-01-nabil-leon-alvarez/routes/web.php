@@ -30,6 +30,9 @@ Route::get('/', function (){
 
 Route::post('/login', [LoginController::class, 'createUser']);
 
-Route::get('/main', [LoginController::class, 'getUser']);
+
+Route::get('/main', [MessageController::class, 'getAllMessages']);
 
 Route::post('/writeMessage', [MessageController::class, 'writeMessage']);
+
+

@@ -19,6 +19,8 @@ class LoginController extends Controller
     $newUser->setId($id);
     $newUser->setUsername($username);
 
+    session(['user' => $newUser]);
+
     $open = fopen($filePath, 'a');
         if($open){
             fputcsv($open, [
@@ -28,8 +30,6 @@ class LoginController extends Controller
             fclose($open);
         }
         
-        $request->session()->put('newUser', $newUser);
-
         return view('main', compact('newUser'));
     }
 

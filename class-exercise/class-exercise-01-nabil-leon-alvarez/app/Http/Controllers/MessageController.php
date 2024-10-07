@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Message;
-use App\Models\UserModel;
 
 class MessageController extends Controller
 {
@@ -14,18 +13,13 @@ class MessageController extends Controller
         $filePath = storage_path('app/messages.csv');
         $id = $this->createId($filePath);
 
+        $userId= $request->input('userId');
         $username = $request->input('username');
-        $userId = $request->input('userId');
-
-        $user = new UserModel();
-        $user->setId($userId);
-        $user->setUsername($username);
-
         $message = $request->input('message');
 
         $newMessage = new Message();
         $newMessage->setId($id);
-        $newMessage->setUser($user);
+        $newMessage->setUser($username);
         $newMessage->setMessage($message);
 
         $open = fopen($filePath, 'a');
@@ -37,8 +31,8 @@ class MessageController extends Controller
                     ]);
             fclose($open);
         }
-
-        return view('main', compact('newMessage'));
+        
+        return redirect('/main')->with(['userId' => $userId, 'username' => $username]);
     }
 
     public function createId($filePath){
@@ -78,31 +72,33 @@ class MessageController extends Controller
                     }
             }
         }
-
+        return redirect('/main');
     }
 
-    public function getAllMessages(Request $request){
+    public function getAllMessages(Request $request) {
         $filePath = storage_path('app/messages.csv');
+        $allUserMessages = [];
+        $userId = $request->input('userId');
+        $username = $request->input('username');
 
-        if(!file_exists($filePath)){
-            return redirect()->route('main');
+        if (!file_exists($filePath)) {
+            return view('main', compact('allUserMessages', 'userId', 'username'));
         }
 
-        $allUserMessages = [];
-
-
-        if(($open = fopen($filePath, 'r') )!== false){
-            while (($data = fgetcsv($open, 1000, ','))!== false) {
-                if(count($data) == 3){
-                    $allUserMessages[] = new Message(
-
-                    );
-
+        if (($open = fopen($filePath, 'r')) !== false) {
+            while (($data = fgetcsv($open, 1000, ',')) !== false) {
+                if (count($data) == 3) {
+                    $message = new Message();
+                    $message->setId((int)$data[0]);
+                    $message->setUser($data[1]);
+                    $message->setMessage($data[2]);
+                    $allUserMessages[] = $message;
                 }
             }
             fclose($open);
-            return view('main', compact('allUserMessages'));
         }
+
+        return view('main', compact('allUserMessages', 'userId', 'username'));
     }
 
 

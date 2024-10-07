@@ -9,34 +9,37 @@
 
     </head>
     <body class="antialiased">
-
         <div class="main-container">
             <h2>Startpage</h2>
-    
-            @if(isset($newUser))
-                <p>User: <b>{{ $newUser->username }}</b></p>
+        
+            @if(isset($username))
+                <p>User: <b>{{ $username }}</b></p>
             @else
                 <p>No user found.</p>
             @endif
-
+        
             <form action="{{ url('/writeMessage') }}" method="POST">
                 @csrf
-                <input type="hidden" id="userId" name="userId" value="{{ $newUser->id }}">
-                <input type="hidden" id="username" name="username" value="{{ $newUser->username }}">
-                <input type="text" id="message" name="message"/>
-                <input type="submit" id="submit" name="submit" value="Send"/>
+                <input type="hidden" id="userId" name="userId" value="{{ $userId }}">
+                <input type="hidden" id="username" name="username" value="{{ $username }}">
+                <input type="text" id="message" name="message" />
+                <input type="submit" id="submit" name="submit" value="Send" />
             </form>
-    
         
             <div class="messages">
-                @if(isset($newMessage))
-                    <li>{{ $newMessage->message }}</li>
+                @if(!empty($allUserMessages))
+                    <ul>
+                        @foreach($allUserMessages as $message)
+                            <li>
+                                <strong>{{ $message->getUser() }}:</strong> {{ $message->getMessage() }}
+                            </li>
+                        @endforeach
+                    </ul>
                 @else
                     <li>There aren't any messages yet.</li>
                 @endif
             </div>
-        </div>
+        </div>        
     </body>
-    
 
 </html>

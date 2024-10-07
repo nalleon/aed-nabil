@@ -11,7 +11,8 @@ use App\Http\Controllers\Practice10Controller;
 use App\Http\Controllers\Practice11Controller;
 use App\Http\Controllers\Practice12Controller;
 use App\Http\Controllers\Practice13Controller;
-use App\Http\Controllers\ToDoTaskController;
+use App\Http\Controllers\Practice17Controller;
+use App\Http\Controllers\Practice18Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,3 +88,28 @@ Route::get('/practice13', [Practice13Controller::class, 'getColors']);
 Route::post('/add-color', [Practice13Controller::class, 'addColor']);
 Route::post('/delete-color/{id}', [Practice13Controller::class, 'deleteColor']);
 //Route::post('/update-color/{id}', [Practice13Controller::class, 'updateColor']);
+
+
+//practice17
+
+/**
+ * Practice 17: Crear un formulario que se introduzca un nombre y cree un directorio enstorage con ese nombre
+ */
+
+ Route::get('/practice17', function (){
+    return view('/practice17');
+ });
+
+ Route::post('/create-directory', [Practice17Controller::class, 'createDirectory']);
+
+/**
+ * Practice 18: Crear un fichero con nombre y dirección de correo por fila ( en formato csv )
+ * almacenado en Storage Leer el fichero y mostrarlo en pantall
+ */
+
+ Route::get('/practice18', function (){
+    return view('/practice18');
+ });
+
+ Route::post('/read-file', [Practice18Controller::class, 'readFile']);
+

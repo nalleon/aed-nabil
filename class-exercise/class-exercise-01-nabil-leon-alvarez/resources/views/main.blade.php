@@ -20,12 +20,16 @@
        
             <p>User: <b>{{ $username }}</b></p>
           
-        
+            <form action="{{ url('/filterMessages') }}" method="GET">
+                <input type="text" id="usernameFilter" name="usernameFilter" placeholder="Enter username to filter " required>
+                <input type="submit" value="Filter Messages">
+            </form>
+            <br>
             <form action="{{ url('/writeMessage') }}" method="POST">
                 @csrf
                 <input type="hidden" id="userId" name="userId" value="{{ $userId }}">
                 <input type="hidden" id="username" name="username" value="{{ $username }}">
-                <input type="text" id="message" name="message" />
+                <input type="text" id="message" name="message" placeholder="Message"/>
                 <input type="submit" id="submit" name="submit" value="Send" />
             </form>
         

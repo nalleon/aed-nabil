@@ -36,4 +36,6 @@ Route::post('/login', [LoginController::class, 'createUser']);
 
 Route::post('/writeMessage', [MessageController::class, 'writeMessage']);
 
+Route::get('/filterMessages', [MessageController::class, 'filterMessages']);
+
 

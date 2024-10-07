@@ -102,5 +102,28 @@ class MessageController extends Controller
     }
 
 
+    public function filterMessages(Request $request) {
+        $filePath = storage_path('app/messages.csv');
+        $username = $request->input('usernameFilter');
 
+        $filteredMessages = [];
+    
+        if (file_exists($filePath)) {
+            if (($open = fopen($filePath, 'r')) !== false) {
+                while (($data = fgetcsv($open, 1000, ',')) !== false) {
+                    if (isset($data[1]) && $data[1] === $username) {
+                        $message = new Message();
+                        $message->setId((int)$data[0]);
+                        $message->setUser($data[1]);
+                        $message->setMessage($data[2]);
+                        $filteredMessages[] = $message;
+                    }
+                }
+                fclose($open);
+            }
+        }
+    
+        return view('filter', compact('filteredMessages', 'username'));
+    }
+    
 }

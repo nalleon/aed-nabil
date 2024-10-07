@@ -10,7 +10,19 @@
     </head>
     <body class="antialiased">
         <div class="main-container">
-            
+            <div class="messages">
+                @if(!empty($filteredMessages))
+                    <ul>
+                        @foreach($filteredMessages as $message)
+                            <li>
+                                <strong>{{ $message->getUser() }}:</strong> {{ $message->getMessage() }}
+                            </li>
+                        @endforeach
+                    </ul>
+                @else
+                    <li>There aren't any messages by this user yet.</li>
+                @endif
+            </div>
         </div>
     </body>
 </html>

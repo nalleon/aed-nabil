@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class DeckCards extends Model
 {
     use HasFactory;
+
+    
 }

@@ -11,7 +11,7 @@
     <body class="antialiased">
         @php
             $user = session('user');
-            $username = $user ? $user['username'] : 'Anonymous';
+            $username = $user ? $user->getUsername(): 'Anonymous';
 
             $player = session('player');
             $playerName = $username;
@@ -21,18 +21,22 @@
         @endphp
 
         <div class="main-container">
+            <p>Player: {{$playerName}}</p>
             <p>Your score: {{ $score }}</p>
             <p>Your hand:</p>
             <ul>
-                @foreach ($hand as $card)
-                    <li>{{ $card['rank'] }} of {{ $card['suit'] }}</li>
-                @endforeach
+                @foreach ($player->getHand() as $card)
+                @if ($card instanceof Card)
+                    <li>{{ $card->getRank() }} of {{ $card->getSuit() }}</li>
+                @endif
+            @endforeach
+            
             </ul>
         
             <form action="{{ url('player-action') }}" method="POST">
                 @csrf
 
-                <input type="hidden" id="username" name="playerName" value="{{ $playerName }}"></input>
+                <input type="hidden" id="playerName" name="playerName" value="{{ $playerName }}"></input>
                 <input type="hidden" id="hand" name="hand" value="{{ json_encode($hand) }}"></input>
                 <input type="hidden" id="score" name="score" value="{{ $score }}"></input>
                 <input type="submit" name="action" value="hit"></input>

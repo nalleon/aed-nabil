@@ -44,9 +44,7 @@ class Player //extends Model
 
     /**
      * Add a card to the player's hand
-     *
      * @param  Card  $card  the card to be added
-     *
      **/
 
     public function addCard(Card $card) {
@@ -58,28 +56,25 @@ class Player //extends Model
      * Function to calculate the score of the player
      */
 
-    private function calculateScore() {
+    public function calculateScore() {
         $aceCounter = 0;
         $this->score = 0;
 
         foreach ($this->hand as $card) {
-            $this->score += $card->getValue();
-            if ($card->getRank() == 'A') {
-                $aceCounter++;
-            }
+            if ($card instanceof Card) {
+                $this->score += $card->getValue();  
+                if ($card->getRank() == 'A') {
+                    $aceCounter++;
+                }
+            } 
         }
 
-        while($aceCounter > 0 && $this->isOverflow()){
+        while($aceCounter > 0 && $this->score > self::BLACKJACK){
             $this->score = $this->score - self::ACE_VALUE;
             $aceCounter--;
         }
-    }
 
-    /**
-     * Function to check if player has lost
-     */
-    private function isOverflow(){
-        return $this->score > self::BLACKJACK;
+        return $this->score;
     }
 
 

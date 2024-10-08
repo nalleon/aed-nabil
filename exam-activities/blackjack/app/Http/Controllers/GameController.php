@@ -16,26 +16,29 @@ class GameController extends Controller
         $playerName = $request->input('playerName');
         $handJson = $request->input('hand');
         $hand = json_decode($handJson, true);
-        $score = $request->input('score');
         $player = new Player();
 
         $player->setPlayerName($playerName);
         $player->setHand($hand);
-        $player->setScore($score);
+
+    
 
         $game = new Game($player);
         session(['game' => $game]);
-
+ 
         $action = $request->input('action');
 
-        $game->getActions($action);
+        $game->getActions($action); // error
+       
+        $player = $game->getPlayerGame();
+  
+
+
+        session(['game' => $game]);
+        session(['player' => $player]);
 
         return redirect('/blackjack');
     }
 
-
-    public function showBlackJack() {
-
-    }
     
 }

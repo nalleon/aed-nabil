@@ -40,28 +40,18 @@ class DeckCards  //extends Model
     }
 
     /**
-     * Function to select a card from the deck
-     */
-    public function selectCard(){
-        if ($this->currentIndexDeck < count($this->deckCards)){
-            return $this->deckCards[$this->currentIndexDeck];
-        }
-
-        return null;
-    }
-
-    /**
      * Function to draw a card from the deck and remove it from it
      */
     public function drawCard(){
-        $cardSelected = $this->selectCard();
-
-        if ($cardSelected !== null){
-            $this->currentIndexDeck++;
+        if ($this->currentIndexDeck >= count($this->deckCards)){
+            return null;
         }
-
+        
+        $cardSelected = $this->deckCards[$this->currentIndexDeck];
+        $this->currentIndexDeck++;
         return $cardSelected;
     }
+    
 
     /**
      * Getters and setters

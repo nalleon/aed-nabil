@@ -73,7 +73,6 @@ class Player extends Model
     }
 
 
-
     /**
      * Getters and setters
      */

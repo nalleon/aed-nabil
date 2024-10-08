@@ -13,6 +13,7 @@ class DeckCards extends Model
 
     public function __construct(){
         $this->deckCards = $this->initializeDeck();
+        $this->deckCards = $this->shuffleDeck();
     }
 
     /**
@@ -30,6 +31,10 @@ class DeckCards extends Model
                 $this->cards[] = new Card($suit, $rank, $value);
             }
         }
+    }
+
+    private function shuffleDeck(){
+        shuffle($this->deckCards);
     }
 
     /**

@@ -22,10 +22,10 @@ class LoginController extends Controller
             if (session('player') === null) {
                 session(['player' => new Player($username)]);
             }
-            
+
             return redirect('/blackjack');
         }
-        
+
         $id = $this->createId($filePath);
 
         $newUser = new UserModel();
@@ -33,6 +33,7 @@ class LoginController extends Controller
         $newUser->setUsername($username);
 
         session(['user' => $newUser]);
+        session(['player' => new Player($username)]);
 
         $open = fopen($filePath, 'a');
         if($open){
@@ -42,7 +43,7 @@ class LoginController extends Controller
                     ]);
             fclose($open);
         }
-            
+
         return redirect('/blackjack');
     }
 

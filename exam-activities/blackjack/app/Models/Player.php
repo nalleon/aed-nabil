@@ -15,17 +15,17 @@ class Player extends Model
     /**
      * @var array of cards in the player's hand
      */
-    private $hand; 
+    private $hand;
     /**
      * @var int number of points of the player
      */
-    private $score; 
+    private $score;
 
 
     /**
      * Constructor of the class
      */
-    public function __construct($playerName) {
+    public function __construct($playerName="") {
         $this->playerName = $playerName;
         $this->hand = [];
         $this->score = 0;
@@ -50,8 +50,8 @@ class Player extends Model
 
     private function calculateScore() {
         $aceCounter = 0;
-        $this->score = 0; 
-        
+        $this->score = 0;
+
         foreach ($this->hand as $card) {
             $this->score += $card->getValue();
             if ($card->getRank() == 'A') {
@@ -96,7 +96,7 @@ class Player extends Model
      * Get of cards in the player's hand
      *
      * @return  array
-     */ 
+     */
     public function getHand()
     {
         return $this->hand;
@@ -108,7 +108,7 @@ class Player extends Model
      * @param  array  $hand  of cards in the player's hand
      *
      * @return  self
-     */ 
+     */
     public function setHand(array $hand)
     {
         $this->hand = $hand;
@@ -120,7 +120,7 @@ class Player extends Model
      * Get number of points of the player
      *
      * @return  int
-     */ 
+     */
     public function getScore()
     {
         return $this->score;
@@ -132,7 +132,7 @@ class Player extends Model
      * @param  int  $score  number of points of the player
      *
      * @return  self
-     */ 
+     */
     public function setScore(int $score)
     {
         $this->score = $score;

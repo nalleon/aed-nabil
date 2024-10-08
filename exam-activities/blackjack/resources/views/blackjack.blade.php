@@ -11,17 +11,19 @@
     <body class="antialiased">
         @php
             $user = session('user');
-            $player = session('player'); 
+            $player = session('player');
+
             $username = $user ? $user['username'] : 'Anonymous';
-            $hand = $player ? $player['hand'] : []; 
-            $score = $player ? $player['score'] : 0; 
+            $hand = $player ? $player['hand'] : [];
+            $score = $player ? $player['score'] : 0;
         @endphp
 
         <div class="main-container">
             <form action="{{ url('player-action') }}" method="POST">
                 @csrf
-                <p>Your hand: {{ implode(', ', $hand) }}</p>
                 <p>Your score: {{ $score }}</p>
+                <p>Your hand: {{ $hand }}</p>
+
 
                 <input type="hidden" id="username" name="playerName" value="{{ $username }}"></input>
                 <input type="submit" name="action" value="hit"></input>

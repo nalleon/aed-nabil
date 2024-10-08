@@ -33,8 +33,31 @@ class DeckCards extends Model
         }
     }
 
+    /**
+     * Function to shuffle the deck
+     */
+
     private function shuffleDeck(){
         shuffle($this->deckCards);
+    }
+
+
+    /**
+     * Function to select a card from the deck
+     */
+    private function selectCard(){
+        return $this->deckCards[0];
+    }
+
+    /**
+     * Function to draw a card from the deck and remove it from it
+     */
+    private function drawCard(){
+        $cardSelected = $this->selectCard();
+        
+        array_shift($this->deckCards);
+
+        return $cardSelected;
     }
 
     /**
@@ -44,7 +67,7 @@ class DeckCards extends Model
     /**
      * Get the value of deckCards
      */ 
-    public function getDeckCards()
+    private function getDeckCards()
     {
         return $this->deckCards;
     }

@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Player extends Model
+class Player //extends Model
 {
-    use HasFactory;
+    //use HasFactory;
+
     /**
      * @var string name of the player
      */
@@ -21,6 +22,14 @@ class Player extends Model
      */
     private $score;
 
+    /**
+     * @var bool
+     */
+    private $isStand;
+
+
+    const BLACKJACK = 21;
+    const ACE_VALUE = 10;
 
     /**
      * Constructor of the class
@@ -29,6 +38,7 @@ class Player extends Model
         $this->playerName = $playerName;
         $this->hand = [];
         $this->score = 0;
+        $this->isStand = false;
     }
 
 
@@ -39,7 +49,7 @@ class Player extends Model
      *
      **/
 
-     public function addCard(Card $card) {
+    public function addCard(Card $card) {
         $this->hand[] = $card;
         $this->score = $this->calculateScore();
     }
@@ -59,8 +69,8 @@ class Player extends Model
             }
         }
 
-        while($aceCounter > 0 && $this->score > 21){
-            $this->score = $this->score - 10;
+        while($aceCounter > 0 && $this->isOverflow()){
+            $this->score = $this->score - self::ACE_VALUE;
             $aceCounter--;
         }
     }
@@ -68,8 +78,8 @@ class Player extends Model
     /**
      * Function to check if player has lost
      */
-    private function isGameOver(){
-        return $this->score > 21;
+    private function isOverflow(){
+        return $this->score > self::BLACKJACK;
     }
 
 
@@ -136,6 +146,30 @@ class Player extends Model
     public function setScore(int $score)
     {
         $this->score = $score;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of isStand
+     *
+     * @return  bool
+     */
+    public function getIsStand()
+    {
+        return $this->isStand;
+    }
+
+    /**
+     * Set the value of isStand
+     *
+     * @param  bool  $isStand
+     *
+     * @return  self
+     */
+    public function setIsStand(bool $isStand)
+    {
+        $this->isStand = $isStand;
 
         return $this;
     }

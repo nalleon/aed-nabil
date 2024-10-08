@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Card extends Model
+class Card //extends Model
 {
-    use HasFactory;
+    //use HasFactory;
 
     /**
      * @var string type of card (hearts, )
@@ -41,7 +41,7 @@ class Card extends Model
      * Get the value of value
      *
      * @return  int
-     */ 
+     */
     public function getValue()
     {
         return $this->value;
@@ -53,7 +53,7 @@ class Card extends Model
      * @param  int  $value
      *
      * @return  self
-     */ 
+     */
     public function setValue(int $value)
     {
         $this->value = $value;

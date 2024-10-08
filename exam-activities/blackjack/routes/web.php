@@ -36,4 +36,4 @@ Route::get('/blackjack', function () {
     return view('blackjack');
 });
 
-Route::post('/player-action', [GameController::class, 'getPlayerAction']);
+Route::post('/player-action', [GameController::class, 'getActions']);

@@ -13,10 +13,13 @@
             $user = session('user');
             $username = $user ? $user['username'] : 'Anonymous';
 
+
             $player = session('player');
             $playerName = $username;
             $hand = $player ? $player['hand'] : [];
             $score = $player ? $player['score'] : 0;
+            $isStand = $player ? $player['isStand'] : false;
+
         @endphp
 
         <div class="main-container">
@@ -26,6 +29,8 @@
                 <p>Your hand: {{ $hand }}</p>
 
                 <input type="hidden" id="username" name="playerName" value="{{ $playerName }}"></input>
+                <input type="hidden" id="hand" name="hand" value="{{ $hand }}"></input>
+                <input type="hidden" id="score" name="score" value="{{ $score }}"></input>
                 <input type="submit" name="action" value="hit"></input>
                 <input type="submit" name="action" value="stand"></input>
             </form>

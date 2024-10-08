@@ -5,10 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DeckCards extends Model
+class DeckCards  //extends Model
 {
-    use HasFactory;
+    //use HasFactory;
 
+    /**
+     * @var array
+     */
     private $deckCards = [];
 
     public function __construct(){
@@ -19,7 +22,7 @@ class DeckCards extends Model
     /**
      * Function to create the deck cards
      */
-    private function initializeDeck() {
+    public function initializeDeck() {
         $suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
         $ranks = [
             '2' => 2, '3' => 3, '4' => 4, '5' => 5, '6' => 6, '7' => 7, '8' => 8, '9' => 9, '10' => 10,
@@ -28,7 +31,7 @@ class DeckCards extends Model
 
         foreach ($suits as $suit) {
             foreach ($ranks as $rank => $value) {
-                $this->cards[] = new Card($suit, $rank, $value);
+                $this->deckCards[] = new Card($suit, $rank, $value);
             }
         }
     }
@@ -36,7 +39,7 @@ class DeckCards extends Model
     /**
      * Function to shuffle the deck
      */
-    private function shuffleDeck(){
+    public function shuffleDeck(){
         shuffle($this->deckCards);
     }
 
@@ -44,18 +47,19 @@ class DeckCards extends Model
     /**
      * Function to select a card from the deck
      */
-    private function selectCard(){
+    public function selectCard(){
         return $this->deckCards[0];
     }
 
     /**
      * Function to draw a card from the deck and remove it from it
      */
-    private function drawCard(){
+
+    //TODO: refactor without unshift
+
+    public function drawCard(){
         $cardSelected = $this->selectCard();
-
         array_shift($this->deckCards);
-
         return $cardSelected;
     }
 
@@ -66,7 +70,7 @@ class DeckCards extends Model
     /**
      * Get the value of deckCards
      */
-    private function getDeckCards()
+    public function getDeckCards()
     {
         return $this->deckCards;
     }

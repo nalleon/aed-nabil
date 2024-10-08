@@ -22,8 +22,8 @@ class DeckCards extends Model
     private function initializeDeck() {
         $suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
         $ranks = [
-            '2' => 2, '3' => 3, '4' => 4, '5' => 5, '6' => 6, '7' => 7, '8' => 8, '9' => 9, '10' => 10, 
-            'J' => 10, 'Q' => 10, 'K' => 10, 'A' => 11 
+            '2' => 2, '3' => 3, '4' => 4, '5' => 5, '6' => 6, '7' => 7, '8' => 8, '9' => 9, '10' => 10,
+            'J' => 10, 'Q' => 10, 'K' => 10, 'A' => 11
         ];
 
         foreach ($suits as $suit) {
@@ -36,7 +36,6 @@ class DeckCards extends Model
     /**
      * Function to shuffle the deck
      */
-
     private function shuffleDeck(){
         shuffle($this->deckCards);
     }
@@ -54,7 +53,7 @@ class DeckCards extends Model
      */
     private function drawCard(){
         $cardSelected = $this->selectCard();
-        
+
         array_shift($this->deckCards);
 
         return $cardSelected;
@@ -66,7 +65,7 @@ class DeckCards extends Model
 
     /**
      * Get the value of deckCards
-     */ 
+     */
     private function getDeckCards()
     {
         return $this->deckCards;
@@ -76,7 +75,7 @@ class DeckCards extends Model
      * Set the value of deckCards
      *
      * @return  self
-     */ 
+     */
     public function setDeckCards($deckCards)
     {
         $this->deckCards = $deckCards;

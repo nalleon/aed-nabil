@@ -6,21 +6,8 @@ use Illuminate\Http\Request;
 
 class GameController extends Controller
 {
-    
 
+    public function getActions(Request $request){
 
-   // public function getPlayerAction(Request $request){
-       // $action = $request->input('action');
-      
-        
-
-        //if($action == 'hit'){
-
-        //} else {
-            
-        //}
-
-      //  return redirect('/blackjack');
-
-    //}
+    }
 }

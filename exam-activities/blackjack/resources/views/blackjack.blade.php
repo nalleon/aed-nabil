@@ -11,9 +11,10 @@
     <body class="antialiased">
         @php
             $user = session('user');
-            $player = session('player');
-
             $username = $user ? $user['username'] : 'Anonymous';
+
+            $player = session('player');
+            $playerName = $username;
             $hand = $player ? $player['hand'] : [];
             $score = $player ? $player['score'] : 0;
         @endphp
@@ -24,8 +25,7 @@
                 <p>Your score: {{ $score }}</p>
                 <p>Your hand: {{ $hand }}</p>
 
-
-                <input type="hidden" id="username" name="playerName" value="{{ $username }}"></input>
+                <input type="hidden" id="username" name="playerName" value="{{ $playerName }}"></input>
                 <input type="submit" name="action" value="hit"></input>
                 <input type="submit" name="action" value="stand"></input>
             </form>

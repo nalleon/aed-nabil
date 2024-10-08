@@ -10,14 +10,14 @@ class Game extends Model
     use HasFactory;
 
     /**
-     * @var DeckCards 
+     * @var DeckCards
      */
     private $deck;
     /**
-     * @var array Player
+     * @var Player
      */
-    private $players = [];
-    
+    private $playerGame;
+
     /**
      * @var Player
      */
@@ -29,19 +29,50 @@ class Game extends Model
      */
     private $currentTurn;
 
-    public function __construct(){
+    public function __construct($playerGame){
         $this->deck = new DeckCards();
         $this->currentTurn = 0;
         $this->dealer = new Player("Dealer");
-
-        foreach ($this->players as $playername){
-            $this->players[] = new Player($playername);
-        }
+        $this->playerGame = $playerGame;
     }
 
     //TODO: implement logic for player/dealer turn
 
-    public function playerTurn(){
-        
+
+    public function hitPlayerAction(){
+        $card = $this->deck->dealCard();
+        $this->playerGame->addCard($card);
+    }
+
+    public function hitDealerAction(){
+        $card = $this->deck->dealCard();
+        $this->dealer->addCard($card);
+    }
+
+
+    public function standPlayerAction(){
+
+    }
+
+
+    public function standDealerAction(){
+
+    }
+
+    public function getPlayerAction($playerAction, $dealerAction){
+        if($playerAction == 'hit'){
+            $this->hitPlayerAction();
+        } else {
+            $this->standPlayerAction();
+        }
+
+
+        if($dealerAction == 'hit'){
+            $this->hitDealerAction();
+        } else {
+            $this->standDealerAction();
+        }
+
+
     }
 }

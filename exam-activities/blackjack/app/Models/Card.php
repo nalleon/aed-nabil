@@ -14,7 +14,7 @@ class Card //extends Model
      */
     private $suit;
     /**
-     * @var int
+     * @var string
      */
     private $rank;
     /**
@@ -26,7 +26,7 @@ class Card //extends Model
     /**
      * Constructor of the class
      */
-    public function __construct(string $suit, int $rank, int $value){
+    public function __construct(string $suit, string $rank, int $value){
         $this->suit = $suit;
         $this->rank = $rank;
         $this->value = $value;

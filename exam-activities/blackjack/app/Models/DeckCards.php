@@ -16,7 +16,7 @@ class DeckCards  //extends Model
 
     public function __construct(){
         $this->deckCards = $this->initializeDeck();
-        $this->deckCards = $this->shuffleDeck();
+        shuffle($this->deckCards);
     }
 
     /**
@@ -34,14 +34,9 @@ class DeckCards  //extends Model
                 $this->deckCards[] = new Card($suit, $rank, $value);
             }
         }
+        return $this->deckCards;
     }
 
-    /**
-     * Function to shuffle the deck
-     */
-    public function shuffleDeck(){
-        shuffle($this->deckCards);
-    }
 
 
     /**

@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-//use App\Http\Controllers\;
+
+use App\Http\Controllers\GameController;
+use App\Http\Controllers\LoginController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +18,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', function () {
-    return view('startpage');
+/**
+ * Login
+ */
+Route::get('/', function (){
+    return view('login');
 });
 
+Route::post('/login', [LoginController::class, 'createUser']);
 
+
+/**
+ * Game
+ */
+
+Route::get('/blackjack', function () {
+    return view('blackjack');
+});
+
+Route::post('/player-action', [GameController::class, 'getPlayerAction']);

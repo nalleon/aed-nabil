@@ -21,10 +21,16 @@
         @endphp
 
         <div class="main-container">
+            <p>Your score: {{ $score }}</p>
+            <p>Your hand:</p>
+            <ul>
+                @foreach ($hand as $card)
+                    <li>{{ $card['rank'] }} of {{ $card['suit'] }}</li>
+                @endforeach
+            </ul>
+        
             <form action="{{ url('player-action') }}" method="POST">
                 @csrf
-                <p>Your score: {{ $score }}</p>
-                <p>Your hand: {{ implode(', ', $hand) }} </p>
 
                 <input type="hidden" id="username" name="playerName" value="{{ $playerName }}"></input>
                 <input type="hidden" id="hand" name="hand" value="{{ json_encode($hand) }}"></input>

@@ -39,8 +39,6 @@ class DeckCards  //extends Model
         return $this->deckCards;
     }
 
-
-
     /**
      * Function to select a card from the deck
      */
@@ -48,15 +46,13 @@ class DeckCards  //extends Model
         if ($this->currentIndexDeck < count($this->deckCards)){
             return $this->deckCards[$this->currentIndexDeck];
         }
-        
+
         return null;
     }
 
     /**
      * Function to draw a card from the deck and remove it from it
      */
-
-
     public function drawCard(){
         $cardSelected = $this->selectCard();
 

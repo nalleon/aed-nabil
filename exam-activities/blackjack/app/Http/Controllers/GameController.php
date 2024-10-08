@@ -24,9 +24,18 @@ class GameController extends Controller
         $player->setScore($score);
 
         $game = new Game($player);
-        
+        session(['game' => $game]);
+
         $action = $request->input('action');
+
+        $game->getActions($action);
 
         return redirect('/blackjack');
     }
+
+
+    public function showBlackJack() {
+
+    }
+    
 }

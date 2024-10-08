@@ -14,6 +14,8 @@ class DeckCards  //extends Model
      */
     private $deckCards = [];
 
+    private $currentIndexDeck = 0;
+
     public function __construct(){
         $this->deckCards = $this->initializeDeck();
         shuffle($this->deckCards);
@@ -43,18 +45,25 @@ class DeckCards  //extends Model
      * Function to select a card from the deck
      */
     public function selectCard(){
-        return $this->deckCards[0];
+        if ($this->currentIndexDeck < count($this->deckCards)){
+            return $this->deckCards[$this->currentIndexDeck];
+        }
+        
+        return null;
     }
 
     /**
      * Function to draw a card from the deck and remove it from it
      */
 
-    //TODO: refactor without unshift
 
     public function drawCard(){
         $cardSelected = $this->selectCard();
-        array_shift($this->deckCards);
+
+        if ($cardSelected !== null){
+            $this->currentIndexDeck++;
+        }
+
         return $cardSelected;
     }
 

@@ -12,15 +12,15 @@ class Card //extends Model
     /**
      * @var string type of card (hearts, )
      */
-    private $suit;
+    public $suit;
     /**
      * @var string
      */
-    private $rank;
+    public $rank;
     /**
      * @var int
      */
-    private $value;
+    public $value;
 
 
     /**

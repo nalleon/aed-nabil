@@ -12,9 +12,9 @@ class DeckCards  //extends Model
     /**
      * @var array
      */
-    private $deckCards = [];
+    public $deckCards = [];
 
-    private $currentIndexDeck = 0;
+    public $currentIndexDeck = 0;
 
     public function __construct(){
         $this->deckCards = $this->initializeDeck();
@@ -46,12 +46,12 @@ class DeckCards  //extends Model
         if ($this->currentIndexDeck >= count($this->deckCards)){
             return null;
         }
-        
+
         $cardSelected = $this->deckCards[$this->currentIndexDeck];
         $this->currentIndexDeck++;
         return $cardSelected;
     }
-    
+
 
     /**
      * Getters and setters

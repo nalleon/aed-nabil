@@ -14,23 +14,22 @@ class Game //extends Model
     /**
      * @var DeckCards
      */
-    private $deck;
+    public $deck;
     /**
      * @var Player
      */
-    private $playerGame;
+    public $playerGame;
 
     /**
      * @var Player
      */
 
-    private $dealer;
+     public $dealer;
 
     const BLACKJACK = 21;
     const DEALER_STAND = 17;
     const HIT = 'hit';
     const STAND = 'stand';
-    const BUST = 'stand';
 
 
     public function __construct($playerGame){
@@ -58,8 +57,8 @@ class Game //extends Model
 
         } elseif($playerAction == self::STAND){
             $this->playerGame->setIsStand(true);
-        } 
-        
+        }
+
         $dealerAction = $this->dealerActions();
 
         if($dealerAction == self::HIT){
@@ -68,6 +67,7 @@ class Game //extends Model
 
         } elseif($dealerAction == self::STAND){
             $this->dealer->setIsStand(true);
+            //dd($dealerAction);
         }
 
         if ($this->playerGame->getIsStand() && $this->dealer->getIsStand()) {
@@ -81,11 +81,11 @@ class Game //extends Model
 
         if($score < 11){
             return self::HIT;
-        } 
+        }
 
         if($score >= 11 && $score <= self::DEALER_STAND){
             $probability = rand(1, 100);
-            if($probability >= 60){
+            if($probability >= 90){
                 return self::HIT;
             } else {
                 return self::STAND;
@@ -104,45 +104,39 @@ class Game //extends Model
     public function checkGameOver() {
         $playerScore = $this->playerGame->getScore();
         $dealerScore = $this->dealer->getScore();
-    
         if ($playerScore > self::BLACKJACK) {
             $this->endGame();
             return false;
         }
-    
+
         if ($dealerScore > self::BLACKJACK) {
             $this->endGame();
-            return true; 
+            return true;
         }
-    
+
         if ($playerScore > $dealerScore) {
             $this->endGame();
-            return true; 
+            return true;
         } else {
             $this->endGame();
-            return false; 
+            return false;
         }
     }
-    
 
-    
+
+
     public function endGame(){
-        $this->playerGame->setHand([]); 
-        $this->playerGame->setScore(0);
         $this->playerGame->setIsStand(false);
-
-        $this->dealer->setHand([]);
-        $this->dealer->setScore(0);
         $this->dealer->setIsStand(false);
-       
 
-        $this->deck = new DeckCards(); 
+
+        $this->deck = new DeckCards();
     }
     /**
      * Get the value of playerGame
      *
      * @return  Player
-     */ 
+     */
     public function getPlayerGame()
     {
         return $this->playerGame;
@@ -154,7 +148,7 @@ class Game //extends Model
      * @param  Player  $playerGame
      *
      * @return  self
-     */ 
+     */
     public function setPlayerGame(Player $playerGame)
     {
         $this->playerGame = $playerGame;
@@ -166,7 +160,7 @@ class Game //extends Model
      * Get the value of deck
      *
      * @return  DeckCards
-     */ 
+     */
     public function getDeck()
     {
         return $this->deck;
@@ -178,7 +172,7 @@ class Game //extends Model
      * @param  DeckCards  $deck
      *
      * @return  self
-     */ 
+     */
     public function setDeck(DeckCards $deck)
     {
         $this->deck = $deck;
@@ -188,7 +182,7 @@ class Game //extends Model
 
     /**
      * Get the value of dealer
-     */ 
+     */
     public function getDealer()
     {
         return $this->dealer;
@@ -198,7 +192,7 @@ class Game //extends Model
      * Set the value of dealer
      *
      * @return  self
-     */ 
+     */
     public function setDealer($dealer)
     {
         $this->dealer = $dealer;

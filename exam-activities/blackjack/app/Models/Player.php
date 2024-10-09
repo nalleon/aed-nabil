@@ -13,20 +13,20 @@ class Player //extends Model
     /**
      * @var string name of the player
      */
-    private $playerName;
+    public $playerName;
     /**
      * @var array of cards in the player's hand
      */
-    private $hand;
+    public $hand;
     /**
      * @var int number of points of the player
      */
-    private $score;
+    public $score;
 
     /**
      * @var bool
      */
-    private $isStand;
+    public $isStand;
 
 
     const BLACKJACK = 21;
@@ -51,7 +51,7 @@ class Player //extends Model
     public function addCard(Card $card) {
          $this->hand[] = $card;
          $this->score = $this->calculateScore();
-    
+
     }
 
     /**
@@ -63,10 +63,10 @@ class Player //extends Model
         $this->score = 0;
 
         foreach ($this->hand as $card) {
-            $this->score += $card->getValue();  
+            $this->score += $card->getValue();
             if ($card->getRank() == 'A') {
                 $aceCounter++;
-            }   
+            }
         }
 
         while($aceCounter > 0 && $this->score > self::BLACKJACK){

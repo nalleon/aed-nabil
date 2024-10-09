@@ -31,16 +31,17 @@ class GameController extends Controller
         $action = $request->input('action');
 
         $result = $game->getActions($action);
-        
+        $dealer = $game->getDealer();
 
-        if ($action === 'stand'){
+        if ($action === 'stand' && $dealer->getIsStand()) {
             if ($result === true){
-                session(['message' => 'Player wins!']);
+                $message = $player->getPlayerName() . " wins!";
             } elseif ($result === false){
-                session(['message' => 'Dealer wins!']);
-            } 
-        } else {
-            session(['message' => 'Game on going...']);
+                $message = $dealer->getPlayerName() . " wins!";
+            } else {
+                $message = "";
+            }
+            session(['message' => $message]);
         }
 
         $dealer = $game->getDealer();
@@ -52,5 +53,23 @@ class GameController extends Controller
         return redirect('/blackjack');
     }
 
+
+    public function startGame(Request $request) {
+        $playerName = $request->input('playerName');
+        $player = new Player();
+        $player->setPlayerName($playerName);
+       
+        $game = new Game($player);
+        $dealer = $game->getDealer();
+
+        $game->initialDeal();
+    
+        session(['game' => $game]);
+        session(['player' => $player]);
+        session(['dealer' => $dealer]);
+    
+        return redirect('/blackjack');
+    }
+    
     
 }

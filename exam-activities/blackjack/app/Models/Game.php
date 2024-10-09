@@ -39,6 +39,13 @@ class Game //extends Model
         $this->playerGame = $playerGame;
     }
 
+    public function initialDeal() {
+        for ($i = 0; $i < 2; $i++) {
+            $this->playerGame->addCard($this->deck->drawCard());
+            $this->dealer->addCard($this->deck->drawCard());
+        }
+    }
+
 
     public function getActions($playerAction){
         if($playerAction == self::HIT){

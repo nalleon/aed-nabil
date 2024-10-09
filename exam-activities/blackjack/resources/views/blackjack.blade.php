@@ -18,44 +18,67 @@
             $hand = $player ? $player->getHand() : []; 
             $score = $player ? $player->getScore() : 0;
             $isStand = $player ? $player->getIsStand() : false;  
+
+            $dealer = session('dealer');
+            $dealerHand = $dealer ? $dealer->getHand() : []; 
+            $dealerScore = $dealer ? $dealer->getScore() : 0; 
+            $dealerIsStand = $dealer ? $dealer->getIsStand() : false;
         @endphp
 
         <div class="main-container">
-            <div class="players-container">
-                <p>Player: {{$playerName}}</p>
+
+            <form action="{{ url('start-game') }}" method="POST">
+                @csrf
+                <input type="submit" value="Start Game">
+            </form>
+            <br></br>
+            <div class="result">
                 @if(session('message'))
                     <div class="message">
-                        {{ session('message') }}
+                        <b>{{ session('message') }}</b>
                     </div>
                 @endif
-
-                <p>Your score: {{ $score }}</p>
+            
+                @if($dealerIsStand && $isStand)
+                    <p>{{$playerName}} score: {{ $score }}</p>
+                    <p>Dealer's score: {{ $dealerScore }}</p>
+                @endif
+            </div>
+            
+            
+            <div class="players-container">
+                <p>Player: {{$playerName}}</p>
                 <p>Your hand:</p>
                 <ul>
-                    @foreach ($hand as $card)
-                        <li>{{ $card->getRank() }} of {{ $card->getSuit() }}</li>
+                    @foreach ($hand as $index => $card)
+                        @if($index == 0 && !$isStand)
+                            <li>??</li>
+                        @else
+                            <li>{{ $card->getRank() }} of {{ $card->getSuit() }}</li>
+                        @endif
                     @endforeach
                 </ul>
 
-                <!-- For test only-->
-                @if (session('dealer'))
-                    @php
-                        $dealer = session('dealer');
-                        $dealerHand = $dealer->getHand(); 
-                        $dealerScore = $dealer->getScore(); 
-                    @endphp
-            
-                    <p>Dealer's score: {{ $dealerScore }}</p>
+
+                @if (session('dealer') !== null)
                     <p>Dealer's hand:</p>
                     <ul>
-                        @foreach ($dealerHand as $card)
-                             <li>{{ $card->getRank() }} of {{ $card->getSuit() }}</li>
+                        @foreach ($dealerHand as $index => $card)
+                            @if($index == 0 && !$dealerIsStand)
+                                <li>??</li>
+                            @else
+                                <li>{{ $card->getRank() }} of {{ $card->getSuit() }}</li>
+                            @endif
                         @endforeach
                     </ul>
                 @endif
 
+
+                   
                 </div>
             </div>
+
+
             <form action="{{ url('player-action') }}" method="POST">
                 @csrf
 

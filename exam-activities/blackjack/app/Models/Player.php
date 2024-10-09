@@ -47,9 +47,11 @@ class Player //extends Model
      * @param  Card  $card  the card to be added
      **/
 
-    public function addCard(Card $card) {
-        $this->hand[] = $card;
-        $this->score = $this->calculateScore();
+    public function addCard($card) {
+        if ($card instanceof Card) {
+            $this->hand[] = $card;
+            $this->score = $this->calculateScore();
+        }
     }
 
     /**

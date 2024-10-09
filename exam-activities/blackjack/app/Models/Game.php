@@ -42,7 +42,8 @@ class Game //extends Model
 
     public function getActions($playerAction){
         if($playerAction == self::HIT){
-            $this->hitPlayerAction();
+            $card = $this->deck->drawCard();
+            $this->playerGame->addCard($card);
         } elseif($playerAction == self::STAND){
             $this->playerGame->setIsStand(true);
         } 
@@ -50,7 +51,8 @@ class Game //extends Model
         $dealerAction = $this->dealerActions();
 
         if($dealerAction == self::HIT){
-            $this->hitDealerAction();
+            $card = $this->deck->drawCard();
+            $this->dealer->addCard($card);
         } elseif($dealerAction == self::STAND){
             $this->dealer->setIsStand(true);
         } else {
@@ -91,16 +93,6 @@ class Game //extends Model
     }
 
 
-    public function hitPlayerAction(){
-        $card = $this->deck->drawCard();
-        $this->playerGame->addCard($card);
-    }
-
-    public function hitDealerAction(){
-        $card = $this->deck->drawCard();
-        $this->dealer->addCard($card);
-    }
-
 
     public function checkGameOver(){
         $playerScore = $this->playerGame->getScore();
@@ -108,12 +100,27 @@ class Game //extends Model
 
         if($playerScore <= self::BLACKJACK && $dealerScore <= self::BLACKJACK){
             if($playerScore > $dealerScore){
+                $this->endGame();
                 return true;
             }
         }
+        $this->endGame();
         return false;
     }
 
+    
+    public function endGame(){
+        $this->playerGame->setHand([]); 
+        $this->playerGame->setScore(0);
+        $this->playerGame->setIsStand(false);
+
+        $this->dealer->setHand([]);
+        $this->dealer->setScore(0);
+        $this->dealer->setIsStand(false);
+       
+
+        $this->deck = new DeckCards(); 
+    }
     /**
      * Get the value of playerGame
      *

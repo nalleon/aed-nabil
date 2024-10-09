@@ -5,37 +5,36 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Game;
 use App\Models\Player;
+use App\Models\Card;
+use App\Models\DeckCard;
+
 
 class GameController extends Controller
 {
 
-    private $game;
+    public  $game;
 
     // route /player-action
     public function getActions(Request $request){
-        $playerName = $request->input('playerName');
-        $handJson = $request->input('hand');
-        $hand = json_decode($handJson, true);
-        $player = new Player();
+       $game = session('game');
 
-        $player->setPlayerName($playerName);
-        $player->setHand($hand);
-
-    
-
-        $game = new Game($player);
-        session(['game' => $game]);
- 
+        if (!$game) {
+            $player = new Player();
+            $playerName = $request->input('playerName');
+            $player->setPlayerName($playerName);
+            $game = new Game($player);
+            session(['game' => $game]);
+        } else {
+            $player = $game->getPlayerGame();
+        }
+        
         $action = $request->input('action');
 
         $game->getActions($action); // error
        
         $player = $game->getPlayerGame();
-  
+        $hand = $player->getHand();
 
-
-        session(['game' => $game]);
-        session(['player' => $player]);
 
         return redirect('/blackjack');
     }

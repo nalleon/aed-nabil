@@ -25,8 +25,8 @@
             <p>Your score: {{ $score }}</p>
             <p>Your hand:</p>
             <ul>
-                @foreach ($player->getHand() as $card)
-                @if ($card instanceof Card)
+                @foreach ($hand as $card)
+                @if ($card instanceof \App\Models\Card)
                     <li>{{ $card->getRank() }} of {{ $card->getSuit() }}</li>
                 @endif
             @endforeach

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Card;
 
 class Player //extends Model
 {
@@ -47,11 +48,10 @@ class Player //extends Model
      * @param  Card  $card  the card to be added
      **/
 
-    public function addCard($card) {
-        if ($card instanceof Card) {
-            $this->hand[] = $card;
-            $this->score = $this->calculateScore();
-        }
+    public function addCard(Card $card) {
+         $this->hand[] = $card;
+         $this->score = $this->calculateScore();
+    
     }
 
     /**
@@ -63,12 +63,10 @@ class Player //extends Model
         $this->score = 0;
 
         foreach ($this->hand as $card) {
-            if ($card instanceof Card) {
-                $this->score += $card->getValue();  
-                if ($card->getRank() == 'A') {
-                    $aceCounter++;
-                }
-            } 
+            $this->score += $card->getValue();  
+            if ($card->getRank() == 'A') {
+                $aceCounter++;
+            }   
         }
 
         while($aceCounter > 0 && $this->score > self::BLACKJACK){

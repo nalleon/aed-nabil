@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="Nabil L. A.">
         <title>BlackJack - Login </title>
-
+        <link rel="stylesheet" href="./style/login.css">
     </head>
     <body class="antialiased">
         <div class="main-container">

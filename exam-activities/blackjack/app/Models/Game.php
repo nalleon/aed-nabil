@@ -85,7 +85,7 @@ class Game //extends Model
 
         if($score >= 11 && $score <= self::DEALER_STAND){
             $probability = rand(1, 100);
-            if($probability >= 90){
+            if($probability >= 70){
                 return self::HIT;
             } else {
                 return self::STAND;
@@ -128,7 +128,6 @@ class Game //extends Model
     public function endGame(){
         $this->playerGame->setIsStand(false);
         $this->dealer->setIsStand(false);
-
 
         $this->deck = new DeckCards();
     }

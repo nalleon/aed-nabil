@@ -27,27 +27,28 @@
         @endphp
 
         <div class="main-container">
-
-            <form action="{{ url('start-game') }}" method="POST">
-                @csrf
-                <input type="hidden" id="playerName" name="playerName" value="{{ $playerName }}"></input>
-                <input type="submit" value="Start Game">
-            </form>
+            <div class="player-name">
+                <p>Player: {{$playerName}}</p>
+            </div>
+            <div class="action-container">
+                <form action="{{ url('start-game') }}" method="POST">
+                    @csrf
+                    <input type="hidden" id="playerName" name="playerName" value="{{ $playerName }}"></input>
+                    <input type="submit" id="startBtn" value="Start Game">
+                </form>
+            </div>
             <br></br>
             <div class="result">
                 @if(session('message'))
                     <div class="message">
                         <b>{{ session('message') }}</b>
                     </div>
-                    <p>{{$playerName}} score: {{ $score }}</p>
+                    <p>Your score: {{ $score }}</p>
                     <p>Dealer's score: {{ $dealerScore }}</p>
                 @endif
-
-
             </div>
 
             <div class="players-container">
-                <p>Player: {{$playerName}}</p>
                 <p>Your hand:</p>
                 <ul>
                     @foreach ($hand as $index => $card)
@@ -69,24 +70,23 @@
                     </ul>
                 @endif
 
-                <form action="{{ url('player-action') }}" method="POST">
-                    @csrf
-    
-                    <input type="hidden" id="playerName" name="playerName" value="{{ $playerName }}"></input>
-                    <input type="hidden" id="hand" name="hand" value="{{ json_encode($hand) }}"></input>
-                    <input type="hidden" id="score" name="score" value="{{ $score }}"></input>
-                    <input type="submit" name="action" value="hit"
-                        @if($player->getIsStand())
-                            disabled
-                        @endif
-                    ></input>
-                    <input type="submit" name="action" value="stand"></input>
-                </form>
+                <div class="action-container">
+                    <form action="{{ url('player-action') }}" method="POST">
+                        @csrf
+                        <input type="hidden" id="playerName" name="playerName" value="{{ $playerName }}"></input>
+                        <input type="submit" name="action" value="hit"
+                            @if($player->getIsStand())
+                                disabled
+                            @endif
+                        ></input>
+                        <input type="submit" name="action" value="stand"></input>
+                    </form>
                 </div>
+
+
             </div>
-
-
-            
         </div>
+
+        <script src="./scripts/blackjack.js"></script>
     </body>
 </html>

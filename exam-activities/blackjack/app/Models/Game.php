@@ -44,6 +44,11 @@ class Game //extends Model
         if($playerAction == self::HIT){
             $card = $this->deck->drawCard();
             $this->playerGame->addCard($card);
+
+            if($this->playerGame->getScore() > self::BLACKJACK){
+                return $this->checkGameOver();
+            }
+
         } elseif($playerAction == self::STAND){
             $this->playerGame->setIsStand(true);
         } 
@@ -53,14 +58,13 @@ class Game //extends Model
         if($dealerAction == self::HIT){
             $card = $this->deck->drawCard();
             $this->dealer->addCard($card);
+
         } elseif($dealerAction == self::STAND){
             $this->dealer->setIsStand(true);
-        } else {
-            $this->checkGameOver();
         }
 
         if ($this->playerGame->getIsStand() && $this->dealer->getIsStand()) {
-            $this->checkGameOver();
+            return $this->checkGameOver();
         }
     }
 
@@ -74,7 +78,7 @@ class Game //extends Model
 
         if($score >= 11 && $score <= self::DEALER_STAND){
             $probability = rand(1, 100);
-            if($probability >= 70){
+            if($probability >= 60){
                 return self::HIT;
             } else {
                 return self::STAND;
@@ -85,28 +89,34 @@ class Game //extends Model
             return self::STAND;
         }
 
-        if($score > self::BLACKJACK){
-            return self::BUST;
-        }
-
         return self::STAND;
     }
 
 
 
-    public function checkGameOver(){
+    public function checkGameOver() {
         $playerScore = $this->playerGame->getScore();
         $dealerScore = $this->dealer->getScore();
-
-        if($playerScore <= self::BLACKJACK && $dealerScore <= self::BLACKJACK){
-            if($playerScore > $dealerScore){
-                $this->endGame();
-                return true;
-            }
+    
+        if ($playerScore > self::BLACKJACK) {
+            $this->endGame();
+            return false;
         }
-        $this->endGame();
-        return false;
+    
+        if ($dealerScore > self::BLACKJACK) {
+            $this->endGame();
+            return true; 
+        }
+    
+        if ($playerScore > $dealerScore) {
+            $this->endGame();
+            return true; 
+        } else {
+            $this->endGame();
+            return false; 
+        }
     }
+    
 
     
     public function endGame(){

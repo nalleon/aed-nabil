@@ -30,11 +30,24 @@ class GameController extends Controller
         
         $action = $request->input('action');
 
-        $game->getActions($action); // error
-       
-        $player = $game->getPlayerGame();
-        $hand = $player->getHand();
+        $result = $game->getActions($action);
+        
 
+        if ($action === 'stand'){
+            if ($result === true){
+                session(['message' => 'Player wins!']);
+            } elseif ($result === false){
+                session(['message' => 'Dealer wins!']);
+            } 
+        } else {
+            session(['message' => 'Game on going...']);
+        }
+
+        $dealer = $game->getDealer();
+
+        session(['game' => $game]);
+        session(['player' => $player]);
+        session(['dealer' => $dealer]);
 
         return redirect('/blackjack');
     }

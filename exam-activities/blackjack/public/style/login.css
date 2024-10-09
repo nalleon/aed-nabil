@@ -3,6 +3,10 @@ html, body {
     margin: 0;
     background-color: #000;
     color: #f3f5f3;
+    font-variant: small-caps;
+    text-transform: lowercase;
+    font-size: 1.2rem;
+
 }
 
 .main-container {
@@ -15,18 +19,6 @@ html, body {
     box-sizing: border-box;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    border: 1px solid #f3f5f3;
-    padding: 10px;
-    width: 100%;
-    margin-bottom: 10px;
-    box-sizing: border-box;
-}
 
 h2 {
     margin-bottom: 20px;
@@ -36,22 +28,29 @@ form {
     display: flex;
     flex-direction: column;
     margin-top: 20px;
+    font-size: 2rem;
 }
 
-input[type="text"],
-textarea {
+input[type="text"] {
     width: 100%;
     max-width: 400px;
     margin-bottom: 10px;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    text-align: center;
 }
 
 input[type="submit"] {
-    border: 1px #f3f5f3 solid;;
-    background-color: transparent;
-    border-radius: 20px;
+    border: 1px #f3f5f3 solid;
     color: #f3f5f3;
     background-color: transparent;
+    border-radius: 30px;
     cursor: pointer;
+    width: 10rem;
+    align-self: center;
+    font-variant: small-caps;
+    text-transform: lowercase;
+    font-size: 1.2rem;
 }
 
 
@@ -61,19 +60,8 @@ input[type="submit"]:hover{
 }
 
 
-
-input[type="radio"] {
-    margin-right: 5px;
-}
-
 label {
     margin-bottom: 10px;
     align-self: center;
 }
 
-.status-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 1rem;
-}

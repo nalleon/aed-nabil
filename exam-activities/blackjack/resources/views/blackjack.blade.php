@@ -46,7 +46,6 @@
 
             </div>
 
-
             <div class="players-container">
                 <p>Player: {{$playerName}}</p>
                 <p>Your hand:</p>
@@ -70,25 +69,24 @@
                     </ul>
                 @endif
 
-
-
+                <form action="{{ url('player-action') }}" method="POST">
+                    @csrf
+    
+                    <input type="hidden" id="playerName" name="playerName" value="{{ $playerName }}"></input>
+                    <input type="hidden" id="hand" name="hand" value="{{ json_encode($hand) }}"></input>
+                    <input type="hidden" id="score" name="score" value="{{ $score }}"></input>
+                    <input type="submit" name="action" value="hit"
+                        @if($player->getIsStand())
+                            disabled
+                        @endif
+                    ></input>
+                    <input type="submit" name="action" value="stand"></input>
+                </form>
                 </div>
             </div>
 
 
-            <form action="{{ url('player-action') }}" method="POST">
-                @csrf
-
-                <input type="hidden" id="playerName" name="playerName" value="{{ $playerName }}"></input>
-                <input type="hidden" id="hand" name="hand" value="{{ json_encode($hand) }}"></input>
-                <input type="hidden" id="score" name="score" value="{{ $score }}"></input>
-                <input type="submit" name="action" value="hit"
-                    @if($player->getIsStand())
-                        disabled
-                    @endif
-                ></input>
-                <input type="submit" name="action" value="stand"></input>
-            </form>
+            
         </div>
     </body>
 </html>

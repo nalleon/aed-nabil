@@ -11,7 +11,7 @@
         <div class="main-container">
             <form action="{{ url('/login')}}" method="POST">
                     @csrf
-                    <label for="username">Username :</label>
+                    <label for="username">Username</label>
                     <input type="text" name="username" id="username" placeholder="Enter your username" />
                     <br>
                     <input type="submit" name="login" value="Login">

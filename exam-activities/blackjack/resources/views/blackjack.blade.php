@@ -24,19 +24,25 @@
             $dealerHand = $dealer ? $dealer->getHand() : [];
             $dealerScore = $dealer ? $dealer->getScore() : 0;
             $dealerIsStand = $dealer ? $dealer->getIsStand() : false;
+
+            $firstTry = session('firstTry', false);
         @endphp
 
         <div class="main-container">
             <div class="player-name">
                 <p>Player: {{$playerName}}</p>
             </div>
-            <div class="action-container">
-                <form action="{{ url('start-game') }}" method="POST">
-                    @csrf
-                    <input type="hidden" id="playerName" name="playerName" value="{{ $playerName }}"></input>
-                    <input type="submit" id="startBtn" value="Start Game">
-                </form>
-            </div>
+
+            @if($firstTry)
+                <div class="action-container">
+                    <form action="{{ url('start-game') }}" method="POST">
+                        @csrf
+                        <input type="hidden" id="playerName" name="playerName" value="{{ $playerName }}"></input>
+                        <input type="submit" id="startBtn" value="Start Game">
+                    </form>
+                </div>
+            @endif
+
             <br></br>
             <div class="result">
                 @if(session('message'))

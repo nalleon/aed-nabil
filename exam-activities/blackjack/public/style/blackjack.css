@@ -22,7 +22,6 @@ body {
 .player-name {
     width: 100%;
     text-align: center;
-    display: none;
 }
 
 form {

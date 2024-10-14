@@ -25,7 +25,7 @@ class TextEditorController extends Controller
         $this->checkUser($request);
 
         $username = $request->input('username');
-            dd($username);
+
         $filename = $request->input('filename');
         $content = $request->content;
 
@@ -37,7 +37,7 @@ class TextEditorController extends Controller
 
 
         $filename = date('Y-m-d_H:i:s').'_'.$request->user->getUsername().'.txt';
-        dd($filename);
+        //dd($filename);
 
     }
 }

@@ -48,6 +48,21 @@
                 <form action="{{ url('write-text') }}" method="POST">
                     @csrf
                     <input type="hidden" id="username" name="username" value="{{ $username }}"></input>
+                    <input type="text" id="filename" name="filename" placeholder="File's name"></input>
+                    </br>
+                    <textarea id="editor" name="content" rows="20" cols="80"></textarea>
+                    <div class="radio-container">
+                        <label for="fileaccess">File access:</label>
+                            <input type="radio" id="fileaccess" name="fileaccess" value="public">
+                                Public
+                            </input>
+
+                            <input type="radio" id="fileaccess" name="fileaccess" value="private" checked>
+                                Private
+                            </input>
+                        </label>
+                    </div>
+                    </br>
                     <input type="submit" id="submit" value="Send">
                 </form>
             </div>

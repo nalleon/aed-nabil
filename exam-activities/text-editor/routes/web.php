@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\TextEditor;
+use App\Http\Controllers\TextEditorController;
 use App\Http\Controllers\LoginController;
 
 
@@ -36,7 +36,7 @@ Route::get('/text-editor', function () {
     return view('text-editor');
 });
 
-Route::post('/write-text', [TextEditor::class, 'writeText']);
+Route::post('/write-text', [TextEditorController::class, 'writeText']);
 
-//Route::post('/write-text', [TextEditor::class, 'testMethod']);
+//Route::post('/write-text', [TextEditorController::class, 'testMethod']);
 

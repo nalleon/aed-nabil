@@ -37,7 +37,7 @@ class TextEditorController extends Controller
             Storage::makeDirectory("/".$username . "/". $filename, 700, true);
             //Storage::put("/".$username . "/". $filename, $content);
 
-            dd("created test");
+            //dd("created test");
         } else {
             Storage::put("/".$filename. ".txt", $content);
         }

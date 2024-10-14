@@ -34,8 +34,12 @@
 
     <body class="antialiased">
         @php
-           $user = session('user');
-            $username = $user ? $user->getUsername(): 'Anonymous';
+            $user = session('user');
+            if(!$user){
+                return redirect('login');
+            }
+
+            $username = $user->getUsername();
         @endphp
 
         <div class="main-container">

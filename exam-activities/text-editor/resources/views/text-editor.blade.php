@@ -42,7 +42,28 @@
             $username = $user->getUsername();
         @endphp
 
+
+
         <div class="main-container">
+            <div class="logout">
+                <form action="logout" method="POST">
+                    @csrf
+                    <input type="submit" value="Logout">
+                </form>
+            </br>
+                <span>Welcome, {{ $username }}</span>
+            </div>
+
+            <div class="files">
+                <h2>Files</h2>
+                <ul>
+                    @foreach (Storage::directories('/'.$username) as $directory)
+                        <li> <a href="{{ url('file-content/'.$directory) }}">{{ $directory }}</a></li>
+                    @endforeach
+                </ul>
+
+            </div>
+
             <div class="action-container">
                 <h2>Text editor</h2>
                 <form action="{{ url('write-text') }}" method="POST">

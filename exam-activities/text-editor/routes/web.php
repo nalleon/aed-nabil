@@ -28,6 +28,8 @@ Route::get('/', function (){
 Route::post('/login', [LoginController::class, 'createUser']);
 
 
+Route::post('/logout',  [LoginController::class, 'logout']);
+
 /**
  * Text editor
  */

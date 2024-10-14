@@ -27,17 +27,19 @@ class TextEditorController extends Controller
         $username = $request->input('username');
 
         $filename = $request->input('filename');
-        $content = $request->content;
+        $fileaccess = $request->input('fileaccess');
+        //dd($fileaccess);
+        $content = $request->input('content');
 
+        if($fileaccess == 'private'){
+            $filename = date('Y-m-d_H:i:s').'_'.$username.'.txt';
 
+            Storage::makeDirectory("/".$username . "/". $filename, 700, true);
+            //Storage::put("/".$username . "/". $filename, $content);
 
-        Storage::makeDirectory("/".$username . "/". $filename . ".txt", 700, true);
-        Storage::put("/".$username . "/". $filename . ".txt", $content);
-
-
-
-        $filename = date('Y-m-d_H:i:s').'_'.$request->user->getUsername().'.txt';
-        //dd($filename);
-
+            dd("created test");
+        } else {
+            Storage::put("/".$filename. ".txt", $content);
+        }
     }
 }

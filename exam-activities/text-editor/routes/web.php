@@ -23,12 +23,12 @@ use App\Http\Controllers\LoginController;
  */
 Route::get('/', function (){
     return view('login');
-});
+})->name('login');
 
 Route::post('/login', [LoginController::class, 'createUser']);
 
 
-Route::post('/logout',  [LoginController::class, 'logout']);
+Route::post('/logout',  [LoginController::class, 'logout'])->name('logout');
 
 /**
  * Text editor

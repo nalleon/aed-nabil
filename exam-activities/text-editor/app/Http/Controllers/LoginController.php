@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\UserModel;
-use App\Models\Player;
 
 
 class LoginController extends Controller
@@ -84,7 +83,9 @@ class LoginController extends Controller
 
     public function logout(){
         session()->flush();
-        return view('login');
+
+        return redirect()->route('login')->with
+         ('message', 'You have successfully logged out. Log in again to acces the editor.');
     }
 
 }

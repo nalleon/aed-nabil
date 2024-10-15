@@ -9,6 +9,9 @@
     </head>
     <body class="antialiased">
         <div class="main-container">
+            @if(session('message'))
+                <p>{{ session('message') }}</p>
+            @endif
             <form action="{{ url('/login')}}" method="POST">
                     @csrf
                     <label for="username">Username</label>

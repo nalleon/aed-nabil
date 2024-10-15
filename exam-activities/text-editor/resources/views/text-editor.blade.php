@@ -44,7 +44,7 @@
 
         <div class="main-container">
             <div class="logout">
-                <form action="logout" method="POST">
+                <form action="{{url('/logout')}}" method="POST">
                     @csrf
                     <input type="submit" value="Logout">
                 </form>

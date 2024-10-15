@@ -49,6 +49,12 @@ class TextEditorController extends Controller
         $directoryPath = $username . '/' . $directory; 
         $files = Storage::files($directoryPath);
 
+        $sortedFiles = collect($files)->sortByDesc(function ($file) {
+            return basename($file); 
+        });
+
+        $files = $sortedFiles;
+
         return view('directory-files', compact('directory', 'files'));
     }
 
@@ -57,6 +63,12 @@ class TextEditorController extends Controller
 
         $directoryPath = 'public/files'; 
         $files = Storage::files($directoryPath);
+
+        $sortedFiles = collect($files)->sortByDesc(function ($file) {
+            return basename($file); 
+        });
+
+        $files = $sortedFiles;
     
         return view('directory-public-files', compact('directory', 'files'));
     }

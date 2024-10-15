@@ -43,7 +43,7 @@ class LoginController extends Controller
             fclose($open);
         }
 
-        return redirect('/text-editor');
+        return redirect('/text-editor', compact('user'));
     }
 
 
@@ -89,7 +89,6 @@ class LoginController extends Controller
 
     public function logout(){
         session()->flush();
-
         return redirect()->route('login')->with
          ('message', 'You have successfully logged out. Log in again to acces the editor.');
     }

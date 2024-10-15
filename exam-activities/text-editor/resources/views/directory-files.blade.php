@@ -23,7 +23,7 @@
         <ul>
             @foreach ($files as $file)
                 <li>
-                    <form action="{{ url('/edit-file') }}" method="POST">
+                    <form action="{{ url('/send-info') }}" method="POST">
                         @csrf
                         <input type="hidden" name="filename" value="{{ $file }}">
                         <input type="hidden" name="username" value="{{ $username }}">

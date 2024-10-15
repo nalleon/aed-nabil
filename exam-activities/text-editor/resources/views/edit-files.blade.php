@@ -31,13 +31,10 @@
         @php
             $user = session('user');
             if(!$user){
-                return redirect('login');
+                return redirect('/');
             }
 
             $username = $user->getUsername();
-
-            $directories = Storage::directories($username);
-            $publicDirectories = Storage::directories('public');
         @endphp
 
         <div class="logout">
@@ -51,11 +48,9 @@
         <div class="main-container">
             <br>
             <div class="action-container">
-                <form action="{{ url('write-text') }}" method="POST" id="">
+                <form action="{{ url('edit-file/edit') }}" method="POST">
                     @csrf
-                    <input type="hidden" id="username" name="username" value="{{ $username }}"></input>
-
-                    <input type="hidden" id="filename" name="filename" placeholder="File's name"></input>
+                    <input type="hidden" id="filename" name="filename" value="{{$file}}"></input>
                     </br>
                     </br>
                     <textarea id="editor" name="content" rows="20" cols="80" placeholder="Write here">

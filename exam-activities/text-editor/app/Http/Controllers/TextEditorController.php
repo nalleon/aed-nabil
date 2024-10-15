@@ -16,13 +16,15 @@ class TextEditorController extends Controller
 
 
     public function checkUser(Request $request){
-        if(!isset($request->user) || $request->user('username') == 'public'){
+        if(!isset($request->user)){
             return redirect('/');
         }
     }
 
     public function writeText(Request $request){
         $this->checkUser($request);
+
+        session(['user' => $newUser]);
 
         $username = $request->input('username');
         $filename = $request->input('filename');
@@ -52,6 +54,7 @@ class TextEditorController extends Controller
             return basename($file);
         });
 
+        //rsort
         $files = $sortedFiles;
 
         return view('directory-files', compact('directory', 'files'));
@@ -72,8 +75,27 @@ class TextEditorController extends Controller
         return view('directory-public-files', compact('directory', 'files'));
     }
 
-    public function editFile(Request $request){
 
+    public function getDataForEdit(Request $request){
+        $file = $request->input('filename');
+
+        return view('edit-files', compact('file'));
+    }
+
+    public function editFile(Request $request){
+        $this->checkUser($request);
+
+        $file = $request->input('filename');
+        $arr = explode('_', $file);
+        $aux = $arr[2];
+        $arrAux = explode('.', $aux);
+        $username = $arrAux[0];
+
+        $usernameSession = session()->get('username');
+
+        dd($usernameSession);
+
+        $content = $request->input('content');
 
     }
 

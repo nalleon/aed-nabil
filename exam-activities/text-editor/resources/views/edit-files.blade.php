@@ -28,15 +28,6 @@
     </head>
 
     <body class="antialiased">
-        @php
-            $user = session('user');
-            if(!$user){
-                return redirect('/');
-            }
-
-            $username = $user->getUsername();
-        @endphp
-
         <div class="logout">
             <form action="{{url('/logout')}}" method="POST">
                 @csrf
@@ -50,11 +41,11 @@
             <div class="action-container">
                 <form action="{{ url('edit-file/edit') }}" method="POST">
                     @csrf
-                    <input type="hidden" id="filename" name="filename" value="{{$file}}"></input>
+                    <input type="text" id="filename" name="filename" value="{{$file}}"></input>
                     </br>
                     </br>
                     <textarea id="editor" name="content" rows="20" cols="80" placeholder="Write here">
-
+                        {{$content}}
                     </textarea>
                     </br>
                     </br>

@@ -31,7 +31,7 @@
         @php
             $user = session('user');
             if(!$user){
-                return redirect('/');
+                return redirect()->route('login');
             }
 
             $username = $user->getUsername();

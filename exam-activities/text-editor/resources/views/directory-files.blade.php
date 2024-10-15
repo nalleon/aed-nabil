@@ -11,7 +11,7 @@
     @php
         $user = session('user');
         if(!$user){
-            return redirect('/');
+            return redirect()->route('login');
         }
 
         $username = $user->getUsername();
@@ -23,7 +23,7 @@
         <ul>
             @foreach ($files as $file)
                 <li>
-                    <form action="{{ url('/send-info') }}" method="POST">
+                    <form action="{{ url('/edit-file') }}" method="POST">
                         @csrf
                         <input type="hidden" name="filename" value="{{ $file }}">
                         <input type="hidden" name="username" value="{{ $username }}">

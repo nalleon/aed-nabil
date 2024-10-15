@@ -15,7 +15,7 @@ class LoginController extends Controller
 
 
         if($username == 'public' || $username == ''){
-            return redirect('/');
+            return redirect()->route('login');
         }
 
         $userExists = $this->getUserIfExists($username, $filePath);

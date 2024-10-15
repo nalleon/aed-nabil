@@ -24,7 +24,7 @@ class TextEditorController extends Controller
     public function writeText(Request $request){
         $this->checkUser($request);
 
-        session(['user' => $newUser]);
+        //session(['user' => $newUser]);
 
         $username = $request->input('username');
         $filename = $request->input('filename');
@@ -76,27 +76,29 @@ class TextEditorController extends Controller
     }
 
 
-    public function getDataForEdit(Request $request){
-        $file = $request->input('filename');
 
-        return view('edit-files', compact('file'));
-    }
 
     public function editFile(Request $request){
         $this->checkUser($request);
 
         $file = $request->input('filename');
+        $content = Storage::get($file);
+
+
         $arr = explode('_', $file);
         $aux = $arr[2];
         $arrAux = explode('.', $aux);
         $username = $arrAux[0];
 
-        $usernameSession = session()->get('username');
+        
+        $userSession = session()->get('user');
+        $usernameSession = $userSession->getUsername();
 
-        dd($usernameSession);
+        if($usernameSession!= $username){
+            abort(403, 'Unauthorized action.');
+        }
 
-        $content = $request->input('content');
-
+        return view('edit-files', compact('file', 'content'));
     }
 
 

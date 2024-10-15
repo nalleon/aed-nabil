@@ -7,16 +7,27 @@
     <title>Files in Public: {{ $directory }}</title>
 </head>
 <body>
+    @php
+        $user = session('user');
+        if(!$user){
+            return redirect('/');
+        }
 
-    <h1>Files in: {{ $directory }}</h1>
+        $username = $user->getUsername();
+    @endphp
+
+    <h1>Public files: </h1>
 
     @if(count($files) > 0)
         <ul>
             @foreach ($files as $file)
                 <li>
-                    <a href="{{ url('file-content/' . $file) }}">
-                        {{ basename($file) }}
-                    </a>
+                    <form action="{{ url('/edit-file') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="filename" value="{{ $file }}">
+                        <input type="hidden" name="username" value="{{ $username }}">
+                        <input type="submit" value="{{ basename($file) }}">
+                    </form>
                 </li>
             @endforeach
         </ul>

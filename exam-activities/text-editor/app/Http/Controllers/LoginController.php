@@ -11,7 +11,12 @@ class LoginController extends Controller
      public function createUser(Request $request){
 
         $filePath = storage_path('app/users.csv');
-        $username = $request->input('username');
+        $username = trim($request->input('username'));
+
+
+        if($username == 'public' || $username == ''){
+            return redirect('/');
+        }
 
         $userExists = $this->getUserIfExists($username, $filePath);
 
@@ -19,6 +24,7 @@ class LoginController extends Controller
             session(['user' => $userExists]);
             return redirect('/text-editor');
         }
+
 
         $id = $this->createId($filePath);
 

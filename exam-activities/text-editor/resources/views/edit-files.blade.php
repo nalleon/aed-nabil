@@ -23,7 +23,7 @@
             });
         </script>
 
-        <title>Text-Editor</title>
+        <title>Text-Editor - Edit</title>
         <link rel="stylesheet" href="./style/text-editor.css">
     </head>
 
@@ -31,7 +31,7 @@
         @php
             $user = session('user');
             if(!$user){
-                return redirect('/');
+                return redirect('login');
             }
 
             $username = $user->getUsername();
@@ -49,64 +49,21 @@
 
         </br>
         <div class="main-container">
-
-            <h3>Welcome, {{ $username }}!</h3>
-
-
-            <div class="files">
-                <div class="private-files">
-                    <h2>Your files:</h2>
-                    <ul>
-                        @foreach ($directories as $directory)
-                            <li>
-                                <a href="{{ url('directory-files/' . basename($directory)) }}">
-                                    {{ basename($directory) }}
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-                </br>
-                <div class="public-files">
-                    <h2>Public files:</h2>
-                    <ul>
-                        @foreach ($publicDirectories as $directory)
-                            <li>
-                                <a href="{{ url('directory-public-files/' . basename($directory)) }}">
-                                    {{ basename($directory) }}
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-                </br>
-            </div>
-            </br>
+            <br>
             <div class="action-container">
                 <form action="{{ url('write-text') }}" method="POST" id="">
                     @csrf
                     <input type="hidden" id="username" name="username" value="{{ $username }}"></input>
 
-                    <input type="text" id="filename" name="filename" placeholder="File's name"></input>
+                    <input type="hidden" id="filename" name="filename" placeholder="File's name"></input>
                     </br>
                     </br>
                     <textarea id="editor" name="content" rows="20" cols="80" placeholder="Write here">
 
                     </textarea>
                     </br>
-                    <div class="radio-container">
-                        <label for="fileaccess">File access:</label>
-                            <input type="radio" id="fileaccess" name="fileaccess" value="public">
-                                Public
-                            </input>
-
-                            <input type="radio" id="fileaccess" name="fileaccess" value="private" checked>
-                                Private
-                            </input>
-                        </label>
-                    </div>
                     </br>
-                    <input type="submit" id="submit" value="Send">
+                    <input type="submit" id="submit" value="Updated">
                 </form>
             </div>
             <br>

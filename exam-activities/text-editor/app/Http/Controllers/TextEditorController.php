@@ -16,8 +16,8 @@ class TextEditorController extends Controller
 
 
     public function checkUser(Request $request){
-        if(!isset($request->user)){
-            redirect('/login');
+        if(!isset($request->user) || $request->user('username') == 'public'){
+            return redirect('/');
         }
     }
 
@@ -32,7 +32,6 @@ class TextEditorController extends Controller
         $directory=$username . "/" . $filename;
         $filenameToCreate = date('Y-m-d_H-i-s').'_'.$username . ".txt";
 
-
         if($fileaccess == 'private'){
             Storage::makeDirectory($directory, 700, true);
             Storage::put($directory ."/". $filenameToCreate, $content);
@@ -44,13 +43,13 @@ class TextEditorController extends Controller
     }
 
     public function showDirectoryFiles($directory){
-        $username = session('user')->getUsername(); 
+        $username = session('user')->getUsername();
 
-        $directoryPath = $username . '/' . $directory; 
+        $directoryPath = $username . '/' . $directory;
         $files = Storage::files($directoryPath);
 
         $sortedFiles = collect($files)->sortByDesc(function ($file) {
-            return basename($file); 
+            return basename($file);
         });
 
         $files = $sortedFiles;
@@ -59,18 +58,24 @@ class TextEditorController extends Controller
     }
 
     public function showPublicDirectoryFiles($directory){
-        $username = session('user')->getUsername(); 
+        $username = session('user')->getUsername();
 
-        $directoryPath = 'public/files'; 
+        $directoryPath = 'public/files';
         $files = Storage::files($directoryPath);
 
         $sortedFiles = collect($files)->sortByDesc(function ($file) {
-            return basename($file); 
+            return basename($file);
         });
 
         $files = $sortedFiles;
-    
+
         return view('directory-public-files', compact('directory', 'files'));
     }
-    
+
+    public function editFile(Request $request){
+
+
+    }
+
+
 }

@@ -24,7 +24,7 @@
         </script>
 
         <title>Text-Editor</title>
-
+        <link rel="stylesheet" href="./style/text-editor.css">
     </head>
 
     <body class="antialiased">
@@ -40,24 +40,26 @@
             $publicDirectories = Storage::directories('public');
         @endphp
 
+        <div class="logout">
+            <form action="{{url('/logout')}}" method="POST">
+                @csrf
+                <input type="submit" value="Logout">
+            </form>
 
-
+        </div>
+        
+        </br>
         <div class="main-container">
-            <div class="logout">
-                <form action="{{url('/logout')}}" method="POST">
-                    @csrf
-                    <input type="submit" value="Logout">
-                </form>
-            </br>
-                <h3>Welcome, {{ $username }} !</h3>
-            </div>
+
+            <h3>Welcome, {{ $username }} !</h3>
+
 
             <div class="files">
                 <div class="private-files">
                     <h2>Your files:</h2>
                     <ul>
                         @foreach ($directories as $directory)
-                            <li>  
+                            <li>
                                 <a href="{{ url('directory-files/' . basename($directory)) }}">
                                     {{ basename($directory) }}
                                 </a>
@@ -69,7 +71,7 @@
                     <h2>Public files:</h2>
                     <ul>
                         @foreach ($publicDirectories as $directory)
-                            <li>  
+                            <li>
                                 <a href="{{ url('directory-public-files/' . basename($directory)) }}">
                                     {{ basename($directory) }}
                                 </a>
@@ -78,9 +80,8 @@
                     </ul>
                 </div>
             </div>
-
+            <br>
             <div class="action-container">
-                <h2>Text editor</h2>
                 <form action="{{ url('write-text') }}" method="POST" id="">
                     @csrf
                     <input type="hidden" id="username" name="username" value="{{ $username }}"></input>
@@ -91,6 +92,7 @@
                     <textarea id="editor" name="content" rows="20" cols="80" placeholder="Write here">
 
                     </textarea>
+                    </br>
                     <div class="radio-container">
                         <label for="fileaccess">File access:</label>
                             <input type="radio" id="fileaccess" name="fileaccess" value="public">
@@ -120,20 +122,3 @@
         </script>
     </body>
 </html>
-
-<!--
- <ul>
-    @php
-    $files = Storage::files($directory);
-@endphp
-
-@foreach ($files as $file)
-    <li> 
-        <a href="{{ url('file-content/' . $file) }}">
-            {{ basename($file) }}
-        </a>
-    </li>
-@endforeach
-</ul>
-
--->

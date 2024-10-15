@@ -40,5 +40,8 @@ Route::get('/text-editor', function () {
 
 Route::post('/write-text', [TextEditorController::class, 'writeText']);
 
-//Route::post('/write-text', [TextEditorController::class, 'testMethod']);
+// Show directories files of the user (private)
+Route::get('directory-files/{directory}', [TextEditorController::class, 'showDirectoryFiles']);
 
+// Show public files of the user (public)
+Route::get('directory-public-files/{directory}', [TextEditorController::class, 'showPublicDirectoryFiles']);

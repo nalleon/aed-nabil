@@ -37,7 +37,28 @@ class TextEditorController extends Controller
             Storage::makeDirectory($directory, 700, true);
             Storage::put($directory ."/". $filenameToCreate, $content);
         } else {
-            Storage::put("/public/".$filenameToCreate, $content);
+            $directory = "files";
+            $filenameToCreate = date('Y-m-d_H-i-s').'_'. $filename.'_'.$username . ".txt";
+            Storage::put("/public/". $directory . "/" . $filenameToCreate, $content);
         }
     }
+
+    public function showDirectoryFiles($directory){
+        $username = session('user')->getUsername(); 
+
+        $directoryPath = $username . '/' . $directory; 
+        $files = Storage::files($directoryPath);
+
+        return view('directory-files', compact('directory', 'files'));
+    }
+
+    public function showPublicDirectoryFiles($directory){
+        $username = session('user')->getUsername(); 
+
+        $directoryPath = 'public/files'; 
+        $files = Storage::files($directoryPath);
+    
+        return view('directory-public-files', compact('directory', 'files'));
+    }
+    
 }

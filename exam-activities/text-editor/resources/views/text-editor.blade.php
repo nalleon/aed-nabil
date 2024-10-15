@@ -35,6 +35,9 @@
             }
 
             $username = $user->getUsername();
+
+            $directories = Storage::directories($username);
+            $publicDirectories = Storage::directories('public');
         @endphp
 
 
@@ -46,17 +49,34 @@
                     <input type="submit" value="Logout">
                 </form>
             </br>
-                <span>Welcome, {{ $username }}</span>
+                <h3>Welcome, {{ $username }} !</h3>
             </div>
 
             <div class="files">
-                <h2>Files</h2>
-                <ul>
-                    @foreach (Storage::directories('/'.$username) as $directory)
-                        <li> <a href="{{ url('file-content/'.$directory) }}">{{ $directory }}</a></li>
-                    @endforeach
-                </ul>
-
+                <div class="private-files">
+                    <h2>Your files:</h2>
+                    <ul>
+                        @foreach ($directories as $directory)
+                            <li>  
+                                <a href="{{ url('directory-files/' . basename($directory)) }}">
+                                    {{ basename($directory) }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div class="public-files">
+                    <h2>Public files:</h2>
+                    <ul>
+                        @foreach ($publicDirectories as $directory)
+                            <li>  
+                                <a href="{{ url('directory-public-files/' . basename($directory)) }}">
+                                    {{ basename($directory) }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
             </div>
 
             <div class="action-container">
@@ -100,3 +120,20 @@
         </script>
     </body>
 </html>
+
+<!--
+ <ul>
+    @php
+    $files = Storage::files($directory);
+@endphp
+
+@foreach ($files as $file)
+    <li> 
+        <a href="{{ url('file-content/' . $file) }}">
+            {{ basename($file) }}
+        </a>
+    </li>
+@endforeach
+</ul>
+
+-->

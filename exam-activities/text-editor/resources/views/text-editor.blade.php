@@ -61,7 +61,7 @@
 
             <div class="action-container">
                 <h2>Text editor</h2>
-                <form action="{{ url('write-text') }}" method="POST">
+                <form action="{{ url('write-text') }}" method="POST" id="">
                     @csrf
                     <input type="hidden" id="username" name="username" value="{{ $username }}"></input>
                     <input type="text" id="filename" name="filename" placeholder="File's name"></input>
@@ -69,6 +69,7 @@
 
 
                     <textarea id="editor" name="content" rows="20" cols="80" placeholder="Write here">
+
                     </textarea>
                     <div class="radio-container">
                         <label for="fileaccess">File access:</label>
@@ -89,11 +90,10 @@
 
         </div>
 
-
         <script>
             document.querySelector('form').addEventListener('submit', function(event) {
                 event.preventDefault();
-                document.getElementById('contenido').value = tinymce.activeEditor.getContent();
+                document.getElementById('editor').value = tinymce.activeEditor.getContent();
                 console.log("dice: "+tinymce.activeEditor.getContent());
                 this.submit();
             });

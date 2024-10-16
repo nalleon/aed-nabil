@@ -32,6 +32,7 @@ class TextEditorController extends Controller
         $content = $request->input('content');
 
         $directory=$username . "/" . $filename;
+        date_default_timezone_set('Atlantic/Canary');
         $filenameToCreate = date('Y-m-d_H-i-s').'_'.$username . ".txt";
 
         if($fileaccess == 'private'){
@@ -39,6 +40,7 @@ class TextEditorController extends Controller
             Storage::put($directory ."/". $filenameToCreate, $content);
         } else {
             $directory = "files";
+            date_default_timezone_set('Atlantic/Canary');
             $filenameToCreate = date('Y-m-d_H-i-s').'_'. $filename.'_'.$username . ".txt";
             Storage::put("/public/". $directory . "/" . $filenameToCreate, $content);
         }
@@ -115,8 +117,19 @@ class TextEditorController extends Controller
 
         $filename = $request->input('filename');
         $content = $request->input('content');
+        $arr = explode('/', $filename);
+        $arrDirectory = $arr;
+        $directory = $arrDirectory[0] . '/' . $arrDirectory[1];
+        $arrDirectory = explode('_', $filename);
+        $arrFileName = $arrDirectory[2];
+       // dd($directory,$arrFileName);
 
-        Storage::put($filename, $content);
+        date_default_timezone_set('Atlantic/Canary');
+        $fileNameDate = date('Y-m-d_H-i-s').'_'. $arrFileName;
+   
+
+        
+        Storage::put($directory . '/' . $fileNameDate, $content);
         return redirect('/text-editor');
     }
 
@@ -137,7 +150,7 @@ class TextEditorController extends Controller
 
         $arrFileName = $arrDirectory[2] . '_' . $usernameSession . '.txt';
         
-
+        date_default_timezone_set('Atlantic/Canary');
         $fileNameDate = date('Y-m-d_H-i-s').'_'. $arrFileName;
 
         Storage::put($directory . '/' .$fileNameDate, $content);

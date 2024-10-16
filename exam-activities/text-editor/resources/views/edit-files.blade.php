@@ -39,7 +39,7 @@
         <div class="main-container">
             <br>
             <div class="action-container">
-                <form action="{{ url('/edit-file-public') }}" method="POST">
+                <form action="{{ url('/edit-file/edit') }}" method="POST">
                     @csrf
                     <input type="text" id="filename" name="filename" value="{{$file}}"></input>
                     </br>

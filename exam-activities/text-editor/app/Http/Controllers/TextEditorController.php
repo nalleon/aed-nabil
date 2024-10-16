@@ -41,9 +41,11 @@ class TextEditorController extends Controller
         } else {
             $directory = "files";
             date_default_timezone_set('Atlantic/Canary');
-            $filenameToCreate = date('Y-m-d_H-i-s').'_'. $filename.'_'.$username . ".txt";
+            $filenameToCreate = $filename.'_' . date('Y-m-d_H-i-s').'_'.$username . ".txt";
             Storage::put("/public/". $directory . "/" . $filenameToCreate, $content);
         }
+
+        return redirect()->route('startpage');
     }
 
     public function showDirectoryFiles($directory){
@@ -52,13 +54,8 @@ class TextEditorController extends Controller
         $directoryPath = $username . '/' . $directory;
         $files = Storage::files($directoryPath);
 
-        $sortedFiles = collect($files)->sortByDesc(function ($file) {
-            return basename($file);
-        });
-
-        //rsort
-        $files = $sortedFiles;
-
+        rsort($files);
+    
         return view('directory-files', compact('directory', 'files'));
     }
 
@@ -68,16 +65,10 @@ class TextEditorController extends Controller
         $directoryPath = 'public/files';
         $files = Storage::files($directoryPath);
 
-        $sortedFiles = collect($files)->sortByDesc(function ($file) {
-            return basename($file);
-        });
-
-        $files = $sortedFiles;
+        rsort($files);
 
         return view('directory-public-files', compact('directory', 'files'));
     }
-
-
 
 
     public function editFile(Request $request){
@@ -122,13 +113,10 @@ class TextEditorController extends Controller
         $directory = $arrDirectory[0] . '/' . $arrDirectory[1];
         $arrDirectory = explode('_', $filename);
         $arrFileName = $arrDirectory[2];
-       // dd($directory,$arrFileName);
 
         date_default_timezone_set('Atlantic/Canary');
         $fileNameDate = date('Y-m-d_H-i-s').'_'. $arrFileName;
    
-
-        
         Storage::put($directory . '/' . $fileNameDate, $content);
         return redirect('/text-editor');
     }
@@ -142,18 +130,17 @@ class TextEditorController extends Controller
         $content = $request->input('content');
 
         $arr = explode('/', $file);
+      
         $arrDirectory = $arr;
-
-        $directory = $arrDirectory[0] . '/' . $arrDirectory[1];
 
         $arrDirectory = explode('_', $file);
 
-        $arrFileName = $arrDirectory[2] . '_' . $usernameSession . '.txt';
-        
-        date_default_timezone_set('Atlantic/Canary');
-        $fileNameDate = date('Y-m-d_H-i-s').'_'. $arrFileName;
+        $arrFileName = $arrDirectory[0];
+        $userFile = $usernameSession . '.txt';
 
-        Storage::put($directory . '/' .$fileNameDate, $content);
+        date_default_timezone_set('Atlantic/Canary');
+        $fileNameDate = $arrFileName . '_' . date('Y-m-d_H-i-s').'_'. $userFile;
+        Storage::put($fileNameDate, $content);
         return redirect('/text-editor');
     }
 

@@ -35,10 +35,9 @@ Route::post('/logout',  [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/text-editor', function () {
     return view('text-editor');
-});
+})->name('startpage');
 
 Route::post('/write-text', [TextEditorController::class, 'writeText']);
-
 // Show directories files of the user (private)
 Route::get('directory-files/{directory}', [TextEditorController::class, 'showDirectoryFiles']);
 

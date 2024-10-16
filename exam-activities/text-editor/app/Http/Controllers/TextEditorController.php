@@ -17,7 +17,7 @@ class TextEditorController extends Controller
 
     public function checkUser(Request $request){
         if(!isset($request->user)){
-            return redirect('/');
+            return redirect()->route('login');
         }
     }
 
@@ -87,9 +87,9 @@ class TextEditorController extends Controller
 
         $arr = explode('_', $file);
         $aux = $arr[2];
+      
         $arrAux = explode('.', $aux);
         $username = $arrAux[0];
-
         
         $userSession = session()->get('user');
         $usernameSession = $userSession->getUsername();
@@ -100,6 +100,51 @@ class TextEditorController extends Controller
 
         return view('edit-files', compact('file', 'content'));
     }
+
+    public function editFilePublic(Request $request){
+        $this->checkUser($request);
+
+        $file = $request->input('filename');
+        $content = Storage::get($file);
+
+        return view('edit-files-public', compact('file', 'content'));
+    }
+
+    public function updateFile(Request $request){
+        $this->checkUser($request);
+
+        $filename = $request->input('filename');
+        $content = $request->input('content');
+
+        Storage::put($filename, $content);
+        return redirect('/text-editor');
+    }
+
+    public function updateFilePublic(Request $request){
+        $this->checkUser($request);
+        $userSession = session()->get('user');
+        $usernameSession = $userSession->getUsername();
+
+        $file = $request->input('filename');
+        $content = $request->input('content');
+
+        $arr = explode('/', $file);
+        $arrDirectory = $arr;
+
+        $directory = $arrDirectory[0] . '/' . $arrDirectory[1];
+
+        $arrDirectory = explode('_', $file);
+
+        $arrFileName = $arrDirectory[2] . '_' . $usernameSession . '.txt';
+        
+
+        $fileNameDate = date('Y-m-d_H-i-s').'_'. $arrFileName;
+
+        Storage::put($directory . '/' .$fileNameDate, $content);
+        return redirect('/text-editor');
+    }
+
+
 
 
 }

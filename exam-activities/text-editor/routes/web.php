@@ -45,10 +45,10 @@ Route::get('directory-files/{directory}', [TextEditorController::class, 'showDir
 // Show public files of the user (public)
 Route::get('directory-public-files/{directory}', [TextEditorController::class, 'showPublicDirectoryFiles']);
 
-// redirect to controller better
-//Route::post('/send-info', [TextEditorController::class, 'getDataForEdit']);
 
 Route::post('/edit-file',  [TextEditorController::class, 'editFile']);
+Route::post('/edit-file-public',  [TextEditorController::class, 'editFilePublic']);
 
 // Edit the select file
-Route::post('/edit-file/edit', [TextEditorController::class, 'editFile']);
+Route::post('/edit-file/edit', [TextEditorController::class, 'updateFile']);
+Route::post('/edit-file-public/edit',  [TextEditorController::class, 'updateFilePublic']);

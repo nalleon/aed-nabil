@@ -75,5 +75,14 @@ li{
     text-decoration: none;
 }
 
+.radio-container{
+    font-variant: small-caps;
+    text-transform: lowercase;
+}
+
+label{
+    font-weight: bolder;
+}
+
 
 

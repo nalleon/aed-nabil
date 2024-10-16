@@ -39,14 +39,16 @@ Route::get('/text-editor', function () {
 
 Route::post('/write-text', [TextEditorController::class, 'writeText']);
 // Show directories files of the user (private)
-Route::get('directory-files/{directory}', [TextEditorController::class, 'showDirectoryFiles']);
+Route::get('directory-files/{directory}', 
+[TextEditorController::class, 'showDirectoryFiles'])->name('showPrivateDirectoryFiles');
 
 // Show public files of the user (public)
-Route::get('directory-public-files/{directory}', [TextEditorController::class, 'showPublicDirectoryFiles']);
+Route::get('directory-public-files/{directory}', 
+[TextEditorController::class, 'showPublicDirectoryFiles'])->name('showPublicDirectoryFiles');
 
 // Edit the selected file
-Route::post('/edit-file',  [TextEditorController::class, 'editFile']);
-Route::post('/edit-file-public',  [TextEditorController::class, 'editFilePublic']);
+Route::post('/edit-file',  [TextEditorController::class, 'editFile'])->name('edit-private');
+Route::post('/edit-file-public',  [TextEditorController::class, 'editFilePublic'])->name('edit-public');
 
 // Update the selected file
 Route::post('/edit-file/edit', [TextEditorController::class, 'updateFile']);

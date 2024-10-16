@@ -39,7 +39,7 @@ input[type="submit"] {
     color: #f3f3f3;
     border-radius: 30px;
     cursor: pointer;
-    width: 7rem;
+    width: 100%;
     align-self: center;
     font-variant: small-caps;
     text-transform: lowercase;

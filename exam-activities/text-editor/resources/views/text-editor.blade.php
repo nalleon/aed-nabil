@@ -24,7 +24,7 @@
         </script>
 
         <title>Text-Editor</title>
-        <link rel="stylesheet" href="./style/text-editor.css">
+        <link rel="stylesheet" href="{{ asset('style/text-editor.css') }}">
     </head>
 
     <body class="antialiased">

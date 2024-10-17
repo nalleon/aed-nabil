@@ -586,4 +586,143 @@ class Practice13Controller extends Controller
 
 </br>
 
+
+### Práctica 17
+
+> 📂
+>Crear un formulario que se introduzca un nombre y cree un directorio en
+storage con ese nombre
+>
+
+```code
+Route::get('/practice17', function (){
+    return view('/practice17');
+});
+
+Route::post('/create-directory', [Practice17Controller::class 'createDirectory']);
+```
+
+- practice17Controller.php
+
+```code
+class Practice17Controller extends Controller
+{
+    public function createDirectory(Request $request){
+        $directory = $request->input('directory');
+        if($directory ==! null){
+            Storage::makeDirectory('/' . $directory, 700, true);
+            echo "Directory created successfully";
+        }
+        return view('/practice17');
+    }
+
+}
+```
+
+- practice17.blade.php
+
+```code
+     <form method="POST" action="{{ url('/create-directory')}}">
+        @csrf
+        @if(isset($directory))
+            <input type="hidden" name="id" value="{{ $color->id }}">
+        @endif
+        <label for="directory">Directory's name: </label>
+        <input type="text" name="directory" id="directory">
+        <br>
+        <input type="submit" name="submit" id="submit" value="Send">
+    </form>
+    <br>
+    <div class="history">
+            
+    </div>
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p17-1.png"/>
+<img src="./img/p17-2.png"/>
+<img src="./img/p17-3.png"/>
+</div>
+
+</br>
+
+### Práctica 17
+
+> 📂
+>Crear un formulario que se introduzca un nombre y cree un directorio en
+storage con ese nombre
+>
+
+```code
+Route::get('/practice18', function (){
+    return view('/practice18');
+});
+
+Route::post('/read-file', [Practice18Controller::class, 'readFile']);
+```
+
+- practice18Controller.php
+
+```code
+class Practice18Controller extends Controller
+class Practice18Controller extends Controller
+{
+    public function readFile(Request $request) {
+        if (!$request->hasFile('myFile')) {
+            return back()->withErrors(['myFile' => 'No se ha subido ningún archivo.']);
+        }
+
+      
+        $file = $request->file('myFile');
+
+        $content = [];
+
+        $fileOriginalName = $file->getClientOriginalName();
+
+        $path =$file->storeAs("/", $fileOriginalName);
+        
+        if (($open = fopen(storage_path('app/' . $path), "r")) !== FALSE) {
+            while (($data = fgetcsv($open, 1000, ",")) !== FALSE) {
+                $content[] = $data;
+            }
+            fclose($open);
+        }
+
+        return redirect('/practice18')->with('content', $content);
+    }
+}
+
+```
+
+- practice18.blade.php
+
+```code
+    <form method="POST" action="{{ url('/read-file')}}" enctype='multipart/form-data' >
+        @csrf
+        <input type="file" name="myFile" id="myFile">
+        <br>
+        <input type="submit" name="submit" id="submit" value="Send">
+    </form>
+    <br>
+    <div class="history">
+        @if (session('content') && count(session('content')) > 0)
+            <ul>
+                @foreach (session('content') as $row)
+                    <li>{{ implode(', ', $row) }}</li>
+                @endforeach
+            </ul>
+        @endif
+    </div>
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p18.png"/>
+</div>
+
+</br>
+
 </div>

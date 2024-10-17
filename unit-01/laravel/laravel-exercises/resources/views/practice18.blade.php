@@ -7,7 +7,7 @@
     <title>Practice18</title>
 </head>
 <body class="antialiased">
-    <form method="POST" action="{{ url('/read-file')}}">
+    <form method="POST" action="{{ url('/read-file')}}" enctype='multipart/form-data' >
         @csrf
         <input type="file" name="myFile" id="myFile">
         <br>
@@ -15,7 +15,13 @@
     </form>
     <br>
     <div class="history">
-
+        @if (session('content') && count(session('content')) > 0)
+            <ul>
+                @foreach (session('content') as $row)
+                    <li>{{ implode(', ', $row) }}</li>
+                @endforeach
+            </ul>
+        @endif
     </div>
 </body>
 </html>

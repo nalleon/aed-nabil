@@ -587,6 +587,53 @@ class Practice13Controller extends Controller
 </br>
 
 
+### Práctica 14
+
+> 📂
+>Una forma fácil de visualizar el token csrf es mediante: {{ csrf_token() }}
+Introducir en la práctica 12 ese código y comprobar que está activo.
+>
+
+- practice12.blade.php modificado
+
+```code
+<body class="antialiased">
+    <p>CSRF Token: {{ csrf_token() }}</p>
+    @foreach ($imgArray as $img)
+        <img src="img/{{$img}}" alt="practice12">
+    @endforeach
+</body>
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p14.png"/>
+</div>
+
+<br>
+
+
+### Práctica 15
+
+> 📂
+>Crear un formulario POST Con los datos de un posible usuario ( nombre,
+edad, gustos, etc ) En cada ejecución de este formulario se le muestra al usuario la información almacenada del usuario en session() Observar que si se envía el formulario sin rellenar algún campo, se mantendrá la información anterior respecto a ese campo
+>
+
+
+```code
+
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p14.png"/>
+</div>
+
+<br>
+
 ### Práctica 17
 
 > 📂
@@ -648,7 +695,7 @@ class Practice17Controller extends Controller
 
 </br>
 
-### Práctica 17
+### Práctica 18
 
 > 📂
 >Crear un formulario que se introduzca un nombre y cree un directorio en

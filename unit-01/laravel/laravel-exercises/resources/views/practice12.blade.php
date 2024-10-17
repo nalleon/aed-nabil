@@ -13,8 +13,8 @@
     </style>
 </head>
 <body class="antialiased">
+    <p>CSRF Token: {{ csrf_token() }}</p>
     @foreach ($imgArray as $img)
-        <!-- start point of src is public directory -->
         <img src="img/{{$img}}" alt="practice12">
     @endforeach
 </body>

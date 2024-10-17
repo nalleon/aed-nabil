@@ -113,3 +113,8 @@ Route::post('/delete-color/{id}', [Practice13Controller::class, 'deleteColor']);
 
  Route::post('/read-file', [Practice18Controller::class, 'readFile']);
 
+ /**
+  * Una forma fácil de visualizar el token csrf es mediante: {{ csrf_token() }} 
+  * Introducir en la práctica 12 ese código y comprobar que está activo.
+  */
+  

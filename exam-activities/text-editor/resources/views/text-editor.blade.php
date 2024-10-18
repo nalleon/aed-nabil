@@ -83,7 +83,7 @@
             </div>
             </br>
             <div class="action-container">
-                <form action="{{ url('write-text') }}" method="POST" id="">
+            <form action="{{ url('write-text') }}" method="POST" id="">
                     @csrf
                     <input type="hidden" id="username" name="username" value="{{ $username }}"></input>
 

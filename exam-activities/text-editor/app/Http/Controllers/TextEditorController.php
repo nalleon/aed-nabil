@@ -24,8 +24,6 @@ class TextEditorController extends Controller
     public function writeText(Request $request){
         $this->checkUser($request);
 
-        //session(['user' => $newUser]);
-
         $username = $request->input('username');
         $filename = $request->input('filename');
         $fileaccess = $request->input('fileaccess');
@@ -55,8 +53,12 @@ class TextEditorController extends Controller
         $files = Storage::files($directoryPath);
 
         rsort($files);
-    
-        return view('directory-files', compact('directory', 'files'));
+
+        $recentFile = $files[0];
+        $content = Storage::get($recentFile);
+
+        return view('directory-files', compact('directory', 'files', 
+        'recentFile', 'content'));
     }
 
     public function showPublicDirectoryFiles($directory){
@@ -110,6 +112,7 @@ class TextEditorController extends Controller
         $content = $request->input('content');
         $arr = explode('/', $filename);
         $arrDirectory = $arr;
+        dd($arrDirectory);
         $directory = $arrDirectory[0] . '/' . $arrDirectory[1];
         $arrDirectory = explode('_', $filename);
         $arrFileName = $arrDirectory[2];

@@ -49,7 +49,7 @@
                     </textarea>
                     </br>
                     </br>
-                    <input type="submit" id="submit" value="Updated">
+                    <input type="submit" id="submit" value="Update">
                 </form>
             </div>
             <br>

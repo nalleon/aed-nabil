@@ -57,7 +57,7 @@ class TextEditorController extends Controller
         $recentFile = $files[0];
         $content = Storage::get($recentFile);
 
-        return view('directory-files', compact('directory', 'files', 
+        return view('directory-files', compact('directory', 'files',
         'recentFile', 'content'));
     }
 
@@ -68,8 +68,10 @@ class TextEditorController extends Controller
         $files = Storage::files($directoryPath);
 
         rsort($files);
+        $recentFile = $files[0];
+        $content = Storage::get($recentFile);
 
-        return view('directory-public-files', compact('directory', 'files'));
+        return view('directory-public-files', compact('directory', 'files','recentFile', 'content'));
     }
 
 
@@ -79,13 +81,12 @@ class TextEditorController extends Controller
         $file = $request->input('filename');
         $content = Storage::get($file);
 
-
         $arr = explode('_', $file);
         $aux = $arr[2];
-      
+
         $arrAux = explode('.', $aux);
         $username = $arrAux[0];
-        
+
         $userSession = session()->get('user');
         $usernameSession = $userSession->getUsername();
 
@@ -112,14 +113,14 @@ class TextEditorController extends Controller
         $content = $request->input('content');
         $arr = explode('/', $filename);
         $arrDirectory = $arr;
-        dd($arrDirectory);
+        //dd($arrDirectory);
         $directory = $arrDirectory[0] . '/' . $arrDirectory[1];
         $arrDirectory = explode('_', $filename);
         $arrFileName = $arrDirectory[2];
 
         date_default_timezone_set('Atlantic/Canary');
         $fileNameDate = date('Y-m-d_H-i-s').'_'. $arrFileName;
-   
+
         Storage::put($directory . '/' . $fileNameDate, $content);
         return redirect('/text-editor');
     }
@@ -133,7 +134,7 @@ class TextEditorController extends Controller
         $content = $request->input('content');
 
         $arr = explode('/', $file);
-      
+
         $arrDirectory = $arr;
 
         $arrDirectory = explode('_', $file);

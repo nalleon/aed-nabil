@@ -6,7 +6,7 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 100%;
 }
 
 .main-container {
@@ -33,17 +33,19 @@ h2 {
 }
 
 
+
 input[type="submit"] {
     background-color: #7d8b4a;
     border: #6d7941;
     color: #f3f3f3;
     border-radius: 30px;
     cursor: pointer;
-    width: 7rem;
+    width: 10rem;
     align-self: center;
     font-variant: small-caps;
     text-transform: lowercase;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+    font-weight: bolder;
 }
 
 
@@ -84,5 +86,22 @@ label{
     font-weight: bolder;
 }
 
+.editing-file{
+    font-variant: small-caps;
+    text-transform: lowercase;
+    color: #0e0e0e;
+    font-size: 1.3rem;
+}
+
+
+.back{
+    margin: 2rem;
+    align-items: center;
+    text-align: center;
+}
+
+.action-container{
+    text-align: center;
+}
 
 

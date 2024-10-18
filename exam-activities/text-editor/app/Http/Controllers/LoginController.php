@@ -14,7 +14,7 @@ class LoginController extends Controller
         $username = trim($request->input('username'));
 
 
-        if($username == 'public' || $username == ''){
+        if($username == 'public' || $username == '' || $username == '/'){
             return redirect()->route('login');
         }
 

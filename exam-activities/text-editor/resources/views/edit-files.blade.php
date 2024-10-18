@@ -41,8 +41,8 @@
             <div class="action-container">
                 <form action="{{ url('/edit-file/edit') }}" method="POST">
                     @csrf
-                    <input type="text" id="filename" name="filename" value="{{$file}}"></input>
-                    </br>
+                    <h3 class="editing-file">Editing file: {{basename($file)}}</h3>
+                    <input type="hidden" id="filename" name="filename" value="{{$file}}"></input>
                     </br>
                     <textarea id="editor" name="content" rows="20" cols="80" placeholder="Write here">
                         {{$content}}
@@ -53,9 +53,14 @@
                 </form>
             </div>
             <br>
-
         </div>
-
+        <br>
+        <div class="back">
+            <form action="{{ url('/text-editor') }}" method="GET">
+                <input type="submit" value="Home">
+            </form>
+        </div>
+        <br>
         <script>
             document.querySelector('form').addEventListener('submit', function(event) {
                 event.preventDefault();

@@ -13,6 +13,24 @@ class TextEditorController extends Controller
         }
     }
 
+
+    public function checkValidContent($content){
+        if (trim($content) === '') {
+            $message = 'The content cannot be empty.';
+            return $message;
+        }
+        return null;
+    }
+
+    public function checkValidFileName($filename){
+        if (!preg_match('/^[a-zA-Z0-9]+$/', $filename)) {
+            $message = 'Use a valid name for the file without special characters.';
+            return $message;
+        }
+        return null;
+    }
+
+
     public function showTextEditor(){
         $this->checkUser();
 
@@ -28,19 +46,17 @@ class TextEditorController extends Controller
     public function writeText(Request $request){
         $this->checkUser();
 
-       
         $filename = $request->input('filename');
-
-        if (!preg_match('/^[a-zA-Z0-9]+$/', $filename)) {
-            $message = 'Use a valid name for the file without special characters.';
-            return redirect()->route('startpage')->with(compact('message'));
+        $this->checkValidFileName($filename);
+        if($this->checkValidFileName($filename) !== null){
+            $message = $this->checkValidFileName($filename);
+            return redirect()->route('startpage')->with(compact('message'))->send();
         }
 
         $content = $request->input('content');
-
-        if (trim($content) === '') {
-            $message = 'The content cannot be empty.';
-            return redirect()->route('startpage')->with(compact('message'));
+        if($this->checkValidContent($content) !== null){
+            $message = $this->checkValidContent($content);
+            return redirect()->route('startpage')->with(compact('message'))->send();
         }
 
         $username = $request->input('username');
@@ -118,7 +134,15 @@ class TextEditorController extends Controller
         $usernameSession = $userSession->getUsername();
 
         $filename = $request->input('filename');
+        $fileTypeArr = explode('/', $filename);
+
         $content = $request->input('content');
+
+        if($this->checkValidContent($content) !== null){
+            $message = $this->checkValidContent($content);
+            return redirect()->route('startpage')->with(compact('message'))->send();
+        }
+        
         $arr = explode('/', $filename);
         $arrDirectory = $arr;
         $directory = $arrDirectory[0] . '/' . $arrDirectory[1];

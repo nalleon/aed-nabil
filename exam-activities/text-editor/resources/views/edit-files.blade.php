@@ -39,6 +39,9 @@
         <div class="main-container">
             <br>
             <div class="action-container">
+                @if (session('message'))
+                    <h4>{{ session('message') }}</h4>
+                @endif
                 <form action="{{ url('/edit-file/update') }}" method="POST">
                     @csrf
                     <h3 class="editing-file">Editing file: {{basename($file)}}</h3>

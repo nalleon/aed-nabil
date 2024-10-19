@@ -22,6 +22,7 @@ class LoginController extends Controller
 
         if($userExists !== null){
             session(['user' => $userExists]);
+            session()->regenerate();
             return redirect('/text-editor');
         }
 
@@ -32,7 +33,11 @@ class LoginController extends Controller
         $newUser->setId($id);
         $newUser->setUsername($username);
 
-        session(['user' => $newUser]);
+        $user = $newUser;
+
+        session(['user' => $user]);
+        session()->regenerate();
+
 
         $open = fopen($filePath, 'a');
         if($open){
@@ -43,7 +48,7 @@ class LoginController extends Controller
             fclose($open);
         }
 
-        return redirect('/text-editor', compact('user'));
+        return redirect()->route('startpage');
     }
 
 
@@ -89,8 +94,11 @@ class LoginController extends Controller
 
     public function logout(){
         session()->flush();
+        session()->regenerate();
+        $message = 'You have successfully logged out. Log in again to access the editor.';
+
         return redirect()->route('login')->with
-         ('message', 'You have successfully logged out. Log in again to acces the editor.');
+        ('message', $message);
     }
 
 }

@@ -28,18 +28,6 @@
     </head>
 
     <body class="antialiased">
-        @php
-            $user = session('user');
-            if(!$user){
-                return redirect()->route('login');
-            }
-
-            $username = $user->getUsername();
-
-            $directories = Storage::directories($username);
-            $publicDirectories = Storage::directories('public');
-        @endphp
-
         <div class="logout">
             <form action="{{url('/logout')}}" method="POST">
                 @csrf
@@ -59,7 +47,7 @@
                     <ul>
                         @foreach ($directories as $directory)
                             <li>
-                                <a href="{{ url('directory-files/' . basename($directory)) }}">
+                                <a href="{{ url('directory-files/' . $username . '/' . basename($directory)) }}">
                                     {{ basename($directory) }}
                                 </a>
                             </li>
@@ -72,13 +60,13 @@
                     <ul>
                         @foreach ($publicDirectories as $directory)
                             <li>
-                                <a href="{{ url('directory-public-files/' . basename($directory)) }}">
+                                <a href="{{ url('directory-files/public/' . basename($directory)) }}">
                                     {{ basename($directory) }}
                                 </a>
                             </li>
                         @endforeach
                     </ul>
-                </div>
+                </div>                
                 </br>
             </div>
             </br>
@@ -87,6 +75,10 @@
                     @csrf
                     <input type="hidden" id="username" name="username" value="{{ $username }}"></input>
 
+                    @if (session('message'))
+                        <h4>{{ session('message') }}</h4>
+                    @endif
+                 
                     <input type="text" id="filename" name="filename" placeholder="File's name"></input>
                     </br>
                     </br>

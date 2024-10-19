@@ -33,23 +33,18 @@ Route::post('/logout',  [LoginController::class, 'logout'])->name('logout');
  * Text editor
  */
 
-Route::get('/text-editor', function () {
-    return view('text-editor');
-})->name('startpage');
+// Show the text editor page
+Route::get('/text-editor', [TextEditorController::class, 'showTextEditor'])->name('startpage');
 
+// Write files
 Route::post('/write-text', [TextEditorController::class, 'writeText']);
-// Show directories files of the user (private)
-Route::get('directory-files/{directory}', 
-[TextEditorController::class, 'showDirectoryFiles'])->name('showPrivateDirectoryFiles');
 
-// Show public files of the user (public)
-Route::get('directory-public-files/{directory}', 
-[TextEditorController::class, 'showPublicDirectoryFiles'])->name('showPublicDirectoryFiles');
+// Show directories files 
+Route::get('directory-files/{type}/{directory}', 
+[TextEditorController::class, 'showDirectoryFiles'])->name('showDirectoryFiles');
 
 // Edit the selected file
-Route::post('/edit-file',  [TextEditorController::class, 'editFile'])->name('edit-private');
-Route::post('/edit-file-public',  [TextEditorController::class, 'editFilePublic'])->name('edit-public');
+Route::any('/edit-file',  [TextEditorController::class, 'editFile'])->name('edit');
 
 // Update the selected file
-Route::post('/edit-file/edit', [TextEditorController::class, 'updateFile']);
-Route::post('/edit-file-public/edit',  [TextEditorController::class, 'updateFilePublic']);
+Route::post('/edit-file/update', [TextEditorController::class, 'updateFile']);

@@ -39,7 +39,7 @@
         <div class="main-container">
             <br>
             <div class="action-container">
-                <form action="{{ url('/edit-file/edit') }}" method="POST">
+                <form action="{{ url('/edit-file/update') }}" method="POST">
                     @csrf
                     <h3 class="editing-file">Editing file: {{basename($file)}}</h3>
                     <input type="hidden" id="filename" name="filename" value="{{$file}}"></input>

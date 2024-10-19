@@ -27,14 +27,6 @@
     <link rel="stylesheet" href="{{ asset('style/directory-files.css') }}">
 </head>
 <body>
-    @php
-        $user = session('user');
-        if(!$user){
-            return redirect()->route('login');
-        }
-
-        $username = $user->getUsername();
-    @endphp
 
     <div class="logout">
         <form action="{{url('/logout')}}" method="POST">
@@ -56,7 +48,6 @@
                                 <form action="{{ url('/edit-file') }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="filename" value="{{ $file }}">
-                                    <input type="hidden" name="username" value="{{ $username }}">
                                     <input type="submit" value="{{ basename($file) }}" class="versions">
                                 </form>
                             </li>
@@ -70,7 +61,7 @@
         </br>
         <div class="action-container">
                  <h3 class="editing-file">Editing last file: {{basename($recentFile)}}</h3>
-                 <form action="{{ url('/edit-file/edit') }}" method="POST">
+                 <form action="{{ url('/edit-file/update') }}" method="POST">
                     @csrf
                     <input type="hidden" id="filename" name="filename" value="{{$file}}"></input>
                     <textarea id="editor" name="content" rows="20" cols="80" placeholder="Write here">

@@ -7,27 +7,45 @@ use Illuminate\Support\Facades\Storage;
 
 class TextEditorController extends Controller
 {
-    /**
-     * for each file
-     * mkdir ->  filename
-     *       ---> 2024-10-14_14:48:30_username.txt
-     *
-     */
-
-
-    public function checkUser(Request $request){
-        if(!isset($request->user)){
-            return redirect()->route('login');
+    public function checkUser(){
+        if(!session()->has('user')){
+            return redirect()->route('login')->send();
         }
     }
 
+
+    public function showTextEditor(){
+        $this->checkUser();
+
+        $user = session('user');
+        $username = $user->getUsername();
+
+        $directories = Storage::directories($username);
+        $publicDirectories = Storage::directories('public');
+
+        return view('text-editor', compact('username', 'directories', 'publicDirectories'));
+    }
+
     public function writeText(Request $request){
-        $this->checkUser($request);
+        $this->checkUser();
+
+       
+        $filename = $request->input('filename');
+
+        if (!preg_match('/^[a-zA-Z0-9]+$/', $filename)) {
+            $message = 'Use a valid name for the file without special characters.';
+            return redirect()->route('startpage')->with(compact('message'));
+        }
+
+        $content = $request->input('content');
+        
+        if (trim($content) === '') {
+            $message = 'The content cannot be empty.';
+            return redirect()->route('startpage')->with(compact('message'));
+        }
 
         $username = $request->input('username');
-        $filename = $request->input('filename');
         $fileaccess = $request->input('fileaccess');
-        $content = $request->input('content');
 
         $directory=$username . "/" . $filename;
         date_default_timezone_set('Atlantic/Canary');
@@ -37,19 +55,24 @@ class TextEditorController extends Controller
             Storage::makeDirectory($directory, 700, true);
             Storage::put($directory ."/". $filenameToCreate, $content);
         } else {
-            $directory = "files";
+            $directory = $filename;
             date_default_timezone_set('Atlantic/Canary');
-            $filenameToCreate = $filename.'_' . date('Y-m-d_H-i-s').'_'.$username . ".txt";
+            $filenameToCreate = date('Y-m-d_H-i-s').'_'.$username . ".txt";
             Storage::put("/public/". $directory . "/" . $filenameToCreate, $content);
         }
 
         return redirect()->route('startpage');
     }
 
-    public function showDirectoryFiles($directory){
+    public function showDirectoryFiles($type, $directory){
         $username = session('user')->getUsername();
 
         $directoryPath = $username . '/' . $directory;
+
+        if($type == 'public'){
+           $directoryPath = $type . '/' . $directory;
+        }
+
         $files = Storage::files($directoryPath);
 
         rsort($files);
@@ -61,22 +84,9 @@ class TextEditorController extends Controller
         'recentFile', 'content'));
     }
 
-    public function showPublicDirectoryFiles($directory){
-        $username = session('user')->getUsername();
-
-        $directoryPath = 'public/files';
-        $files = Storage::files($directoryPath);
-
-        rsort($files);
-        $recentFile = $files[0];
-        $content = Storage::get($recentFile);
-
-        return view('directory-public-files', compact('directory', 'files','recentFile', 'content'));
-    }
-
 
     public function editFile(Request $request){
-        $this->checkUser($request);
+        $this->checkUser();
 
         $file = $request->input('filename');
         $content = Storage::get($file);
@@ -87,68 +97,40 @@ class TextEditorController extends Controller
         $arrAux = explode('.', $aux);
         $username = $arrAux[0];
 
-        $userSession = session()->get('user');
-        $usernameSession = $userSession->getUsername();
+        $fileTypeArr = explode('/', $file);
+        
+        if ($fileTypeArr[0] !== 'public'){
+            $userSession = session()->get('user');
+            $usernameSession = $userSession->getUsername();
 
-        if($usernameSession!= $username){
-            abort(403, 'Unauthorized action.');
+            if($usernameSession!= $username){
+                abort(403, 'Unauthorized action.');
+            }
         }
+       
 
         return view('edit-files', compact('file', 'content'));
     }
 
-    public function editFilePublic(Request $request){
-        $this->checkUser($request);
-
-        $file = $request->input('filename');
-        $content = Storage::get($file);
-
-        return view('edit-files-public', compact('file', 'content'));
-    }
-
     public function updateFile(Request $request){
-        $this->checkUser($request);
+        $this->checkUser();
+
+        $userSession = session()->get('user');
+        $usernameSession = $userSession->getUsername();
 
         $filename = $request->input('filename');
         $content = $request->input('content');
         $arr = explode('/', $filename);
         $arrDirectory = $arr;
-        //dd($arrDirectory);
         $directory = $arrDirectory[0] . '/' . $arrDirectory[1];
-        $arrDirectory = explode('_', $filename);
-        $arrFileName = $arrDirectory[2];
+        $arrUserName = $usernameSession . '.txt';
 
         date_default_timezone_set('Atlantic/Canary');
-        $fileNameDate = date('Y-m-d_H-i-s').'_'. $arrFileName;
+        $fileNameDate = date('Y-m-d_H-i-s').'_'. $arrUserName;
 
         Storage::put($directory . '/' . $fileNameDate, $content);
-        return redirect('/text-editor');
+        return redirect()->route('startpage');
     }
-
-    public function updateFilePublic(Request $request){
-        $this->checkUser($request);
-        $userSession = session()->get('user');
-        $usernameSession = $userSession->getUsername();
-
-        $file = $request->input('filename');
-        $content = $request->input('content');
-
-        $arr = explode('/', $file);
-
-        $arrDirectory = $arr;
-
-        $arrDirectory = explode('_', $file);
-
-        $arrFileName = $arrDirectory[0];
-        $userFile = $usernameSession . '.txt';
-
-        date_default_timezone_set('Atlantic/Canary');
-        $fileNameDate = $arrFileName . '_' . date('Y-m-d_H-i-s').'_'. $userFile;
-        Storage::put($fileNameDate, $content);
-        return redirect('/text-editor');
-    }
-
-
 
 
 }

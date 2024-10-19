@@ -54,19 +54,18 @@ class LoginController extends Controller
 
 
    public function createId($filePath){
-    if(file_exists($filePath)){
-        $open = fopen($filePath, 'r');
-        $id = 1;
-        while (($data = fgetcsv($open, 1000, ','))!== false) {
-            if(isset($data[0])){
-                $actualId = (int)$data[0];
+        $id = 0;
+        if(file_exists($filePath)){
+            $open = fopen($filePath, 'r');
+            while (($data = fgetcsv($open, 1000, ','))!== false) {
+                if(isset($data[0])){
+                    $actualId = (int)$data[0];
+                    $id = max($id, $actualId);
+                }
             }
-            $id = max($id, $actualId);
+            fclose($open);
         }
-        fclose($open);
         return $id+1;
-    }
-    return 1;
    }
 
    public function getUserIfExists($username, $filePath){

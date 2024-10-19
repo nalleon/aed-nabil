@@ -59,8 +59,8 @@
         </div>
         <br>
         <div class="back">
-            <form action="{{ url('/text-editor') }}" method="GET">
-                <input type="submit" value="Home">
+            <form action="{{ url()->previous() }}" method="GET">
+                <input type="submit" value="Back">
             </form>
         </div>
         <br>

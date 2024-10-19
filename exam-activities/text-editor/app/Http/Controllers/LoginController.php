@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\UserModel;
 
-
+/**
+ * @author Nabil L. A. (nalleon)
+ */
 class LoginController extends Controller
 {
+    /**
+     * Function to crearte a new user
+     */
      public function createUser(Request $request){
 
         $filePath = storage_path('app/users.csv');
@@ -51,8 +56,9 @@ class LoginController extends Controller
         return redirect()->route('startpage');
     }
 
-
-
+    /**
+     * Funciton to create an id for the user
+     */
    public function createId($filePath){
         $id = 0;
         if(file_exists($filePath)){
@@ -68,6 +74,9 @@ class LoginController extends Controller
         return $id+1;
    }
 
+   /**
+    * Function to check if a user exists
+    */
    public function getUserIfExists($username, $filePath){
         if(!file_exists($filePath)){
             return redirect('/');
@@ -91,13 +100,16 @@ class LoginController extends Controller
 
     }
 
+    /**
+     * Function to logout a user
+     */
+
     public function logout(){
         session()->flush();
         session()->regenerate();
         $message = 'You have successfully logged out. Log in again to access the editor.';
 
-        return redirect()->route('login')->with
-        ('message', $message);
+        return redirect()->route('login')->with('message', $message);
     }
 
 }

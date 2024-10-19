@@ -5,15 +5,23 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * @author Nabil L. A. (nalleon)
+ */
 class TextEditorController extends Controller
 {
+    /**
+     * Method to check if the session has an user
+     */
     public function checkUser(){
         if(!session()->has('user')){
             return redirect()->route('login')->send();
         }
     }
 
-
+    /**
+     * Method to check if the content is valid
+     */
     public function checkValidContent($content){
         if (trim($content) === '') {
             $message = 'The content cannot be empty.';
@@ -22,6 +30,9 @@ class TextEditorController extends Controller
         return null;
     }
 
+     /**
+     * Method to check if the filename is valid
+     */
     public function checkValidFileName($filename){
         if (!preg_match('/^[a-zA-Z0-9]+$/', $filename)) {
             $message = 'Use a valid name for the file without special characters.';
@@ -30,7 +41,9 @@ class TextEditorController extends Controller
         return null;
     }
 
-
+    /**
+     * Function to show the editor
+     */
     public function showTextEditor(){
         $this->checkUser();
 
@@ -43,6 +56,9 @@ class TextEditorController extends Controller
         return view('text-editor', compact('username', 'directories', 'publicDirectories'));
     }
 
+    /**
+     * Function to write the text
+     */
     public function writeText(Request $request){
         $this->checkUser();
 
@@ -79,6 +95,10 @@ class TextEditorController extends Controller
         return redirect()->route('startpage');
     }
 
+    /**
+     * Function to show the files in a directory
+     */
+
     public function showDirectoryFiles($type, $directory){
         $username = session('user')->getUsername();
 
@@ -100,6 +120,9 @@ class TextEditorController extends Controller
     }
 
 
+    /*
+    * Function to edit a file in the directory
+    */
     public function editFile(Request $request){
         $this->checkUser();
 
@@ -127,6 +150,9 @@ class TextEditorController extends Controller
         return view('edit-files', compact('file', 'content'));
     }
 
+    /**
+     * Function to save the changes of a file
+     */
     public function updateFile(Request $request){
         $this->checkUser();
 

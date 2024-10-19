@@ -28,83 +28,84 @@
     </head>
 
     <body class="antialiased">
-        <div class="logout">
-            <form action="{{url('/logout')}}" method="POST">
-                @csrf
-                <input type="submit" value="Logout">
-            </form>
-        </div>
-
-        </br>
-        <div class="main-container">
-
-            <h3>Welcome, {{ $username }}!</h3>
-
-
-            <div class="files">
-                <div class="private-files">
-                    <h2>Your files:</h2>
-                    <ul>
-                        @foreach ($directories as $directory)
-                            <li>
-                                <a href="{{ url('directory-files/' . $username . '/' . basename($directory)) }}">
-                                    {{ basename($directory) }}
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-                </br>
-                <div class="public-files">
-                    <h2>Public files:</h2>
-                    <ul>
-                        @foreach ($publicDirectories as $directory)
-                            <li>
-                                <a href="{{ url('directory-files/public/' . basename($directory)) }}">
-                                    {{ basename($directory) }}
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>                
-                </br>
-            </div>
-            </br>
-            <div class="action-container">
-            <form action="{{ url('write-text') }}" method="POST" id="">
+        <div class="outer-container">
+            <div class="logout">
+                <form action="{{url('/logout')}}" method="POST">
                     @csrf
-                    <input type="hidden" id="username" name="username" value="{{ $username }}"></input>
-
-                    @if (session('message'))
-                        <h4>{{ session('message') }}</h4>
-                    @endif
-                 
-                    <input type="text" id="filename" name="filename" placeholder="File's name"></input>
-                    </br>
-                    </br>
-                    <textarea id="editor" name="content" rows="20" cols="80" placeholder="Write here">
-
-                    </textarea>
-                    </br>
-                    <div class="radio-container">
-                        <label for="fileaccess">File access:</label>
-                            <input type="radio" id="fileaccess" name="fileaccess" value="public">
-                                Public
-                            </input>
-
-                            <input type="radio" id="fileaccess" name="fileaccess" value="private" checked>
-                                Private
-                            </input>
-                        </label>
-                    </div>
-                    </br>
-                    <input type="submit" id="submit" value="Send">
+                    <input type="submit" value="Logout">
                 </form>
             </div>
-            <br>
 
+            </br>
+            <div class="main-container">
+
+                <h1>Welcome, {{ $username }}!</h1>
+
+
+                <div class="files">
+                    <div class="private-files">
+                        <h2>Your files:</h2>
+                        <ul>
+                            @foreach ($directories as $directory)
+                                <li>
+                                    <a href="{{ url('directory-files/' . $username . '/' . basename($directory)) }}">
+                                        {{ basename($directory) }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    </br>
+                    <div class="public-files">
+                        <h2>Public files:</h2>
+                        <ul>
+                            @foreach ($publicDirectories as $directory)
+                                <li>
+                                    <a href="{{ url('directory-files/public/' . basename($directory)) }}">
+                                        {{ basename($directory) }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>                
+                    </br>
+                </div>
+                </br>
+                <div class="action-container">
+                <form action="{{ url('write-text') }}" method="POST" id="">
+                        @csrf
+                        <input type="hidden" id="username" name="username" value="{{ $username }}"></input>
+
+                        @if (session('message'))
+                            <h4>{{ session('message') }}</h4>
+                        @endif
+                    
+                        <input type="text" id="filename" name="filename" placeholder="File's name"></input>
+                        </br>
+                        </br>
+                        <textarea id="editor" name="content" rows="20" cols="80" placeholder="Write here">
+
+                        </textarea>
+                        </br>
+                        <div class="radio-container">
+                            <label for="fileaccess">File access:</label>
+                                <input type="radio" id="fileaccess" name="fileaccess" value="public">
+                                    Public
+                                </input>
+
+                                <input type="radio" id="fileaccess" name="fileaccess" value="private" checked>
+                                    Private
+                                </input>
+                            </label>
+                        </div>
+                        </br>
+                        <input type="submit" id="submit" value="Send">
+                    </form>
+                </div>
+                <br>
+
+            </div>
         </div>
-
         <script>
             document.querySelector('form').addEventListener('submit', function(event) {
                 event.preventDefault();

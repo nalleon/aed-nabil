@@ -13,7 +13,6 @@ class TextEditorController extends Controller
         }
     }
 
-
     public function showTextEditor(){
         $this->checkUser();
 
@@ -38,7 +37,7 @@ class TextEditorController extends Controller
         }
 
         $content = $request->input('content');
-        
+
         if (trim($content) === '') {
             $message = 'The content cannot be empty.';
             return redirect()->route('startpage')->with(compact('message'));

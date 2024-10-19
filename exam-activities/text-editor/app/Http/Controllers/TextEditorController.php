@@ -100,6 +100,7 @@ class TextEditorController extends Controller
      */
 
     public function showDirectoryFiles($type, $directory){
+        $this->checkUser();
         $username = session('user')->getUsername();
 
         $directoryPath = $username . '/' . $directory;

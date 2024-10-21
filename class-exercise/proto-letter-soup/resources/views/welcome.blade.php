@@ -19,18 +19,22 @@
         <br>
         <form action="playgame" method="POST">
             @csrf
-            @foreach ($soupLetters as $letter)
+            @foreach ($soupLetters as $line)
+                @foreach ( $line as $letter)
                 <input type="checkbox" name="letter[]" value="{{$letter}}">{{$letter}}</input>
+                @endforeach
             @endforeach
             <input type="submit" name="submit" value="Send"/>
         </form>
         </div>
-
+        <br>
+        <h3>History:</h3>
         <div class="selection">
-            @csrf
-            <ul>
-                <li>{{$selection}}</li>
-            </ul>
+            @if(isset($history))
+                @foreach ($history as $selected)
+                    <li>{{ $selected }}</li>
+                @endforeach
+            @endif
         </div>
 
     </body>

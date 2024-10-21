@@ -19,14 +19,17 @@ class Game extends Model
 
 
     public function generateLetters(){
-        for($i = 0; $i < $this->size*2; $i++){
-            $this->arrayLetters[$i] = chr(rand(65,90));
+        for($i = 0; $i < $this->size; $i++){
+            for ($j = 0; $j < $this->size; $j++) {
+                $this->arrayLetters[$i][$j] = chr(rand(65,90));
+            }
         }
         return $this->arrayLetters;
     }
 
+
     public function userInputValue($arraySelection){
-        $arrayWord = explode(',', $arraySelection);
+        $arrayWord = implode(',', $arraySelection);
         return $arrayWord;
     }
 

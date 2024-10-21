@@ -15,17 +15,43 @@ class GameController extends Controller
 
         $soupLetters = $game->generateLetters();
 
+        session(['soupLetters' => $soupLetters]);
+
         return view('welcome', compact('soupLetters'));
     }
 
     public function playgame (Request $request){
         $arrSelection = [];
-        $selection = $request->get('letter');
-        dd($selection);
+        $soupLetters = session('soupLetters', []);
 
-        $arrSelection = array_push($selection);
+        $selection = $request->get('letter', []);
+        //dd($selection);
 
-        return view('welcome', compact('arrSelection'));
+        $selectionString = implode('', $selection);
 
+
+        $arrSelection = $selection;
+
+        $history = session('history', []);
+        $history[] = $selectionString;
+
+        session(['history' => $history]);
+        
+        $word = $this->userInputValue($selection);
+
+        session(['word' => $word]);
+        session(['selection' => $selection]);
+
+
+        return view('welcome', compact('soupLetters','selection', 'word', 'history'));
+
+    }
+
+    public function userInputValue($arraySelection){
+        if (is_array($arraySelection)) {
+            return $arraySelection;
+        }
+
+        return explode(',', $arraySelection);
     }
 }

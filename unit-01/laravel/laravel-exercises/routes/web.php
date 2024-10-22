@@ -16,6 +16,7 @@ use App\Http\Controllers\Practice16Controller;
 use App\Http\Controllers\Practice17Controller;
 use App\Http\Controllers\Practice18Controller;
 use App\Http\Controllers\Practice19Controller;
+use App\Http\Controllers\Practice20Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -153,3 +154,9 @@ Route::post('practice15/update', [Practice15Controller::class, 'handleForm']);
 
 Route::get('/practice19', [Practice19Controller::class, 'showFiles']);
 Route::get('/practice19/download/{filename}', [Practice19Controller::class, 'downloadFile']);
+
+// Practice 20
+
+Route::get('/practice20', [Practice20Controller::class, 'showFiles']);
+Route::get('/practice20/download/{filename}', [Practice20Controller::class, 'downloadFile']);
+Route::post('/practice20/delete/{filename}', [Practice20Controller::class, 'deleteFile']);

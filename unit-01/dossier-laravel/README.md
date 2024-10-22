@@ -950,18 +950,19 @@ Route::get('/practice19/download/{filename}', [Practice19Controller::class, 'dow
 ### Práctica 20
 
 > 📂
-> Mostrar en una página una lista de ficheros de una carpeta en storage.
-Cuando se pulse en el nombre del fichero se descargará
+> Continuando con el ejemplo anterior crear una opción para borrar los ficheros
+listados
 >
 
 - web.php
 
 ```code
-Route::get('/practice19', [Practice19Controller::class, 'showFiles']);
-Route::get('/practice19/download/{filename}', [Practice19Controller::class, 'downloadFile']);
+Route::get('/practice20', [Practice20Controller::class, 'showFiles']);
+Route::get('/practice20/download/{filename}', [Practice20Controller::class, 'downloadFile']);
+Route::post('/practice20/delete/{filename}', [Practice20Controller::class, 'deleteFile']);
 ```
 
-- practice19Controller.php
+- practice20Controller.php
 
 ```code
     public function showFiles(){
@@ -973,33 +974,41 @@ Route::get('/practice19/download/{filename}', [Practice19Controller::class, 'dow
     public function downloadFile($filename){
         return Storage::download('practice19/' . $filename);
     }
+
+    public function deleteFile($filename){
+        Storage::delete('practice20/' . $filename);
+        return redirect('/practice20');
+    }
 ```
 
-- practice19.blade.php
+- practice20.blade.php
 
 ```code
-    <div class="main-container">
-        <h1>Files in directory</h1>
-        <ul>
-            @foreach ($files as $file)
-                <li>
-                    <a href="{{ url('practice19/download/' . basename($file)) }}">{{ basename($file) }}</a>
-                </li>
-            @endforeach
-        </ul>
+<div class="main-container">
+    <h1>Files in directory</h1>
+    <ul>
+        @foreach ($files as $file)
+            <li>
+                <a href="{{ url('practice20/download/' . basename($file)) }}">{{ basename($file) }}</a>
+                <form action="{{ url('practice20/delete', basename($file)) }}" method="POST" style="display:inline;">
+                    @csrf
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        @endforeach
+    </ul>
 
-        @if ($files === null)
-            <p>There are no files in this directory.</p>
-        @endif
-    </div>
+    @if ($files === null)
+        <p>There are no files in this directory.</p>
+    @endif
+</div>
 ```
 
 - Captura:
 
 <div align="center">
-<img src="./img/p19-1.png"/>
-<img src="./img/p19-2.png"/>
-<img src="./img/p19-3.png"/>
+<img src="./img/p20-1.png"/>
+<img src="./img/p20-2.png"/>
 </div>
 
 </br>

@@ -1249,4 +1249,349 @@ Route::post('/task/update', [FormController::class, 'updateForm']);
 
 </br>
 
+
+#### To do list - Files
+
+- web.php
+
+```code
+Route::get('/', [FormController::class, 'getAllTasks']);
+Route::get('/task', [FormController::class, 'getTask']);
+Route::post('/task/create', [FormController::class, 'createTask']);
+Route::post('/task/delete', [FormController::class, 'deleteTask']);
+Route::post('/task/update', [FormController::class, 'updateForm']);
+```
+
+- task class:
+
+```code
+  /**
+     * @var int
+     */
+    public $id;
+
+    /**
+     * @var string
+     */
+    public $subject;
+
+    /**
+     * @var string
+     */
+    public $description;
+
+    /**
+     * @var bool
+     */
+    public $finished;
+
+    /**
+     * Task constructor.
+     *
+     * @param string $subject
+     * @param string $description
+     *
+     *
+     * */
+
+     public function __construct(string $subject = "", int $id = 0, string $description = "", bool $finished = false){
+        $this->subject = $subject;
+        $this->id = $id;
+        $this->description = $description;
+        $this->finished = $finished;
+    }
+
+    // getters and setters
+```
+
+
+- controller
+
+```code
+  /**
+     * Read file
+     */
+    public function getAllTasks(){
+        $filePath = storage_path('app/tasks.csv');
+
+        if(!file_exists($filePath)){
+            return redirect('/);
+        }
+
+        $tasks = [];
+
+
+        if(($open = fopen($filePath, 'r') )!== false){
+            while (($data = fgetcsv($open, 1000, ','))!== false) {
+                if(count($data) == 4){
+                    $tasks[] = new Task($data[0], 
+                                        $data[1], 
+                                        $data[2],
+                                        $data[3] === 'Closed'? true : false);
+            
+                }                    
+            }
+            fclose($open);
+            return view('startpage', compact('tasks'));
+        }
+    }
+        
+    /**
+     * Get specific file 
+     */
+
+    public function getTask(Request $request){
+
+        $id = $request->input('id');
+
+        $filePath = storage_path('app/tasks.csv');
+
+        if(!file_exists($filePath)){
+            return redirect('/');
+        }
+
+        $auxTask = null;
+
+        if(($open = fopen($filePath, 'r') )!== false){
+            while (($data = fgetcsv($open, 1000, ','))!== false) {
+                if($data[1] == $id){
+                    $auxTask =  new Task(
+                                $data[0], 
+                                $data[1], 
+                                $data[2],
+                                $data[3] === 'Closed'? true : false);
+                    break;
+                }                    
+
+            }
+
+            fclose($open);
+            return view('tasks', compact('auxTask'));
+        }
+    }
+
+    /**
+     * Create a new Task
+     */
+
+    public function createTask(Request $request){
+            $filePath = storage_path('app/tasks.csv');
+
+            $subject = $request->input('subject')??null;
+            $id = $this->getIdFromCsv($filePath);
+            $description=$request->input('description')??null;
+            $finished = $request->input('finished') === 'Closed' ? true : false; 
+
+            $newTask = new Task($subject, $id, $description, $finished);
+
+            $open = fopen($filePath, 'a');
+            if($open){
+                fputcsv($open,[
+                            $newTask->getSubject(),
+                            $newTask->getId(),
+                            $newTask->getDescription(),
+                            $newTask->getFinished() ? 'Closed' : 'Open'
+                        ]);
+                fclose($open);
+            }
+    
+        return redirect('/');
+    }
+
+    public function getIdFromCsv($filePath){
+        if(file_exists($filePath)){
+            $open = fopen($filePath, 'r');
+            $id = 1;
+            while (($data = fgetcsv($open, 1000, ','))!== false) {
+                if(isset($data[1])){
+                    $actualId = (int)$data[1];
+                }
+                $id = max($id, $actualId);
+            }
+            fclose($open);
+            return $id+1;
+        }
+        
+        return 1;
+    }
+    
+    public function updateForm(Request $request){
+
+        $filePath = storage_path('app/tasks.csv');
+
+        if(!file_exists($filePath)){
+            return redirect('/');
+        }
+
+        $subject = $request->input('subject');
+        $id = $request->input('id');
+        $description=$request->input('description');
+        $finished = $request->input('finished') === 'Closed' ? true : false;
+
+        $tasks = [];
+
+        if(($open = fopen($filePath, 'r'))!== false){
+            while (($data = fgetcsv($open, 1000, ','))!== false) {
+                if($data[1] == $id){
+                    $data[0] = $subject;
+                    $data[2] = $description;
+                    $data[3] = $finished ? 'Closed' : 'Open';
+                }                    
+                $tasks[] = $data;
+            }
+            fclose($open);
+        }
+
+        //var_dump($tasks);
+        //die();
+
+        if(($open = fopen($filePath, 'w'))!== false){
+            foreach($tasks as $task){
+                fputcsv($open, $task);
+            }
+            fclose($open);
+        }
+
+        return redirect('/');
+    }
+
+
+    /**
+     * @param Request $request for get the id of the item to delete
+     */
+    public function deleteTask(Request $request){
+
+        $filePath = storage_path('app/tasks.csv');
+
+        if(!file_exists($filePath)){
+            return redirect('/');
+        }
+
+
+        $id = $request->input('id');
+        $tasks = [];
+
+        if(($open = fopen($filePath, 'r'))!== false){
+            while (($data = fgetcsv($open, 1000, ','))!== false) {
+                if($data[1] != $id && count($data) >= 4){
+                    $task =  new Task(
+                                $data[0], 
+                                (int)$data[1], 
+                                $data[2],
+                                $data[3] === 'Closed'? true : false
+                            );
+                    $tasks[] = $task;
+                }                    
+               
+            }
+            fclose($open);
+        }
+
+
+        if(($open = fopen($filePath, 'w'))!== false){
+            foreach($tasks as $task){
+                fputcsv($open,[
+                    $task->getSubject(),
+                    $task->getId(),
+                    $task->getDescription(),
+                    $task->getFinished() ? 'Closed' : 'Open'
+                ]);     
+            }
+            fclose($open);
+        }
+
+        return redirect('/');
+
+    }
+```
+
+- startpage.blade.php:
+
+```code
+<div class="main-container">
+
+    <h2>ALL TASKS</h2>
+    <ul>
+        @foreach ($todolist as $task)
+            <li>
+                <a href="./task?id={{$task->id}}">{{ $task->subject }}</a>
+                <a href="./task?id={{$task->id}}">{{ $task->description }}</a>
+                <a href="./task?id={{$task->id}}">{{ $task->finished ? 'Finished' : 'Not finished' }}</a>
+
+                <form action="{{ url('task/delete') }}" method="POST" style="display:inline;">
+                    @csrf
+                    <input type="hidden" name="id" value="{{ $task->id }}">
+                    <input type="submit" name="delete" id="delete" value="Delete">
+                </form>
+            </li>
+        @endforeach
+    </ul>     
+
+    <form action="{{ url('task/create') }}" method="POST">
+        @csrf
+        <label for="subject">Task Subject:</label>
+        <input type="text" name="subject" id="subject" placeholder="Task subject" />
+        <br>
+        <label for="description">Task Description:</label>
+        <textarea cols="50" rows="5" name="description" id="description" placeholder="Task description"></textarea>
+        <br>
+        <label for="finished">Status:</label><br>
+        <div class="status-container">
+            <input type="radio" value="Open" name="finished" id="finishedOpen" checked> 
+            <label for="finishedOpen">Open</label><br>
+            <input type="radio" value="Closed" name="finished" id="finishedClosed"> 
+            <label for="finishedClosed">Closed</label><br>
+        </div>                
+        <br>
+        <input type="submit" name="create" value="Create">
+    </form>
+</div>   
+```
+
+- tasks.blade.php:
+
+```code
+<div class="main-container">
+    <h2>TASK TO UPDATE</h2>
+    <form action="{{ url('task/update')}}" method="POST" id="formTasks">
+        @csrf
+        <label for="subject">Task ID: {{$auxTask->id}}</label>
+        <br>
+        <input type="hidden" name="id" value="{{ $auxTask->id }}">
+        <input type="text" name="subject" id="subject" placeholder="Task subject" value="{{$auxTask->subject}}" />
+        <textarea cols="200" rows="5" name="description" placeholder="Task description" id="description">{{$auxTask->description}}</textarea>
+    
+        <label for="finished">Status:</label><br>
+        <div class="status-container">
+            @if ($auxTask->finished)
+                <input type="radio" value="Open" name="finished" id="finishedOpen"> 
+                <label for="finishedOpen">Open</label>
+                <input type="radio" value="Closed" name="finished" id="finishedClosed" checked> 
+                <label for="finishedClosed">Close</label>
+            @else
+                <input type="radio" value="Open" name="finished" id="finishedOpen" checked> 
+                <label for="finishedOpen">Open</label>
+                <input type="radio" value="Closed" name="finished" id="finishedClosed"> 
+                <label for="finishedClosed">Close</label>
+            @endif
+        </div>
+    
+        <input type="submit" name="submit" id="submit" value="Update">
+    </form>
+</div>
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/tdf-1.png"/>
+<img src="./img/tdf-2.png"/>
+<img src="./img/tdf-3.png"/>
+<img src="./img/tdf-4.png"/>
+<img src="./img/tdf-5.png"/>
+</div>
+
+</br>
+
+
 </div>

@@ -16,7 +16,7 @@ class FormController extends Controller
         $filePath = storage_path('app/tasks.csv');
 
         if(!file_exists($filePath)){
-            return redirect()->route('startpage');
+            return redirect('/');
         }
 
         $tasks = [];

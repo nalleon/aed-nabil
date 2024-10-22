@@ -11,6 +11,7 @@ use App\Http\Controllers\Practice10Controller;
 use App\Http\Controllers\Practice11Controller;
 use App\Http\Controllers\Practice12Controller;
 use App\Http\Controllers\Practice13Controller;
+use App\Http\Controllers\Practice15Controller;
 use App\Http\Controllers\Practice17Controller;
 use App\Http\Controllers\Practice18Controller;
 
@@ -118,3 +119,15 @@ Route::post('/delete-color/{id}', [Practice13Controller::class, 'deleteColor']);
   * Introducir en la práctica 12 ese código y comprobar que está activo.
   */
   
+
+  // Practice 15
+/**
+ * Crear un formulario POST Con los datos de un posible usuario 
+ * ( nombre, edad, gustos, etc ) En cada ejecución de este formulario se le muestra al
+ *  usuario la información almacenada del usuario en session() Observar que si se envía el formulario
+ *  sin rellenar algún campo, se mantendrá la información anterior respecto a ese campo
+ */
+ 
+Route::get('/practice15', [Practice15Controller::class, 'showForm']);
+
+Route::post('practice15/update', [Practice15Controller::class, 'handleForm']);

@@ -621,6 +621,87 @@ Introducir en la práctica 12 ese código y comprobar que está activo.
 edad, gustos, etc ) En cada ejecución de este formulario se le muestra al usuario la información almacenada del usuario en session() Observar que si se envía el formulario sin rellenar algún campo, se mantendrá la información anterior respecto a ese campo
 >
 
+- web.php
+
+```code
+Route::get('/practice15', [Practice15Controller::class, 'showForm']);
+
+Route::post('practice15/update', [Practice15Controller::class, 'handleForm']);
+```
+
+
+- practice15.blade.php
+```code
+<div class="main-container">
+    @if(session('success'))
+        <p> {{session('success')}}</p>
+    @endif
+
+    <p>DATA: {{session('name')}}, {{session('age')}}, {{session('likes')}}</p>
+    <form action="{{ url('/practice15/update')}}" method="POST">
+        @csrf
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" value="{{session('name')}}" />
+            <br>
+            <label for="age">Age</label>
+            <input type="text" name="age" id="age" value="{{session('age')}}" />
+            <br>
+            <label for="likes">Likes</label>
+            <input type="text" name="likes" id="likes" value="{{session('likes')}}" />
+            <br>
+            <input type="submit" name="submit" value="submit">
+    </form>
+    <br>
+</div>
+```
+
+- controller:
+
+
+```code
+    public function showForm(Request $request) {
+
+        $name = session()->get('name');
+        $age = session()->get('age');
+        $likes = session()->get('likes');
+
+        return view('practice15', compact('name', 'age', 'likes'));
+    }
+
+    public function handleForm(Request $request)
+    {
+        $nameSession = session()->get('name', '');
+        $ageSession = session()->get('age', '');
+        $likesSession = session()->get('likes', '');
+
+        $nameUpdate = $request->get('name', $nameSession);
+        $ageUpdate = $request->get('age', $ageSession);
+        $likesUpdate = $request->get('likes', $likesSession);
+
+        $request->session()->put('name', $nameUpdate);
+        $request->session()->put('age', $ageUpdate);
+        $request->session()->put('likes', $likesUpdate);
+
+        return redirect('practice15')->with('success', 'Updated correctly.');
+    }
+```  
+
+- Captura:
+
+<div align="center">
+<img src="./img/p15.png"/>
+</div>
+
+<br>
+
+
+### Práctica 16
+
+> 📂
+>Crear un fichero con nombre y dirección de correo por fila ( en formato csv )
+almacenado en Storage Leer el fichero y mostrarlo en pantalla
+>
+
 
 ```code
 
@@ -629,7 +710,7 @@ edad, gustos, etc ) En cada ejecución de este formulario se le muestra al usuar
 - Captura:
 
 <div align="center">
-<img src="./img/p14.png"/>
+<img src="./img/p16.png"/>
 </div>
 
 <br>

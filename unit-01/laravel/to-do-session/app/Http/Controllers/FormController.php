@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 
 use Illuminate\Http\Request;
-// flush and regenerate always
+
 class FormController extends Controller
 {
     public function show(){

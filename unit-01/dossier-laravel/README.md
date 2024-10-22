@@ -1013,4 +1013,240 @@ Route::post('/practice20/delete/{filename}', [Practice20Controller::class, 'dele
 
 </br>
 
+
+### Extra:
+
+#### To do list - Session
+
+- web.php
+
+```code
+Route::get('/', [FormController::class, 'show']);
+Route::get('/task', [FormController::class, 'getTask']);
+
+Route::post('/task/create', [FormController::class, 'createTask']);
+
+Route::post('/task/delete', [FormController::class, 'deleteTask']);
+
+Route::post('/task/update', [FormController::class, 'updateForm']);
+```
+
+- task class:
+
+```code
+  /**
+     * @var int
+     */
+    public $id;
+
+    /**
+     * @var string
+     */
+    public $subject;
+
+    /**
+     * @var string
+     */
+    public $description;
+
+    /**
+     * @var bool
+     */
+    public $finished;
+
+    /**
+     * Task constructor.
+     *
+     * @param string $subject
+     * @param string $description
+     *
+     *
+     * */
+
+     public function __construct(string $subject = "", int $id = 0, string $description = "", bool $finished = false){
+        $this->subject = $subject;
+        $this->id = $id;
+        $this->description = $description;
+        $this->finished = $finished;
+    }
+
+    // getters and setters
+```
+
+
+- controller
+
+```code
+ public function show(){
+        $todolist = session()->get('todolist');
+    
+        if (!isset($todolist)) {
+            $todolist = [];
+            session()->put('todolist', $todolist);
+        }
+    
+        return view('startpage', compact('todolist'));
+    }
+    
+
+    public function getTask(Request $request){
+        $id = $request->input('id');
+
+        $todolist = session()->get('todolist');
+        $auxTask = null;
+
+
+        foreach ($todolist as $item) {
+            if($item->getId() == $id){
+                $auxTask = $item;
+                break;
+            }
+        }
+
+        return view('tasks', compact('auxTask'));
+    }
+
+    public function createTask(Request $request){
+            $todolist = session()->get('todolist', []);
+
+            $subject = $request->input('subject')??null;
+            $id = count($todolist) + 1;
+            $description=$request->input('description')??null;
+            $finished = $request->input('finished') === 'Closed' ? true : false; 
+
+            $newTask = new Task($subject, $id, $description, $finished);
+            $todolist[] = $newTask;
+    
+            session()->put('todolist', $todolist); 
+
+        return redirect('/');
+    }
+
+    public function updateForm(Request $request){
+        $todolist = session()->get('todolist', []);
+
+        $subject = $request->input('subject');
+        $id = $request->input('id');
+        $description=$request->input('description');
+        $finished = $request->input('finished') === 'Closed' ? true : false; // important to declare
+
+        foreach($todolist as $key => $item){
+            if($item->getId() == $id){
+                $item->setSubject($subject);
+                $item->setDescription($description);
+                $item->setFinished($finished);
+                $todolist[$key] = $item;
+                break;
+            }
+        }
+
+        session()->put('todolist', $todolist);
+        return redirect('/');
+    }
+
+
+    public function deleteTask(Request $request){
+        $todolist = session()->get('todolist', []);
+        $id = $request->input('id');
+
+        foreach($todolist as $key => $item){
+            if($item->getId() == $id){
+                unset($todolist[$key]);
+                break;
+            }
+        }
+
+        session()->put('todolist', array_values($todolist));
+        return redirect('/');
+    }
+```
+
+- startpage.blade.php:
+
+```code
+<div class="main-container">
+
+    <h2>ALL TASKS</h2>
+    <ul>
+        @foreach ($todolist as $task)
+            <li>
+                <a href="./task?id={{$task->id}}">{{ $task->subject }}</a>
+                <a href="./task?id={{$task->id}}">{{ $task->description }}</a>
+                <a href="./task?id={{$task->id}}">{{ $task->finished ? 'Finished' : 'Not finished' }}</a>
+
+                <form action="{{ url('task/delete') }}" method="POST" style="display:inline;">
+                    @csrf
+                    <input type="hidden" name="id" value="{{ $task->id }}">
+                    <input type="submit" name="delete" id="delete" value="Delete">
+                </form>
+            </li>
+        @endforeach
+    </ul>     
+
+    <form action="{{ url('task/create') }}" method="POST">
+        @csrf
+        <label for="subject">Task Subject:</label>
+        <input type="text" name="subject" id="subject" placeholder="Task subject" />
+        <br>
+        <label for="description">Task Description:</label>
+        <textarea cols="50" rows="5" name="description" id="description" placeholder="Task description"></textarea>
+        <br>
+        <label for="finished">Status:</label><br>
+        <div class="status-container">
+            <input type="radio" value="Open" name="finished" id="finishedOpen" checked> 
+            <label for="finishedOpen">Open</label><br>
+            <input type="radio" value="Closed" name="finished" id="finishedClosed"> 
+            <label for="finishedClosed">Closed</label><br>
+        </div>                
+        <br>
+        <input type="submit" name="create" value="Create">
+    </form>
+</div>   
+```
+
+- tasks.blade.php:
+
+```code
+<div class="main-container">
+    <h2>TASK TO UPDATE</h2>
+    <form action="{{ url('task/update')}}" method="POST" id="formTasks">
+        @csrf
+        <label for="subject">Task ID: {{$auxTask->id}}</label>
+        <br>
+        <input type="hidden" name="id" value="{{ $auxTask->id }}">
+        <input type="text" name="subject" id="subject" placeholder="Task subject" value="{{$auxTask->subject}}" />
+        <textarea cols="200" rows="5" name="description" placeholder="Task description" id="description">{{$auxTask->description}}</textarea>
+    
+        <label for="finished">Status:</label><br>
+        <div class="status-container">
+            @if ($auxTask->finished)
+                <input type="radio" value="Open" name="finished" id="finishedOpen"> 
+                <label for="finishedOpen">Open</label>
+                <input type="radio" value="Closed" name="finished" id="finishedClosed" checked> 
+                <label for="finishedClosed">Close</label>
+            @else
+                <input type="radio" value="Open" name="finished" id="finishedOpen" checked> 
+                <label for="finishedOpen">Open</label>
+                <input type="radio" value="Closed" name="finished" id="finishedClosed"> 
+                <label for="finishedClosed">Close</label>
+            @endif
+        </div>
+    
+        <input type="submit" name="submit" id="submit" value="Update">
+    </form>
+</div>
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/tds-1.png"/>
+<img src="./img/tds-2.png"/>
+<img src="./img/tds-3.png"/>
+<img src="./img/tds-4.png"/>
+<img src="./img/tds-5.png"/>
+</div>
+
+</br>
+
 </div>

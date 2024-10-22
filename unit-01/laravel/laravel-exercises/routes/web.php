@@ -12,6 +12,7 @@ use App\Http\Controllers\Practice11Controller;
 use App\Http\Controllers\Practice12Controller;
 use App\Http\Controllers\Practice13Controller;
 use App\Http\Controllers\Practice15Controller;
+use App\Http\Controllers\Practice16Controller;
 use App\Http\Controllers\Practice17Controller;
 use App\Http\Controllers\Practice18Controller;
 
@@ -131,3 +132,12 @@ Route::post('/delete-color/{id}', [Practice13Controller::class, 'deleteColor']);
 Route::get('/practice15', [Practice15Controller::class, 'showForm']);
 
 Route::post('practice15/update', [Practice15Controller::class, 'handleForm']);
+
+// Pratcice 16
+
+/**
+ * Crear un fichero con nombre y dirección de correo por fila ( en formato csv )
+ * almacenado en Storage Leer el fichero y mostrarlo en pantalla
+ */
+
+ Route::get('/practice16', [Practice16Controller::class, 'readCsv']);

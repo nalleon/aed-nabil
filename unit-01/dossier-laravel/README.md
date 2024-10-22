@@ -703,8 +703,45 @@ almacenado en Storage Leer el fichero y mostrarlo en pantalla
 >
 
 
-```code
+- web.php
 
+```code
+ Route::get('/practice16', [Practice16Controller::class, 'readCsv']);
+```
+
+
+- practice16.blade.php
+```code
+<div class="main-container">
+
+    <h3>Data of the csv:</h3>
+    <ul>
+        @foreach($data as $row)
+        <li>
+            {{ $row['name'] }} -- {{ $row['email'] }} 
+        </li>
+    @endforeach
+    </ul>
+</div>
+```
+
+- controller:
+```code
+public function readCsv (){
+    $csvContent = Storage::get('users.csv');
+    $rows = explode("\n", $csvContent);
+    $data = [];
+
+    foreach ($rows as $row) {
+        $columns = explode(',', $row);
+        $data[] = [
+            'name' => $columns[0],
+            'email' => $columns[1],
+        ];
+    }
+
+    return view('practice16', compact('data'));
+}
 ```
 
 - Captura:

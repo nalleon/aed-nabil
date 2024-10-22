@@ -890,4 +890,118 @@ class Practice18Controller extends Controller
 
 </br>
 
+### Práctica 19
+
+> 📂
+> Mostrar en una página una lista de ficheros de una carpeta en storage.
+Cuando se pulse en el nombre del fichero se descargará
+>
+
+- web.php
+
+```code
+Route::get('/practice19', [Practice19Controller::class, 'showFiles']);
+Route::get('/practice19/download/{filename}', [Practice19Controller::class, 'downloadFile']);
+```
+
+- practice19Controller.php
+
+```code
+    public function showFiles(){
+        $files = Storage::files('practice19'); 
+        return view('practice19', compact('files'));
+    }
+
+
+    public function downloadFile($filename){
+        return Storage::download('practice19/' . $filename);
+    }
+```
+
+- practice19.blade.php
+
+```code
+    <div class="main-container">
+        <h1>Files in directory</h1>
+        <ul>
+            @foreach ($files as $file)
+                <li>
+                    <a href="{{ url('practice19/download/' . basename($file)) }}">{{ basename($file) }}</a>
+                </li>
+            @endforeach
+        </ul>
+
+        @if ($files === null)
+            <p>There are no files in this directory.</p>
+        @endif
+    </div>
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p19-1.png"/>
+<img src="./img/p19-2.png"/>
+<img src="./img/p19-3.png"/>
+</div>
+
+</br>
+
+### Práctica 20
+
+> 📂
+> Mostrar en una página una lista de ficheros de una carpeta en storage.
+Cuando se pulse en el nombre del fichero se descargará
+>
+
+- web.php
+
+```code
+Route::get('/practice19', [Practice19Controller::class, 'showFiles']);
+Route::get('/practice19/download/{filename}', [Practice19Controller::class, 'downloadFile']);
+```
+
+- practice19Controller.php
+
+```code
+    public function showFiles(){
+        $files = Storage::files('practice19'); 
+        return view('practice19', compact('files'));
+    }
+
+
+    public function downloadFile($filename){
+        return Storage::download('practice19/' . $filename);
+    }
+```
+
+- practice19.blade.php
+
+```code
+    <div class="main-container">
+        <h1>Files in directory</h1>
+        <ul>
+            @foreach ($files as $file)
+                <li>
+                    <a href="{{ url('practice19/download/' . basename($file)) }}">{{ basename($file) }}</a>
+                </li>
+            @endforeach
+        </ul>
+
+        @if ($files === null)
+            <p>There are no files in this directory.</p>
+        @endif
+    </div>
+```
+
+- Captura:
+
+<div align="center">
+<img src="./img/p19-1.png"/>
+<img src="./img/p19-2.png"/>
+<img src="./img/p19-3.png"/>
+</div>
+
+</br>
+
 </div>

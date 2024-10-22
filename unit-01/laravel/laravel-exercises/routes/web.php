@@ -15,6 +15,7 @@ use App\Http\Controllers\Practice15Controller;
 use App\Http\Controllers\Practice16Controller;
 use App\Http\Controllers\Practice17Controller;
 use App\Http\Controllers\Practice18Controller;
+use App\Http\Controllers\Practice19Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -141,3 +142,14 @@ Route::post('practice15/update', [Practice15Controller::class, 'handleForm']);
  */
 
  Route::get('/practice16', [Practice16Controller::class, 'readCsv']);
+
+
+ // Practice 19
+
+ /**
+  * Mostrar en una página una lista de ficheros de una carpeta en storage.
+  * Cuando se pulse en el nombre del fichero se descargará
+  */
+
+Route::get('/practice19', [Practice19Controller::class, 'showFiles']);
+Route::get('/practice19/download/{filename}', [Practice19Controller::class, 'downloadFile']);

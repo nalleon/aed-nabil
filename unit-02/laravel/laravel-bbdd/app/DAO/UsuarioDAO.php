@@ -1,36 +1,30 @@
 <?php
-
 namespace App\DAO;
 
-use App\Contracts\FiguraContract;
-use App\Contracts\RolContract;
-use App\Models\Figura;
-use App\Models\Rol;
+use App\Contracts\UsuarioContract;
+use App\Contracts\TableroContract;
+use App\Models\Usuario;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use PDO;
+use App\DAO\ICrud;
 
-
-
-
-class RolDAO implements ICrud
-{
-
+class UsuarioDAO implements ICrud {
 
     public function __construct() {}
 
-
-
-    public function delete($id): bool
-    {
+    public function delete($id): bool{
 
         $myPDO = DB::getPdo();
-        $tablename = RolContract::TABLE_NAME;
-        $colid = RolContract::COL_ID;
+        $tablename = UsuarioContract::TABLE_NAME;
+        $colid = UsuarioContract::COL_ID;
+
+
+
         $sql = "DELETE FROM $tablename WHERE $colid  = :id";
 
         $stmt = $myPDO->prepare($sql);
-        $stmt->execute([':id' => $id]);
+        return $stmt->execute([':id' => $id]);
         $filasAfectadas = $stmt->rowCount();
         return $filasAfectadas > 0;
     }
@@ -39,15 +33,20 @@ class RolDAO implements ICrud
     public function update($p): bool
     {
 
-        $colid = RolContract::COL_ID;
-        $colnombre = RolContract::COL_NOMBRE;
-        $tablename = RolContract::TABLE_NAME;
+        $colid = UsuarioContract::COL_ID;
+        $colnombre = UsuarioContract::COL_NOMBRE;
+        $colpassword = UsuarioContract::COL_PASSWORD;
+        $colrol = UsuarioContract::COL_ROL;
+
+        $tablename = UsuarioContract::TABLE_NAME;
         $myPDO = DB::getPdo();
         if (!($p->getId() > 0)) {
             return false;
         }
         $sql = "UPDATE $tablename ".
                " SET $colnombre = :nombre " .
+               " $colpassword = :password " .
+               " $colrol = :rol " .
                " WHERE $colid = :id";
 
 
@@ -57,7 +56,9 @@ class RolDAO implements ICrud
             $stmt->execute(
                 [
                     ':nombre' => $p->getNombre(),
-                    ':id' => $p->getId()
+                    ':id' => $p->getId(),
+                    ':password' => $p->getPassword(),
+                    ':rol' => $p->getPassword()
 
                 ]
             );
@@ -70,13 +71,13 @@ class RolDAO implements ICrud
 
                 $myPDO->commit();
             } else {
-                $myPDO->rollback();
+                $myPDO->rollBack();
                 return false;
             }
         } catch (Exception $ex) {
-            echo "ha habido una excepción se lanza rollback";
+            echo "ha habido una excepción se lanza Usuariolback";
             var_dump($ex);
-            $myPDO->rollback();
+            $myPDO->rollBack();
             return false;
         }
         $stmt = null;
@@ -87,8 +88,8 @@ class RolDAO implements ICrud
     public function findById($id): object | null
     {
 
-        $tablename = RolContract::TABLE_NAME;
-        $colid = RolContract::COL_ID;
+        $tablename = UsuarioContract::TABLE_NAME;
+        $colid = UsuarioContract::COL_ID;
 
         $sql = "SELECT * FROM $tablename WHERE $colid = :id";
 
@@ -100,9 +101,13 @@ class RolDAO implements ICrud
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            $p = new Rol();
-            $p->setId($row[RolContract::COL_ID])
-                ->setNombre($row[RolContract::COL_NOMBRE]);
+            $p = new Usuario();
+
+            $p->setId($row[UsuarioContract::COL_ID]);
+            $p->setNombre($row[UsuarioContract::COL_NOMBRE]);
+            $p->setPassword($row[UsuarioContract::COL_PASSWORD]);
+            $p->setRol($row[UsuarioContract::COL_ROL]);
+
             return $p;
         }
 
@@ -113,7 +118,7 @@ class RolDAO implements ICrud
     public function findAll(): array
     {
 
-        $tablename = RolContract::TABLE_NAME;
+        $tablename = UsuarioContract::TABLE_NAME;
 
         $sql = "SELECT * FROM $tablename";
 
@@ -121,34 +126,42 @@ class RolDAO implements ICrud
         $stmt = $myPDO->prepare($sql);
         $stmt->execute();
         $row = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $roles = [];
+
+        $Usuarios = [];
         while ($row = $stmt->fetch()) {
-            $p = new Rol();
-            $p->setId($row[RolContract::COL_ID])
-                ->setNombre($row[RolContract::COL_NOMBRE]);
-            $roles[] = $p;
+            $p = new Usuario();
+            $p->setId($row[UsuarioContract::COL_ID]);
+            $p->setNombre($row[UsuarioContract::COL_NOMBRE]);
+            $p->setPassword($row[UsuarioContract::COL_PASSWORD]);
+            $p->setRol($row[UsuarioContract::COL_ROL]);
+
+            $Usuarios[] = $p;
         }
 
-        return $roles;
+        return $Usuarios;
     }
 
     public function save($p): object | null
     {
         $myPDO = DB::getPdo();
-        $tablename = RolContract::TABLE_NAME;
-        $colid = RolContract::COL_ID;
-        $colnombre = RolContract::COL_NOMBRE;
+        $tablename = UsuarioContract::TABLE_NAME;
+        //$colid = UsuarioContract::COL_ID;
+        $colnombre = UsuarioContract::COL_NOMBRE;
+        $colpassword = UsuarioContract::COL_PASSWORD;
+        $colrol = UsuarioContract::COL_ROL;
 
         $sql =
-        "INSERT INTO $tablename ( $colnombre)
-         VALUES(:nombre)";
+        "INSERT INTO $tablename ( $colnombre, $colpassword, $colrol)
+         VALUES(:nombre, :passwd, :rol)";
 
         try {
             $myPDO->beginTransaction();
             $stmt = $myPDO->prepare($sql);
             $stmt->execute(
                 [
-                    ':nombre' => $p->getNombre()
+                    ':nombre' => $p->getNombre(),
+                    ':passwd' => $p->getPassword(),
+                    ':rol' => $p->getRol()
 
                 ]
             );
@@ -157,24 +170,29 @@ class RolDAO implements ICrud
 
 
 
-            //forzamos un rollback aleatorio para ver que deshace los cambios
+            //forzamos un Usuariolback aleatorio para ver que deshace los cambios
             if ($filasAfectadas > 0) {
                 //obtenemos el id generado con:
                 $idgenerado = $myPDO->lastInsertId();
                 $p->setId($idgenerado);
                 $myPDO->commit();
             } else {
-                $myPDO->rollback();
+                $myPDO->rollBack();
                 return null;
             }
         } catch (Exception $ex) {
-            echo "ha habido una excepción se lanza rollback";
+            echo "ha habido una excepción se lanza Usuariolback";
             var_dump($ex);
-            $myPDO->rollback();
+            $myPDO->rollBack();
             return null;
         }
         $stmt = null;
 
         return $p;
     }
+
+
+
+
+
 }

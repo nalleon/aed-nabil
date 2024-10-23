@@ -26,8 +26,9 @@
 
 #### Extras:
 
-- [To do - subjects]()
-
+- [To do tasks - Session](#to-do-list---session)
+- [To do tasks - Files](#to-do-list---files)
+- [BlackJack](#blackjack)
 
 ***
 
@@ -204,6 +205,8 @@ class Practice06 {
 encabezado en la tabla que nos diga que campo estamos visualizando.
 >
 
+- Routes:
+
 ```code
 Route::any('/practice07', [Practice07Controller::class, 'primeNums']);
 ```
@@ -218,6 +221,8 @@ class Practice07Controller extends Controller
     }
 }
 ```
+
+- View:
 
 ```code
 <!DOCTYPE html>
@@ -250,10 +255,13 @@ class Practice07Controller extends Controller
 > Agregar al comienzo de la vista el mensaje(sustituye por la hora/día actual): Son las: 17:53 del día: 29-11-2020 Nota: buscar información y usar la función PHP date()
 >
 
+- Routes:
+
 ```code
 Route::get('/practice08', [Practice08Controller::class, 'date']);
 ```
 
+- Controller:
 ```code
 class Practice08Controller extends Controller
 {
@@ -263,6 +271,8 @@ class Practice08Controller extends Controller
     }
 }
 ```
+
+- View:
 
 ```code
 <!DOCTYPE html>
@@ -293,12 +303,15 @@ class Practice08Controller extends Controller
 > El comando sleep() en php permite pausar la ejecución la cantidad de segundo especificada como parámetro. Modificar el ejemplo anterior para que lo muestre 3 veces con una espera de 1 segundo entre una iteración y la siguiente, mostrando de forma actualizada la información de los segundos desde 1970
 >
 
+- Routes:
+
 ```code
 Route::get('/practice09', function(){
     return view('practice09');
 });
 ```
 
+- View:
 
 ```code
     @php
@@ -334,10 +347,13 @@ Route::get('/practice09', function(){
 nuestra plantilla blade mostraremos primero la lista de números obtenidos menores de 50 y un poco más abajo en la página los mayores que 50. Hacer uso de las directivas @if para que al mostrar aquellos que sean mayores de 50
 >
 
+- Routes:
+
 ```code
 Route::get('/practice10', [Practice10Controller::class, 'rndNum']);
 ```
 
+- Controller
 ```code
     public function rndNum() {
         $array = [];
@@ -347,6 +363,8 @@ Route::get('/practice10', [Practice10Controller::class, 'rndNum']);
         return view('practice10', compact('array'));
     }
 ```
+
+- View:
 
 ```code
     <h2>Smaller than 50:</h2>
@@ -389,20 +407,13 @@ Route::get('/practice10', [Practice10Controller::class, 'rndNum']);
 una lista html esas palabras recibidas (una palabra por cada <li> de la lista ) convertidas todas a mayúsculas. Para ello se usará el bucle: @for ( cuidado! No el foreach ) Observar que eso implicará “contar” el número de elementos que tiene la colección de palabras
 >
 
+- Routes:
 ```code
 Route::get('/processwords', [Practice11Controller::class, 'processWords']);
 ```
 
-- practice11.blade.php
 
-```code
-    <form action="processwords" method="GET">
-        <textarea name="words" placeholder="Word's list">ç</textarea>
-        <input type="submit" value="Send">
-    </form>
-```
-
-- practice11Controller.php
+- Controller
 
 ```code
 class Practice11Controller extends Controller
@@ -417,7 +428,14 @@ class Practice11Controller extends Controller
 }
 ```
 
-- practice11result.blade.php
+- Views:
+
+```code
+    <form action="processwords" method="GET">
+        <textarea name="words" placeholder="Word's list">ç</textarea>
+        <input type="submit" value="Send">
+    </form>
+```
 
 ```code
     @php
@@ -447,11 +465,13 @@ class Practice11Controller extends Controller
 ( mínimo 5 ). Hacer que se visualicen en el navegador las imágenes en nuestra vista
 >
 
+
+-  Routes:
 ```code
 Route::get('/practice12', [Practice12Controller::class, 'showImgs']);
 ```
 
-- practice12Controller.php
+- Controller:
 
 ```code
 class Practice12Controller extends Controller
@@ -464,7 +484,7 @@ class Practice12Controller extends Controller
 }
 ```
 
-- practice12.blade.php
+- View:
 
 ```code
     @foreach ($imgArray as $img)
@@ -488,13 +508,15 @@ class Practice12Controller extends Controller
 > Crear un formulario que envíe nombres de colores en cada ejecución del usuario. Obtendrá por respuesta una página con la lista de colores que ha ido introduciendo (usar session() para almacenar la lista de colores ) ( es un formulario post tendremos que tener en cuenta @csrf leer más abajo )
 >
 
+- Routes:
+
 ```code
 Route::get('/practice13', [Practice13Controller::class, 'getColors']);
 Route::post('/add-color', [Practice13Controller::class, 'addColor']);
 Route::post('/delete-color/{id}', [Practice13Controller::class, 'deleteColor']);
 ```
 
-- practice13Controller.php
+- Controller:
 
 ```code
 class Practice13Controller extends Controller
@@ -543,7 +565,7 @@ class Practice13Controller extends Controller
 }
 ```
 
-- practice13.blade.php
+- View:
 
 ```code
    <form method="POST" action="{{ url('/add-color')}}">
@@ -594,7 +616,7 @@ class Practice13Controller extends Controller
 Introducir en la práctica 12 ese código y comprobar que está activo.
 >
 
-- practice12.blade.php modificado
+- View (práctica 12 modificada):
 
 ```code
 <body class="antialiased">
@@ -621,7 +643,7 @@ Introducir en la práctica 12 ese código y comprobar que está activo.
 edad, gustos, etc ) En cada ejecución de este formulario se le muestra al usuario la información almacenada del usuario en session() Observar que si se envía el formulario sin rellenar algún campo, se mantendrá la información anterior respecto a ese campo
 >
 
-- web.php
+- Routes:
 
 ```code
 Route::get('/practice15', [Practice15Controller::class, 'showForm']);
@@ -629,34 +651,7 @@ Route::get('/practice15', [Practice15Controller::class, 'showForm']);
 Route::post('practice15/update', [Practice15Controller::class, 'handleForm']);
 ```
 
-
-- practice15.blade.php
-```code
-<div class="main-container">
-    @if(session('success'))
-        <p> {{session('success')}}</p>
-    @endif
-
-    <p>DATA: {{session('name')}}, {{session('age')}}, {{session('likes')}}</p>
-    <form action="{{ url('/practice15/update')}}" method="POST">
-        @csrf
-            <label for="name">Name</label>
-            <input type="text" name="name" id="name" value="{{session('name')}}" />
-            <br>
-            <label for="age">Age</label>
-            <input type="text" name="age" id="age" value="{{session('age')}}" />
-            <br>
-            <label for="likes">Likes</label>
-            <input type="text" name="likes" id="likes" value="{{session('likes')}}" />
-            <br>
-            <input type="submit" name="submit" value="submit">
-    </form>
-    <br>
-</div>
-```
-
-- controller:
-
+- Controller:
 
 ```code
     public function showForm(Request $request) {
@@ -686,6 +681,32 @@ Route::post('practice15/update', [Practice15Controller::class, 'handleForm']);
     }
 ```  
 
+- View:
+
+```code
+<div class="main-container">
+    @if(session('success'))
+        <p> {{session('success')}}</p>
+    @endif
+
+    <p>DATA: {{session('name')}}, {{session('age')}}, {{session('likes')}}</p>
+    <form action="{{ url('/practice15/update')}}" method="POST">
+        @csrf
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" value="{{session('name')}}" />
+            <br>
+            <label for="age">Age</label>
+            <input type="text" name="age" id="age" value="{{session('age')}}" />
+            <br>
+            <label for="likes">Likes</label>
+            <input type="text" name="likes" id="likes" value="{{session('likes')}}" />
+            <br>
+            <input type="submit" name="submit" value="submit">
+    </form>
+    <br>
+</div>
+```
+
 - Captura:
 
 <div align="center">
@@ -703,29 +724,15 @@ almacenado en Storage Leer el fichero y mostrarlo en pantalla
 >
 
 
-- web.php
+- Routes:
 
 ```code
  Route::get('/practice16', [Practice16Controller::class, 'readCsv']);
 ```
 
 
-- practice16.blade.php
-```code
-<div class="main-container">
+- Controller:
 
-    <h3>Data of the csv:</h3>
-    <ul>
-        @foreach($data as $row)
-        <li>
-            {{ $row['name'] }} -- {{ $row['email'] }} 
-        </li>
-    @endforeach
-    </ul>
-</div>
-```
-
-- controller:
 ```code
 public function readCsv (){
     $csvContent = Storage::get('users.csv');
@@ -744,6 +751,23 @@ public function readCsv (){
 }
 ```
 
+- View:
+
+```code
+<div class="main-container">
+
+    <h3>Data of the csv:</h3>
+    <ul>
+        @foreach($data as $row)
+        <li>
+            {{ $row['name'] }} -- {{ $row['email'] }} 
+        </li>
+    @endforeach
+    </ul>
+</div>
+```
+
+
 - Captura:
 
 <div align="center">
@@ -755,10 +779,11 @@ public function readCsv (){
 ### Práctica 17
 
 > 📂
->Crear un formulario que se introduzca un nombre y cree un directorio en
+> Crear un formulario que se introduzca un nombre y cree un directorio en
 storage con ese nombre
 >
 
+- Routes:
 ```code
 Route::get('/practice17', function (){
     return view('/practice17');
@@ -767,7 +792,7 @@ Route::get('/practice17', function (){
 Route::post('/create-directory', [Practice17Controller::class 'createDirectory']);
 ```
 
-- practice17Controller.php
+- Controller:
 
 ```code
 class Practice17Controller extends Controller
@@ -784,7 +809,7 @@ class Practice17Controller extends Controller
 }
 ```
 
-- practice17.blade.php
+- View:
 
 ```code
      <form method="POST" action="{{ url('/create-directory')}}">
@@ -820,6 +845,8 @@ class Practice17Controller extends Controller
 storage con ese nombre
 >
 
+- Routes:
+
 ```code
 Route::get('/practice18', function (){
     return view('/practice18');
@@ -828,7 +855,7 @@ Route::get('/practice18', function (){
 Route::post('/read-file', [Practice18Controller::class, 'readFile']);
 ```
 
-- practice18Controller.php
+- Controller:
 
 ```code
 class Practice18Controller extends Controller
@@ -861,7 +888,7 @@ class Practice18Controller extends Controller
 
 ```
 
-- practice18.blade.php
+- View:
 
 ```code
     <form method="POST" action="{{ url('/read-file')}}" enctype='multipart/form-data' >
@@ -897,14 +924,14 @@ class Practice18Controller extends Controller
 Cuando se pulse en el nombre del fichero se descargará
 >
 
-- web.php
+- Routes:
 
 ```code
 Route::get('/practice19', [Practice19Controller::class, 'showFiles']);
 Route::get('/practice19/download/{filename}', [Practice19Controller::class, 'downloadFile']);
 ```
 
-- practice19Controller.php
+- Controller:
 
 ```code
     public function showFiles(){
@@ -918,7 +945,7 @@ Route::get('/practice19/download/{filename}', [Practice19Controller::class, 'dow
     }
 ```
 
-- practice19.blade.php
+- View:
 
 ```code
     <div class="main-container">
@@ -954,7 +981,7 @@ Route::get('/practice19/download/{filename}', [Practice19Controller::class, 'dow
 listados
 >
 
-- web.php
+- Routes:
 
 ```code
 Route::get('/practice20', [Practice20Controller::class, 'showFiles']);
@@ -962,7 +989,7 @@ Route::get('/practice20/download/{filename}', [Practice20Controller::class, 'dow
 Route::post('/practice20/delete/{filename}', [Practice20Controller::class, 'deleteFile']);
 ```
 
-- practice20Controller.php
+- Controller:
 
 ```code
     public function showFiles(){
@@ -981,7 +1008,7 @@ Route::post('/practice20/delete/{filename}', [Practice20Controller::class, 'dele
     }
 ```
 
-- practice20.blade.php
+- View:
 
 ```code
 <div class="main-container">
@@ -1018,7 +1045,7 @@ Route::post('/practice20/delete/{filename}', [Practice20Controller::class, 'dele
 
 #### To do list - Session
 
-- web.php
+- Routes:
 
 ```code
 Route::get('/', [FormController::class, 'show']);
@@ -1031,7 +1058,9 @@ Route::post('/task/delete', [FormController::class, 'deleteTask']);
 Route::post('/task/update', [FormController::class, 'updateForm']);
 ```
 
-- task class:
+Esta es la única clase del modelo.
+
+- Task:
 
 ```code
   /**
@@ -1073,8 +1102,7 @@ Route::post('/task/update', [FormController::class, 'updateForm']);
     // getters and setters
 ```
 
-
-- controller
+- Controller:
 
 ```code
  public function show(){
@@ -1161,7 +1189,7 @@ Route::post('/task/update', [FormController::class, 'updateForm']);
     }
 ```
 
-- startpage.blade.php:
+- View (página principal):
 
 ```code
 <div class="main-container">
@@ -1204,7 +1232,7 @@ Route::post('/task/update', [FormController::class, 'updateForm']);
 </div>   
 ```
 
-- tasks.blade.php:
+- View (Task seleccionada):
 
 ```code
 <div class="main-container">
@@ -1252,7 +1280,7 @@ Route::post('/task/update', [FormController::class, 'updateForm']);
 
 #### To do list - Files
 
-- web.php
+- Routes:
 
 ```code
 Route::get('/', [FormController::class, 'getAllTasks']);
@@ -1262,7 +1290,9 @@ Route::post('/task/delete', [FormController::class, 'deleteTask']);
 Route::post('/task/update', [FormController::class, 'updateForm']);
 ```
 
-- task class:
+Esta es la única clase del modelo.
+
+- Task:
 
 ```code
   /**
@@ -1304,8 +1334,7 @@ Route::post('/task/update', [FormController::class, 'updateForm']);
     // getters and setters
 ```
 
-
-- controller
+- Controller
 
 ```code
   /**
@@ -1505,7 +1534,7 @@ Route::post('/task/update', [FormController::class, 'updateForm']);
     }
 ```
 
-- startpage.blade.php:
+- View (página principal):
 
 ```code
 <div class="main-container">
@@ -1548,7 +1577,7 @@ Route::post('/task/update', [FormController::class, 'updateForm']);
 </div>   
 ```
 
-- tasks.blade.php:
+- View (Task seleccionada):
 
 ```code
 <div class="main-container">
@@ -1593,5 +1622,605 @@ Route::post('/task/update', [FormController::class, 'updateForm']);
 
 </br>
 
+#### BlackJack
+
+- Routes:
+
+```code
+/**
+ * Login
+ */
+Route::get('/', function (){
+    return view('login');
+});
+
+Route::post('/login', [LoginController::class, 'createUser']);
+
+
+/**
+ * Game
+ */
+
+Route::get('/blackjack', function () {
+    return view('blackjack');
+});
+
+Route::post('/start-game', [GameController::class, 'startGame']);
+
+Route::post('/player-action', [GameController::class, 'getActions']);
+```
+
+Las clases del modelo son las siguientes:
+
+- Card:
+
+```code
+
+    /**
+    * @var string type of card (hearts, )
+    */
+    public $suit;
+
+    /**
+    * @var string
+    */
+    public $rank;
+
+    /**
+    * @var int
+    */
+    public $value;
+
+
+    /**
+    * Constructor of the class
+    */
+    public function __construct(string $suit, string $rank, int $value){
+        $this->suit = $suit;
+        $this->rank = $rank;
+        $this->value = $value;
+    }
+
+    // getters and setters
+```
+
+- DeckCards:
+
+```code
+
+ /**
+     * @var array
+     */
+    public $deckCards = [];
+
+    public $currentIndexDeck = 0;
+
+    public function __construct(){
+        $this->deckCards = $this->initializeDeck();
+        shuffle($this->deckCards);
+    }
+
+    /**
+     * Function to create the deck cards
+     */
+    public function initializeDeck() {
+        $suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
+        $ranks = [
+            '2' => 2, '3' => 3, '4' => 4, '5' => 5, '6' => 6, '7' => 7, '8' => 8, '9' => 9, '10' => 10,
+            'J' => 10, 'Q' => 10, 'K' => 10, 'A' => 11
+        ];
+
+        foreach ($suits as $suit) {
+            foreach ($ranks as $rank => $value) {
+                $this->deckCards[] = new Card($suit, $rank, $value);
+            }
+        }
+        return $this->deckCards;
+    }
+
+    /**
+     * Function to draw a card from the deck and remove it from it
+     */
+    public function drawCard(){
+        if ($this->currentIndexDeck >= count($this->deckCards)){
+            return null;
+        }
+
+        $cardSelected = $this->deckCards[$this->currentIndexDeck];
+        $this->currentIndexDeck++;
+        return $cardSelected;
+    }
+
+    // getters and setters
+```
+
+- Game:
+
+```code
+    /**
+     * @var DeckCards
+     */
+    public $deck;
+    /**
+     * @var Player
+     */
+    public $playerGame;
+
+    /**
+     * @var Player
+     */
+
+     public $dealer;
+
+    const BLACKJACK = 21;
+    const DEALER_STAND = 17;
+    const HIT = 'hit';
+    const STAND = 'stand';
+
+
+    public function __construct($playerGame){
+        $this->deck = new DeckCards();
+        $this->dealer = new Player("Dealer");
+        $this->playerGame = $playerGame;
+    }
+
+    public function initialDeal() {
+        for ($i = 0; $i < 2; $i++) {
+            $this->playerGame->addCard($this->deck->drawCard());
+            $this->dealer->addCard($this->deck->drawCard());
+        }
+    }
+
+
+    public function getActions($playerAction){
+        if($playerAction == self::HIT){
+            $card = $this->deck->drawCard();
+            $this->playerGame->addCard($card);
+
+            if($this->playerGame->getScore() > self::BLACKJACK){
+                return $this->checkGameOver();
+            }
+
+        } elseif($playerAction == self::STAND){
+            $this->playerGame->setIsStand(true);
+        }
+
+        $dealerAction = $this->dealerActions();
+
+        if($dealerAction == self::HIT){
+            $card = $this->deck->drawCard();
+            $this->dealer->addCard($card);
+
+        } elseif($dealerAction == self::STAND){
+            $this->dealer->setIsStand(true);
+            //dd($dealerAction);
+        }
+
+        if ($this->playerGame->getIsStand() && $this->dealer->getIsStand()) {
+            return $this->checkGameOver();
+        }
+    }
+
+
+    public function dealerActions(){
+        $score = $this->dealer->getScore();
+
+        if($score < 11){
+            return self::HIT;
+        }
+
+        if($score >= 11 && $score <= self::DEALER_STAND){
+            $probability = rand(1, 100);
+            if($probability >= 70){
+                return self::HIT;
+            } else {
+                return self::STAND;
+            }
+        }
+
+        if($score == self::BLACKJACK){
+            return self::STAND;
+        }
+
+        return self::STAND;
+    }
+
+
+
+    public function checkGameOver() {
+        $playerScore = $this->playerGame->getScore();
+        $dealerScore = $this->dealer->getScore();
+        if ($playerScore > self::BLACKJACK) {
+            $this->endGame();
+            return false;
+        }
+
+        if ($dealerScore > self::BLACKJACK) {
+            $this->endGame();
+            return true;
+        }
+
+        if ($playerScore > $dealerScore) {
+            $this->endGame();
+            return true;
+        } else {
+            $this->endGame();
+            return false;
+        }
+    }
+
+
+
+    public function endGame(){
+        $this->playerGame->setIsStand(false);
+        $this->dealer->setIsStand(false);
+
+        $this->deck = new DeckCards();
+    }
+
+    // getters and setters
+```
+
+
+- Player:
+
+```code
+    /**
+     * @var string name of the player
+     */
+    public $playerName;
+    /**
+     * @var array of cards in the player's hand
+     */
+    public $hand;
+    /**
+     * @var int number of points of the player
+     */
+    public $score;
+
+    /**
+     * @var bool
+     */
+    public $isStand;
+
+
+    const BLACKJACK = 21;
+    const ACE_VALUE = 10;
+
+    /**
+     * Constructor of the class
+     */
+    public function __construct($playerName="") {
+        $this->playerName = $playerName;
+        $this->hand = [];
+        $this->score = 0;
+        $this->isStand = false;
+    }
+
+
+    /**
+     * Add a card to the player's hand
+     * @param  Card  $card  the card to be added
+     **/
+
+    public function addCard(Card $card) {
+         $this->hand[] = $card;
+         $this->score = $this->calculateScore();
+
+    }
+
+    /**
+     * Function to calculate the score of the player
+     */
+
+    public function calculateScore() {
+        $aceCounter = 0;
+        $this->score = 0;
+
+        foreach ($this->hand as $card) {
+            $this->score += $card->getValue();
+            if ($card->getRank() == 'A') {
+                $aceCounter++;
+            }
+        }
+
+        while($aceCounter > 0 && $this->score > self::BLACKJACK){
+            $this->score = $this->score - self::ACE_VALUE;
+            $aceCounter--;
+        }
+
+        return $this->score;
+    }
+
+    // getters and setters
+```
+
+- UserModel:
+
+```code
+    /**
+     * @var int
+     */
+    public $id;
+
+    /**
+     * @var string
+     */
+    public $username;
+
+
+    public function __construct (int $id=0, string $username=""){
+        $this->id=$id;
+        $this->username=$username;
+    }
+
+    // getters and setters
+```
+
+
+
+- LoginController:
+
+```code
+       public function createUser(Request $request){
+
+        $filePath = storage_path('app/users.csv');
+        $username = $request->input('username');
+
+        $userExists = $this->getUserIfExists($username, $filePath);
+
+        if($userExists !== null){
+            session(['user' => $userExists]);
+
+            if (session('player') === null) {
+                session(['player' => new Player($username)]);
+            }
+
+            return redirect('/blackjack');
+        }
+
+        $id = $this->createId($filePath);
+
+        $newUser = new UserModel();
+        $newUser->setId($id);
+        $newUser->setUsername($username);
+
+        session(['user' => $newUser]);
+        session(['player' => new Player($username)]);
+
+        $open = fopen($filePath, 'a');
+        if($open){
+            fputcsv($open, [
+                        $newUser->getId(),
+                        $newUser->getUsername()
+                    ]);
+            fclose($open);
+        }
+
+        return redirect('/blackjack');
+    }
+
+
+
+   public function createId($filePath){
+    if(file_exists($filePath)){
+        $open = fopen($filePath, 'r');
+        $id = 1;
+        while (($data = fgetcsv($open, 1000, ','))!== false) {
+            if(isset($data[0])){
+                $actualId = (int)$data[0];
+            }
+            $id = max($id, $actualId);
+        }
+        fclose($open);
+        return $id+1;
+    }
+    return 1;
+   }
+
+   public function getUserIfExists($username, $filePath){
+        if(!file_exists($filePath)){
+            return redirect('/');
+        }
+
+        $auxUser = null;
+
+        if (($open = fopen($filePath, 'r')) !== false) {
+            while (($data = fgetcsv($open, 1000, ',')) !== false) {
+                if (isset($data[1]) && $data[1] == $username) {
+                    $auxUser = new UserModel();
+                    $auxUser->setId($data[0]);
+                    $auxUser->setUsername($data[1]);
+                    fclose($open);
+                    return $auxUser;
+                }
+            }
+        }
+
+        return null;
+
+    }
+```
+
+
+- GameController:
+
+```code
+
+    public  $game;
+
+    // route /player-action
+    public function getActions(Request $request){
+       $game = session('game');
+       $player = new Player();
+       if (!$game) {
+            $playerName = $request->input('playerName');
+            $player->setPlayerName($playerName);
+            $game = new Game($player);
+            session(['game' => $game]);
+        } else {
+            $player = $game->getPlayerGame();
+        }
+
+        $action = $request->input('action');
+        $result = $game->getActions($action);
+        $dealer = $game->getDealer();
+
+            if ($result === true){
+                $message = $player->getPlayerName() . " wins!";
+                session(['firstTry' => true]);
+            } elseif ($result === false){
+                $message = $dealer->getPlayerName() . " wins!";
+                session(['firstTry' => true]);
+            } else {
+                $message = "";
+                session(['firstTry' => false]);
+            }
+
+            session(['message' => $message]);
+
+
+        $dealer = $game->getDealer();
+
+        session(['game' => $game]);
+        session(['player' => $player]);
+        session(['dealer' => $dealer]);
+
+        return redirect('/blackjack');
+    }
+
+    // route /start-game
+    public function startGame(Request $request) {
+        $playerName = $request->input('playerName');
+        $player = new Player();
+        $player->setPlayerName($playerName);
+        $game = new Game($player);
+        $dealer = $game->getDealer();
+        $message = "";
+        $game->initialDeal();
+        $firstTry = false;
+
+        session(['game' => $game]);
+        session(['player' => $player]);
+        session(['dealer' => $dealer]);
+        session(['message' => $message]);
+        session(['firstTry' => $firstTry]);
+
+
+        return redirect('/blackjack');
+    }
+```
+
+
+- View (login):
+
+```code
+<div class="main-container">
+    <form action="{{ url('/login')}}" method="POST">
+            @csrf
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" placeholder="Enter your username" />
+            <br>
+            <input type="submit" name="login" value="Login">
+    </form>
+</div>
+```
+
+- View (juego):
+
+```code
+    @php
+        $user = session('user');
+        $username = $user ? $user->getUsername(): 'Anonymous';
+
+        $player = session('player');
+        $playerName = $username;
+        $hand = $player ? $player->getHand() : [];
+        $score = $player ? $player->getScore() : 0;
+        $isStand = $player ? $player->getIsStand() : false;
+
+        $dealer = session('dealer');
+        $dealerHand = $dealer ? $dealer->getHand() : [];
+        $dealerScore = $dealer ? $dealer->getScore() : 0;
+        $dealerIsStand = $dealer ? $dealer->getIsStand() : false;
+
+        $firstTry = session('firstTry', false);
+    @endphp
+
+    <div class="main-container">
+    <div class="player-name">
+        <p>Player: {{$playerName}}</p>
+    </div>
+
+    @if($firstTry)
+        <div class="action-container">
+            <form action="{{ url('start-game') }}" method="POST">
+                @csrf
+                <input type="hidden" id="playerName" name="playerName" value="{{ $playerName }}"></input>
+                <input type="submit" id="startBtn" value="Start Game">
+            </form>
+        </div>
+    @endif
+
+    <br></br>
+    <div class="result">
+        @if(session('message'))
+            <div class="message">
+                <b>{{ session('message') }}</b>
+            </div>
+            <p>Your score: {{ $score }}</p>
+            <p>Dealer's score: {{ $dealerScore }}</p>
+        @endif
+    </div>
+
+    <div class="players-container">
+        <p>Your hand:</p>
+        <ul>
+            @foreach ($hand as $index => $card)
+                <li>{{ $card->getRank() }} of {{ $card->getSuit() }}</li>
+            @endforeach
+        </ul>
+
+
+        @if (session('dealer') !== null)
+            <p>Dealer's hand:</p>
+            <ul>
+                @foreach ($dealerHand as $index => $card)
+                    @if($index != 0 && !$dealerIsStand)
+                        <li>??</li>
+                    @else
+                        <li>{{ $card->getRank() }} of {{ $card->getSuit() }}</li>
+                    @endif
+                @endforeach
+            </ul>
+        @endif
+
+        <div class="action-container">
+            <form action="{{ url('player-action') }}" method="POST">
+                @csrf
+                <input type="hidden" id="playerName" name="playerName" value="{{ $playerName }}"></input>
+                <input type="submit" name="action" value="hit"
+                    @if($player->getIsStand())
+                        disabled
+                    @endif
+                ></input>
+                <input type="submit" name="action" value="stand"></input>
+            </form>
+        </div>
+    </div>
+</div>
+```
+
+- Capturas:
+
+<div align="center">
+<img src="./img/bljk-1.png"/>
+<img src="./img/bljk-2.png"/>
+<img src="./img/bljk-3.png"/>
+<img src="./img/bljk-4.png"/>
+<img src="./img/bljk-5.png"/>
+</div>
+
+</br>
 
 </div>

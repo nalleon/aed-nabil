@@ -6,9 +6,9 @@ namespace App\Contracts;
 
         public const TABLE_NAME = "tableros";
         public const COL_CONTENIDO = "contenido";
-        public const COL_FECHA = "fecha";
+        public const COL_DATE = "fecha";
         public const COL_ID = "id";
-        public const COL_NOMBRE = "nombre";
+        public const COL_NAME = "nombre";
         public const COL_USUARIO = "usuario";
 
         private function __construct() {}

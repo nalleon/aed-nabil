@@ -4,10 +4,10 @@ namespace App\Models;
 
 class Rol{
 
-/**
- * @var int
- *
- */
+    /**
+     * @var int
+     *
+     */
     private int $id;
 
     /**

@@ -2,7 +2,7 @@
 
 namespace App\Contracts;
 
-    final class TableroContract {
+    final class BoardContract {
 
         public const TABLE_NAME = "tableros";
         public const COL_CONTENIDO = "contenido";

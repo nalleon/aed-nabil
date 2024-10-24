@@ -13,7 +13,7 @@ class Rol{
     /**
      * @var string
      */
-    private string $nombre;
+    private string $name;
 
 
     /**
@@ -41,25 +41,25 @@ class Rol{
     }
 
     /**
-     * Get the value of nombre
+     * Get the value of name
      *
      * @return  string
      */
-    public function getNombre()
+    public function getName()
     {
-        return $this->nombre;
+        return $this->name;
     }
 
     /**
-     * Set the value of nombre
+     * Set the value of name
      *
-     * @param  string  $nombre
+     * @param  string  $name
      *
      * @return  self
      */
-    public function setNombre(string $nombre)
+    public function setName(string $name)
     {
-        $this->nombre = $nombre;
+        $this->name = $name;
 
         return $this;
     }

@@ -31,8 +31,8 @@ class RolDAO implements ICrud
 
         $stmt = $myPDO->prepare($sql);
         $stmt->execute([':id' => $id]);
-        $filasAfectadas = $stmt->rowCount();
-        return $filasAfectadas > 0;
+        $affectedRows = $stmt->rowCount();
+        return $affectedRows > 0;
     }
 
 
@@ -40,7 +40,7 @@ class RolDAO implements ICrud
     {
 
         $colid = RolContract::COL_ID;
-        $colnombre = RolContract::COL_NOMBRE;
+        $colnombre = RolContract::COL_NAME;
         $tablename = RolContract::TABLE_NAME;
         $myPDO = DB::getPdo();
         if (!($p->getId() > 0)) {
@@ -61,12 +61,12 @@ class RolDAO implements ICrud
 
                 ]
             );
-            //si filasAfectadas > 0 => hubo éxito consulta
-            $filasAfectadas = $stmt->rowCount();
+            //si affectedRows > 0 => hubo éxito consulta
+            $affectedRows = $stmt->rowCount();
 
 
 
-            if ($filasAfectadas > 0) {
+            if ($affectedRows > 0) {
 
                 $myPDO->commit();
             } else {
@@ -102,7 +102,7 @@ class RolDAO implements ICrud
         if ($row) {
             $p = new Rol();
             $p->setId($row[RolContract::COL_ID])
-                ->setNombre($row[RolContract::COL_NOMBRE]);
+                ->setName($row[RolContract::COL_NAME]);
             return $p;
         }
 
@@ -125,7 +125,7 @@ class RolDAO implements ICrud
         while ($row = $stmt->fetch()) {
             $p = new Rol();
             $p->setId($row[RolContract::COL_ID])
-                ->setNombre($row[RolContract::COL_NOMBRE]);
+                ->setName($row[RolContract::COL_NAME]);
             $roles[] = $p;
         }
 
@@ -137,7 +137,7 @@ class RolDAO implements ICrud
         $myPDO = DB::getPdo();
         $tablename = RolContract::TABLE_NAME;
         $colid = RolContract::COL_ID;
-        $colnombre = RolContract::COL_NOMBRE;
+        $colnombre = RolContract::COL_NAME;
 
         $sql =
         "INSERT INTO $tablename ( $colnombre)
@@ -148,17 +148,16 @@ class RolDAO implements ICrud
             $stmt = $myPDO->prepare($sql);
             $stmt->execute(
                 [
-                    ':nombre' => $p->getNombre()
+                    ':nombre' => $p->getName()
 
                 ]
             );
-            //si filasAfectadas > 0 => hubo éxito consulta
-            $filasAfectadas = $stmt->rowCount();
+            //si affectedRows > 0 => hubo éxito consulta
+            $affectedRows = $stmt->rowCount();
 
+            //forzamos un rollback aleatorio para ver que deshace los cambio
 
-
-            //forzamos un rollback aleatorio para ver que deshace los cambios
-            if ($filasAfectadas > 0) {
+            if ($affectedRows > 0) {
                 //obtenemos el id generado con:
                 $idgenerado = $myPDO->lastInsertId();
                 $p->setId($idgenerado);

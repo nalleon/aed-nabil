@@ -2,7 +2,7 @@
 namespace App\DAO;
 
 use App\Contracts\UserBBDDContract;
-use App\Contracts\TableroContract;
+//use App\Contracts\TableroContract;
 use App\Models\UserBBDD;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -32,7 +32,7 @@ class UserBBDDDAO implements ICrud {
     public function update($p): bool{
 
         $colid = UserBBDDContract::COL_ID;
-        $colname = UserBBDDContract::COL_NOMBRE;
+        $colname = UserBBDDContract::COL_NAME;
         $colpassword = UserBBDDContract::COL_PASSWORD;
         $colrol = UserBBDDContract::COL_ROL;
 
@@ -101,7 +101,7 @@ class UserBBDDDAO implements ICrud {
             $p = new UserBBDD();
 
             $p->setId($row[UserBBDDContract::COL_ID]);
-            $p->setNombre($row[UserBBDDContract::COL_NOMBRE]);
+            $p->setNombre($row[UserBBDDContract::COL_NAME]);
             $p->setPassword($row[UserBBDDContract::COL_PASSWORD]);
             $p->setRol($row[UserBBDDContract::COL_ROL]);
 
@@ -127,7 +127,7 @@ class UserBBDDDAO implements ICrud {
         while ($row = $stmt->fetch()) {
             $p = new UserBBDD();
             $p->setId($row[UserBBDDContract::COL_ID]);
-            $p->setNombre($row[UserBBDDContract::COL_NOMBRE]);
+            $p->setNombre($row[UserBBDDContract::COL_NAME]);
             $p->setPassword($row[UserBBDDContract::COL_PASSWORD]);
             $p->setRol($row[UserBBDDContract::COL_ROL]);
 
@@ -141,7 +141,7 @@ class UserBBDDDAO implements ICrud {
     {
         $myPDO = DB::getPdo();
         $tablename = UserBBDDContract::TABLE_NAME;
-        $colname = UserBBDDContract::COL_NOMBRE;
+        $colname = UserBBDDContract::COL_NAME;
         $colpassword = UserBBDDContract::COL_PASSWORD;
         $colrol = UserBBDDContract::COL_ROL;
 

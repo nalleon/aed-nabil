@@ -2,7 +2,7 @@
 
 namespace App\Contracts;
 
-    final class FiguraContract {
+    final class FigureContract {
 
         public const TABLE_NAME = "figuras";
         public const COL_ID = "id";

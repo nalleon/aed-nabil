@@ -65,11 +65,11 @@ class Board {
         $this->name = $name;
     }
 
-    public function getUsuarioId(): int {
+    public function getUserId(): int {
         return $this->user_id;
     }
 
-    public function setUsuarioId(int $user_id): void {
+    public function setUserId(int $user_id): void {
         $this->user_id = $user_id;
     }
 }

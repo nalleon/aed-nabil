@@ -1,23 +1,28 @@
 <?php
+
 namespace App\DAO;
 
-use App\Contracts\UserBBDDContract;
-//use App\Contracts\TableroContract;
-use App\Models\UserBBDD;
+use App\Contracts\BoardContract;
+use App\Contracts\FiguraContract;
+use App\Contracts\RolContract;
+use App\Models\Board;
+use App\Models\Rol;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use PDO;
 use App\DAO\Interface\ICrud;
 
-class UserBBDDDAO implements ICrud {
+
+
+class BoardDAO implements ICrud{
 
     public function __construct() {}
 
     public function delete($id): bool{
 
         $myPDO = DB::getPdo();
-        $tablename = UserBBDDContract::TABLE_NAME;
-        $colid = UserBBDDContract::COL_ID;
+        $tablename = BoardContract::TABLE_NAME;
+        $colid = BoardContract::COL_ID;
 
         $sql = "DELETE FROM $tablename WHERE $colid  = :id";
 
@@ -31,21 +36,22 @@ class UserBBDDDAO implements ICrud {
 
     public function update($p): bool{
 
-        $colid = UserBBDDContract::COL_ID;
-        $colname = UserBBDDContract::COL_NAME;
-        $colpassword = UserBBDDContract::COL_PASSWORD;
-        $colrol = UserBBDDContract::COL_ROL;
+        $colid = BoardContract::COL_ID;
+        $colname = BoardContract::COL_NAME;
+        $colcontent = BoardContract::COL_CONTENT;
+        $coldate = BoardContract::COL_DATE;
+        $coluser = BoardContract::COL_USER;
 
-        $tablename = UserBBDDContract::TABLE_NAME;
+        $tablename = BoardContract::TABLE_NAME;
         $myPDO = DB::getPdo();
         if (!($p->getId() > 0)) {
             return false;
         }
         $sql = "UPDATE $tablename ".
-               " SET $colname = :nombre " .
-               " $colpassword = :password " .
-               " $colrol = :rol " .
-               " WHERE $colid = :id";
+               " SET $colcontent = :content " .
+               " $coldate = :dateBoard " .
+               " $colname = :nameBoard " .
+               " WHERE $colid = :id AND $coluser = :userid" ;
 
 
         try {
@@ -53,10 +59,11 @@ class UserBBDDDAO implements ICrud {
             $stmt = $myPDO->prepare($sql);
             $stmt->execute(
                 [
-                    ':nombre' => $p->getNombre(),
+                    ':nameBoard' => $p->getName(),
                     ':id' => $p->getId(),
-                    ':password' => $p->getPassword(),
-                    ':rol' => $p->getPassword()
+                    ':content' => $p->getContent(),
+                    ':dateBoard' => $p->getDate(),
+                    ':userid' => $p->getUserId()
 
                 ]
             );
@@ -85,8 +92,9 @@ class UserBBDDDAO implements ICrud {
 
     public function findById($id): object | null {
 
-        $tablename = UserBBDDContract::TABLE_NAME;
-        $colid = UserBBDDContract::COL_ID;
+        $tablename = BoardContract::TABLE_NAME;
+        $colid = BoardContract::COL_ID;
+
 
         $sql = "SELECT * FROM $tablename WHERE $colid = :id";
 
@@ -98,12 +106,13 @@ class UserBBDDDAO implements ICrud {
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            $p = new UserBBDD();
+            $p = new Board();
 
-            $p->setId($row[UserBBDDContract::COL_ID]);
-            $p->setNombre($row[UserBBDDContract::COL_NAME]);
-            $p->setPassword($row[UserBBDDContract::COL_PASSWORD]);
-            $p->setRol($row[UserBBDDContract::COL_ROL]);
+            $p->setId($row[BoardContract::COL_ID]);
+            $p->setName($row[BoardContract::COL_NAME]);
+            $p->setContent($row[BoardContract::COL_CONTENT]);
+            $p->setDate($row[BoardContract::COL_DATE]);
+            $p->setUserId($row[BoardContract::COL_USER]);
 
             return $p;
         }
@@ -114,7 +123,7 @@ class UserBBDDDAO implements ICrud {
 
     public function findAll(): array{
 
-        $tablename = UserBBDDContract::TABLE_NAME;
+        $tablename = BoardContract::TABLE_NAME;
 
         $sql = "SELECT * FROM $tablename";
 
@@ -123,40 +132,46 @@ class UserBBDDDAO implements ICrud {
         $stmt->execute();
         $row = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-        $UserBBDDs = [];
+        $boards = [];
         while ($row = $stmt->fetch()) {
-            $p = new UserBBDD();
-            $p->setId($row[UserBBDDContract::COL_ID]);
-            $p->setNombre($row[UserBBDDContract::COL_NAME]);
-            $p->setPassword($row[UserBBDDContract::COL_PASSWORD]);
-            $p->setRol($row[UserBBDDContract::COL_ROL]);
+            $p = new Board();
 
-            $UserBBDDs[] = $p;
+            $p->setId($row[BoardContract::COL_ID]);
+            $p->setName($row[BoardContract::COL_NAME]);
+            $p->setContent($row[BoardContract::COL_CONTENT]);
+            $p->setDate($row[BoardContract::COL_DATE]);
+            $p->setUserId($row[BoardContract::COL_USER]);
+
+            $boards[] = $p;
         }
 
-        return $UserBBDDs;
+        return $boards;
     }
 
     public function save($p): object | null
     {
         $myPDO = DB::getPdo();
-        $tablename = UserBBDDContract::TABLE_NAME;
-        $colname = UserBBDDContract::COL_NAME;
-        $colpassword = UserBBDDContract::COL_PASSWORD;
-        $colrol = UserBBDDContract::COL_ROL;
+        $tablename = BoardContract::TABLE_NAME;
+        $colid = BoardContract::COL_ID;
+        $colname = BoardContract::COL_NAME;
+        $colcontent = BoardContract::COL_CONTENT;
+        $coldate = BoardContract::COL_DATE;
+        $coluser = BoardContract::COL_USER;
 
         $sql =
-        "INSERT INTO $tablename ( $colname, $colpassword, $colrol)
-         VALUES(:nombre, :passwd, :rol)";
+        "INSERT INTO $tablename ( $colcontent, $coldate, $colname, $coluser)
+         VALUES(:content, :dateBoard, :nameBoard, :userid)";
 
         try {
             $myPDO->beginTransaction();
             $stmt = $myPDO->prepare($sql);
             $stmt->execute(
                 [
-                    ':nombre' => $p->getNombre(),
-                    ':passwd' => $p->getPassword(),
-                    ':rol' => $p->getRol()
+                    ':nameBoard' => $p->getName(),
+                    ':id' => $p->getId(),
+                    ':content' => $p->getContent(),
+                    ':dateBoard' => $p->getDate(),
+                    ':userid' => $p->getUserId()
                 ]
             );
 
@@ -184,8 +199,7 @@ class UserBBDDDAO implements ICrud {
         return $p;
     }
 
-
-
-
-
 }
+
+
+?>

@@ -9,12 +9,11 @@ use App\Models\Rol;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use PDO;
+use App\DAO\Interface\ICrud;
 
 
 
-
-class RolDAO implements ICrud
-{
+class RolDAO implements ICrud{
 
 
     public function __construct() {}

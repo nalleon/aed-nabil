@@ -3,16 +3,11 @@
 namespace App\DAO;
 
 use App\Contracts\BoardContract;
-use App\Contracts\FiguraContract;
-use App\Contracts\RolContract;
 use App\Models\Board;
-use App\Models\Rol;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use PDO;
 use App\DAO\Interface\ICrud;
-
-
 
 class BoardDAO implements ICrud{
 

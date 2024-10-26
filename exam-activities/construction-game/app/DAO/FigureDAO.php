@@ -2,22 +2,22 @@
 
 namespace App\DAO;
 
-use App\Contracts\BoardContract;
+use App\Contracts\FigureContract;
 use App\Models\Board;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use PDO;
 use App\DAO\Interface\ICrud;
+use App\Models\Figure;
 
-class BoardDAO implements ICrud{
+class FigureDAO implements ICrud{
 
     public function __construct() {}
 
     public function delete($id): bool{
-
         $myPDO = DB::getPdo();
-        $tablename = BoardContract::TABLE_NAME;
-        $colid = BoardContract::COL_ID;
+        $tablename = FigureContract::TABLE_NAME;
+        $colid = FigureContract::COL_ID;
 
         $sql = "DELETE FROM $tablename WHERE $colid  = :id";
 
@@ -31,22 +31,18 @@ class BoardDAO implements ICrud{
 
     public function update($p): bool{
 
-        $colid = BoardContract::COL_ID;
-        $colname = BoardContract::COL_NAME;
-        $colcontent = BoardContract::COL_CONTENT;
-        $coldate = BoardContract::COL_DATE;
-        $coluser = BoardContract::COL_USER;
-
-        $tablename = BoardContract::TABLE_NAME;
+        $colid = FigureContract::COL_ID;
+        $colimg = FigureContract::COL_IMG;
+        $coltype = FigureContract::COL_TYPE;
+    
+        $tablename = FigureContract::TABLE_NAME;
         $myPDO = DB::getPdo();
         if (!($p->getId() > 0)) {
             return false;
         }
         $sql = "UPDATE $tablename ".
-               " SET $colcontent = :content " .
-               " $coldate = :dateBoard " .
-               " $colname = :nameBoard " .
-               " $coluser = :userid " .
+               " SET $colimg = :img " .
+               " $coltype = :typeImg " .
                " WHERE $colid = :id" ;
 
 
@@ -55,18 +51,14 @@ class BoardDAO implements ICrud{
             $stmt = $myPDO->prepare($sql);
             $stmt->execute(
                 [
-                    ':nameBoard' => $p->getName(),
                     ':id' => $p->getId(),
-                    ':content' => $p->getContent(),
-                    ':dateBoard' => $p->getDate(),
-                    ':userid' => $p->getUserId()
-
+                    ':typeImg' => $p->getTypeImage(),
+                    ':img' => $p->getImage(),
                 ]
             );
+
             //si affectedRows > 0 => hubo éxito consulta
             $affectedRows = $stmt->rowCount();
-
-
 
             if ($affectedRows > 0) {
                 $myPDO->commit();
@@ -87,8 +79,8 @@ class BoardDAO implements ICrud{
 
     public function findById($id): object | null {
 
-        $tablename = BoardContract::TABLE_NAME;
-        $colid = BoardContract::COL_ID;
+        $tablename = FigureContract::TABLE_NAME;
+        $colid = FigureContract::COL_ID;
 
 
         $sql = "SELECT * FROM $tablename WHERE $colid = :id";
@@ -101,13 +93,11 @@ class BoardDAO implements ICrud{
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            $p = new Board();
+            $p = new Figure();
 
-            $p->setId($row[BoardContract::COL_ID]);
-            $p->setName($row[BoardContract::COL_NAME]);
-            $p->setContent($row[BoardContract::COL_CONTENT]);
-            $p->setDate($row[BoardContract::COL_DATE]);
-            $p->setUserId($row[BoardContract::COL_USER]);
+            $p->setId($row[FigureContract::COL_ID]);
+            $p->setImage($row[FigureContract::COL_IMG]);
+            $p->setTypeImage($row[FigureContract::COL_TYPE]);
 
             return $p;
         }
@@ -118,7 +108,7 @@ class BoardDAO implements ICrud{
 
     public function findAll(): array{
 
-        $tablename = BoardContract::TABLE_NAME;
+        $tablename = FigureContract::TABLE_NAME;
 
         $sql = "SELECT * FROM $tablename";
 
@@ -127,46 +117,40 @@ class BoardDAO implements ICrud{
         $stmt->execute();
         $row = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-        $boards = [];
+        $figures = [];
         while ($row = $stmt->fetch()) {
-            $p = new Board();
+            $p = new Figure();
 
-            $p->setId($row[BoardContract::COL_ID]);
-            $p->setName($row[BoardContract::COL_NAME]);
-            $p->setContent($row[BoardContract::COL_CONTENT]);
-            $p->setDate($row[BoardContract::COL_DATE]);
-            $p->setUserId($row[BoardContract::COL_USER]);
+            $p->setId($row[FigureContract::COL_ID]);
+            $p->setImage($row[FigureContract::COL_IMG]);
+            $p->setTypeImage($row[FigureContract::COL_TYPE]);
 
-            $boards[] = $p;
+            $figures[] = $p;
         }
 
-        return $boards;
+        return $figures;
     }
 
     public function save($p): object | null
     {
         $myPDO = DB::getPdo();
-        $tablename = BoardContract::TABLE_NAME;
-        $colid = BoardContract::COL_ID;
-        $colname = BoardContract::COL_NAME;
-        $colcontent = BoardContract::COL_CONTENT;
-        $coldate = BoardContract::COL_DATE;
-        $coluser = BoardContract::COL_USER;
+        $tablename = FigureContract::TABLE_NAME;
+        $colid = FigureContract::COL_ID;
+        $colimg = FigureContract::COL_IMG;
+        $coltype = FigureContract::COL_TYPE;
 
         $sql =
-        "INSERT INTO $tablename ( $colcontent, $coldate, $colname, $coluser)
-         VALUES(:content, :dateBoard, :nameBoard, :userid)";
+        "INSERT INTO $tablename ( $colimg, $coltype)
+         VALUES(:img, :typeImg)";
 
         try {
             $myPDO->beginTransaction();
             $stmt = $myPDO->prepare($sql);
             $stmt->execute(
                 [
-                    ':nameBoard' => $p->getName(),
                     ':id' => $p->getId(),
-                    ':content' => $p->getContent(),
-                    ':dateBoard' => $p->getDate(),
-                    ':userid' => $p->getUserId()
+                    ':typeImg' => $p->getTypeImage(),
+                    ':img' => $p->getImage(),
                 ]
             );
 

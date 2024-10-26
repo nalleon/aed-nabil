@@ -4,18 +4,16 @@ namespace App\Models;
 
 use Exception;
 
-class MapperPersona {
-
-
+class MapperUserBBDD {
 
     private const sizeUTF8 = 4;
-    private const sizeNombre = 30 * self::sizeUTF8; // 30 caracteres UTF-8 (4 bytes por carácter)
+    private const sizeName = 30 * self::sizeUTF8; // 30 caracteres UTF-8 (4 bytes por carácter)
     private const sizeApellidos = 50 * self::sizeUTF8;
     private const sizeEdad = 4; // Entero de 4 bytes
     private const sizePeso = 4; // float
     private const sizeId = 4; // Entero de 4 bytes
     private const bytesApellidos = self::sizeApellidos * self::sizeUTF8;
-    private const bytesNombre = self::sizeNombre * self::sizeUTF8;
+    private const bytesNombre = self::sizeName * self::sizeUTF8;
 
     public function getSizeRegistro(){
         return self::sizeId + self::sizeEdad + self::sizePeso + self::bytesNombre + self::bytesApellidos;
@@ -29,7 +27,7 @@ class MapperPersona {
         return $texto;
     }
 
-    public function toRegistro(Persona $persona){
+    public function toRegistro(UserBBDD $userBBDD){
 
         // generamos una cadena de \0 muy grande para concatenar
         $sizeCadena0 = 100;
@@ -39,19 +37,19 @@ class MapperPersona {
 
 
         //garantizamos UTF-8
-        $nombre = $this->getUTF8($persona->getNombre());
+        $nombre = $this->getUTF8($userBBDD->getNombre());
 
-        // Cortamos la cadena para quedarnos con los primeros sizeNombre caracteres
+        // Cortamos la cadena para quedarnos con los primeros sizeName caracteres
         // usamos mb_substr porque es seguro respecto a utf-8
-        $nombre = mb_substr($nombre.$cadena_con_ceros, 0, self::sizeNombre );
+        $nombre = mb_substr($nombre.$cadena_con_ceros, 0, self::sizeName );
 
-        $apellidos = $this->getUTF8($persona->getApellidos());
+        $apellidos = $this->getUTF8($userBBDD->getApellidos());
         $apellidos = mb_substr($apellidos.$cadena_con_ceros,0, self::sizeApellidos );
 
 
-        $id = $persona->getId();
-        $edad = $persona->getEdad();
-        $peso = $persona->getPeso();
+        $id = $userBBDD->getId();
+        $edad = $userBBDD->getEdad();
+        $peso = $userBBDD->getPeso();
 
         $registro = pack(
             'ia'.self::bytesNombre.'a'.self::bytesApellidos.'if',

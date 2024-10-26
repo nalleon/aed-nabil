@@ -5,6 +5,7 @@ use App\Http\Controllers\ConstruccionController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PruebaController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UserBBDDController;
 use App\Http\Controllers\UsuarioController;
 use App\Models\Rol;
 use Illuminate\Support\Facades\Route;
@@ -31,4 +32,6 @@ Route::get('/login', function (){
     return view('login');
 })->name('loginView');
 
-Route::post('/login', [LoginController::class, 'loginUser'])->name('login');
+Route::post('/login', [LoginController::class, 'example'])->name('login');
+
+//Route::post('/login', [UserBBDDController::class, 'example'])->name('authenticationLogin');

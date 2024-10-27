@@ -9,7 +9,13 @@
     </head>
     <body class="antialiased">
         <div class="main-container">
-                <h2>b0mbardeen php version admin</h2>
+                <h2>Admin: {{session('username')}}</h2>
+
+                <ul>
+                    <li><a href="">Manage users</a></li>
+                    <li><a href="">Manage figures</a></li>
+                </ul>
+                
             <br>
         </div>
     </body>

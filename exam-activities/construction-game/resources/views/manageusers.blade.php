@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="Nabil L. A.">
-        <title>CG - Home </title>
+        <title>CG - Manage Users </title>
         <link rel="stylesheet" href="./style/login.css">
     </head>
     <body class="antialiased">
@@ -13,7 +13,7 @@
 
                 <ul>
                     @foreach ($usersArray as $user)
-                        <li><a href=""> {{ $user->getName() }}</a></li>
+                        <li><a href="{{ route('edituser', ['id' => $user->getId()] )}}"> {{ $user->getName() }}</a></li>
                     @endforeach
                 </ul>
                 

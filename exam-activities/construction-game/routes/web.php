@@ -33,9 +33,13 @@ Route::get('/home/edit/{id}', [BoardController::class, 'editBoard'])->name('edit
 
 //For administrators
 Route::get('/admin/home', [AdminController::class, 'index'])->name('adminhome');
-//manageusers
 
+// Admin - Manage users
 Route::get('/admin/users', [AdminController::class, 'showUsers'])->name('manageusers');
+Route::get('/admin/users/edit/{id}', [AdminController::class, 'editUser'])->name('edituser');
+Route::post('/admin/users/update/{id}', [AdminController::class, 'updateUser'])->name('updateuser');
+Route::get('/admin/users/delete/{id}', [AdminController::class, 'deleteUser'])->name('deleteuser');
 
+// Admin - Manage images
 Route::get('/admin/figureupload', [FigureController::class, 'showFigures'])->name('figureupload');
 Route::post('/admin/figureupload', [FigureController::class, 'uploadImg'])->name('figureuploadpost');

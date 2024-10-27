@@ -57,7 +57,7 @@ class UserBBDDDAO implements ICrud {
                     ':nombre' => $p->getNombre(),
                     ':id' => $p->getId(),
                     ':password' => $p->getPassword(),
-                    ':rol' => $p->getPassword()
+                    ':rol' => $p->getRol()
 
                 ]
             );

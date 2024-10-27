@@ -20,140 +20,46 @@ class LoginController extends Controller
     public function showLogin(){
         return view('login');
     }
-    
+
     /**
-     * Function to crearte a new user
+     * Funciton to check if an user exist to login
      */
-
-     
-     public function createUser(Request $request){
-
-        $filePath = storage_path('app/users.csv');
-        $username = trim($request->input('username'));
-
-
-        if($username == 'public' || $username == '' || $username == '/'){
-            return redirect()->route('login');
-        }
-
-        $userExists = $this->getUserIfExists($username, $filePath);
-
-        if($userExists !== null){
-            session(['user' => $userExists]);
-            session()->regenerate();
-            return redirect('/text-editor');
-        }
+   public function loginUser(Request $request){
+        $request->validate([
+            'username' => 'required|string',
+            'password' => 'required|string',
+        ]);
 
 
-        $id = $this->createId($filePath);
-
-        $newUser = new UserBBDD();
-        $newUser->setId($id);
-        $newUser->setUsername($username);
-        //$auxUser->setPassword($data[2]);
-        //$auxUser->setRol($data[3]);
-
-        $user = $newUser;
-
-        session(['user' => $user]);
-        session()->regenerate();
-
-
-        $open = fopen($filePath, 'a');
-        if($open){
-            fputcsv($open, [
-                        $newUser->getId(),
-                        $newUser->getUsername()
-                    ]);
-            fclose($open);
-        }
-
-        return redirect()->route('startpage');
-    }
-
-    public function example(){
         $pdo = DB::getPdo();
-        $st = $pdo->prepare("select * from usuarios");
-        $st->execute();
+        $st = $pdo->prepare("SELECT * FROM usuarios WHERE nombre = :nombre");
+        $st->execute([':nombre' => $request->username]);
 
-        foreach( $st->fetchAll() as $fila){
-            if( $fila["nombre"] == "root"){
-                //print_r($fila);
-                $clave = $fila["password"];
-                echo " $clave <br>";
-                
+        $user = $st->fetch();
 
+        //dd(Hash::make("1q2w3e4r"));
 
-                if( password_verify("root", $clave)){
-                    echo " la contraseña es root";
-                }
-                if( password_verify("1q2w3e4r", $clave)){
-                    echo " la contraseña es 1q2w3e4r";
-                }
+        if (!$user) {
+            return redirect()->route('login')->with('message', 'User does not exist');
+        }
+
+        $hashedPassword = $user['password'];
+        if (Hash::check($request->password, $hashedPassword)) {
+            session()->put('user', $user);
+
+            if ($user['rol'] == 2) {
+                return redirect()->route('adminhome');
+            } else {
+                return redirect()->route('userhome');
             }
+            
+        } else {
+            return redirect()->route('login')->with('message', 'Invalid password provided');
         }
-
-        //si queremos generar una nueva clave:
-        $nuevaClave = password_hash("unanuevaclave", PASSWORD_BCRYPT );
-        echo "<br>Clave password_hash: $nuevaClave";
-
-        //si usamos Hash::make y Hash::check
-        $nuevaClave = Hash::make("unanuevaclave");
-        echo "<br>Clave Hash::make:  $nuevaClave";
-
-        if( Hash::check( "unanuevaclave",$nuevaClave)){
-            echo "<br> las claves son coincidentes";
-        }
-        $pdo = null;
-
-        die();
-    }
-
-    /**
-     * Funciton to create an id for the user
-     */
-   public function createId($filePath){
-        $id = 1;
-        if(file_exists($filePath)){
-            $open = fopen($filePath, 'r');
-            while (($data = fgetcsv($open, 1000, ','))!== false) {
-                if(isset($data[0])){
-                    $actualId = (int)$data[0];
-                    $id = max($id, $actualId);
-                }
-            }
-            fclose($open);
-        }
-        return $id;
+        
    }
 
-   /**
-    * Function to check if a user exists
-    */
-   public function getUserIfExists($username, $filePath){
-        if(!file_exists($filePath)){
-            return redirect('/');
-        }
 
-        $auxUser = null;
-
-        if (($open = fopen($filePath, 'r')) !== false) {
-            while (($data = fgetcsv($open, 1000, ',')) !== false) {
-                if (isset($data[1]) && $data[1] == $username) {
-                    $auxUser = new UserBBDD();
-                    $auxUser->setId($data[0]);
-                    $auxUser->setUsername($data[1]);
-                    $auxUser->setPassword($data[2]);
-                    $auxUser->setRol($data[3]);
-                    fclose($open);
-                    return $auxUser;
-                }
-            }
-        }
-
-        return null;
-
-    }
 
     /**
      * Function to logout a user
@@ -162,9 +68,11 @@ class LoginController extends Controller
     public function logout(){
         session()->flush();
         session()->regenerate();
-        $message = 'You have successfully logged out. Log in again to access the editor.';
+    
+        $message = 'You have successfully logged out. Log in again to access your boards.';
 
         return redirect()->route('login')->with('message', $message);
     }
+
 
 }

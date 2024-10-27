@@ -7,13 +7,17 @@ use App\Models\UserBBDD;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class RegisterController extends Controller
-{
+class RegisterController extends Controller{
 
     protected $userDAO;
 
     public function __construct(){
         $this->userDAO = new UserBBDDDAO(); 
+    }
+
+
+    public function showRegister(){
+        return view('register');
     }
 
     public function register(Request $request) {
@@ -32,7 +36,7 @@ class RegisterController extends Controller
 
         session()->put('user', $user);
       
-        return redirect()->route('login')->with('success',
+        return redirect()->route('login')->with('message',
          'Successfully registered. Log in to your account');
     }
     

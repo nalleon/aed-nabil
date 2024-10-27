@@ -22,7 +22,7 @@
                     <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Confirm your password" required />
                     <br>
                     <input type="submit" name="register" value="Register">
-                    <p>Have an account? <a href="{{route('loginView')}}"> Click here</a></p>
+                    <p>Have an account? <a href="{{route('login')}}"> Click here</a></p>
             </form>
 
             <br>

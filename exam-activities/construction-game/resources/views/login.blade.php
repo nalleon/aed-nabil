@@ -12,17 +12,17 @@
 
             <form action="{{ url('/login') }}" method="POST">
                     @csrf
-                    <label for="username">Username</label>
-                    @if(session('success'))
-                        <p>{{ session('success') }}</p>
+                    @if(session('message'))
+                        <p>{{ session('message') }}</p>
                     @endif
+                    <label for="username">Username</label>
                     <input type="text" name="username" id="username" placeholder="Enter your username" required/>
                     <br>
                     <label for="password">Password</label>
                     <input type="password" name="password" id="password" placeholder="Enter your password" required/>
                     <br>
                     <input type="submit" name="login" value="Login">
-                    <p>Don't have an account? <a href="{{route('registerView')}}"> Click here</a></p>
+                    <p>Don't have an account? <a href="{{route('register')}}"> Click here</a></p>
             </form>
 
             <br>

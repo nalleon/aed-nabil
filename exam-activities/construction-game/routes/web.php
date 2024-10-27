@@ -1,14 +1,9 @@
 <?php
 
-use App\DAO\RolDAO;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BoardController;
-use App\Http\Controllers\ConstruccionController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\PruebaController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\UserBBDDController;
-use App\Http\Controllers\UsuarioController;
-use App\Models\Rol;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 // Register and login routes
 Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
+Route::post('/login', [LoginController::class, 'loginUser']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/register', [RegisterController::class, 'showRegister'])->name('register');
@@ -32,4 +27,6 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 // For users 
 Route::get('/home', [BoardController::class, 'index'])->name('userhome');
-Route::post('/home', [BoardController::class, 'index'])->name('home');
+
+//For administrators
+Route::get('/admin/home', [AdminController::class, 'index'])->name('adminhome');

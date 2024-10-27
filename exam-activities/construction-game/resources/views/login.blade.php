@@ -10,7 +10,7 @@
     <body class="antialiased">
         <div class="main-container">
 
-            <form action="{{ route('login') }}" method="POST">
+            <form action="{{ url('/login') }}" method="POST">
                     @csrf
                     <label for="username">Username</label>
                     @if(session('message'))

@@ -13,9 +13,19 @@ use Illuminate\Support\Facades\Hash;
  */
 class LoginController extends Controller
 {
+
+    /**
+     * Function to show thhe login view
+     */
+    public function showLogin(){
+        return view('login');
+    }
+    
     /**
      * Function to crearte a new user
      */
+
+     
      public function createUser(Request $request){
 
         $filePath = storage_path('app/users.csv');

@@ -10,16 +10,17 @@ class RegisterController extends Controller
 {
     public function register(Request $request) {
         $request->validate([
-            'username' => 'required|string|max:255|unique:usuarios,nombre',
+            'username' => 'required|string|max:255',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        $user = UserBBDD::create([
-            'nombre' => $request->username,
-            'password' => Hash::make($request->password),
-        ]);
 
-        session_start();
+        $user = new UserBBDD();
+        $user->nombre = $request->username;
+        $user->password = Hash::make($request->password);
+        $user->rol = 1;
+        $user->save();
+
         session()->put('user', $user);
       
         return redirect()->route('login')->with('success',

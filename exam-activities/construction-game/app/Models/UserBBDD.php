@@ -2,9 +2,19 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class UserBBDD extends Model{
+
+    use HasFactory;
+
+    protected $table = 'usuarios'; 
+
+    protected $fillable = ['nombre', 'password', 'rol'];
+
+    public $timestamps = false;
+    
     /**
      * @var integer
      */

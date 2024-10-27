@@ -1,6 +1,7 @@
 <?php
 
 use App\DAO\RolDAO;
+use App\Http\Controllers\BoardController;
 use App\Http\Controllers\ConstruccionController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PruebaController;
@@ -22,16 +23,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Register and login routes
-Route::get('/', function (){
-    return view('register');
-})->name('registerView');
+Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::post('/register', [RegisterController::class, 'register'])->name('register');
+Route::get('/register', [RegisterController::class, 'showRegister'])->name('register');
+Route::post('/register', [RegisterController::class, 'register']);
 
-Route::get('/login', function (){
-    return view('login');
-})->name('loginView');
-
-Route::post('/login', [LoginController::class, 'example'])->name('login');
-
-//Route::post('/login', [UserBBDDController::class, 'example'])->name('authenticationLogin');
+// For users 
+Route::get('/home', [BoardController::class, 'index'])->name('userhome');
+Route::post('/home', [BoardController::class, 'index'])->name('home');

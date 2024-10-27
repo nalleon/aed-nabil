@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use PDO;
 use App\DAO\Interface\ICrud;
+use App\Models\Rol;
 
 class UserBBDDDAO implements ICrud {
 
@@ -145,6 +146,19 @@ class UserBBDDDAO implements ICrud {
         $colpassword = UserBBDDContract::COL_PASSWORD;
         $colrol = UserBBDDContract::COL_ROL;
 
+        $roleName = $p->getRol(); 
+        $roleDAO = new RolDAO();
+
+        $allRoles = $roleDAO->findAll();
+
+        $rolId = 0;
+        foreach ($allRoles as $role) {
+            if ($role->getName() === $roleName) {
+                $rolId = $role->getId();
+                break;
+            }
+        }
+
         $sql =
         "INSERT INTO $tablename ( $colname, $colpassword, $colrol)
          VALUES(:nombre, :passwd, :rol)";
@@ -154,9 +168,9 @@ class UserBBDDDAO implements ICrud {
             $stmt = $myPDO->prepare($sql);
             $stmt->execute(
                 [
-                    ':nombre' => $p->getNombre(),
+                    ':nombre' => $p->getName(),
                     ':passwd' => $p->getPassword(),
-                    ':rol' => $p->getRol()
+                    ':rol' => $rolId
                 ]
             );
 

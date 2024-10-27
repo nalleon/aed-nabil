@@ -13,8 +13,8 @@
             <form action="{{ url('/login') }}" method="POST">
                     @csrf
                     <label for="username">Username</label>
-                    @if(session('message'))
-                        <p>{{ session('message') }}</p>
+                    @if(session('success'))
+                        <p>{{ session('success') }}</p>
                     @endif
                     <input type="text" name="username" id="username" placeholder="Enter your username" required/>
                     <br>

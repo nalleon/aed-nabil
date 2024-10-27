@@ -13,11 +13,6 @@
             <form action="{{ route('register') }}" method="POST">
                     @csrf
                     <label for="username">Username</label>
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
                     <input type="text" name="username" id="username" placeholder="Enter your username" required/>
                     <br>
                     <label for="password">Password</label>

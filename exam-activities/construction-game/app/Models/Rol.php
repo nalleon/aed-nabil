@@ -4,6 +4,10 @@ namespace App\Models;
 
 class Rol{
 
+    protected $table = 'roles';
+
+    protected $fillable = ['nombre'];
+
     /**
      * @var int
      *

@@ -135,7 +135,6 @@ class FigureDAO implements ICrud{
     {
         $myPDO = DB::getPdo();
         $tablename = FigureContract::TABLE_NAME;
-        $colid = FigureContract::COL_ID;
         $colimg = FigureContract::COL_IMG;
         $coltype = FigureContract::COL_TYPE;
 
@@ -148,7 +147,6 @@ class FigureDAO implements ICrud{
             $stmt = $myPDO->prepare($sql);
             $stmt->execute(
                 [
-                    ':id' => $p->getId(),
                     ':typeImg' => $p->getTypeImage(),
                     ':img' => $p->getImage(),
                 ]

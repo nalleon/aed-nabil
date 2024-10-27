@@ -13,7 +13,7 @@
 
                 <ul>
                     <li><a href="">Manage users</a></li>
-                    <li><a href="">Manage figures</a></li>
+                    <li><a href="{{route('figureupload')}}">Manage figures</a></li>
                 </ul>
                 
             <br>

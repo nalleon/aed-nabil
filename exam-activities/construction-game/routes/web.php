@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BoardController;
+use App\Http\Controllers\FigureController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
@@ -32,3 +33,5 @@ Route::get('/home/edit/{id}', [BoardController::class, 'editBoard'])->name('edit
 
 //For administrators
 Route::get('/admin/home', [AdminController::class, 'index'])->name('adminhome');
+Route::get('/admin/figureupload', [FigureController::class, 'showFigures'])->name('figureupload');
+Route::post('/admin/figureupload', [FigureController::class, 'uploadImg'])->name('figureuploadpost');

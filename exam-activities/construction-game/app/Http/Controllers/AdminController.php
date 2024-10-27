@@ -19,9 +19,10 @@ class AdminController extends Controller{
 
     public function index(){
         $this->checkUser();
-
-       //$directories = Storage::directories("storage/app/");
-
         return view('adminhome');
     }
+
+
+    
+
 }

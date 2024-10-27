@@ -37,8 +37,6 @@ class LoginController extends Controller
 
         $user = $st->fetch();
 
-        //dd(Hash::make("1q2w3e4r"));
-
         if (!$user) {
             return redirect()->route('login')->with('message', 'User does not exist');
         }
@@ -46,10 +44,13 @@ class LoginController extends Controller
         $hashedPassword = $user['password'];
         if (Hash::check($request->password, $hashedPassword)) {
             session()->put('user', $user);
+            $username = $user['nombre'];
+            session()->put('username', $username);
 
             if ($user['rol'] == 2) {
                 return redirect()->route('adminhome');
             } else {
+              
                 return redirect()->route('userhome');
             }
             
@@ -58,6 +59,7 @@ class LoginController extends Controller
         }
         
    }
+
 
 
 

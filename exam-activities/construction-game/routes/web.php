@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Register and login routes
-Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
+Route::get('/', [LoginController::class, 'showLogin'])->name('login');
 Route::post('/login', [LoginController::class, 'loginUser']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
@@ -27,6 +27,8 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 // For users 
 Route::get('/home', [BoardController::class, 'index'])->name('userhome');
+Route::post('/home', [BoardController::class, 'createBoard'])->name('createBoard');
+Route::get('/home/edit/{id}', [BoardController::class, 'editBoard'])->name('editBoard');
 
 //For administrators
 Route::get('/admin/home', [AdminController::class, 'index'])->name('adminhome');

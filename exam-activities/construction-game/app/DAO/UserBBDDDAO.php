@@ -114,7 +114,6 @@ class UserBBDDDAO implements ICrud {
 
 
     public function findAll(): array{
-
         $tablename = UserBBDDContract::TABLE_NAME;
 
         $sql = "SELECT * FROM $tablename";
@@ -138,8 +137,7 @@ class UserBBDDDAO implements ICrud {
         return $UserBBDDs;
     }
 
-    public function save($p): object | null
-    {
+    public function save($p): object | null{
         $myPDO = DB::getPdo();
         $tablename = UserBBDDContract::TABLE_NAME;
         $colname = UserBBDDContract::COL_NAME;

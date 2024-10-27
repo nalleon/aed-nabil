@@ -12,8 +12,9 @@
                 <h2>Admin: {{session('username')}}</h2>
 
                 <ul>
-                    <li><a href="{{route('manageusers')}}">Manage users</a></li>
-                    <li><a href="{{route('figureupload')}}">Manage figures</a></li>
+                    @foreach ($usersArray as $user)
+                        <li><a href=""> {{ $user->getName() }}</a></li>
+                    @endforeach
                 </ul>
                 
             <br>

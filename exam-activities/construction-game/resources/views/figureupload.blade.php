@@ -23,6 +23,11 @@
                     </div>
                 </form>
             <br>
+            <div class="back">
+                <form action="{{ route('adminhome') }}" method="GET">
+                    <input type="submit" value="Back">
+                </form>
+            </div>
         </div>
     </body>
 </html>

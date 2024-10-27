@@ -102,7 +102,7 @@ class UserBBDDDAO implements ICrud {
             $p = new UserBBDD();
 
             $p->setId($row[UserBBDDContract::COL_ID]);
-            $p->setNombre($row[UserBBDDContract::COL_NAME]);
+            $p->setName($row[UserBBDDContract::COL_NAME]);
             $p->setPassword($row[UserBBDDContract::COL_PASSWORD]);
             $p->setRol($row[UserBBDDContract::COL_ROL]);
 
@@ -127,7 +127,7 @@ class UserBBDDDAO implements ICrud {
         while ($row = $stmt->fetch()) {
             $p = new UserBBDD();
             $p->setId($row[UserBBDDContract::COL_ID]);
-            $p->setNombre($row[UserBBDDContract::COL_NAME]);
+            $p->setName($row[UserBBDDContract::COL_NAME]);
             $p->setPassword($row[UserBBDDContract::COL_PASSWORD]);
             $p->setRol($row[UserBBDDContract::COL_ROL]);
 

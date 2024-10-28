@@ -12,7 +12,7 @@ use PDO;
 use App\DAO\Interface\ICrud;
 
 /**
- * 
+ *
  */
 
 class RolDAO implements ICrud{
@@ -56,7 +56,7 @@ class RolDAO implements ICrud{
             $stmt = $myPDO->prepare($sql);
             $stmt->execute(
                 [
-                    ':nameRole' => $p->getNombre(),
+                    ':nameRole' => $p->getName(),
                     ':id' => $p->getId()
 
                 ]

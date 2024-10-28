@@ -168,7 +168,32 @@ class BoardDAO implements ICrud{
                 ]
             );
 
-            $affectedRows = $stmt->rowCount();
+            $tableroIdGenerated = $myPDO->lastInsertId();
+
+            $tableName = "figuras_tableros";
+            $colTableroId= "tablero_id";
+            $colFiguraId= "figura_id";
+            $colPosicion = "posicion";
+
+            $sqlFiguras_Tablero =
+            "INSERT INTO $tableName ($colTableroId, $colFiguraId, $colPosicion)" .
+            " VALUES(:tableroId, :figura_id, :posicion)";
+
+            $stmtFigurasTableros = $myPDO->prepare($sqlFiguras_Tablero);
+
+
+            for($i=0;$i<40;$i++){
+                $stmtFigurasTableros->execute(
+                    [
+                        ':tableroid' => $tableroIdGenerated,
+                        ':posicion' => $i,
+                        ':figura_id' => 1
+                    ]
+                );
+
+            }
+
+            $affectedRows = $stmtFigurasTableros->rowCount();
 
             if ($affectedRows > 0) {
                 $idGenerated = $myPDO->lastInsertId();

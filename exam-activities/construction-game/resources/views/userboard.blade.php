@@ -12,7 +12,9 @@
             <div class="board">
                <h2>work in progress</h2>
             </div>
-            
+            <!--
+                3 foreach _> figurasMin, figuras, radio
+            -->
         </div>
     </body>
 </html>

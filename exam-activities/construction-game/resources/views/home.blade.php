@@ -13,14 +13,14 @@
             @if (session('user') && count($files)>0)
                 <ul>
                     @foreach ($files as $file)
-                    <li><a href=""> {{basename($file)}}</a></li>  
+                    <li><a href="{{route('editBoard', ['id' => $file->getId()])}}"> {{basename($file)}}</a></li>  
                     @endforeach
                 </ul>
             @else
                 <p>You have not created any board yet!</p>
             @endif
             <br>
-            <form action="{{ route('createBoard')}}">
+            <form action="{{ route('createBoard')}}" method="POST">
                 @csrf
                 <label for="boardName">Board's name:</label>
                 <input type="text" name="boardName" id="boardName" placeholder="Enter board name">

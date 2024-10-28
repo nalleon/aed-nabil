@@ -43,9 +43,9 @@ class BoardDAO implements ICrud{
             return false;
         }
         $sql = "UPDATE $tablename ".
-               " SET $colcontent = :content " .
-               " $coldate = :dateBoard " .
-               " $colname = :nameBoard " .
+               " SET $colcontent = :content, " .
+               " $coldate = :dateBoard, " .
+               " $colname = :nameBoard, " .
                " $coluser = :userid " .
                " WHERE $colid = :id" ;
 
@@ -63,11 +63,8 @@ class BoardDAO implements ICrud{
 
                 ]
             );
-            //si affectedRows > 0 => hubo éxito consulta
+
             $affectedRows = $stmt->rowCount();
-
-
-
             if ($affectedRows > 0) {
                 $myPDO->commit();
             } else {
@@ -143,23 +140,24 @@ class BoardDAO implements ICrud{
         return $boards;
     }
 
-    public function save($p): object | null
-    {
+    public function save($p): object | null {
         $myPDO = DB::getPdo();
         $tablename = BoardContract::TABLE_NAME;
-        $colid = BoardContract::COL_ID;
         $colname = BoardContract::COL_NAME;
         $colcontent = BoardContract::COL_CONTENT;
         $coldate = BoardContract::COL_DATE;
         $coluser = BoardContract::COL_USER;
 
         $sql =
-        "INSERT INTO $tablename ( $colcontent, $coldate, $colname, $coluser)
-         VALUES(:content, :dateBoard, :nameBoard, :userid)";
+        "INSERT INTO $tablename ($coluser, $colname, $colcontent, $coldate)" .
+        " VALUES(:userid, :nameBoard, :content, :dateBoard)";
 
         try {
             $myPDO->beginTransaction();
+            //dd('aaa');
             $stmt = $myPDO->prepare($sql);
+            dd($stmt);
+
             $stmt->execute(
                 [
                     ':nameBoard' => $p->getName(),
@@ -170,14 +168,11 @@ class BoardDAO implements ICrud{
                 ]
             );
 
-            //si affectedRows > 0 => hubo éxito consulta
             $affectedRows = $stmt->rowCount();
 
-            //forzamos un rollback aleatorio para ver que deshace los cambios
             if ($affectedRows > 0) {
-                //obtenemos el id generado con:
-                $idgenerado = $myPDO->lastInsertId();
-                $p->setId($idgenerado);
+                $idGenerated = $myPDO->lastInsertId();
+                $p->setId($idGenerated);
                 $myPDO->commit();
             } else {
                 $myPDO->rollBack();

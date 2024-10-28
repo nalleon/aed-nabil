@@ -22,8 +22,7 @@ class RolDAO implements ICrud{
 
 
 
-    public function delete($id): bool
-    {
+    public function delete($id): bool{
 
         $myPDO = DB::getPdo();
         $tablename = RolContract::TABLE_NAME;
@@ -48,7 +47,7 @@ class RolDAO implements ICrud{
             return false;
         }
         $sql = "UPDATE $tablename ".
-               " SET $colnombre = :nombre " .
+               " SET $colnombre = :nameRole " .
                " WHERE $colid = :id";
 
 
@@ -57,16 +56,12 @@ class RolDAO implements ICrud{
             $stmt = $myPDO->prepare($sql);
             $stmt->execute(
                 [
-                    ':nombre' => $p->getNombre(),
+                    ':nameRole' => $p->getNombre(),
                     ':id' => $p->getId()
 
                 ]
             );
-            //si affectedRows > 0 => hubo éxito consulta
             $affectedRows = $stmt->rowCount();
-
-
-
             if ($affectedRows > 0) {
 
                 $myPDO->commit();
@@ -85,8 +80,7 @@ class RolDAO implements ICrud{
     }
 
 
-    public function findById($id): object | null
-    {
+    public function findById($id): object | null{
 
         $tablename = RolContract::TABLE_NAME;
         $colid = RolContract::COL_ID;
@@ -111,8 +105,7 @@ class RolDAO implements ICrud{
     }
 
 
-    public function findAll(): array
-    {
+    public function findAll(): array{
 
         $tablename = RolContract::TABLE_NAME;
 
@@ -133,8 +126,7 @@ class RolDAO implements ICrud{
         return $roles;
     }
 
-    public function save($p): object | null
-    {
+    public function save($p): object | null {
         $myPDO = DB::getPdo();
         $tablename = RolContract::TABLE_NAME;
         $colid = RolContract::COL_ID;
@@ -142,26 +134,23 @@ class RolDAO implements ICrud{
 
         $sql =
         "INSERT INTO $tablename ( $colnombre)
-         VALUES(:nombre)";
+         VALUES(:nameRole)";
 
         try {
             $myPDO->beginTransaction();
             $stmt = $myPDO->prepare($sql);
             $stmt->execute(
                 [
-                    ':nombre' => $p->getName()
+                    ':nameRole' => $p->getName()
 
                 ]
             );
-            //si affectedRows > 0 => hubo éxito consulta
+
             $affectedRows = $stmt->rowCount();
 
-            //forzamos un rollback aleatorio para ver que deshace los cambio
-
             if ($affectedRows > 0) {
-                //obtenemos el id generado con:
-                $idgenerado = $myPDO->lastInsertId();
-                $p->setId($idgenerado);
+                $idGenerated = $myPDO->lastInsertId();
+                $p->setId($idGenerated);
                 $myPDO->commit();
             } else {
                 $myPDO->rollback();

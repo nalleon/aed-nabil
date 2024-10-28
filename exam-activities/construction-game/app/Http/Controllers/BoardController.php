@@ -2,11 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\DAO\BoardDAO;
+use App\DAO\FigureBoardDAO;
+use App\DAO\FigureDAO;
+use App\Models\Board;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class BoardController extends Controller
 {
+
+
+    protected $boardDAO;
+    protected $figureBoardDAO;
+
+    public function __construct(){
+        $this->boardDAO = new BoardDAO();
+        $this->figureBoardDAO = new FigureBoardDAO();
+        }
 
     /**
      * Method to check if the session has an user
@@ -28,10 +41,39 @@ class BoardController extends Controller
         return view('home', compact('files'));
     }
 
-    public function createBoard() {
-        $directory = session()->get('username');
-        Storage::makeDirectory($directory, 700, true);
-        //Storage::put($directory ."/". $filenameToCreate, $content);
+    public function createBoard(Request $request) {
+        $this->checkUser();
+
+        $request->validate([
+            'boardName' => 'required|string|max:255',
+        ]);
+
+       
+       
+        $user = session()->get('user');
+        $userId = $user[0];
+        $blankFigureId = 1; 
+
+        
+        $boardName = $request->input('boardName');
+        $board = new Board();
+        $board->setName($boardName);
+        $board->setUserId($userId);
+        $board->setDate(time());
+
+        $savedBoard = $this->boardDAO->save($board);
+
+        if ($savedBoard) {
+            $boardId = $savedBoard->getId(); 
+            
+            for ($position = 0; $position < 14; $position++) {
+                $this->figureBoardDAO->associateFigureWithBoard($boardId, $blankFigureId, $position);
+            }
+
+            return redirect()->route('home')->with('message', 'Board created successfully');
+        }
+
+        return redirect()->route('home')->with('error', 'Failed to create board');
     }
 
     public function editBoard($id) {

@@ -19,7 +19,7 @@ class UserBBDDDAO implements ICrud {
         $tablename = UserBBDDContract::TABLE_NAME;
         $colid = UserBBDDContract::COL_ID;
 
-        $sql = "DELETE FROM $tablename WHERE $colid  = :id";
+        $sql = "DELETE FROM $tablename WHERE $colid = :id";
 
         $stmt = $myPDO->prepare($sql);
         $stmt->execute([':id' => $id]);
@@ -69,7 +69,7 @@ class UserBBDDDAO implements ICrud {
 
 
             if ($affectedRows > 0) {
-
+                
                 $myPDO->commit();
             } else {
                 $myPDO->rollBack();

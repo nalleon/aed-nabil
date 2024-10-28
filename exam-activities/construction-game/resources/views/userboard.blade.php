@@ -4,13 +4,15 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="Nabil L. A.">
-        <title>CG - Home </title>
+        <title>CG - Your boards </title>
         <link rel="stylesheet" href="./style/login.css">
     </head>
     <body class="antialiased">
         <div class="main-container">
-
-            <h2></h2>
+            <div class="board">
+               <h2>work in progress</h2>
+            </div>
+            
         </div>
     </body>
 </html>

@@ -41,7 +41,7 @@ class FigureDAO implements ICrud{
             return false;
         }
         $sql = "UPDATE $tablename ".
-               " SET $colimg = :img " .
+               " SET $colimg = :img, " .
                " $coltype = :typeImg " .
                " WHERE $colid = :id" ;
 
@@ -57,7 +57,6 @@ class FigureDAO implements ICrud{
                 ]
             );
 
-            //si affectedRows > 0 => hubo éxito consulta
             $affectedRows = $stmt->rowCount();
 
             if ($affectedRows > 0) {
@@ -152,14 +151,11 @@ class FigureDAO implements ICrud{
                 ]
             );
 
-            //si affectedRows > 0 => hubo éxito consulta
             $affectedRows = $stmt->rowCount();
 
-            //forzamos un rollback aleatorio para ver que deshace los cambios
             if ($affectedRows > 0) {
-                //obtenemos el id generado con:
-                $idgenerado = $myPDO->lastInsertId();
-                $p->setId($idgenerado);
+                $idGenerated = $myPDO->lastInsertId();
+                $p->setId($idGenerated);
                 $myPDO->commit();
             } else {
                 $myPDO->rollBack();

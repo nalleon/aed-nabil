@@ -29,7 +29,7 @@ Route::post('/register', [RegisterController::class, 'register']);
 // For users 
 Route::get('/home', [BoardController::class, 'index'])->name('userhome');
 Route::post('/home', [BoardController::class, 'createBoard'])->name('createBoard');
-Route::get('/home/edit/{id}', [BoardController::class, 'editBoard'])->name('editBoard');
+Route::get('/home/edit/{id}/', [BoardController::class, 'editBoard'])->name('editBoard');
 
 //For administrators
 Route::get('/admin/home', [AdminController::class, 'index'])->name('adminhome');

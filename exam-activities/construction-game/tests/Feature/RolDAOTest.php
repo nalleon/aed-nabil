@@ -36,7 +36,7 @@ class RolDAOTest extends TestCase
 
         $rolList = $rolDAO->findAll();
 
-        assertTrue(count($rolList) == 2);
+        assertTrue(count($rolList) == 2, self::MESSAGE_ERROR);
     }
 
         /**
@@ -48,8 +48,8 @@ class RolDAOTest extends TestCase
         $rolDAO = new RolDAO($pdo);
 
         $rol = $rolDAO->findById(1);
-        assertTrue($rol->getName() == "usuario");
-        assertTrue($rol->getId() == "1");
+        assertTrue($rol->getName() == "usuario", self::MESSAGE_ERROR);
+        assertTrue($rol->getId() == "1", self::MESSAGE_ERROR);
     }
 
     public function test_003_delete(): void {
@@ -60,7 +60,7 @@ class RolDAOTest extends TestCase
         $rol = $rolDAO->delete(1);
         $rolList = $rolDAO->findAll();
 
-        assertTrue(count($rolList) == 1);
+        assertTrue(count($rolList) == 1, self::MESSAGE_ERROR);
     }
 
     public function test_004_delete(): void {
@@ -71,7 +71,7 @@ class RolDAOTest extends TestCase
         $rol = $rolDAO->delete(1);
         $rolList = $rolDAO->findAll();
 
-        assertTrue(count($rolList) == 1);
+        assertTrue(count($rolList) == 1, self::MESSAGE_ERROR);
     }
 
     public function test_005_update(): void {
@@ -92,10 +92,10 @@ class RolDAOTest extends TestCase
 
         $rolBBDD = $rolDAO->findById(3);
 
-        assertTrue(count($rolList) == 3);
-        assertTrue($rolToUpdate == $rolBBDD);
-        assertTrue($rolToUpdate->getName() == $rolBBDD->getName());
-        assertTrue($rolToUpdate->getId() == $rolBBDD->getId());
+        assertTrue(count($rolList) == 3, self::MESSAGE_ERROR);
+        assertTrue($rolToUpdate == $rolBBDD, self::MESSAGE_ERROR);
+        assertTrue($rolToUpdate->getName() == $rolBBDD->getName(), self::MESSAGE_ERROR);
+        assertTrue($rolToUpdate->getId() == $rolBBDD->getId(), self::MESSAGE_ERROR);
 
     }
 
@@ -115,8 +115,7 @@ class RolDAOTest extends TestCase
         $rolBBDD = $rolDAO->findById(3);
 
 
-        assertTrue(count($rolList) == 3);
-        assertTrue($rolToAdd == $rolBBDD);
-
+        assertTrue(count($rolList) == 3, self::MESSAGE_ERROR);
+        assertTrue($rolToAdd == $rolBBDD, self::MESSAGE_ERROR);
     }
 }

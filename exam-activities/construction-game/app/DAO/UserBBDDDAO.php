@@ -8,7 +8,6 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use PDO;
 use App\DAO\Interface\ICrud;
-use App\Models\Rol;
 
 class UserBBDDDAO implements ICrud {
 
@@ -39,22 +38,26 @@ class UserBBDDDAO implements ICrud {
 
         $tablename = UserBBDDContract::TABLE_NAME;
         $myPDO = DB::getPdo();
-        if (!($p->getId() > 0)) {
-            return false;
-        }
+       
+       // dd($p->getId());
+
+       
+
+
         $sql = "UPDATE $tablename ".
-               " SET $colname = :nombre " .
-               " $colpassword = :password " .
+               " SET $colname = :nombre, " .
+               " $colpassword = :password, " .
                " $colrol = :rol " .
                " WHERE $colid = :id";
 
-
+               
         try {
             $myPDO->beginTransaction();
             $stmt = $myPDO->prepare($sql);
+           
             $stmt->execute(
                 [
-                    ':nombre' => $p->getNombre(),
+                    ':nombre' => $p->getName(),
                     ':id' => $p->getId(),
                     ':password' => $p->getPassword(),
                     ':rol' => $p->getRol()
@@ -63,7 +66,6 @@ class UserBBDDDAO implements ICrud {
             );
             //si affectedRows > 0 => hubo éxito consulta
             $affectedRows = $stmt->rowCount();
-
 
 
             if ($affectedRows > 0) {

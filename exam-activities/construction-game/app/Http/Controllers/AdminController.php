@@ -72,6 +72,7 @@ class AdminController extends Controller{
             $user->setRol(2);
         }
 
+        //dd($user);
         $this->userDAO->update($user);
 
         return redirect()->route('manageusers')->with('message', 'User updated successfully.');

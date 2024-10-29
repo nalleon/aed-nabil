@@ -31,6 +31,7 @@ Route::get('/home', [BoardController::class, 'index'])->name('userhome');
 Route::post('/home', [BoardController::class, 'createBoard'])->name('createBoard');
 Route::get('/home/edit/{id}/', [BoardController::class, 'editBoard'])->name('editBoard');
 Route::post('/home/edit/{id}/', [BoardController::class, 'updateBoard'])->name('updateBoard');
+Route::post('/home/delete/{id}/', [BoardController::class, 'deleteBoard'])->name('deleteBoard');
 
 //For administrators
 Route::get('/admin/home', [AdminController::class, 'index'])->name('adminhome');

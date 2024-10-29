@@ -74,6 +74,18 @@ class BoardController extends Controller
         return redirect()->route('userhome')->with('message', 'Board created successfully');
     }
 
+    public function deleteBoard($id){
+        $this->checkUser();
+        $boardToDelete = $this->boardDAO->findById($id);
+        $deleted = $this->boardDAO->delete($id);
+
+        if (!$deleted) {
+            return redirect()->route('userhome')->with('message', 'Board could not be deleted');
+        }
+
+        return redirect()->route('userhome')->with('message', 'Board ' . $boardToDelete->getName() . 'succesfully deleted!');
+    }
+
     public function editBoard($id) {
         $this->checkUser();
         $board = $this->boardDAO->findById($id);

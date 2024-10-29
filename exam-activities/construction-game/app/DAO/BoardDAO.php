@@ -17,15 +17,23 @@ class BoardDAO implements ICrud{
         $this->figureBoardDAO = new FigureBoardDAO();        
     }
 
-    public function delete($id): bool{
 
+    public function delete($id): bool{
         $myPDO = DB::getPdo();
+
+        try{
+            $this->figureBoardDAO->deleteByBoardId($id);
+        } catch(Exception $e){
+            throw new Exception("Error while deleting board: ". $e->getMessage());
+        }
+
         $tablename = BoardContract::TABLE_NAME;
         $colid = BoardContract::COL_ID;
 
         $sql = "DELETE FROM $tablename WHERE $colid  = :id";
 
         $stmt = $myPDO->prepare($sql);
+
         $stmt->execute([':id' => $id]);
         $affectedRows = $stmt->rowCount();
 

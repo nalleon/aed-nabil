@@ -14,6 +14,10 @@
                 <ul>
                     @foreach ($boards as $board)
                     <li><a href="{{route('editBoard', ['id' => $board->getId()])}}"> {{$board->getName()}}</a></li>  
+                    <form action="{{ route('deleteBoard', ['id' => $board->getId()]) }}" method="POST" style="display:inline;">
+                        @csrf
+                        <input type="submit" name="deleteBoard" value="Delete">
+                    </form>
                     @endforeach
                 </ul>
             @else

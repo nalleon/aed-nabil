@@ -21,11 +21,27 @@ class FigureBoardDAO implements ICrud{
         $myPDO = DB::getPdo();
         $tablename = FigureBoardContract::TABLE_NAME;
         $colid = FigureBoardContract::COL_ID;
+        
 
         $sql = "DELETE FROM $tablename WHERE $colid  = :id";
 
         $stmt = $myPDO->prepare($sql);
         $stmt->execute([':id' => $id]);
+        $affectedRows = $stmt->rowCount();
+
+        return $affectedRows > 0;
+    }
+
+    public function deleteByBoardId($boardId): bool{
+
+        $myPDO = DB::getPdo();
+        $tablename = FigureBoardContract::TABLE_NAME;
+        $colBoardId = FigureBoardContract::COL_BOARD_ID;
+
+        $sql = "DELETE FROM $tablename WHERE $colBoardId  = :boardId";
+
+        $stmt = $myPDO->prepare($sql);
+        $stmt->execute([':boardId' => $boardId]);
         $affectedRows = $stmt->rowCount();
 
         return $affectedRows > 0;

@@ -53,4 +53,11 @@ $pdo->exec("INSERT INTO usuarios(id,nombre,password,rol) VALUES (1,'John Doe','$
 $pdo->exec("INSERT INTO usuarios(id,nombre,password,rol) VALUES (2,'Test','$2y$04$6q5niDLLHb.V8C0jcDQbgODNmJ5R.08EQDfmvcldDZeGINosjISQi',2);
 ");
 
+$pdo->exec("INSERT INTO figuras (id, imagen, tipo_imagen) VALUES 
+    (1, 0x89504e470d0, 'image/png');
+");
+
+$pdo->exec("INSERT INTO figuras (id, imagen, tipo_imagen) VALUES 
+    (2, 0x89504e470d0, 'image/png');
+");
 ?>

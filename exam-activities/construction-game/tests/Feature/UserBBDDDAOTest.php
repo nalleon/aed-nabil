@@ -98,7 +98,6 @@ class UserBBDDDAOTest extends TestCase
 
         assertTrue(count($userList) == 3, self::MESSAGE_ERROR);
 
-        //dd($userToUpdate->getName(), $userBBDD->getName());
         assertTrue($userToUpdate->getName() == $userBBDD->getName(), self::MESSAGE_ERROR);
         assertTrue($userToUpdate->getPassword() == $userBBDD->getPassword(), self::MESSAGE_ERROR);
         assertTrue("2" == $userBBDD->getRol(), self::MESSAGE_ERROR);

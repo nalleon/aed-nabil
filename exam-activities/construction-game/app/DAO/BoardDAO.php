@@ -14,7 +14,7 @@ class BoardDAO implements ICrud{
 
     protected $figureBoardDAO;
     public function __construct() {
-        $figureBoardDAO = new FigureBoardDAO();        
+        $this->figureBoardDAO = new FigureBoardDAO();        
     }
 
     public function delete($id): bool{
@@ -157,41 +157,39 @@ class BoardDAO implements ICrud{
         "INSERT INTO $tablename ($coluser, $colname, $colcontent, $coldate)" .
         " VALUES(:userid, :nameBoard, :content, :dateBoard)";
 
+        //dd($sql);
         try {
             $myPDO->beginTransaction();
-            //dd('aaa');
+            
             $stmt = $myPDO->prepare($sql);
-            dd($stmt);
-
             $stmt->execute(
                 [
                     ':nameBoard' => $p->getName(),
-                    ':id' => $p->getId(),
                     ':content' => $p->getContent(),
                     ':dateBoard' => $p->getDate(),
                     ':userid' => $p->getUserId()
                 ]
             );
 
-            $boardIdGenerated = $myPDO->lastInsertId();
 
-            $figureBoardDAO->associateFigureWithBoard($boardIdGenerated);
+            $affectedRows = $stmt->rowCount();
 
             if ($affectedRows > 0) {
                 $idGenerated = $myPDO->lastInsertId();
                 $p->setId($idGenerated);
                 $myPDO->commit();
+                $this->figureBoardDAO->associateFigureWithBoard($idGenerated);
             } else {
                 $myPDO->rollBack();
                 return null;
             }
         } catch (Exception $ex) {
-            echo "ha habido una excepción se lanza rollback";
             var_dump($ex);
             $myPDO->rollBack();
             return null;
         }
         $stmt = null;
+
 
         return $p;
     }

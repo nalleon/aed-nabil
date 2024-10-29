@@ -13,11 +13,16 @@ use App\Models\Figure;
 
 class FigureBoardDAO {
 
+    public function __construct() {}
+
     public function associateFigureWithBoard($boardId) {
         $myPDO = DB::getPdo();
 
+        if (!$myPDO) {
+            throw new Exception("No se pudo establecer la conexión a la base de datos.");
+        }
+
         $tablename = FigureBoardContract::TABLE_NAME;
-        $colId = FigureBoardContract::COL_FIGURE_ID;
         $colBoardId = FigureBoardContract::COL_BOARD_ID;
         $colFigureId = FigureBoardContract::COL_FIGURE_ID;
         $colPosition = FigureBoardContract::COL_POSITION;
@@ -26,18 +31,24 @@ class FigureBoardDAO {
         VALUES (:boardId, :figureId, :position)";
     
         try {
+            $myPDO->beginTransaction();
             $stmt = $myPDO->prepare($sql);
-            for($i=0;$i<40;$i++){
+
+            if ($stmt === false) {
+                throw new Exception("Error en la preparación de la consulta: " . implode(", ", $myPDO->errorInfo()));
+            }
+
+            for ($i = 0; $i < 15; $i++) {
                 $stmt->execute([
                     ':boardId' => $boardId,
-                    ':figureId' => 1,
+                    ':figureId' => 1, 
                     ':position' => $i,
                 ]);
             }
-            
+
             $affectedRows = $stmt->rowCount();
 
-            if ($affectedRows > 0) {        
+            if ($affectedRows > 0) {
                 $myPDO->commit();
             } else {
                 $myPDO->rollBack();
@@ -45,14 +56,15 @@ class FigureBoardDAO {
             }
 
         } catch (Exception $ex) {
-            var_dump($ex);
+            echo "Error: " . $ex->getMessage();
+            $myPDO->rollBack();
             return null;
         }
     
         return true;
     }
-    
 }
+
 
 
 ?>

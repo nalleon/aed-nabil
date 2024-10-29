@@ -52,28 +52,22 @@ class BoardController extends Controller
        
         $user = session()->get('user');
         $userId = $user[0];
-        $blankFigureId = 1; 
 
         
         $boardName = $request->input('boardName');
         $board = new Board();
         $board->setName($boardName);
         $board->setUserId($userId);
+        $board->setContent("");
         $board->setDate(time());
 
         $savedBoard = $this->boardDAO->save($board);
 
         if ($savedBoard) {
-            $boardId = $savedBoard->getId(); 
-            
-            for ($position = 0; $position < 14; $position++) {
-                $this->figureBoardDAO->associateFigureWithBoard($boardId, $blankFigureId, $position);
-            }
-
-            return redirect()->route('home')->with('message', 'Board created successfully');
+            return redirect()->route('userhome')->with('message', 'Board created successfully');
         }
 
-        return redirect()->route('home')->with('error', 'Failed to create board');
+        return redirect()->route('userhome')->with('message', 'Failed to create board');
     }
 
     public function editBoard($id) {

@@ -9,7 +9,7 @@ namespace App\Contracts;
         public const COL_NAME = "nombre";
         public const COL_CONTENT = "contenido";
         public const COL_DATE = "fecha";
-        public const COL_USER = "usuario";
+        public const COL_USER = "usuario_id";
 
         private function __construct() {}
     }

@@ -16,13 +16,16 @@
                <br>
                <form action="{{ route('updateBoard', ['id' => $board->getId()]) }}" method="POST">
                 @csrf
-                
-
+                <ul>
+                    @foreach ($figures as $figure)
+                        <img src="data:{{$figure->getTypeImage()}}; base64,{{$figure->getImage()}}" />
+                    @endforeach
+                </ul>
                 <input type="submit" value="Update">
             </form>
             </div>
             <!--
-                3 foreach _> figurasMin, figuras, radio
+                3 foreach -> figurasMin, figuras, radio
             -->
         </div>
     </body>

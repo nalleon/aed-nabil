@@ -19,7 +19,7 @@ class BoardController extends Controller
     public function __construct(){
         $this->boardDAO = new BoardDAO();
         $this->figureBoardDAO = new FigureBoardDAO();
-        }
+    }
 
     /**
      * Method to check if the session has an user
@@ -94,7 +94,9 @@ class BoardController extends Controller
             return redirect()->route('userhome')->with('message', 'Board not found');
         }
 
-        return view('userboard', compact('board'));
+        $figures = $this->figureBoardDAO->getFiguresByBoard($id);
+
+        return view('userboard', compact('board', 'figures'));
     }
 
 

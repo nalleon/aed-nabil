@@ -2,6 +2,7 @@
 
 namespace App\DAO;
 
+use App\Contracts\BoardContract;
 use App\Contracts\FigureBoardContract;
 use App\Contracts\FigureContract;
 use App\Models\Board;
@@ -97,10 +98,8 @@ class FigureBoardDAO implements ICrud{
 
 
     public function findById($id): object | null {
-
         $tablename = FigureBoardContract::TABLE_NAME;
         $colid = FigureBoardContract::COL_ID;
-
 
         $sql = "SELECT * FROM $tablename WHERE $colid = :id";
 
@@ -195,54 +194,10 @@ class FigureBoardDAO implements ICrud{
         return $p;
     }
 
-    public function associateFigureWithBoard($boardId) {
-        $myPDO = DB::getPdo();
-
+    public function getContentsByBoard($boardId) {
         $tablename = FigureBoardContract::TABLE_NAME;
         $colBoardId = FigureBoardContract::COL_BOARD_ID;
-        $colFigureId = FigureBoardContract::COL_FIGURE_ID;
-        $colPosition = FigureBoardContract::COL_POSITION;
 
-        $sql = "INSERT INTO $tablename ($colBoardId, $colFigureId, $colPosition) 
-        VALUES (:boardId, :figureId, :position)";
-    
-        try {
-            $myPDO->beginTransaction();
-            $stmt = $myPDO->prepare($sql);
-
-            if ($stmt === false) {
-                throw new Exception("Error en la preparación de la consulta: " . implode(", ", $myPDO->errorInfo()));
-            }
-
-            for ($i = 0; $i < 15; $i++) {
-                $stmt->execute([
-                    ':boardId' => $boardId,
-                    ':figureId' => 1, 
-                    ':position' => $i,
-                ]);
-            }
-
-            $affectedRows = $stmt->rowCount();
-
-            if ($affectedRows > 0) {
-                $myPDO->commit();
-            } else {
-                $myPDO->rollBack();
-                return null;
-            }
-
-        } catch (Exception $ex) {
-            echo "Error: " . $ex->getMessage();
-            $myPDO->rollBack();
-            return null;
-        }
-    
-        return true;
-    }
-
-    public function getFiguresByBoard($boardId) {
-        $tablename = FigureBoardContract::TABLE_NAME;
-        $colBoardId = FigureBoardContract::COL_BOARD_ID;
         $sql = "SELECT * FROM $tablename 
         WHERE $colBoardId = $boardId";
 
@@ -251,13 +206,51 @@ class FigureBoardDAO implements ICrud{
         $stmt->execute();
         $row = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-        $figures = [];
+        $boardContents = [];
         while ($row = $stmt->fetch()) {
             $p = new FigureBoard();
             $p->setId($row[FigureBoardContract::COL_ID]);
             $p->setBoardId($row[FigureBoardContract::COL_BOARD_ID]);
             $p->setFigureId($row[FigureBoardContract::COL_FIGURE_ID]);
             $p->setPosition($row[FigureBoardContract::COL_POSITION]);
+
+            $boardContents[] = $p;
+        }
+
+        return $boardContents;
+    }
+
+    public function getFiguresByBoard($boardId) {
+        $myPDO = DB::getPdo();
+
+       // $boardContents = $this->getContentsByBoard($boardId);
+
+        $tablenameFigure = FigureContract::TABLE_NAME;
+        $tablenameFigureBoard = FigureBoardContract::TABLE_NAME;
+
+        $colFigureIdFromFigure = FigureContract::COL_ID;
+        $colFigureIdFromFigureBoard = FigureBoardContract::COL_FIGURE_ID; 
+
+        $colBoardId = FigureBoardContract::COL_BOARD_ID;
+
+        $figures = [];
+
+        $sql = "SELECT f.* FROM $tablenameFigure AS f  
+                INNER JOIN $tablenameFigureBoard AS fb  
+                ON f.$colFigureIdFromFigure = fb.$colFigureIdFromFigureBoard 
+                WHERE fb.$colBoardId = :boardId";
+
+                        
+        $stmt = $myPDO->prepare($sql);
+        $stmt->execute([':boardId' => $boardId]);
+        $row = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+        $figures = [];
+        while ($row = $stmt->fetch()) {
+            $p = new Figure();
+            $p->setId($row[FigureContract::COL_ID]);
+            $p->setImage($row[FigureContract::COL_IMG]);
+            $p->setTypeImage($row[FigureContract::COL_TYPE]);
 
             $figures[] = $p;
         }

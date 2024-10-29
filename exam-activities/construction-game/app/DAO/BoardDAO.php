@@ -8,10 +8,14 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use PDO;
 use App\DAO\Interface\ICrud;
+use App\Models\Figure;
 
 class BoardDAO implements ICrud{
 
-    public function __construct() {}
+    protected $figureBoardDAO;
+    public function __construct() {
+        $figureBoardDAO = new FigureBoardDAO();        
+    }
 
     public function delete($id): bool{
 
@@ -139,6 +143,7 @@ class BoardDAO implements ICrud{
 
         return $boards;
     }
+ 
 
     public function save($p): object | null {
         $myPDO = DB::getPdo();
@@ -168,32 +173,9 @@ class BoardDAO implements ICrud{
                 ]
             );
 
-            $tableroIdGenerated = $myPDO->lastInsertId();
+            $boardIdGenerated = $myPDO->lastInsertId();
 
-            $tableName = "figuras_tableros";
-            $colTableroId= "tablero_id";
-            $colFiguraId= "figura_id";
-            $colPosicion = "posicion";
-
-            $sqlFiguras_Tablero =
-            "INSERT INTO $tableName ($colTableroId, $colFiguraId, $colPosicion)" .
-            " VALUES(:tableroId, :figura_id, :posicion)";
-
-            $stmtFigurasTableros = $myPDO->prepare($sqlFiguras_Tablero);
-
-
-            for($i=0;$i<40;$i++){
-                $stmtFigurasTableros->execute(
-                    [
-                        ':tableroid' => $tableroIdGenerated,
-                        ':posicion' => $i,
-                        ':figura_id' => 1
-                    ]
-                );
-
-            }
-
-            $affectedRows = $stmtFigurasTableros->rowCount();
+            $figureBoardDAO->associateFigureWithBoard($boardIdGenerated);
 
             if ($affectedRows > 0) {
                 $idGenerated = $myPDO->lastInsertId();

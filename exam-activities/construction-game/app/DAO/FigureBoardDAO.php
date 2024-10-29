@@ -2,6 +2,7 @@
 
 namespace App\DAO;
 
+use App\Contracts\FigureBoardContract;
 use App\Contracts\FigureContract;
 use App\Models\Board;
 use Exception;
@@ -12,20 +13,28 @@ use App\Models\Figure;
 
 class FigureBoardDAO {
 
-    public function associateFigureWithBoard($boardId, $figureId, $position) {
+    public function associateFigureWithBoard($boardId) {
         $myPDO = DB::getPdo();
-    
-        $sql = "INSERT INTO figuras_tableros (tablero_id, figura_id, posicion) 
+
+        $tablename = FigureBoardContract::TABLE_NAME;
+        $colId = FigureBoardContract::COL_FIGURE_ID;
+        $colBoardId = FigureBoardContract::COL_BOARD_ID;
+        $colFigureId = FigureBoardContract::COL_FIGURE_ID;
+        $colPosition = FigureBoardContract::COL_POSITION;
+
+        $sql = "INSERT INTO $tablename ($colBoardId, $colFigureId, $colPosition) 
         VALUES (:boardId, :figureId, :position)";
     
         try {
             $stmt = $myPDO->prepare($sql);
-            $stmt->execute([
-                ':boardId' => $boardId,
-                ':figureId' => $figureId,
-                ':position' => $position,
-            ]);
-
+            for($i=0;$i<40;$i++){
+                $stmt->execute([
+                    ':boardId' => $boardId,
+                    ':figureId' => 1,
+                    ':position' => $i,
+                ]);
+            }
+            
             $affectedRows = $stmt->rowCount();
 
             if ($affectedRows > 0) {        

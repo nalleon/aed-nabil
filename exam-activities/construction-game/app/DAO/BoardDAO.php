@@ -178,7 +178,7 @@ class BoardDAO implements ICrud{
                 $idGenerated = $myPDO->lastInsertId();
                 $p->setId($idGenerated);
                 $myPDO->commit();
-                $this->figureBoardDAO->associateFigureWithBoard($idGenerated);
+                $this->figureBoardDAO->save($p);
             } else {
                 $myPDO->rollBack();
                 return null;

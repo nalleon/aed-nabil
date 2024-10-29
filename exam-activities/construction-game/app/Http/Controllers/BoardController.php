@@ -75,7 +75,14 @@ class BoardController extends Controller
     }
 
     public function editBoard($id) {
-        
+        $this->checkUser();
+        $board = $this->boardDAO->findById($id);
+
+        if ($board === null) {
+            return redirect()->route('userhome')->with('message', 'Board not found');
+        }
+
+        return view('userboard', compact('board'));
     }
 
 

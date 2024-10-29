@@ -11,6 +11,15 @@
         <div class="main-container">
             <div class="board">
                <h2>work in progress</h2>
+               <h2>{{ $board->getName() }}</h2>
+
+               <br>
+               <form action="{{ route('updateBoard', ['id' => $board->getId()]) }}" method="POST">
+                @csrf
+                
+
+                <input type="submit" value="Update">
+            </form>
             </div>
             <!--
                 3 foreach _> figurasMin, figuras, radio

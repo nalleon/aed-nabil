@@ -194,6 +194,33 @@ class BoardDAO implements ICrud{
         return $p;
     }
 
+
+    public function findAllBoardsPerUser($userId): array {
+        $tablename = BoardContract::TABLE_NAME;
+        $colUserId = BoardContract::COL_USER;
+        $sql = "SELECT * FROM $tablename 
+        WHERE $colUserId = $userId";
+
+        $myPDO = DB::getPdo();
+        $stmt = $myPDO->prepare($sql);
+        $stmt->execute();
+        $row = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+        $boards = [];
+        while ($row = $stmt->fetch()) {
+            $p = new Board();
+            $p->setId($row[BoardContract::COL_ID]);
+            $p->setName($row[BoardContract::COL_NAME]);
+            $p->setContent($row[BoardContract::COL_CONTENT]);
+            $p->setDate($row[BoardContract::COL_DATE]);
+            $p->setUserId($row[BoardContract::COL_USER]);
+
+            $boards[] = $p;
+        }
+
+        return $boards;
+    }
+
 }
 
 

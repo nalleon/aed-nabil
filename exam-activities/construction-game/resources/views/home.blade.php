@@ -10,10 +10,10 @@
     <body class="antialiased">
         <div class="main-container">
             <h3>Boards of {{session('username')}}</h3>
-            @if (session('user') && count($files)>0)
+            @if (session('user') && count($boards)>0)
                 <ul>
-                    @foreach ($files as $file)
-                    <li><a href="{{route('editBoard', ['id' => $file->getId()])}}"> {{basename($file)}}</a></li>  
+                    @foreach ($boards as $board)
+                    <li><a href="{{route('editBoard', ['id' => $board->getId()])}}"> {{$board->getName()}}</a></li>  
                     @endforeach
                 </ul>
             @else

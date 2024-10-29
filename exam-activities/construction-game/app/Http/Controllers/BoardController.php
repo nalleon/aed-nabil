@@ -34,11 +34,15 @@ class BoardController extends Controller
     public function index() {       
         $this->checkUser();
 
-        $directory = session()->get('username');
-        Storage::makeDirectory($directory, 700, true);
+        $user = session()->get('user');
+        $userId = $user[0];
 
-        $files = Storage::files($directory);
-        return view('home', compact('files'));
+
+        $boards = [];
+        $boards = $this->boardDAO->findAllBoardsPerUser($userId);
+
+        //dd($boards);
+        return view('home', compact('boards'));
     }
 
     public function createBoard(Request $request) {
@@ -63,11 +67,11 @@ class BoardController extends Controller
 
         $savedBoard = $this->boardDAO->save($board);
 
-        if ($savedBoard) {
-            return redirect()->route('userhome')->with('message', 'Board created successfully');
+        if ($savedBoard === null) {
+            return redirect()->route('userhome')->with('message', 'Failed to create board');
         }
 
-        return redirect()->route('userhome')->with('message', 'Failed to create board');
+        return redirect()->route('userhome')->with('message', 'Board created successfully');
     }
 
     public function editBoard($id) {

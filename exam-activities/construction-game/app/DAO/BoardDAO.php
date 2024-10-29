@@ -3,18 +3,19 @@
 namespace App\DAO;
 
 use App\Contracts\BoardContract;
+use App\Contracts\FigureBoardContract;
+use App\Contracts\FigureContract;
 use App\Models\Board;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use PDO;
 use App\DAO\Interface\ICrud;
 use App\Models\Figure;
+use App\Models\FigureBoard;
 
 class BoardDAO implements ICrud{
 
-    protected $figureBoardDAO;
     public function __construct() {
-        $this->figureBoardDAO = new FigureBoardDAO();        
     }
 
 
@@ -22,7 +23,7 @@ class BoardDAO implements ICrud{
         $myPDO = DB::getPdo();
 
         try{
-            $this->figureBoardDAO->deleteByBoardId($id);
+            $this->deleteFromFigureBoard($id);
         } catch(Exception $e){
             throw new Exception("Error while deleting board: ". $e->getMessage());
         }
@@ -40,9 +41,24 @@ class BoardDAO implements ICrud{
         return $affectedRows > 0;
     }
 
+    /**
+     * Function to delete from figureboard (figuras_tableros)
+     */
+    public function deleteFromFigureBoard($boardId): bool{
+        $myPDO = DB::getPdo();
+        $tablename = FigureBoardContract::TABLE_NAME;
+        $colBoardId = FigureBoardContract::COL_BOARD_ID;
+
+        $sql = "DELETE FROM $tablename WHERE $colBoardId  = :boardId";
+
+        $stmt = $myPDO->prepare($sql);
+        $stmt->execute([':boardId' => $boardId]);
+        $affectedRows = $stmt->rowCount();
+
+        return $affectedRows > 0;
+    }
 
     public function update($p): bool{
-
         $colid = BoardContract::COL_ID;
         $colname = BoardContract::COL_NAME;
         $colcontent = BoardContract::COL_CONTENT;
@@ -83,6 +99,7 @@ class BoardDAO implements ICrud{
                 $myPDO->rollBack();
                 return false;
             }
+
         } catch (Exception $ex) {
             echo "ha habido una excepción se lanza rollback";
             var_dump($ex);
@@ -151,7 +168,7 @@ class BoardDAO implements ICrud{
 
         return $boards;
     }
- 
+
 
     public function save($p): object | null {
         $myPDO = DB::getPdo();
@@ -168,7 +185,7 @@ class BoardDAO implements ICrud{
         //dd($sql);
         try {
             $myPDO->beginTransaction();
-            
+
             $stmt = $myPDO->prepare($sql);
             $stmt->execute(
                 [
@@ -185,16 +202,39 @@ class BoardDAO implements ICrud{
             if ($affectedRows > 0) {
                 $idGenerated = $myPDO->lastInsertId();
                 $p->setId($idGenerated);
+                //dd($p);
+
+                $tablenameFigureBoard = FigureBoardContract::TABLE_NAME;
+                $colBoardId = FigureBoardContract::COL_BOARD_ID;
+                $colFigureId = FigureBoardContract::COL_FIGURE_ID;
+                $colPosition = FigureBoardContract::COL_POSITION;
+
+                $sqlFigureTabla = "INSERT INTO $tablenameFigureBoard ($colBoardId, $colFigureId, $colPosition)
+                VALUES (:boardId, :figureId, :position)";
+
+                $stmtFigureBoard = $myPDO->prepare($sqlFigureTabla);
+                for ($i = 0; $i < 15; $i++) {
+                    $idtablero = (int)$p->getId();
+
+                    $stmtFigureBoard->execute([
+                        ':boardId' => $idtablero,
+                        ':figureId' => 1,
+                        ':position' => $i,
+                    ]);
+
+                }
+
                 $myPDO->commit();
-                $this->figureBoardDAO->save($p);
+
             } else {
                 $myPDO->rollBack();
                 return null;
             }
         } catch (Exception $ex) {
             var_dump($ex);
+            //die();
             $myPDO->rollBack();
-            return null;
+            //return null;
         }
         $stmt = null;
 
@@ -202,11 +242,14 @@ class BoardDAO implements ICrud{
         return $p;
     }
 
+    /**
+     * Function to find all board from a user
+     */
 
     public function findAllBoardsPerUser($userId): array {
         $tablename = BoardContract::TABLE_NAME;
         $colUserId = BoardContract::COL_USER;
-        $sql = "SELECT * FROM $tablename 
+        $sql = "SELECT * FROM $tablename
         WHERE $colUserId = $userId";
 
         $myPDO = DB::getPdo();
@@ -227,6 +270,67 @@ class BoardDAO implements ICrud{
         }
 
         return $boards;
+    }
+
+    public function getContentsByBoard($boardId) {
+        $tablename = FigureBoardContract::TABLE_NAME;
+        $colBoardId = FigureBoardContract::COL_BOARD_ID;
+
+        $sql = "SELECT * FROM $tablename
+        WHERE $colBoardId = $boardId";
+
+        $myPDO = DB::getPdo();
+        $stmt = $myPDO->prepare($sql);
+        $stmt->execute();
+        $row = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+        $boardContents = [];
+        while ($row = $stmt->fetch()) {
+            $p = new FigureBoard();
+            $p->setId($row[FigureBoardContract::COL_ID]);
+            $p->setBoardId($row[FigureBoardContract::COL_BOARD_ID]);
+            $p->setFigureId($row[FigureBoardContract::COL_FIGURE_ID]);
+            $p->setPosition($row[FigureBoardContract::COL_POSITION]);
+
+            $boardContents[] = $p;
+        }
+
+        return $boardContents;
+    }
+
+    public function getFiguresByBoard($boardId) {
+        $myPDO = DB::getPdo();
+
+        $tablenameFigure = FigureContract::TABLE_NAME;
+        $tablenameFigureBoard = FigureBoardContract::TABLE_NAME;
+
+        $colFigureIdFromFigure = FigureContract::COL_ID;
+        $colFigureIdFromFigureBoard = FigureBoardContract::COL_FIGURE_ID;
+
+        $colBoardId = FigureBoardContract::COL_BOARD_ID;
+
+        $figures = [];
+
+        $sql = "SELECT f.* FROM $tablenameFigure AS f
+                INNER JOIN $tablenameFigureBoard AS fb
+                ON f.$colFigureIdFromFigure = fb.$colFigureIdFromFigureBoard
+                WHERE fb.$colBoardId = :boardId";
+
+        $stmt = $myPDO->prepare($sql);
+        $stmt->execute([':boardId' => $boardId]);
+        $row = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+        $figures = [];
+        while ($row = $stmt->fetch()) {
+            $p = new Figure();
+            $p->setId($row[FigureContract::COL_ID]);
+            $p->setImage($row[FigureContract::COL_IMG]);
+            $p->setTypeImage($row[FigureContract::COL_TYPE]);
+
+            $figures[] = $p;
+        }
+
+        return $figures;
     }
 
 }

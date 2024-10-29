@@ -45,4 +45,5 @@ class Figure {
 
     public function setTypeImage(string $type_image): void {
         $this->type_image = $type_image;
-    }}
+    }
+}

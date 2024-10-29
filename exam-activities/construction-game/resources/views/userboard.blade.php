@@ -18,12 +18,13 @@
                 @csrf
                 <ul>
                     @foreach ($figures as $figure)
-                        <img src="data:{{$figure->getTypeImage()}}; base64,{{$figure->getImage()}}" />
+                        <img src="data:{{$figure->getTypeImage()}}; base64,{{base64_encode($figure->getImage())}}" width="300px" height="300px" />
                     @endforeach
                 </ul>
                 <input type="submit" value="Update">
             </form>
             </div>
+
             <!--
                 3 foreach -> figurasMin, figuras, radio
             -->

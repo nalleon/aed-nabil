@@ -23,11 +23,6 @@ class FigureBoard {
      */
     private int $position;
 
-    /**
-     * @var int
-     */
-    private int $user_id;
-
     // Getters y Setters
     public function getId(): int {
         return $this->id;

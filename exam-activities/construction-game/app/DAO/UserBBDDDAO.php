@@ -38,12 +38,11 @@ class UserBBDDDAO implements ICrud {
 
         $tablename = UserBBDDContract::TABLE_NAME;
         $myPDO = DB::getPdo();
+
        
        // dd($p->getId());
 
        
-
-
         $sql = "UPDATE $tablename ".
                " SET $colname = :nombre, " .
                " $colpassword = :password, " .
@@ -64,7 +63,7 @@ class UserBBDDDAO implements ICrud {
 
                 ]
             );
-            //si affectedRows > 0 => hubo éxito consulta
+
             $affectedRows = $stmt->rowCount();
 
 
@@ -160,7 +159,7 @@ class UserBBDDDAO implements ICrud {
         }
 
         $sql =
-        "INSERT INTO $tablename ( $colname, $colpassword, $colrol)
+        "INSERT INTO $tablename ($colname, $colpassword, $colrol)
          VALUES(:nombre, :passwd, :rol)";
 
         try {

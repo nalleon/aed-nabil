@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\DAO\RolDAO;
 use App\Models\Rol;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\DB;
@@ -20,7 +21,7 @@ class RolDAOTest extends TestCase
         parent::setUp();
         if(! $this->databaseCreated ){
             $pdo = DB::getPdo();
-            require 'CreateDatabase.php';
+            require 'CreateDatabaseRol.php';
             $this->databaseCreated = true;
         }
     }
@@ -53,14 +54,19 @@ class RolDAOTest extends TestCase
     }
 
     public function test_003_delete(): void {
+        try {
         $pdo = DB::getPdo();
 
         $rolDAO = new RolDAO($pdo);
 
-        $rol = $rolDAO->delete(1);
+        DB::beginTransaction();
+        $rolDAO->delete(1);
         $rolList = $rolDAO->findAll();
 
         assertTrue(count($rolList) == 1, self::MESSAGE_ERROR);
+        } finally{
+            DB::rollBack();
+        }
     }
 
     public function test_004_delete(): void {

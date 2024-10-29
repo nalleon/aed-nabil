@@ -49,8 +49,4 @@ CREATE TABLE figuras_tableros (
 $pdo->exec("INSERT INTO roles (id, nombre) VALUES (1,'usuario');");
 $pdo->exec("INSERT INTO roles (id, nombre) VALUES (2,'admin');");
 
-$pdo->exec("INSERT INTO usuarios(id,nombre,password,rol) VALUES (1,'John Doe','$2y$04$6q5niDLLHb.V8C0jcDQbgODNmJ5R.08EQDfmvcldDZeGINosjISQi',1);");
-$pdo->exec("INSERT INTO usuarios(id,nombre,password,rol) VALUES (2,'Test','$2y$04$6q5niDLLHb.V8C0jcDQbgODNmJ5R.08EQDfmvcldDZeGINosjISQi',2);
-");
-
 ?>

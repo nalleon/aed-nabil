@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Type\Decimal;
+use Illuminate\Support\Str;
 
 class ProductosSeeder extends DatabaseSeeder
 {
@@ -15,9 +16,9 @@ class ProductosSeeder extends DatabaseSeeder
     public function run(): void
     {
         DB::table('productos')->insert([
-            'name' => String::random(10),
-            'price' => rand(100,1000)/100,
-            'quantity' => rand(1,100),
+            'name' => Str::random(10),
+            'price' => 1.2,
+            'quantity' => 1,
         ]);
       }
 }

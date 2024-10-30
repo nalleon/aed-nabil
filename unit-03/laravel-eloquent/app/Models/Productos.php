@@ -13,7 +13,7 @@ class Productos extends Model
      */
     private $name;
     /**
-     * @var decimal
+     * @var float
      */
     private $price;
     /**
@@ -53,9 +53,9 @@ class Productos extends Model
     /**
      * Get the product's price.
      *
-     * @return decimal
+     * @return float
      */
-    public function getPrice(): decimal
+    public function getPrice(): float
     {
         return $this->price;
     }
@@ -63,9 +63,9 @@ class Productos extends Model
     /**
      * Set the product's price.
      *
-     * @param decimal $price
+     * @param float $price
      */
-    public function setPrice(decimal $price): void
+    public function setPrice(float $price): void
     {
         $this->price = $price;
     }

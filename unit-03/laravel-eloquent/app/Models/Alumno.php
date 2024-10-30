@@ -2,50 +2,51 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Alumno extends Model{
-    use HasFactory;
+/**
+ * @property string $dni
+ * @property string $nombre
+ * @property string $apellidos
+ * @property integer $fechanacimiento
+ * @property Matricula[] $matriculas
+ */
+class Alumno extends Model
+{
     /**
+     * The primary key for the model.
+     *
      * @var string
      */
-    private $name;
+    protected $primaryKey = 'dni';
+
     /**
+     * The "type" of the auto-incrementing ID.
+     *
      * @var string
      */
-    private $surname;
+    protected $keyType = 'string';
+
     /**
-     * @var int
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
      */
-    private $age;
+    public $incrementing = false;
 
-    //constructor
-    public function __construct() {
-        $this->name = "";
-        $this->surname = "";
-        $this->age = 1;
-    }
+    /**
+     * @var array
+     */
+    //protected $fillable = ['nombre', 'apellidos', 'fechanacimiento'];
+    protected $guarded = [];
 
-    //getters and setters
-    public function getName(): string {
-        return $this->name;
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function matriculas()
+    {
+        //TODO: dossier 5-7
+        
+        return $this->hasMany('App\Models\Matricula', 'dni', 'dni');
     }
-    public function setName(string $name): void {
-        $this->name = $name;
-    }
-    public function getSurname(): string {
-        return $this->surname;
-    }
-    public function setSurname(string $surname): void {
-        $this->surname = $surname;
-    }
-    public function getAge(): int {
-        return $this->age;
-    }
-    public function setAge(int $age): void {
-        $this->age = $age;
-    }
-
-
 }

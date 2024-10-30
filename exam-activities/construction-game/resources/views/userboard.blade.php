@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     </head>
     <header>
-        <nav class="navbar navbar-dark bg-dark text-light navbar-expand-lg ">
+        <nav class="navbar navbar-dark bg-dark text-light navbar-expand-lg mb-5 ">
           <div class="container-fluid">
               <h4 class="mt-2 me-2 ms-5"><i class="ms-3 bi bi-buildings-fill text-light"></i> Construction Game </h4>
               <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navBar" aria-controls="navBar" aria-expanded="true" aria-label="Toggle navigation" >
@@ -31,18 +31,27 @@
                 border: 3px solid rgba(28, 63, 132, 0.2);
                 box-shadow: 4px 8px 12px rgba(28, 63, 132, 0.2);
             }  
+
+            .custom-bg {
+                background-color: rgba(58, 58, 58, 0.2);
+            }
+
+
         </style>
           
         </nav>
       </header>
-    <body class="antialiased bg-dark">
-        <div class="container text-light mb-5">
-            <div class="card bg-dark custom-shadow text-light rounded mt-3 w-100">
+    <body class="antialiased bg-light">
+        <div class="container d-flex justify-content-center  text-light mt-5 mb-5">
+            <div class="card bg-dark custom-shadow text-light rounded mt-3 position-relative " style="max-width: 60rem;">
+                <div class="card-header bg-light text-dark">
+                    <h3 class="text-center m-3">Select an option</h3>
+                </div>
                 <form action="{{ route('updateBoard', ['id' => $board->getId()]) }}" method="POST">
                     @csrf
         
-                    <h3 class="fw-bold m-4 text-center">Select an option</h3>
-                    <div class="d-flex flex-wrap justify-content-center">
+                
+                    <div class="d-flex flex-wrap justify-content-center mt-3">
                         @foreach ($allFiguresOptions as $figureOption)
                             <div class="d-flex flex-column align-items-center m-1 col-xs-2 col-sm-2">
                                 <img src="data:{{ $figureOption->getTypeImage() }};base64,{{ base64_encode($figureOption->getImage()) }}" 
@@ -52,11 +61,9 @@
                         @endforeach
                     </div>
                     <br>
-                    <br>
-                    <h3 class="fw-bold m-4 text-center">Edit Figures</h3>
-                    <div class="d-flex flex-wrap justify-content-center">
+                    <div class="d-flex flex-wrap justify-content-center mt-5">
                         @foreach ($figures as $figure)
-                            <div class="col-3 d-flex flex-column align-items-center">
+                            <div class="col-2 d-flex flex-column align-items-center m-1">
                                 <img src="data:{{ $figure->getTypeImage() }};base64,{{ base64_encode($figure->getImage()) }}" 
                                      width="150" height="150" class="img-fluid mb-2" />
                                 <input type="checkbox" id="figureEdit" name="figureEdit[]" value="{{ $figure->getId() }}" class="form-check-input">

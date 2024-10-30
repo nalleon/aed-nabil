@@ -6,6 +6,7 @@ use App\DAO\BoardDAO;
 use App\DAO\FigureBoardDAO;
 use App\DAO\FigureDAO;
 use App\Models\Board;
+use App\Models\FigureBoard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -105,14 +106,34 @@ class BoardController extends Controller
     public function updateBoard(Request $request, $id) {
         $this->checkUser();
 
+        $board = $this->boardDAO->findById($id);
+        $allFiguresOptions = $this->figureDAO->findAll();
+
+
         $figureToAdd = $request->input('figureChosen');
 
         $positionToEdit = $request->input('positionToEdit');
 
-        dd($figureToAdd, $positionToEdit);
+        $boardContents = $this->figureBoardDAO->getContentsByBoard($id);
 
-        //$boardDAO->
-    
+        //dd($figureToAdd, $positionToEdit, $boardContents);
+
+
+        foreach ($positionToEdit as $index => $selectedPosition) {
+            foreach ($boardContents as $content) {
+                if ($content->getPosition() == intval($selectedPosition)) {
+                    $content->setFigureId(intval($figureToAdd));
+                    $this->figureBoardDAO->save($content);
+                }
+            }
+        }
+
+       // $figureBoard = new FigureBoard();
+       $figures = $this->figureBoardDAO->getFiguresByBoard($id);
+
+       dd($figures);
+      
+        return view('userboard', compact('board', 'figures', 'allFiguresOptions'));
     }
 
 

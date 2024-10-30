@@ -44,8 +44,6 @@
                 </div>
                 <form action="{{ route('updateBoard', ['id' => $board->getId()]) }}" method="POST">
                     @csrf
-        
-                
                     <div class="d-flex flex-wrap justify-content-center mt-3">
                         @foreach ($allFiguresOptions as $figureOption)
                             <div class="d-flex flex-column align-items-center m-1 col-xs-2 col-sm-2">
@@ -57,11 +55,11 @@
                     </div>
                     <br>
                     <div class="d-flex flex-wrap justify-content-center mt-5">
-                        @foreach ($figures as $figure)
+                        @foreach ($figures as $index => $figure)
                             <div class="col-2 d-flex flex-column align-items-center m-1">
                                 <img src="data:{{ $figure->getTypeImage() }};base64,{{ base64_encode($figure->getImage()) }}" 
                                      width="150" height="150" class="img-fluid mb-2" />
-                                <input type="checkbox" id="figureEdit" name="figureEdit[]" value="{{ $figure->getId() }}" class="form-check-input">
+                                <input type="checkbox" id="positionToEdit" name="positionToEdit[]" value="{{$index}}" class="form-check-input">
                             </div>
                         @endforeach
                     </div>

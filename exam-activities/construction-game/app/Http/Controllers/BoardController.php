@@ -102,4 +102,18 @@ class BoardController extends Controller
     }
 
 
+    public function updateBoard(Request $request, $id) {
+        $this->checkUser();
+
+        $figureToAdd = $request->input('figureChosen');
+
+        $positionToEdit = $request->input('positionToEdit');
+
+        dd($figureToAdd, $positionToEdit);
+
+        //$boardDAO->
+    
+    }
+
+
 }

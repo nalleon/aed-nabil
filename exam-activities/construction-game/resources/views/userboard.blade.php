@@ -20,7 +20,8 @@
                     <ul class="d-flex align-items-start navbar-nav me-auto mb-2 mb-lg-0 ms-5">
                         <li class="list-group-item m-1"><a class="ms-3 link-underline link-underline-opacity-0 link-light" href="./home.blade.php">Home</a></li>
                     </ul>
-                    <form class="d-flex  me-5 ms-3">
+                    <form class="d-flex  me-5 ms-3" action="{{route('logout')}}" method="POST">
+                        @csrf
                         <button class="btn btn-outline-primary me-2 ms-5" type="submit">Logout</button>
                     </form>
                 </div>
@@ -31,12 +32,6 @@
                 border: 3px solid rgba(28, 63, 132, 0.2);
                 box-shadow: 4px 8px 12px rgba(28, 63, 132, 0.2);
             }  
-
-            .custom-bg {
-                background-color: rgba(58, 58, 58, 0.2);
-            }
-
-
         </style>
           
         </nav>

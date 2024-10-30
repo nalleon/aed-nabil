@@ -60,9 +60,6 @@ class LoginController extends Controller
         
    }
 
-
-
-
     /**
      * Function to logout a user
      */

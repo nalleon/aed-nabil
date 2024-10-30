@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="Nabil L. A.">
         <title>CG - Your boards </title>
+        <link rel="stylesheet" href="{{asset('style/animations.css')}}">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -37,21 +38,29 @@
         </nav>
       </header>
     <body class="antialiased bg-light">
-        <div class="container d-flex justify-content-center  text-light mt-5 mb-5">
+        <div class="container d-flex justify-content-center text-light mt-5 mb-5">
             <div class="card bg-dark custom-shadow text-light rounded mt-3 position-relative " style="max-width: 60rem;">
                 <div class="card-header bg-light text-dark">
                     <h3 class="text-center m-3">Select an option</h3>
                 </div>
+                @if(session('message'))
+                    <div class="card-body mt-2 bg-danger">
+                        <h5 class="card-text text-center text-dark fw-bold highlight">{{ session('message') }}</h5>
+                    </div>
+                @endif
                 <form action="{{ route('updateBoard', ['id' => $board->getId()]) }}" method="POST">
                     @csrf
-                    <div class="d-flex flex-wrap justify-content-center mt-3">
-                        @foreach ($allFiguresOptions as $figureOption)
-                            <div class="d-flex flex-column align-items-center m-1 col-xs-2 col-sm-2">
+                    <div class="row mt-5 justify-content-center">
+                            @foreach ($allFiguresOptions as $figureOption)
+                            <div class="col-6 col-sm-3 col-md-3 col-lg-3 text-center">
                                 <img src="data:{{ $figureOption->getTypeImage() }};base64,{{ base64_encode($figureOption->getImage()) }}" 
-                                     width="40" height="40" class="img-fluid mb-2" />
-                                <input type="radio" id="figureChosen" name="figureChosen" value="{{ $figureOption->getId() }}" class="form-check-input">
+                                    width="40" height="40" class="img-fluid mb-2" />
+                                <div class="mt-2 mb-2">
+                                    <input type="radio" id="figureChosen" name="figureChosen" value="{{ $figureOption->getId() }}" class="form-check-input">
+                                </div>
                             </div>
-                        @endforeach
+                            @endforeach
+              
                     </div>
                     <br>
                     <div class="d-flex flex-wrap justify-content-center mt-5">

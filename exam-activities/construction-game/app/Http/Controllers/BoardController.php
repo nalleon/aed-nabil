@@ -108,26 +108,30 @@ class BoardController extends Controller
 
         $board = $this->boardDAO->findById($id);
         $allFiguresOptions = $this->figureDAO->findAll();
+        $figures = $this->figureBoardDAO->getFiguresByBoard($id);
 
+        $figureToAddId = $request->input('figureChosen');
 
-        $figureToAdd = $request->input('figureChosen');
+        if ($figureToAddId === null) {
+            session()->put('message', 'Select the figure to add');
+            return view('userboard', compact('board', 'figures', 'allFiguresOptions'));
+        }
 
         $positionToEdit = $request->input('positionToEdit');
 
-        $boardContents = $this->figureBoardDAO->getContentsByBoard($id);
-
-
-
-        foreach ($positionToEdit as $index => $selectedPosition) {
-            foreach ($boardContents as $content) {
-                if ($content->getPosition() == intval($selectedPosition)) {
-                    $content->setFigureId(intval($figureToAdd));
-                    $this->figureBoardDAO->update($content);
-                }
-            }
+        if ($positionToEdit === null) {
+            session()->put('message', 'Select the positions to change');
+            return view('userboard', compact('board', 'figures', 'allFiguresOptions'));
         }
 
-       $figures = $this->figureBoardDAO->getFiguresByBoard($id);
+
+        $this->figureBoardDAO->updateBoardFigures($positionToEdit,$id, $figureToAddId);
+
+        $figures = $this->figureBoardDAO->getFiguresByBoard($id);
+
+        $board = $this->boardDAO->findById($id);
+        
+        session()->forget('message');
 
         return view('userboard', compact('board', 'figures', 'allFiguresOptions'));
     }

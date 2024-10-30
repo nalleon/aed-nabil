@@ -307,6 +307,24 @@ class FigureBoardDAO implements ICrud{
 
         return $affectedRows > 0;
     }
+
+    /**
+     * Function to update the selected positions of the board
+     */
+
+     public function updateBoardFigures($positionToEdit, $boardId, $figureToAddId) {
+        $boardContents = $this->getContentsByBoard($boardId);
+
+        foreach ($positionToEdit as $selectedPosition) {
+            foreach ($boardContents as $content) {
+                if ($content->getPosition() == $selectedPosition) {
+                    $content->setFigureId($figureToAddId);
+                    $this->update($content);
+                }
+            }
+        }
+
+    }
 }
 
 

@@ -22,7 +22,7 @@ class FigureBoardDAO implements ICrud{
         $myPDO = DB::getPdo();
         $tablename = FigureBoardContract::TABLE_NAME;
         $colid = FigureBoardContract::COL_ID;
-        
+
 
         $sql = "DELETE FROM $tablename WHERE $colid  = :id";
 
@@ -69,7 +69,7 @@ class FigureBoardDAO implements ICrud{
         return $affectedRows > 0;
     }
 
-    
+
 
     public function update($p): bool{
         $colid = FigureBoardContract::COL_ID;
@@ -80,15 +80,15 @@ class FigureBoardDAO implements ICrud{
         $tablename = FigureBoardContract::TABLE_NAME;
         $myPDO = DB::getPdo();
 
+
         if (!($p->getId() > 0)) {
             return false;
         }
-        $sql = "UPDATE $tablename ".
-               " SET $colBoardId = :boardId, " .
-               " $colFigureId = :figureId, " .
-               " $colPosition = :position, " .
-               " WHERE $colid = :id" ;
 
+        $sql = "UPDATE $tablename ".
+               " SET $colFigureId = :figureId, " .
+               " $colPosition = :position " .
+               " WHERE $colid = :id AND $colBoardId = :boardId" ;
 
         try {
             $myPDO->beginTransaction();
@@ -103,6 +103,7 @@ class FigureBoardDAO implements ICrud{
             );
 
             $affectedRows = $stmt->rowCount();
+
             if ($affectedRows > 0) {
                 $myPDO->commit();
             } else {
@@ -171,7 +172,7 @@ class FigureBoardDAO implements ICrud{
 
         return $figuresInBoard;
     }
- 
+
 
     public function save($p): object | null {
         $myPDO = DB::getPdo();
@@ -181,9 +182,9 @@ class FigureBoardDAO implements ICrud{
         $colFigureId = FigureBoardContract::COL_FIGURE_ID;
         $colPosition = FigureBoardContract::COL_POSITION;
 
-        $sql = "INSERT INTO $tablename ($colBoardId, $colFigureId, $colPosition) 
+        $sql = "INSERT INTO $tablename ($colBoardId, $colFigureId, $colPosition)
         VALUES (:boardId, :figureId, :position)";
-    
+
         try {
             $myPDO->beginTransaction();
             $stmt = $myPDO->prepare($sql);
@@ -191,7 +192,7 @@ class FigureBoardDAO implements ICrud{
             for ($i = 0; $i < 15; $i++) {
                 $stmt->execute([
                     ':boardId' => $p->getId(),
-                    ':figureId' => 1, 
+                    ':figureId' => 1,
                     ':position' => $i,
                 ]);
             }
@@ -210,7 +211,7 @@ class FigureBoardDAO implements ICrud{
             $myPDO->rollBack();
             return null;
         }
-    
+
         return $p;
     }
 
@@ -218,7 +219,7 @@ class FigureBoardDAO implements ICrud{
         $tablename = FigureBoardContract::TABLE_NAME;
         $colBoardId = FigureBoardContract::COL_BOARD_ID;
 
-        $sql = "SELECT * FROM $tablename 
+        $sql = "SELECT * FROM $tablename
         WHERE $colBoardId = $boardId";
 
         $myPDO = DB::getPdo();
@@ -283,7 +284,7 @@ class FigureBoardDAO implements ICrud{
      */
     public function createBlankBoard($boardId) {
         $myPDO = DB::getPdo();
-        
+
         $tablenameFigureBoard = FigureBoardContract::TABLE_NAME;
         $colBoardId = FigureBoardContract::COL_BOARD_ID;
         $colFigureId = FigureBoardContract::COL_FIGURE_ID;

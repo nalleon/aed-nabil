@@ -116,23 +116,19 @@ class BoardController extends Controller
 
         $boardContents = $this->figureBoardDAO->getContentsByBoard($id);
 
-        //dd($figureToAdd, $positionToEdit, $boardContents);
 
 
         foreach ($positionToEdit as $index => $selectedPosition) {
             foreach ($boardContents as $content) {
                 if ($content->getPosition() == intval($selectedPosition)) {
                     $content->setFigureId(intval($figureToAdd));
-                    $this->figureBoardDAO->save($content);
+                    $this->figureBoardDAO->update($content);
                 }
             }
         }
 
-       // $figureBoard = new FigureBoard();
        $figures = $this->figureBoardDAO->getFiguresByBoard($id);
 
-       dd($figures);
-      
         return view('userboard', compact('board', 'figures', 'allFiguresOptions'));
     }
 

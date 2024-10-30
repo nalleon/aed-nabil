@@ -14,8 +14,10 @@ use App\Models\Figure;
 use App\Models\FigureBoard;
 
 class BoardDAO implements ICrud{
-
+    
+    protected $figureBoardDAO;
     public function __construct() {
+        $this->figureBoardDAO = new FigureBoardDAO();
     }
 
 
@@ -202,27 +204,8 @@ class BoardDAO implements ICrud{
             if ($affectedRows > 0) {
                 $idGenerated = $myPDO->lastInsertId();
                 $p->setId($idGenerated);
-                //dd($p);
 
-                $tablenameFigureBoard = FigureBoardContract::TABLE_NAME;
-                $colBoardId = FigureBoardContract::COL_BOARD_ID;
-                $colFigureId = FigureBoardContract::COL_FIGURE_ID;
-                $colPosition = FigureBoardContract::COL_POSITION;
-
-                $sqlFigureTabla = "INSERT INTO $tablenameFigureBoard ($colBoardId, $colFigureId, $colPosition)
-                VALUES (:boardId, :figureId, :position)";
-
-                $stmtFigureBoard = $myPDO->prepare($sqlFigureTabla);
-                for ($i = 0; $i < 15; $i++) {
-                    $idtablero = (int)$p->getId();
-
-                    $stmtFigureBoard->execute([
-                        ':boardId' => $idtablero,
-                        ':figureId' => 1,
-                        ':position' => $i,
-                    ]);
-
-                }
+                $this->figureBoardDAO->createBlankBoard($idGenerated);
 
                 $myPDO->commit();
 
@@ -232,12 +215,10 @@ class BoardDAO implements ICrud{
             }
         } catch (Exception $ex) {
             var_dump($ex);
-            //die();
             $myPDO->rollBack();
-            //return null;
+            return null;
         }
         $stmt = null;
-
 
         return $p;
     }
@@ -298,40 +279,7 @@ class BoardDAO implements ICrud{
         return $boardContents;
     }
 
-    public function getFiguresByBoard($boardId) {
-        $myPDO = DB::getPdo();
 
-        $tablenameFigure = FigureContract::TABLE_NAME;
-        $tablenameFigureBoard = FigureBoardContract::TABLE_NAME;
-
-        $colFigureIdFromFigure = FigureContract::COL_ID;
-        $colFigureIdFromFigureBoard = FigureBoardContract::COL_FIGURE_ID;
-
-        $colBoardId = FigureBoardContract::COL_BOARD_ID;
-
-        $figures = [];
-
-        $sql = "SELECT f.* FROM $tablenameFigure AS f
-                INNER JOIN $tablenameFigureBoard AS fb
-                ON f.$colFigureIdFromFigure = fb.$colFigureIdFromFigureBoard
-                WHERE fb.$colBoardId = :boardId";
-
-        $stmt = $myPDO->prepare($sql);
-        $stmt->execute([':boardId' => $boardId]);
-        $row = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-        $figures = [];
-        while ($row = $stmt->fetch()) {
-            $p = new Figure();
-            $p->setId($row[FigureContract::COL_ID]);
-            $p->setImage($row[FigureContract::COL_IMG]);
-            $p->setTypeImage($row[FigureContract::COL_TYPE]);
-
-            $figures[] = $p;
-        }
-
-        return $figures;
-    }
 
 }
 

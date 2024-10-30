@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DAO\BoardDAO;
+use App\DAO\FigureBoardDAO;
 use App\DAO\FigureDAO;
 use App\Models\Board;
 use Illuminate\Http\Request;
@@ -13,9 +14,14 @@ class BoardController extends Controller
 
 
     protected $boardDAO;
+    protected $figureBoardDAO;
+    protected $figureDAO;
 
     public function __construct(){
         $this->boardDAO = new BoardDAO();
+        $this->figureBoardDAO = new FigureBoardDAO();
+        $this->figureDAO = new FigureDAO();
+
     }
 
     /**
@@ -88,9 +94,11 @@ class BoardController extends Controller
             return redirect()->route('userhome')->with('message', 'Board not found');
         }
 
-        $figures = $this->boardDAO->getFiguresByBoard($id);
+        $figures = $this->figureBoardDAO->getFiguresByBoard($id);
 
-        return view('userboard', compact('board', 'figures'));
+        $allFiguresOptions = $this->figureDAO->findAll();
+
+        return view('userboard', compact('board', 'figures', 'allFiguresOptions'));
     }
 
 

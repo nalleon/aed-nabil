@@ -19,7 +19,7 @@
               </button>
                 <div id="navBar" class="collapse navbar-collapse">
                     <ul class="d-flex align-items-start navbar-nav me-auto mb-2 mb-lg-0 ms-5">
-                        <li class="list-group-item m-1"><a class="ms-3 link-underline link-underline-opacity-0 link-light" href="./home.blade.php">Home</a></li>
+                        <li class="list-group-item m-1"><a class="ms-3 link-underline link-underline-opacity-0 link-light" href="{{route('userhome')}}">Home</a></li>
                     </ul>
                     <form class="d-flex  me-5 ms-3" action="{{route('logout')}}" method="POST">
                         @csrf
@@ -51,16 +51,15 @@
                 <form action="{{ route('updateBoard', ['id' => $board->getId()]) }}" method="POST">
                     @csrf
                     <div class="row mt-5 justify-content-center">
-                            @foreach ($allFiguresOptions as $figureOption)
-                            <div class="col-6 col-sm-3 col-md-3 col-lg-3 text-center">
-                                <img src="data:{{ $figureOption->getTypeImage() }};base64,{{ base64_encode($figureOption->getImage()) }}" 
-                                    width="40" height="40" class="img-fluid mb-2" />
-                                <div class="mt-2 mb-2">
-                                    <input type="radio" id="figureChosen" name="figureChosen" value="{{ $figureOption->getId() }}" class="form-check-input">
-                                </div>
+                        @foreach ($allFiguresOptions as $figureOption)
+                        <div class="col-6 col-sm-3 col-md-3 col-lg-3 text-center">
+                            <img src="data:{{ $figureOption->getTypeImage() }};base64,{{ base64_encode($figureOption->getImage()) }}" 
+                                width="40" height="40" class="img-fluid mb-2" />
+                            <div class="mt-2 mb-2">
+                                <input type="radio" id="figureChosen" name="figureChosen" value="{{ $figureOption->getId() }}" class="form-check-input">
                             </div>
-                            @endforeach
-              
+                        </div>
+                        @endforeach
                     </div>
                     <br>
                     <div class="d-flex flex-wrap justify-content-center mt-5">

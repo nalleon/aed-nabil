@@ -28,18 +28,19 @@
                 </div>
           </div>
 
-        <style>
-            .custom-shadow {
-                border: 3px solid rgba(28, 63, 132, 0.2);
-                box-shadow: 4px 8px 12px rgba(28, 63, 132, 0.2);
-            }  
-        </style>
-          
+ 
         </nav>
-      </header>
+    </header>
+      <style>
+        .custom-shadow {
+            border: 3px solid rgba(28, 63, 132, 0.2);
+            box-shadow: 4px 8px 12px rgba(28, 63, 132, 0.2);
+        }  
+    </style>
+      
     <body class="antialiased bg-light">
         <div class="container d-flex justify-content-center text-light mt-5 mb-5">
-            <div class="card bg-dark custom-shadow text-light rounded mt-3 position-relative " style="max-width: 60rem;">
+            <div class="card bg-dark custom-shadow text-light rounded mt-3 position-relative ">
                 <div class="card-header bg-light text-dark">
                     <h3 class="text-center m-3">Select an option</h3>
                 </div>

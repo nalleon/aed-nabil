@@ -1,8 +1,8 @@
 <?php
 
-namespace App\DAO\Interface;
+namespace App\Repository\Interface;
 
-interface ICrud{
+interface IRepositoryCrud{
     public function findAll(): array;
     public function save($dao): object | null;
     public function findById($id): object | null;

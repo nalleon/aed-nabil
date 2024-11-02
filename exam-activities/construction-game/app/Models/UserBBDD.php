@@ -25,6 +25,11 @@ class UserBBDD {
      * */
     private String $rol;
 
+    /**
+     * @var integer
+     */
+    private int $deleted;
+
 
     // getters and setters
 
@@ -60,4 +65,11 @@ class UserBBDD {
         $this->rol = $rol;
     }
     
+    public function getDeleted(): int {
+        return $this->deleted;
+    }
+
+    public function setDeleted(int $deleted): void {
+        $this->deleted = $deleted;
+    }
 }

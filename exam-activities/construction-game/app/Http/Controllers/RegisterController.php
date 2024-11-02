@@ -20,17 +20,25 @@ class RegisterController extends Controller{
         return view('register');
     }
 
+    /**
+     * Function to register a user
+     */
     public function register(Request $request) {
         $request->validate([
             'username' => 'required|string|max:255',
             'password' => 'required|string|confirmed',
         ]);
 
-
         $user = new UserBBDD();
         $user->setName($request->username);
         $user->setPassword(Hash::make($request->password));
         $user->setRol('usuario');
+
+
+        if (!$this->checkIfUsernameIsAvailable($user)){
+            return redirect()->route('register')->with('message',
+            'Your username is not available. Please use another one');
+        }
 
         $this->userDAO->save($user);
 
@@ -38,6 +46,22 @@ class RegisterController extends Controller{
       
         return redirect()->route('login')->with('message',
          'Successfully registered. Log in to your account');
+    }
+
+    /**
+     * Function to check if the username is avalaible
+     */
+    function checkIfUsernameIsAvailable($user){
+        
+        $allUsers = $this->userDAO->findAll();
+
+        foreach($allUsers as $u){
+            if($u->getName() == $user->getName()){
+                return false;
+            }
+        }
+
+        return true;
     }
     
 }

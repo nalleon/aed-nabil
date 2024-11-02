@@ -33,6 +33,9 @@
                 <div class="card-body">
                     <form action="{{ route('register') }}" method="POST" class="text-center">
                         @csrf
+                        @if(session('message'))
+                            <p class="text-center text-warning">{{ session('message') }}</p>
+                        @endif
                         <div class="row justify-content-center">
                             <div class="col-8 col-sm-8 col-md-10 mb-3">
                                 <label for="username" class="form-label fw-bold">Username</label>

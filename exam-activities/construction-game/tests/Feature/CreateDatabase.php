@@ -69,8 +69,7 @@ $pdo->exec("INSERT INTO tableros (id, usuario_id, nombre, contenido, fecha) VALU
 
 $pdo->exec("INSERT INTO figuras_tableros (tablero_id, figura_id, posicion) VALUES 
     (1, 1, 1),
-    (1, 2, 2),
-    (2, 2, 1),
-    (2, 1, 2);
+    (2, 2, 2);
 ");
+
 ?>

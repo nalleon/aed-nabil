@@ -215,6 +215,7 @@ class FigureBoardDAO implements ICrud{
         $sql = "INSERT INTO $tablename ($colBoardId, $colFigureId, $colPosition)
         VALUES (:boardId, :figureId, :position)";
 
+        $figureBoardList = [];
         try {
             $myPDO->beginTransaction();
             $stmt = $myPDO->prepare($sql);

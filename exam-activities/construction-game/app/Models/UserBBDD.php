@@ -8,12 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class UserBBDD extends Model{
 
     use HasFactory;
-
-    protected $table = 'usuarios'; 
-
-    protected $fillable = ['nombre', 'password', 'rol'];
-
-    public $timestamps = false;
     
     /**
      * @var integer

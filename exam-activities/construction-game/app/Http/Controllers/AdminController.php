@@ -68,11 +68,11 @@ class AdminController extends Controller{
 
         $user->setRol(1);
 
-        if ($request->input('role') === 'admin') {
+        if ($request->input('role') === '2') {
             $user->setRol(2);
-        }
+        } 
 
-        //dd($user);
+
         $this->userDAO->update($user);
 
         return redirect()->route('manageusers')->with('message', 'User updated successfully.');

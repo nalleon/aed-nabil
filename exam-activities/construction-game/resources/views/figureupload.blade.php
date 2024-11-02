@@ -5,28 +5,64 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="Nabil L. A.">
         <title>CG - Figure Upload </title>
-        <link rel="stylesheet" href="./style/login.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    </head>
+    <header>
+        <nav class="navbar navbar-dark bg-dark text-light navbar-expand-lg mb-5 ">
+          <div class="container-fluid">
+              <h4 class="mt-2 me-2 ms-5"><i class="ms-3 bi bi-buildings-fill text-light"></i> Construction Game </h4>
+              <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navBar" aria-controls="navBar" aria-expanded="true" aria-label="Toggle navigation" >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+                <div id="navBar" class="collapse navbar-collapse">
+                    <ul class="d-flex align-items-start navbar-nav me-auto mb-2 mb-lg-0 ms-5">
+                        <li class="list-group-item m-1"><a class="ms-3 link-underline link-underline-opacity-0 link-light" href="{{route('adminhome')}}">Home</a></li>
+                        <li class="list-group-item m-1"><a class="ms-3 link-underline link-underline-opacity-0 link-light" href="{{route('manageusers')}}">Manage users</a></li>
+                        <li class="list-group-item m-1"><a class="ms-3 link-underline link-underline-opacity-0 link-light" href="{{route('figureupload')}}">Manage figures</a></li>
+                    </ul>
+                    <form class="d-flex  me-5 ms-3" action="{{route('logout')}}" method="POST">
+                        @csrf
+                        <button class="btn btn-outline-primary me-2 ms-5" type="submit">Logout</button>
+                    </form>
+                </div>
+          </div>
+        </nav>
+    </header>
+      <style>
+        .custom-shadow {
+            border: 3px solid rgba(28, 63, 132, 0.2);
+            box-shadow: 4px 8px 12px rgba(28, 63, 132, 0.2);
+        }  
+    </style>
     </head>
     <body class="antialiased">
-        <div class="main-container">
-                <h2>Admin: {{ session('username') }}</h2>
-                @if (session('message'))
-                    <p>{{session('message')}}</p>
-                @endif
-                <form action="{{ route('figureuploadpost') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div>
-                        <label for="image">Select an image:</label>
-                        <input type="file" id="image" name="image" accept="image/*" required>
-                        <br>
-                        <button type="submit">Upload</button>
-                    </div>
-                </form>
-            <br>
-            <div class="back">
-                <form action="{{ route('adminhome') }}" method="GET">
-                    <input type="submit" value="Back">
-                </form>
+        <div class="container d-flex justify-content-center text-light mt-5 mb-5">
+            <div class="card bg-dark custom-shadow text-light rounded mt-3 position-relative w-100 col-lg-6">
+                <div class="card-header bg-light text-dark">
+                    <h3 class="text-center m-3">Admin: {{ session('username') }}</h3>
+                </div>
+                <div class="row mt-5 justify-content-center w-100">
+                    @if (session('message'))
+                        <p class="text-center text-success">{{ session('message') }}</p>
+                    @endif
+                
+                    <form action="{{ route('figureuploadpost') }}" method="POST" enctype="multipart/form-data" class="col-10 col-md-8">
+                        @csrf
+                        <div class="row mb-4">
+
+                            <div class="col-12 col-md-8 mb-2 mb-md-0">
+                                <label for="image" class="form-label fw-bold">Select an image:</label>
+                                <input type="file" id="image" name="image" accept="image/*" class="form-control">
+                            </div>
+                
+                            <div class="col-12 col-md-4 d-flex align-items-end">
+                                <button type="submit" class="btn btn-primary w-100">Upload</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </body>

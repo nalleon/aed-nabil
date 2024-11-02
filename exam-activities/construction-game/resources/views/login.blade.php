@@ -14,13 +14,8 @@
         <nav class="navbar navbar-dark bg-dark text-light navbar-expand-lg mb-5 ">
           <div class="container-fluid">
               <h4 class="mt-2 me-2 ms-5"><i class="ms-3 bi bi-buildings-fill text-light"></i> Construction Game </h4>
-              <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navBar" aria-controls="navBar" aria-expanded="true" aria-label="Toggle navigation" >
-                <span class="navbar-toggler-icon"></span>
-              </button>
-                <div id="navBar" class="collapse navbar-collapse">
-                    <ul class="d-flex align-items-start navbar-nav me-auto mb-2 mb-lg-0 ms-5">
-                    </ul>
-                </div>
+            
+    
           </div>
 
  
@@ -48,25 +43,21 @@
                         @endif
         
                         <div class="row justify-content-center">
-                            <!-- Username Input -->
                             <div class="col-10 col-sm-8 col-md-10 mb-3">
                                 <label for="username" class="form-label fw-bold">Username</label>
                                 <input type="text" name="username" id="username" class="form-control" placeholder="Enter your username" required>
                             </div>
         
-                            <!-- Password Input -->
                             <div class="col-10 col-sm-8 col-md-10 mb-3">
                                 <label for="password" class="form-label fw-bold">Password</label>
                                 <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password" required>
                             </div>
         
-                            <!-- Login Button -->
                             <div class="col-8 col-sm-8 col-md-4 d-grid gap-2">
                                 <button type="submit" class="btn btn-primary">Login</button>
                             </div>
                         </div>
         
-                        <!-- Registration Link -->
                         <p class="mt-3">Don't have an account? <a href="{{route('register')}}" class="text-decoration-none">Click here</a></p>
                     </form>
                 </div>

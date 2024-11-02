@@ -12,14 +12,25 @@ use App\Models\Figure;
 
 class FigureDAO implements ICrud{
 
-    public function __construct() {}
+    protected $figureBoardDAO;
+    public function __construct() {
+        $this->figureBoardDAO = new FigureBoardDAO();
+    }
 
     public function delete($id): bool{
         $myPDO = DB::getPdo();
+
+        try{
+            $this->figureBoardDAO->clearByImgId($id);
+        } catch(Exception $e){
+            throw new Exception("Error while deleting board: ". $e->getMessage());
+        }
+
         $tablename = FigureContract::TABLE_NAME;
         $colid = FigureContract::COL_ID;
 
         $sql = "DELETE FROM $tablename WHERE $colid  = :id";
+
 
         $stmt = $myPDO->prepare($sql);
         $stmt->execute([':id' => $id]);

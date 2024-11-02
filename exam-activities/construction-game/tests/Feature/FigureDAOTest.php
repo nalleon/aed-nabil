@@ -46,41 +46,25 @@ class FigureDAOTest extends TestCase
         $decimalValue = hexdec($hexValue);
 
         assertTrue($figureBBDD->getId() == 1, self::MESSAGE_ERROR);
-        //dd($figureBBDD->getImage());
         
         assertTrue($figureBBDD->getImage() == $decimalValue, self::MESSAGE_ERROR);
         assertTrue($figureBBDD->getTypeImage() == "image/png", self::MESSAGE_ERROR);
     }
 
+
     public function test_003_delete(): void {
-        try {
         $pdo = DB::getPdo();
 
         $figureDAO = new FigureDAO($pdo);
 
-        DB::beginTransaction();
-        $figureDAO->delete(1);
-        $figureList = $figureDAO->findAll();
-
-        assertTrue(count($figureList) == 1, self::MESSAGE_ERROR);
-
-        } finally{
-            DB::rollBack();
-        }
-    }
-
-    public function test_004_delete(): void {
-        $pdo = DB::getPdo();
-
-        $figureDAO = new FigureDAO($pdo);
-
-        $figureDAO->delete(1);
+        $figureDAO->delete(2);
+        
         $figureList = $figureDAO->findAll();
 
         assertTrue(count($figureList) == 1, self::MESSAGE_ERROR);
     }
 
-    public function test_005_update(): void {
+    public function test_004_update(): void {
         $pdo = DB::getPdo();
         $figureDAO = new FigureDAO($pdo);
 
@@ -106,7 +90,7 @@ class FigureDAOTest extends TestCase
 
     }
 
-    public function test_006_save(): void {
+    public function test_005_save(): void {
         $pdo = DB::getPdo();
 
         $figureDAO = new FigureDAO($pdo);

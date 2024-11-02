@@ -40,7 +40,7 @@ class RolDAOTest extends TestCase
         assertTrue(count($rolList) == 2, self::MESSAGE_ERROR);
     }
 
-        /**
+    /**
      * A basic feature test example.
      */
     public function test_002_findById(): void {
@@ -53,34 +53,19 @@ class RolDAOTest extends TestCase
         assertTrue($rol->getId() == "1", self::MESSAGE_ERROR);
     }
 
+
     public function test_003_delete(): void {
-        try {
         $pdo = DB::getPdo();
 
         $rolDAO = new RolDAO($pdo);
 
-        DB::beginTransaction();
         $rolDAO->delete(1);
         $rolList = $rolDAO->findAll();
 
         assertTrue(count($rolList) == 1, self::MESSAGE_ERROR);
-        } finally{
-            DB::rollBack();
-        }
     }
 
-    public function test_004_delete(): void {
-        $pdo = DB::getPdo();
-
-        $rolDAO = new RolDAO($pdo);
-
-        $rol = $rolDAO->delete(1);
-        $rolList = $rolDAO->findAll();
-
-        assertTrue(count($rolList) == 1, self::MESSAGE_ERROR);
-    }
-
-    public function test_005_update(): void {
+    public function test_004_update(): void {
         $pdo = DB::getPdo();
         $rolDAO = new RolDAO($pdo);
 
@@ -105,7 +90,7 @@ class RolDAOTest extends TestCase
 
     }
 
-    public function test_006_save(): void {
+    public function test_005_save(): void {
         $pdo = DB::getPdo();
 
         $rolDAO = new RolDAO($pdo);

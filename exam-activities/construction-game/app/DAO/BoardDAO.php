@@ -25,9 +25,9 @@ class BoardDAO implements ICrud{
         $myPDO = DB::getPdo();
 
         try{
-            $this->deleteFromFigureBoard($id);
+            $this->figureBoardDAO->deleteByBoardId($id);
         } catch(Exception $e){
-            throw new Exception("Error while deleting board: ". $e->getMessage());
+            throw new Exception("Error while deleting from FigureBoard(figuras_tableros): ". $e->getMessage());
         }
 
         $tablename = BoardContract::TABLE_NAME;
@@ -43,22 +43,6 @@ class BoardDAO implements ICrud{
         return $affectedRows > 0;
     }
 
-    /**
-     * Function to delete from figureboard (figuras_tableros)
-     */
-    public function deleteFromFigureBoard($boardId): bool{
-        $myPDO = DB::getPdo();
-        $tablename = FigureBoardContract::TABLE_NAME;
-        $colBoardId = FigureBoardContract::COL_BOARD_ID;
-
-        $sql = "DELETE FROM $tablename WHERE $colBoardId  = :boardId";
-
-        $stmt = $myPDO->prepare($sql);
-        $stmt->execute([':boardId' => $boardId]);
-        $affectedRows = $stmt->rowCount();
-
-        return $affectedRows > 0;
-    }
 
     public function update($p): bool{
         $colid = BoardContract::COL_ID;
@@ -253,6 +237,9 @@ class BoardDAO implements ICrud{
         return $boards;
     }
 
+    /**
+     * Function to get all the contents of a board by its id
+     */
     public function getContentsByBoard($boardId) {
         $tablename = FigureBoardContract::TABLE_NAME;
         $colBoardId = FigureBoardContract::COL_BOARD_ID;

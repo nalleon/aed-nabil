@@ -42,7 +42,6 @@ CREATE TABLE figuras_tableros (
 );
 
 
-
 ");
 
 
@@ -59,5 +58,19 @@ $pdo->exec("INSERT INTO figuras (id, imagen, tipo_imagen) VALUES
 
 $pdo->exec("INSERT INTO figuras (id, imagen, tipo_imagen) VALUES 
     (2, 0x89504e470d0, 'image/png');
+");
+
+
+$pdo->exec("INSERT INTO tableros (id, usuario_id, nombre, contenido, fecha) VALUES 
+    (1, 1, 'Board  of John Doe', 'Content of board', 2024),
+    (2, 2, 'Board  of Test', 'Content of board', 2024);
+");
+
+
+$pdo->exec("INSERT INTO figuras_tableros (tablero_id, figura_id, posicion) VALUES 
+    (1, 1, 1),
+    (1, 2, 2),
+    (2, 2, 1),
+    (2, 1, 2);
 ");
 ?>

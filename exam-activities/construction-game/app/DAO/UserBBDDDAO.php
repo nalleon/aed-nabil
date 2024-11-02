@@ -11,11 +11,28 @@ use App\DAO\Interface\ICrud;
 
 class UserBBDDDAO implements ICrud {
 
-    public function __construct() {}
+    protected $boardDAO;
+    public function __construct() {
+        $this->boardDAO = new BoardDAO();
+    }
 
     public function delete($id): bool{
 
         $myPDO = DB::getPdo();
+
+        $boards = $this->boardDAO->findAllBoardsPerUser($id);
+
+        try {
+            
+            foreach($boards as $board){
+                $this->boardDAO->delete($board->getId());
+            }
+
+        } catch(Exception $e){
+            throw new Exception("Error while deleting board: ". $e->getMessage());
+        }
+
+
         $tablename = UserBBDDContract::TABLE_NAME;
         $colid = UserBBDDContract::COL_ID;
 

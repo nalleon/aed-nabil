@@ -49,34 +49,18 @@ class UserBBDDDAOTest extends TestCase
     }
 
     public function test_003_delete(): void {
-        try {
-        $pdo = DB::getPdo();
-
-        $userDAO = new UserBBDDDAO($pdo);
-
-        DB::beginTransaction();
-        $userDAO->delete(1);
-        $userList = $userDAO->findAll();
-
-        assertTrue(count($userList) == 1, self::MESSAGE_ERROR);
-
-        } finally{
-            DB::rollBack();
-        }
-    }
-
-    public function test_004_delete(): void {
         $pdo = DB::getPdo();
 
         $userDAO = new UserBBDDDAO($pdo);
 
         $userDAO->delete(1);
+        
         $userList = $userDAO->findAll();
 
         assertTrue(count($userList) == 1, self::MESSAGE_ERROR);
     }
 
-    public function test_005_update(): void {
+    public function test_004_update(): void {
         $pdo = DB::getPdo();
         $userDAO = new UserBBDDDAO($pdo);
 
@@ -105,7 +89,7 @@ class UserBBDDDAOTest extends TestCase
 
     }
 
-    public function test_006_save(): void {
+    public function test_005_save(): void {
         $pdo = DB::getPdo();
 
         $userDAO = new UserBBDDDAO($pdo);

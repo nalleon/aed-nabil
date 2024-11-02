@@ -23,7 +23,6 @@ class FigureBoardDAO implements ICrud{
         $tablename = FigureBoardContract::TABLE_NAME;
         $colid = FigureBoardContract::COL_ID;
 
-
         $sql = "DELETE FROM $tablename WHERE $colid  = :id";
 
         $stmt = $myPDO->prepare($sql);
@@ -34,7 +33,7 @@ class FigureBoardDAO implements ICrud{
     }
 
     /**
-     * Functiuon to delete all figures from the same board
+     * Function to delete all figures from the same board
      */
     public function deleteByBoardId($boardId): bool{
 
@@ -51,6 +50,37 @@ class FigureBoardDAO implements ICrud{
         return $affectedRows > 0;
     }
 
+
+
+    /**
+     * Function to delete/clear all specified figures from a board
+     */
+    public function clearByImgId($imgIdToClear):  bool{
+        $myPDO = DB::getPdo();
+
+        $tablenameFigureBoard = FigureBoardContract::TABLE_NAME;
+        $colFigureId = FigureBoardContract::COL_FIGURE_ID;
+
+        $sql = "UPDATE $tablenameFigureBoard ".
+        " SET $colFigureId = :figureIdToUpdate " .
+        " WHERE $colFigureId = :figureId";
+        
+        $stmtFigureBoard = $myPDO->prepare($sql);
+
+        $stmtFigureBoard->execute([
+            ':figureIdToUpdate' => 1,
+            ':figureId' => $imgIdToClear,
+        ]);
+
+        $affectedRows = $stmtFigureBoard->rowCount();
+
+        return $affectedRows > 0;
+    }
+
+
+    
+
+    
 
     /**
      * Functiuon to delete a specific figure from a position from a board

@@ -42,41 +42,53 @@
     </head>
     <body class="antialiased">
         <div class="container d-flex justify-content-center text-light mt-5 mb-5">
-            <div class="card bg-dark custom-shadow text-light rounded mt-3 position-relative w-100 col-lg-10">
+            <div class="card bg-dark custom-shadow text-light rounded mt-3 position-relative w-100 col-lg-8">
                 <div class="card-header bg-light text-dark">
                     <h3 class="text-center m-3">Editing: {{ $userEdit->getName() }}</h3>
                 </div>
-
-            <div class="row mt-5 justify-content-center w-100">    
-                <form action="{{ route('updateuser', ['id' => $userEdit->getId()]) }}" method="POST">
-                    @csrf
-                    
-                    <label for="id">ID:</label>
-                    <input type="text" id="userId" name="userId" value="{{ $userEdit->getId() }}" readonly>
-                    <br>
-                    <label for="username">Name:</label>
-                    <input type="text" id="username" name="username" value="{{ $userEdit->getName() }}" required>
-                    <br>
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" placeholder="Leave blank to keep current password">
-                    <br>
-                    <label for="role">Role:</label>
-                    <select id="role" name="role">
-                        <option value="2" {{ $userEdit->getRol() === '2' ? 'selected' : '' }}>admin</option>
-                        <option value="1" {{ $userEdit->getRol() === '1' ? 'selected' : '' }}>usuario</option>
-                    </select>                
-                    <br>
-                    <br>
-                    <button type="submit">Update</button>
-                </form>
-                <br>
-                <form action="{{ route('deleteuser', ['id' => $userEdit->getId()]) }}" method="POST">
-                    @csrf
-                    <input type="submit" name="delete" value="Delete"></input>
-                </form>  
-                <br>
-               
-            </div>    
+                <div class="row mt-5 justify-content-center w-100">
+                    <form action="{{ route('updateuser', ['id' => $userEdit->getId()]) }}" method="POST" class="col-10 col-md-8">
+                        @csrf
+        
+                        <div class="mb-3 text-center">
+                            <label for="userId" class="form-label">ID:</label>
+                            <input type="text" id="userId" name="userId" value="{{ $userEdit->getId() }}" readonly class="form-control text-center">
+                        </div>
+        
+                        <div class="mb-3 text-center">
+                            <label for="username" class="form-label">Name:</label>
+                            <input type="text" id="username" name="username" value="{{ $userEdit->getName() }}" required class="form-control text-center">
+                        </div>
+        
+                        <div class="mb-3 text-center">
+                            <label for="password" class="form-label">Password:</label>
+                            <input type="password" id="password" name="password" placeholder="Leave blank to keep current password" class="form-control text-center">
+                        </div>
+        
+                        <div class="mb-3 text-center">
+                            <label for="role" class="form-label">Role:</label>
+                            <select id="role" name="role" class="form-select text-center">
+                                <option value="2" {{ $userEdit->getRol() === '2' ? 'selected' : '' }}>admin</option>
+                                <option value="1" {{ $userEdit->getRol() === '1' ? 'selected' : '' }}>usuario</option>
+                            </select>
+                        </div>
+        
+                        <div class="row justify-content-center">
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </div>
+                            <div class="col-auto mb-3">
+                                <form action="{{ route('deleteuser', ['id' => $userEdit->getId()]) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     </body>
 </html>

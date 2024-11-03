@@ -5,9 +5,6 @@ namespace Tests\Feature;
 use App\DAO\BoardDAO;
 use App\DAO\FigureBoardDAO;
 use App\Models\Board;
-use App\Models\FigureBoard;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 

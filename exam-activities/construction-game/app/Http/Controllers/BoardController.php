@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DAO\BoardDAO;
 use App\DAO\FigureBoardDAO;
 use App\DAO\FigureDAO;
+use App\DAO\UserBBDDDAO;
 use App\DAO\UserFileDAO;
 use App\Models\Board;
 use App\Models\FigureBoard;
@@ -20,12 +21,14 @@ class BoardController extends Controller
     protected $figureDAO;
     
     protected $userFileDAO;
+    protected $userDAO;
 
     public function __construct(){
         $this->boardDAO = new BoardDAO();
         $this->figureBoardDAO = new FigureBoardDAO();
         $this->figureDAO = new FigureDAO();
         $this->userFileDAO = new UserFileDAO();
+        $this->userDAO = new UserBBDDDAO();
     }
 
     /**
@@ -44,19 +47,35 @@ class BoardController extends Controller
         $user = session()->get('user');
 
         $boards = [];
-       
-        $users = $this->userFileDAO->findAll();
         
-        foreach ($users as $userFile){
-            if($userFile == $user){
-                return view('home', compact('boards'));
-            }
+        if($this->checkIfUserExistsInBBDD($user) !== null){
+            $userId =$this->checkIfUserExistsInBBDD($user);
+            $boards = $this->boardDAO->findAllBoardsPerUser($userId);    
+            return view('home', compact('boards'));
         }
 
-        $userId = $user->getId();
-        $boards = $this->boardDAO->findAllBoardsPerUser($userId);
 
         return view('home', compact('boards'));
+    }
+
+    /**
+     * Function to check if the user exists in the bbdd 
+     */
+    public function checkIfUserExistsInBBDD($user){
+        $usersFile = $this->userFileDAO->findAll();
+        $usersBBDD = $this->userDAO->findAll();
+        
+        foreach ($usersFile as $userFile){
+            foreach ($usersBBDD as $userBBDD){
+                if($userFile->getName() == $userBBDD->getName()){
+                    if ($userBBDD->getName() === $user->getName()){
+                        $id = $userBBDD->getId();
+                        return $id;
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     public function createBoard(Request $request) {

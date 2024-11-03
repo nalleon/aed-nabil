@@ -4,13 +4,10 @@ namespace Tests\Feature;
 
 use App\DAO\RolDAO;
 use App\Models\Rol;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
-use function PHPUnit\Framework\assertFalse;
 use function PHPUnit\Framework\assertTrue;
 
 class RolDAOTest extends TestCase
@@ -19,7 +16,7 @@ class RolDAOTest extends TestCase
     public $databaseCreated = false;
     public function setUp(): void{
         parent::setUp();
-        if(! $this->databaseCreated ){
+        if(!$this->databaseCreated ){
             $pdo = DB::getPdo();
             require 'CreateDatabaseRol.php';
             $this->databaseCreated = true;
@@ -27,9 +24,6 @@ class RolDAOTest extends TestCase
     }
 
 
-    /**
-     * A basic feature test example.
-     */
     public function test_001_findAll(): void {
         $pdo = DB::getPdo();
 
@@ -40,9 +34,7 @@ class RolDAOTest extends TestCase
         assertTrue(count($rolList) == 2, self::MESSAGE_ERROR);
     }
 
-    /**
-     * A basic feature test example.
-     */
+
     public function test_002_findById(): void {
         $pdo = DB::getPdo();
 

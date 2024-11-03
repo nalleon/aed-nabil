@@ -11,8 +11,6 @@ class UserRepository implements IRepositoryCrud {
     protected $userBBDDDAO;
     protected $userFileDAO;
 
-   // protected const FILE_PATH =  "storage/app/users.dat";
-
     public function __construct(){
         $this->userBBDDDAO = new UserBBDDDAO();
         $this->userFileDAO = new UserFileDAO();

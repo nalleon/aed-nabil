@@ -134,7 +134,9 @@ class UserFileDAO implements ICrud {
         
 
     public function save($p): object | null {
-        $p->setId($this->createId());
+        if($p->getId() == null){
+            $p->setId($this->createId());
+        }
         
         $registerBinary = $this->userMapper->toRegister($p);
         file_put_contents(self::FILE_PATH, $registerBinary, FILE_APPEND);

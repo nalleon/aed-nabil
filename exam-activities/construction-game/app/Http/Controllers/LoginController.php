@@ -25,7 +25,7 @@ class LoginController extends Controller {
     }
 
     /**
-     * Function to show thhe login view
+     * Function to show the login view
      */
     public function showLogin(){
         return view('login');
@@ -44,7 +44,6 @@ class LoginController extends Controller {
         $user = $this->userRepository->findByName($request->input('username'));
 
         
-
         if (!$user) {
             return redirect()->route('login')->with('message', 'User does not exist');
         }
@@ -63,7 +62,7 @@ class LoginController extends Controller {
             session()->put('user', $user);
             $username = $user->getName();
             session()->put('username', $username);
-            
+
             $this->checkIfUserExistsInFile($user);
 
             if ($user->getRol() == 2 || $user->getRol() == 'admin') {

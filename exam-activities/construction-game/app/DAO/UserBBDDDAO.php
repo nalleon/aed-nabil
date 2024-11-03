@@ -7,14 +7,22 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use PDO;
 use App\DAO\Interface\ICrud;
-
+/**
+ * @author Nabil L. A.
+ */
 class UserBBDDDAO implements ICrud {
 
     protected $boardDAO;
+    /**
+     * Default constructor
+     */
     public function __construct() {
         $this->boardDAO = new BoardDAO();
     }
 
+    /**
+     * Function to delete a user 
+     */
     public function delete($id): bool{
 
         $myPDO = DB::getPdo();
@@ -44,7 +52,9 @@ class UserBBDDDAO implements ICrud {
         return $affectedRows > 0;
     }
 
-
+    /**
+     * Function to update a user 
+     */
     public function update($p): bool{
 
         $colid = UserBBDDContract::COL_ID;
@@ -80,14 +90,13 @@ class UserBBDDDAO implements ICrud {
 
 
             if ($affectedRows > 0) {
-                
                 $myPDO->commit();
             } else {
                 $myPDO->rollBack();
                 return false;
             }
+            
         } catch (Exception $ex) {
-            echo "ha habido una excepción se lanza rollback";
             var_dump($ex);
             $myPDO->rollBack();
             return false;
@@ -97,6 +106,9 @@ class UserBBDDDAO implements ICrud {
     }
 
 
+    /**
+     * Function to find an user by id
+     */
     public function findById($id): object | null {
 
         $tablename = UserBBDDContract::TABLE_NAME;
@@ -156,6 +168,9 @@ class UserBBDDDAO implements ICrud {
         return null;
     }
 
+    /**
+     * Function to find all users 
+     */
     public function findAll(): array{
         $tablename = UserBBDDContract::TABLE_NAME;
 
@@ -180,6 +195,9 @@ class UserBBDDDAO implements ICrud {
         return $UserBBDDs;
     }
 
+    /**
+     * Function to add a user
+     */
     public function save($p): object | null{
         $myPDO = DB::getPdo();
         $tablename = UserBBDDContract::TABLE_NAME;
@@ -215,12 +233,9 @@ class UserBBDDDAO implements ICrud {
                 ]
             );
 
-            //si affectedRows > 0 => hubo éxito consulta
             $affectedRows = $stmt->rowCount();
 
-            //forzamos un rollback aleatorio para ver que deshace los cambios
             if ($affectedRows > 0) {
-                //obtenemos el id generado con:
                 $idgenerado = $myPDO->lastInsertId();
                 $p->setId($idgenerado);
                 $myPDO->commit();
@@ -229,7 +244,6 @@ class UserBBDDDAO implements ICrud {
                 return null;
             }
         } catch (Exception $ex) {
-            echo "ha habido una excepción se lanza rollback";
             var_dump($ex);
             $myPDO->rollBack();
             return null;

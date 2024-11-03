@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use App\DAO\FigureDAO;
 use App\Models\Figure;
 use Illuminate\Http\Request;
-
+/**
+ * @author Nabil L. A.
+ */
 class FigureController extends Controller {
 
     protected $figureDAO;
 
+    /**
+     * Default constructor
+     */
     public function __construct(){
         $this->figureDAO = new FigureDAO();
     }

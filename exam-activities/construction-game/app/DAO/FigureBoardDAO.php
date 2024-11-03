@@ -2,21 +2,27 @@
 
 namespace App\DAO;
 
-use App\Contracts\BoardContract;
 use App\Contracts\FigureBoardContract;
 use App\Contracts\FigureContract;
-use App\Models\Board;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use PDO;
 use App\DAO\Interface\ICrud;
 use App\Models\Figure;
 use App\Models\FigureBoard;
-
+/**
+ * @author Nabil L. A.
+ */
 class FigureBoardDAO implements ICrud{
 
+    /**
+     * Default constructor of the class
+     */
     public function __construct() {}
 
+    /**
+     * Function to delete a figureBoard
+     */
     public function delete($id): bool{
 
         $myPDO = DB::getPdo();
@@ -51,7 +57,6 @@ class FigureBoardDAO implements ICrud{
     }
 
 
-
     /**
      * Function to delete/clear all specified figures from a board
      */
@@ -78,27 +83,9 @@ class FigureBoardDAO implements ICrud{
     }
 
 
-
-
     /**
-     * Function to delete a specific figure from a position from a board
+     * Function to update figureBoard 
      */
-    public function updateByPosition($boardId): bool {
-        $myPDO = DB::getPdo();
-        $tablename = FigureBoardContract::TABLE_NAME;
-        $colBoardId = FigureBoardContract::COL_BOARD_ID;
-
-        $sql = "DELETE FROM $tablename WHERE $colBoardId  = :boardId";
-
-        $stmt = $myPDO->prepare($sql);
-        $stmt->execute([':boardId' => $boardId]);
-        $affectedRows = $stmt->rowCount();
-
-        return $affectedRows > 0;
-    }
-
-
-
     public function update($p): bool{
         $colid = FigureBoardContract::COL_ID;
         $colBoardId = FigureBoardContract::COL_BOARD_ID;
@@ -147,7 +134,9 @@ class FigureBoardDAO implements ICrud{
         return true;
     }
 
-
+    /**
+     * Function to find a figureBoard by id
+     */
     public function findById($id): object | null {
         $tablename = FigureBoardContract::TABLE_NAME;
         $colid = FigureBoardContract::COL_ID;
@@ -175,7 +164,9 @@ class FigureBoardDAO implements ICrud{
         return null;
     }
 
-
+    /**
+     * Function to find all contents for FigureBoard
+     */
     public function findAll(): array{
         $tablename = FigureBoardContract::TABLE_NAME;
 
@@ -201,7 +192,10 @@ class FigureBoardDAO implements ICrud{
         return $figuresInBoard;
     }
 
-
+    /**
+     * Function to create the board structure default structure
+     * @param $p board 
+     */
     public function save($p): object | null {
         $myPDO = DB::getPdo();
 
@@ -243,6 +237,10 @@ class FigureBoardDAO implements ICrud{
         return $p;
     }
 
+
+    /**
+     * Function to get all contents from a board from FigureBoard(figuras_tableros)
+     */
     public function getContentsByBoard($boardId) {
         $tablename = FigureBoardContract::TABLE_NAME;
         $colBoardId = FigureBoardContract::COL_BOARD_ID;
@@ -339,7 +337,6 @@ class FigureBoardDAO implements ICrud{
     /**
      * Function to update the selected positions of the board
      */
-
      public function updateBoardFigures($positionToEdit, $boardId, $figureToAddId) {
         $boardContents = $this->getContentsByBoard($boardId);
 

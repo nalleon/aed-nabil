@@ -3,16 +3,25 @@ namespace App\File;
 
 use App\DAO\Interface\ICrud;
 use App\Models\Mapper\UserMapper;
-
+/**
+ * @author Nabil L. A.
+ */
 class UserFileCrud implements ICrud {
 
     protected const FILE_PATH =  "C:\Users\\nabil\\repositorios-git\aed-nabil\\exam-activities\construction-game\storage\app\users.dat";
     private $userMapper;
 
+    /**
+     * Default constructor
+     */
     public function __construct() {
         $this->userMapper = new UserMapper();
     }
 
+    
+    /**
+     * Function to delete a user
+     */
     public function delete($id): bool{
         $file = fopen(self::FILE_PATH, 'r+b');
         $deleted = false;
@@ -41,6 +50,9 @@ class UserFileCrud implements ICrud {
     }
 
 
+    /**
+     * Function to update a user
+     */
     public function update($p): bool{
         $file = fopen(self::FILE_PATH, 'r+b');
         $updated = false;
@@ -48,7 +60,10 @@ class UserFileCrud implements ICrud {
         while (!feof($file)) {
             $pos = ftell($file);
             $registerBinary = fread($file, $this->userMapper->getSizeRegister());
-            if (strlen($registerBinary) < $this->userMapper->getSizeRegister()) continue;
+
+            if (strlen($registerBinary) < $this->userMapper->getSizeRegister()) {
+                continue;
+            }
 
             $user = $this->userMapper->toUser($registerBinary);
             if ($user && $user->getId() === $p->getId()) {
@@ -65,7 +80,9 @@ class UserFileCrud implements ICrud {
     }
     
 
-
+    /**
+     * Function to find by id an user
+     */
     public function findById($id): object | null {
         $file = fopen(self::FILE_PATH, 'rb');
 
@@ -87,7 +104,6 @@ class UserFileCrud implements ICrud {
     }
 
     
-
     /**
      * Function to find the user by username
      */
@@ -112,7 +128,9 @@ class UserFileCrud implements ICrud {
         return null;
     }
 
-
+    /**
+     * Function to find all users 
+     */
     public function findAll(): array{
         $usersFile = [];
         $file = fopen(self::FILE_PATH, 'rb');
@@ -132,7 +150,9 @@ class UserFileCrud implements ICrud {
         return $usersFile;
     }
         
-
+    /**
+     * Function to add an user
+     */
     public function save($p): object | null {
         $p->setId($this->createId());
         

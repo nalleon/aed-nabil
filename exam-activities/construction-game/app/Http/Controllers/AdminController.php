@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use App\Repository\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-
+/**
+ * @author Nabil L. A.
+ */
 class AdminController extends Controller{
 
     protected $userRepository;
 
+    /**
+     * Default constructor
+     */
     public function __construct(){
         $this->userRepository = new UserRepository();
     }

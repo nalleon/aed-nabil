@@ -5,7 +5,9 @@ namespace App\Repository;
 use App\DAO\UserBBDDDAO;
 use App\File\UserFileCrud;
 use App\Repository\Interface\IRepositoryCrud;
-
+/**
+ * @author Nabil L. A.
+ */
 class UserRepository implements IRepositoryCrud {
 
     protected $userBBDDDAO;

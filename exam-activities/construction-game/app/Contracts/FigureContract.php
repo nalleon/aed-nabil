@@ -1,14 +1,16 @@
 <?php
 
 namespace App\Contracts;
+/**
+ * @author Nabil L. A.
+ */
+final class FigureContract {
 
-    final class FigureContract {
+    public const TABLE_NAME = "figuras";
+    public const COL_ID = "id";
+    public const COL_IMG = "imagen";
+    public const COL_TYPE = "tipo_imagen";
 
-        public const TABLE_NAME = "figuras";
-        public const COL_ID = "id";
-        public const COL_IMG = "imagen";
-        public const COL_TYPE = "tipo_imagen";
-
-        private function __construct() {}
-    }
+    private function __construct() {}
+}
 ?>

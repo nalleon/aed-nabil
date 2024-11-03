@@ -6,7 +6,9 @@ use App\Models\UserBBDD;
 use App\Repository\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-
+/**
+ * @author Nabil L. A.
+ */
 class RegisterController extends Controller{
 
     protected $userRepository;

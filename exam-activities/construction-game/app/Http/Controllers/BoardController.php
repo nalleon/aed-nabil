@@ -10,7 +10,9 @@ use App\File\UserFileCrud;
 use App\Models\Board;
 use Exception;
 use Illuminate\Http\Request;
-
+/**
+ * @author Nabil L. A.
+ */
 class BoardController extends Controller{
 
     protected $boardDAO;
@@ -20,6 +22,9 @@ class BoardController extends Controller{
     protected $userFileCrud;
     protected $userDAO;
 
+    /**
+     * Default constructor
+     */
     public function __construct(){
         $this->boardDAO = new BoardDAO();
         $this->figureBoardDAO = new FigureBoardDAO();

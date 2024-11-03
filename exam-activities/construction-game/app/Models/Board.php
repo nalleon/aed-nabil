@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Models;
-
+/**
+ * @author Nabil L. A.
+ */
 class Board {
     /**
      * @var int

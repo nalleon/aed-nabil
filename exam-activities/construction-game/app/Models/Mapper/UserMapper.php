@@ -3,7 +3,9 @@
 namespace App\Models\Mapper;
 use App\Models\UserBBDD;
 use Exception;
-
+/**
+ * @author Nabil L. A.
+ */
 class UserMapper {
 
     private const sizeUTF8 = 4;

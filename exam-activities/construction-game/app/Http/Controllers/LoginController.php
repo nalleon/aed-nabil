@@ -10,7 +10,7 @@ use App\Repository\UserRepository;
 use Illuminate\Support\Facades\Hash;
 
 /**
- * @author Nabil L. A. (nalleon)
+ * @author Nabil L. A. 
  */
 class LoginController extends Controller {
 

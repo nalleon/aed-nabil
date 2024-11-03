@@ -3,24 +3,30 @@
 namespace App\DAO;
 
 use App\Contracts\BoardContract;
-use App\Contracts\FigureBoardContract;
-use App\Contracts\FigureContract;
+
 use App\Models\Board;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use PDO;
 use App\DAO\Interface\ICrud;
-use App\Models\Figure;
-use App\Models\FigureBoard;
 
+/**
+ * @author Nabil L. A.
+ */
 class BoardDAO implements ICrud{
     
     protected $figureBoardDAO;
+    /**
+     * Default constructor
+     */
+
     public function __construct() {
         $this->figureBoardDAO = new FigureBoardDAO();
     }
 
-
+    /**
+     * Function to delete a board 
+     */
     public function delete($id): bool{
         $myPDO = DB::getPdo();
 
@@ -43,7 +49,9 @@ class BoardDAO implements ICrud{
         return $affectedRows > 0;
     }
 
-
+    /**
+     * Function to update a board
+     */
     public function update($p): bool{
         $colid = BoardContract::COL_ID;
         $colname = BoardContract::COL_NAME;
@@ -87,7 +95,6 @@ class BoardDAO implements ICrud{
             }
 
         } catch (Exception $ex) {
-            echo "ha habido una excepción se lanza rollback";
             var_dump($ex);
             $myPDO->rollBack();
             return false;
@@ -96,9 +103,10 @@ class BoardDAO implements ICrud{
         return true;
     }
 
-
+    /**
+     * Function to find by id a board
+     */
     public function findById($id): object | null {
-
         $tablename = BoardContract::TABLE_NAME;
         $colid = BoardContract::COL_ID;
 
@@ -128,6 +136,9 @@ class BoardDAO implements ICrud{
     }
 
 
+    /**
+     * Function to find all boards
+     */
     public function findAll(): array{
 
         $tablename = BoardContract::TABLE_NAME;
@@ -156,6 +167,9 @@ class BoardDAO implements ICrud{
     }
 
 
+    /**
+     * Function to add a board
+     */
     public function save($p): object | null {
         $myPDO = DB::getPdo();
         $tablename = BoardContract::TABLE_NAME;
@@ -168,7 +182,6 @@ class BoardDAO implements ICrud{
         "INSERT INTO $tablename ($coluser, $colname, $colcontent, $coldate)" .
         " VALUES(:userid, :nameBoard, :content, :dateBoard)";
 
-        //dd($sql);
         try {
             $myPDO->beginTransaction();
 
@@ -210,7 +223,6 @@ class BoardDAO implements ICrud{
     /**
      * Function to find all board from a user
      */
-
     public function findAllBoardsPerUser($userId): array {
         $tablename = BoardContract::TABLE_NAME;
         $colUserId = BoardContract::COL_USER;
@@ -237,38 +249,6 @@ class BoardDAO implements ICrud{
 
         return $boards;
     }
-
-    /**
-     * Function to get all the contents of a board by its id
-     */
-    public function getContentsByBoard($boardId) {
-        $tablename = FigureBoardContract::TABLE_NAME;
-        $colBoardId = FigureBoardContract::COL_BOARD_ID;
-
-        $sql = "SELECT * FROM $tablename
-        WHERE $colBoardId = $boardId";
-
-        $myPDO = DB::getPdo();
-        $stmt = $myPDO->prepare($sql);
-        $stmt->execute();
-        $row = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-        $boardContents = [];
-        while ($row = $stmt->fetch()) {
-            $p = new FigureBoard();
-            $p->setId($row[FigureBoardContract::COL_ID]);
-            $p->setBoardId($row[FigureBoardContract::COL_BOARD_ID]);
-            $p->setFigureId($row[FigureBoardContract::COL_FIGURE_ID]);
-            $p->setPosition($row[FigureBoardContract::COL_POSITION]);
-
-            $boardContents[] = $p;
-        }
-
-        return $boardContents;
-    }
-
-
-
 }
 
 

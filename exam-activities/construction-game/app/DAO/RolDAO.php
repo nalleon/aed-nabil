@@ -2,9 +2,7 @@
 
 namespace App\DAO;
 
-use App\Contracts\FiguraContract;
 use App\Contracts\RolContract;
-use App\Models\Figura;
 use App\Models\Rol;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -12,16 +10,19 @@ use PDO;
 use App\DAO\Interface\ICrud;
 
 /**
- *
+ * @author Nabil L. A.
  */
 
 class RolDAO implements ICrud{
 
-
+    /**
+     * Default constructor
+     */
     public function __construct() {}
 
-
-
+    /**
+     * Function to delete a role
+     */
     public function delete($id): bool{
         $myPDO = DB::getPdo();
         $tablename = RolContract::TABLE_NAME;
@@ -36,9 +37,10 @@ class RolDAO implements ICrud{
         return $affectedRows > 0;
     }
 
-
-    public function update($p): bool
-    {
+    /**
+     * Function to update a role
+     */
+    public function update($p): bool{
 
         $colid = RolContract::COL_ID;
         $colnombre = RolContract::COL_NAME;
@@ -80,7 +82,9 @@ class RolDAO implements ICrud{
         return true;
     }
 
-
+    /**
+     * Function to find by id a role
+     */
     public function findById($id): object | null{
 
         $tablename = RolContract::TABLE_NAME;
@@ -105,7 +109,9 @@ class RolDAO implements ICrud{
         return null;
     }
 
-
+    /**
+     * Function to find all roles
+     */
     public function findAll(): array{
 
         $tablename = RolContract::TABLE_NAME;
@@ -127,6 +133,9 @@ class RolDAO implements ICrud{
         return $roles;
     }
 
+    /**
+     * Function to add a role
+     */
     public function save($p): object | null {
         $myPDO = DB::getPdo();
         $tablename = RolContract::TABLE_NAME;

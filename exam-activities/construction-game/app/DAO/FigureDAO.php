@@ -8,13 +8,22 @@ use Illuminate\Support\Facades\DB;
 use PDO;
 use App\DAO\Interface\ICrud;
 use App\Models\Figure;
-
+/**
+ * @author Nabil L. A.
+ */
 class FigureDAO implements ICrud{
 
     protected $figureBoardDAO;
+    /**
+     * Default constructor
+     */
     public function __construct() {
         $this->figureBoardDAO = new FigureBoardDAO();
     }
+
+    /**
+     * Function to delete a figure
+     */
 
     public function delete($id): bool{
         $myPDO = DB::getPdo();
@@ -39,6 +48,9 @@ class FigureDAO implements ICrud{
     }
 
 
+    /**
+     * Function to update a figure
+     */
     public function update($p): bool{
 
         $colid = FigureContract::COL_ID;
@@ -76,7 +88,6 @@ class FigureDAO implements ICrud{
                 return false;
             }
         } catch (Exception $ex) {
-            echo "ha habido una excepción se lanza rollback";
             var_dump($ex);
             $myPDO->rollBack();
             return false;
@@ -86,6 +97,9 @@ class FigureDAO implements ICrud{
     }
 
 
+    /**
+     * Function to find by id a figure
+     */
     public function findById($id): object | null {
 
         $tablename = FigureContract::TABLE_NAME;
@@ -115,6 +129,9 @@ class FigureDAO implements ICrud{
     }
 
 
+    /**
+     * Function to find all figures
+     */
     public function findAll(): array{
 
         $tablename = FigureContract::TABLE_NAME;
@@ -140,8 +157,11 @@ class FigureDAO implements ICrud{
         return $figures;
     }
 
-    public function save($p): object | null
-    {
+    
+    /**
+     * Function to add a figure
+     */
+    public function save($p): object | null{
         $myPDO = DB::getPdo();
         $tablename = FigureContract::TABLE_NAME;
         $colimg = FigureContract::COL_IMG;
@@ -172,7 +192,6 @@ class FigureDAO implements ICrud{
                 return null;
             }
         } catch (Exception $ex) {
-            echo "ha habido una excepción se lanza rollback";
             var_dump($ex);
             $myPDO->rollBack();
             return null;

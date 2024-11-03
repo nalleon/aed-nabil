@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Contracts;
-
+/**
+ * @author Nabil L. A.
+ */
 final class RolContract {
 
     public const TABLE_NAME = "roles";
@@ -11,3 +13,5 @@ final class RolContract {
 
     private function __construct() {}
 }
+
+?>

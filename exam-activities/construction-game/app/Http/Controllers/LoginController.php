@@ -55,10 +55,10 @@ class LoginController extends Controller {
         $hashedPassword = $user->getPassword();
         
         if (Hash::check($request->password, $hashedPassword)) {
+           // dd($user);
             session()->put('user', $user);
             $username = $user->getName();
             session()->put('username', $username);
-            session()->regenerate();
 
             $this->checkIfUserExistsInFile($user);
 
@@ -115,15 +115,17 @@ class LoginController extends Controller {
         
         $auxCounter = 0;
         foreach ($users as $userFile){
-            if($userFile !== $user){
+            if($userFile->getName() !== $user->getName()){
                 $auxCounter++;
             }
         }
 
         if($auxCounter == count($users)){
             $this->userFileCrud->save($user);
+            return true;
         }
 
+        return false;
     }
 
 

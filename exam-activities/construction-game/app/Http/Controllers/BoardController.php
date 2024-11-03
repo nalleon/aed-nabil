@@ -49,6 +49,7 @@ class BoardController extends Controller{
         $this->checkUser();
 
         $user = session()->get('user');
+    
 
         $boards = [];
 
@@ -99,7 +100,8 @@ class BoardController extends Controller{
         ]);
 
         $user = session()->get('user');
-        $userId = $user[0];
+        //dd($user);
+        $userId = $user->getId();
 
         $boardName = $request->input('boardName');
         $board = new Board();

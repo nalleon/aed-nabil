@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DAO\BoardDAO;
 use App\DAO\FigureBoardDAO;
 use App\DAO\FigureDAO;
+use App\DAO\UserFileDAO;
 use App\Models\Board;
 use App\Models\FigureBoard;
 use Illuminate\Http\Request;
@@ -17,12 +18,14 @@ class BoardController extends Controller
     protected $boardDAO;
     protected $figureBoardDAO;
     protected $figureDAO;
+    
+    protected $userFileDAO;
 
     public function __construct(){
         $this->boardDAO = new BoardDAO();
         $this->figureBoardDAO = new FigureBoardDAO();
         $this->figureDAO = new FigureDAO();
-
+        $this->userFileDAO = new UserFileDAO();
     }
 
     /**
@@ -39,13 +42,20 @@ class BoardController extends Controller
         $this->checkUser();
 
         $user = session()->get('user');
-        $userId = $user[0];
-
 
         $boards = [];
+       
+        $users = $this->userFileDAO->findAll();
+        
+        foreach ($users as $userFile){
+            if($userFile == $user){
+                return view('home', compact('boards'));
+            }
+        }
+
+        $userId = $user->getId();
         $boards = $this->boardDAO->findAllBoardsPerUser($userId);
 
-        //dd($boards);
         return view('home', compact('boards'));
     }
 

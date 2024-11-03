@@ -214,6 +214,7 @@ class BoardDAO implements ICrud{
     public function findAllBoardsPerUser($userId): array {
         $tablename = BoardContract::TABLE_NAME;
         $colUserId = BoardContract::COL_USER;
+        
         $sql = "SELECT * FROM $tablename
         WHERE $colUserId = $userId";
 

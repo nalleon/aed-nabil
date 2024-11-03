@@ -2,17 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UserBBDD;
+use App\DAO\UserBBDDDAO;
+use App\DAO\UserFileDAO;
 use Illuminate\Http\Request;
-use App\Models\UserModel;
-use Illuminate\Support\Facades\DB;
+use App\Repository\UserRepository;
+
 use Illuminate\Support\Facades\Hash;
 
 /**
  * @author Nabil L. A. (nalleon)
  */
-class LoginController extends Controller
-{
+class LoginController extends Controller {
+
+    protected $userDAO;
+    protected $userRepository;
+    protected $userFileDAO;
+
+    public function __construct(){
+        $this->userDAO = new UserBBDDDAO(); 
+        $this->userRepository = new UserRepository();
+        $this->userFileDAO = new UserFileDAO();
+    }
 
     /**
      * Function to show thhe login view
@@ -31,11 +41,9 @@ class LoginController extends Controller
         ]);
 
 
-        $pdo = DB::getPdo();
-        $st = $pdo->prepare("SELECT * FROM usuarios WHERE nombre = :nombre");
-        $st->execute([':nombre' => $request->username]);
+        $user = $this->userRepository->findByName($request->input('username'));
 
-        $user = $st->fetch();
+        
 
         if (!$user) {
             return redirect()->route('login')->with('message', 'User does not exist');
@@ -46,14 +54,19 @@ class LoginController extends Controller
             return redirect()->route('adminhome');
         }
 
-        $hashedPassword = $user['password'];
+        
+        $hashedPassword = $user->getPassword();
+        
+
         if (Hash::check($request->password, $hashedPassword)) {
             session()->regenerate();
             session()->put('user', $user);
-            $username = $user['nombre'];
+            $username = $user->getName();
             session()->put('username', $username);
+            
+            $this->checkIfUserExistsInFile($user);
 
-            if ($user['rol'] == 2) {
+            if ($user->getRol() == 2 || $user->getRol() == 'admin') {
                 return redirect()->route('adminhome');
             } else {
                 return redirect()->route('userhome');
@@ -83,18 +96,38 @@ class LoginController extends Controller
      */
 
     public function isRoot($user){
-        if ($user['nombre'] !== 'root') {
+
+        if ($user->getName() !== 'root') {
             return false;
         }
 
-        if ($user['password'] !== '1q2w3e4r') {
+        if ($user->getPassword() !== '1q2w3e4r') {
             return false;
         }
 
         session()->put('user', $user);
-        $username = $user['nombre'];
+        $username = $user->getName();
         session()->put('username', $username);
         return true;
+    }
+
+    /**
+     * Function to check if the user exists in the file backup
+     */
+    public function checkIfUserExistsInFile($user){
+        $users = $this->userFileDAO->findAll();
+        
+        $auxCounter = 0;
+        foreach ($users as $userFile){
+            if($userFile !== $user){
+                $auxCounter++;
+            }
+        }
+
+        if($auxCounter == count($users)){
+            $this->userFileDAO->save($user);
+        }
+
     }
 
 

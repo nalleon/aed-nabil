@@ -81,7 +81,7 @@ class FigureBoardDAO implements ICrud{
 
 
     /**
-     * Functiuon to delete a specific figure from a position from a board
+     * Function to delete a specific figure from a position from a board
      */
     public function updateByPosition($boardId): bool {
         $myPDO = DB::getPdo();

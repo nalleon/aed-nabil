@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Models;
-
+namespace App\Models\Mapper;
+use App\Models\UserBBDD;
 use Exception;
 
 class UserMapper {

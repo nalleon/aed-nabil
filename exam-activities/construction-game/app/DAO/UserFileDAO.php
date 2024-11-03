@@ -2,20 +2,19 @@
 namespace App\DAO;
 
 use App\DAO\Interface\ICrud;
-use App\Models\UserMapper;
+use App\Models\Mapper\UserMapper;
 
 class UserFileDAO implements ICrud {
 
-    private $filePath;
+    protected const FILE_PATH =  "C:\Users\\nabil\\repositorios-git\aed-nabil\\exam-activities\construction-game\storage\app\users.dat";
     private $userMapper;
 
-    public function __construct($filePath) {
+    public function __construct() {
         $this->userMapper = new UserMapper();
-        $this->filePath = $filePath;
     }
 
     public function delete($id): bool{
-        $file = fopen($this->filePath, 'r+b');
+        $file = fopen(self::FILE_PATH, 'r+b');
         $deleted = false;
 
         while (!feof($file)) {
@@ -43,7 +42,7 @@ class UserFileDAO implements ICrud {
 
 
     public function update($p): bool{
-        $file = fopen($this->filePath, 'r+b');
+        $file = fopen(self::FILE_PATH, 'r+b');
         $updated = false;
 
         while (!feof($file)) {
@@ -51,8 +50,8 @@ class UserFileDAO implements ICrud {
             $registerBinary = fread($file, $this->userMapper->getSizeRegister());
             if (strlen($registerBinary) < $this->userMapper->getSizeRegister()) continue;
 
-            $usuario = $this->userMapper->toUser($registerBinary);
-            if ($usuario && $usuario->getId() === $p->getId()) {
+            $user = $this->userMapper->toUser($registerBinary);
+            if ($user && $user->getId() === $p->getId()) {
                 fseek($file, $pos);
                 fwrite($file, $this->userMapper->toRegister($p));
                 $updated = true;
@@ -68,16 +67,44 @@ class UserFileDAO implements ICrud {
 
 
     public function findById($id): object | null {
-        $file = fopen($this->filePath, 'rb');
+        $file = fopen(self::FILE_PATH, 'rb');
 
         while (!feof($file)) {
             $registerBinary = fread($file, $this->userMapper->getSizeRegister());
-            if (strlen($registerBinary) < $this->userMapper->getSizeRegister()) continue;
+            if (strlen($registerBinary) < $this->userMapper->getSizeRegister()){
+                continue;
+            }
 
-            $usuario = $this->userMapper->toUser($registerBinary);
-            if ($usuario && $usuario->getId() === $id) {
+            $user = $this->userMapper->toUser($registerBinary);
+            if ($user && $user->getId() === $id) {
                 fclose($file);
-                return $usuario;
+                return $user;
+            }
+        }
+
+        fclose($file);
+        return null;
+    }
+
+    
+
+    /**
+     * Function to find the user by username
+     */
+    public function findByUsername($username): object | null {
+        //dd(self::FILE_PATH, $username);
+        $file = fopen(self::FILE_PATH, 'rb');
+
+        while (!feof($file)) {
+            $registerBinary = fread($file, $this->userMapper->getSizeRegister());
+            if (strlen($registerBinary) < $this->userMapper->getSizeRegister()) {
+                continue;
+            }
+
+            $user = $this->userMapper->toUser($registerBinary);
+            if ($user && $user->getName() === $username) {
+                fclose($file);
+                return $user;
             }
         }
 
@@ -88,15 +115,16 @@ class UserFileDAO implements ICrud {
 
     public function findAll(): array{
         $usersFile = [];
-        $file = fopen($this->filePath, 'rb');
+        $file = fopen(self::FILE_PATH, 'rb');
 
         while (!feof($file)) {
             $registerBinary = fread($file, $this->userMapper->getSizeRegister());
-            if (strlen($registerBinary) < $this->userMapper->getSizeRegister()) continue;
-
-            $usuario = $this->userMapper->toUser($registerBinary);
-            if ($usuario) { 
-                $usersFile[] = $usuario;
+            if (strlen($registerBinary) < $this->userMapper->getSizeRegister()) {
+                continue;
+            }
+            $user = $this->userMapper->toUser($registerBinary);
+            if ($user) { 
+                $usersFile[] = $user;
             }
         }
 
@@ -106,13 +134,37 @@ class UserFileDAO implements ICrud {
         
 
     public function save($p): object | null {
+        $p->setId($this->createId());
+        
         $registerBinary = $this->userMapper->toRegister($p);
-        file_put_contents($this->filePath, $registerBinary, FILE_APPEND);
+        file_put_contents(self::FILE_PATH, $registerBinary, FILE_APPEND);
 
         return $p;
     }
 
 
+    /**
+     * Function to generate an id for a user
+     */
+    public function createId(){
+        if(!file_exists(self::FILE_PATH)){
+            return;
+        }
+
+        $id = 1;
+        $open = fopen(self::FILE_PATH, 'r');
+
+        while (($data = fgetcsv($open, 1000, ','))!== false) {
+            if(isset($data[0])){
+                $actualId = (int)$data[0];
+            }
+            $id = max($id, $actualId);
+        }
+
+        fclose($open);
+        
+        return $id;
+    }
 
 
 

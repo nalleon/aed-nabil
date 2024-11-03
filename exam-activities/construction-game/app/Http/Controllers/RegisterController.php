@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use App\DAO\UserBBDDDAO;
 use App\Models\UserBBDD;
+use App\Repository\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller{
 
     protected $userDAO;
+    protected $userRepository;
 
     public function __construct(){
         $this->userDAO = new UserBBDDDAO(); 
+        $this->userRepository = new UserRepository();
     }
 
 
@@ -35,14 +38,15 @@ class RegisterController extends Controller{
         $user->setRol('usuario');
 
 
+
         if (!$this->checkIfUsernameIsAvailable($user)){
             return redirect()->route('register')->with('message',
             'Your username is not available. Please use another one');
         }
 
-        $this->userDAO->save($user);
+        $this->userRepository->save($user);
 
-        session()->put('user', $user);
+        //session()->put('user', $user);
       
         return redirect()->route('login')->with('message',
          'Successfully registered. Log in to your account');
@@ -52,8 +56,7 @@ class RegisterController extends Controller{
      * Function to check if the username is avalaible
      */
     function checkIfUsernameIsAvailable($user){
-        
-        $allUsers = $this->userDAO->findAll();
+        $allUsers = $this->userRepository->findAll();
 
         foreach($allUsers as $u){
             if($u->getName() == $user->getName()){
@@ -64,4 +67,5 @@ class RegisterController extends Controller{
         return true;
     }
     
+
 }

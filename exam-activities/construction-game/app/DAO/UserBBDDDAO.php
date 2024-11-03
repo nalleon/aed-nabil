@@ -55,10 +55,6 @@ class UserBBDDDAO implements ICrud {
 
         $tablename = UserBBDDContract::TABLE_NAME;
         $myPDO = DB::getPdo();
-
-       
-       // dd($p->getId());
-
        
         $sql = "UPDATE $tablename ".
                " SET $colname = :nombre, " .
@@ -130,6 +126,36 @@ class UserBBDDDAO implements ICrud {
         return null;
     }
 
+
+    /**
+     * Function to find the user by username
+     */
+    public function findByUsername($username): object | null {
+        $tablename = UserBBDDContract::TABLE_NAME;
+        $colname = UserBBDDContract::COL_NAME;
+
+        $sql = "SELECT * FROM $tablename WHERE $colname = :username";
+
+        $myPDO = DB::getPdo();
+
+        $stmt = $myPDO->prepare($sql);
+
+        $stmt->execute([':username' => $username]);
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row) {
+            $p = new UserBBDD();
+
+            $p->setId($row[UserBBDDContract::COL_ID]);
+            $p->setName($row[UserBBDDContract::COL_NAME]);
+            $p->setPassword($row[UserBBDDContract::COL_PASSWORD]);
+            $p->setRol($row[UserBBDDContract::COL_ROL]);
+
+            return $p;
+        }
+
+        return null;
+    }
 
     public function findAll(): array{
         $tablename = UserBBDDContract::TABLE_NAME;

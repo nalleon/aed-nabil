@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\DAO\UserBBDDDAO;
+use App\Repository\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller{
 
-    protected $userDAO;
+    protected $userRepository;
 
     public function __construct(){
-        $this->userDAO = new UserBBDDDAO;
+        $this->userRepository = new UserRepository();
     }
 
     public function checkUser(){
@@ -32,7 +31,7 @@ class AdminController extends Controller{
 
     public function showUsers(){
         $this->checkUser();
-        $usersArray = $this->userDAO->findAll();
+        $usersArray = $this->userRepository->findAll();
 
         return view('manageusers', compact('usersArray'));
     }
@@ -40,8 +39,7 @@ class AdminController extends Controller{
     public function editUser($id){
         $this->checkUser();
 
-        $userEdit = $this->userDAO->findById($id);
-        //dd($userEdit->getRol());
+        $userEdit = $this->userRepository->findById($id);
         return view('edituser', compact('userEdit'));
     }
     
@@ -54,7 +52,7 @@ class AdminController extends Controller{
             'role' => 'required|string',
         ]);
 
-        $user = $this->userDAO->findById($id);
+        $user = $this->userRepository->findById($id);
 
         if ($user === null) {
             return redirect()->route('manageusers')->with('message', 'User not found.');
@@ -73,7 +71,7 @@ class AdminController extends Controller{
         } 
 
 
-        $this->userDAO->update($user);
+        $this->userRepository->update($user);
 
         return redirect()->route('manageusers')->with('message', 'User updated successfully.');
     }
@@ -81,7 +79,7 @@ class AdminController extends Controller{
     public function deleteUser($id){
         $this->checkUser();
 
-        if ($this->userDAO->delete($id)) {
+        if ($this->userRepository->delete($id)) {
             return redirect()->route('manageusers')->with('message', 'User deleted successfully.');
         } else {
             return redirect()->route('manageusers')->with('message', 'User could not be deleted.');

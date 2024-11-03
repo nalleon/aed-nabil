@@ -1,10 +1,10 @@
 <?php
-namespace App\DAO;
+namespace App\File;
 
 use App\DAO\Interface\ICrud;
 use App\Models\Mapper\UserMapper;
 
-class UserFileDAO implements ICrud {
+class UserFileCrud implements ICrud {
 
     protected const FILE_PATH =  "C:\Users\\nabil\\repositorios-git\aed-nabil\\exam-activities\construction-game\storage\app\users.dat";
     private $userMapper;

@@ -3,17 +3,17 @@
 namespace App\Repository;
 
 use App\DAO\UserBBDDDAO;
-use App\DAO\UserFileDAO;
+use App\File\UserFileCrud;
 use App\Repository\Interface\IRepositoryCrud;
 
 class UserRepository implements IRepositoryCrud {
 
     protected $userBBDDDAO;
-    protected $userFileDAO;
+    protected $userFileCrud;
 
     public function __construct(){
         $this->userBBDDDAO = new UserBBDDDAO();
-        $this->userFileDAO = new UserFileDAO();
+        $this->userFileCrud = new UserFileCrud();
     }
 
     public function findAll(): array{
@@ -21,7 +21,7 @@ class UserRepository implements IRepositoryCrud {
         try {
             $users = $this->userBBDDDAO->findAll();
         } catch (\Exception $e) {
-            $users = $this->userFileDAO->findAll();
+            $users = $this->userFileCrud->findAll();
         } 
 
         return $users;
@@ -30,9 +30,9 @@ class UserRepository implements IRepositoryCrud {
         $userAdded = null;
         try {
             $userAdded = $this->userBBDDDAO->save($p);
-            $this->userFileDAO->save($p);
+            $this->userFileCrud->save($p);
         } catch (\Exception $e) {
-            $userAdded = $this->userFileDAO->save($p);
+            $userAdded = $this->userFileCrud->save($p);
         }
 
         return $userAdded;
@@ -43,7 +43,7 @@ class UserRepository implements IRepositoryCrud {
         try {
             $userFind = $this->userBBDDDAO->findById($id);
         } catch (\Exception $e) {
-            $userFind = $this->userFileDAO->findById($id);
+            $userFind = $this->userFileCrud->findById($id);
         }
 
         return $userFind;
@@ -54,7 +54,7 @@ class UserRepository implements IRepositoryCrud {
         try {
             $userFind = $this->userBBDDDAO->findByUsername($name);
         } catch (\Exception $e) {
-            $userFind = $this->userFileDAO->findByUsername($name);
+            $userFind = $this->userFileCrud->findByUsername($name);
         }
 
         return $userFind;
@@ -64,9 +64,9 @@ class UserRepository implements IRepositoryCrud {
         $userUpdate = false;
         try {
             $userUpdate = $this->userBBDDDAO->update($p);
-            $this->userFileDAO->update($p);
+            $this->userFileCrud->update($p);
         } catch (\Exception $e) {
-            $userUpdate = $this->userFileDAO->update($p);
+            $userUpdate = $this->userFileCrud->update($p);
         }
 
         return $userUpdate;
@@ -77,7 +77,7 @@ class UserRepository implements IRepositoryCrud {
         try {
             $userDeleted = $this->userBBDDDAO->delete($id);
         } catch (\Exception $e) {
-            $userDeleted = $this->userFileDAO->delete($id);
+            $userDeleted = $this->userFileCrud->delete($id);
         }
 
         return $userDeleted;

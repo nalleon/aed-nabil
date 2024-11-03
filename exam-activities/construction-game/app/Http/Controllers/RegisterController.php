@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\DAO\UserBBDDDAO;
 use App\Models\UserBBDD;
 use App\Repository\UserRepository;
 use Illuminate\Http\Request;
@@ -10,11 +9,9 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller{
 
-    protected $userDAO;
     protected $userRepository;
 
     public function __construct(){
-        $this->userDAO = new UserBBDDDAO(); 
         $this->userRepository = new UserRepository();
     }
 

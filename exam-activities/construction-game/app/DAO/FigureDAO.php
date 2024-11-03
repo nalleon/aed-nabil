@@ -3,7 +3,6 @@
 namespace App\DAO;
 
 use App\Contracts\FigureContract;
-use App\Models\Board;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use PDO;

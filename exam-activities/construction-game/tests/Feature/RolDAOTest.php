@@ -18,7 +18,7 @@ class RolDAOTest extends TestCase
         parent::setUp();
         if(!$this->databaseCreated ){
             $pdo = DB::getPdo();
-            require 'CreateDatabaseRol.php';
+            require 'CreateDatabase.php';
             $this->databaseCreated = true;
         }
     }
@@ -39,6 +39,7 @@ class RolDAOTest extends TestCase
         $pdo = DB::getPdo();
 
         $rolDAO = new RolDAO($pdo);
+        
 
         $rol = $rolDAO->findById(1);
         assertTrue($rol->getName() == "usuario", self::MESSAGE_ERROR);
@@ -51,10 +52,15 @@ class RolDAOTest extends TestCase
 
         $rolDAO = new RolDAO($pdo);
 
-        $rolDAO->delete(1);
+        $rolToAdd = new Rol();
+        $rolToAdd->setName("admin2");
+        $rolDAO->save($rolToAdd);
+
+
+        $rolDAO->delete(3);
         $rolList = $rolDAO->findAll();
 
-        assertTrue(count($rolList) == 1, self::MESSAGE_ERROR);
+        assertTrue(count($rolList) == 2, self::MESSAGE_ERROR);
     }
 
     public function test_004_update(): void {

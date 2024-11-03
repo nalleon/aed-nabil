@@ -23,10 +23,11 @@ class RolDAO implements ICrud{
 
 
     public function delete($id): bool{
-
         $myPDO = DB::getPdo();
         $tablename = RolContract::TABLE_NAME;
         $colid = RolContract::COL_ID;
+
+
         $sql = "DELETE FROM $tablename WHERE $colid  = :id";
 
         $stmt = $myPDO->prepare($sql);
@@ -129,7 +130,6 @@ class RolDAO implements ICrud{
     public function save($p): object | null {
         $myPDO = DB::getPdo();
         $tablename = RolContract::TABLE_NAME;
-        $colid = RolContract::COL_ID;
         $colnombre = RolContract::COL_NAME;
 
         $sql =

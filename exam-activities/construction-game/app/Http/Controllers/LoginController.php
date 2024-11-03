@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DAO\UserBBDDDAO;
-use App\DAO\UserFileDAO;
+use App\File\UserFileCrud;
 use Illuminate\Http\Request;
 use App\Repository\UserRepository;
 
@@ -16,12 +16,12 @@ class LoginController extends Controller {
 
     protected $userDAO;
     protected $userRepository;
-    protected $userFileDAO;
+    protected $userFileCrud;
 
     public function __construct(){
         $this->userDAO = new UserBBDDDAO(); 
         $this->userRepository = new UserRepository();
-        $this->userFileDAO = new UserFileDAO();
+        $this->userFileCrud = new UserFileCrud();
     }
 
     /**
@@ -114,7 +114,7 @@ class LoginController extends Controller {
      * Function to check if the user exists in the file backup
      */
     public function checkIfUserExistsInFile($user){
-        $users = $this->userFileDAO->findAll();
+        $users = $this->userFileCrud->findAll();
         
         $auxCounter = 0;
         foreach ($users as $userFile){
@@ -124,7 +124,7 @@ class LoginController extends Controller {
         }
 
         if($auxCounter == count($users)){
-            $this->userFileDAO->save($user);
+            $this->userFileCrud->save($user);
         }
 
     }

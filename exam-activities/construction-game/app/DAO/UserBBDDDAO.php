@@ -2,7 +2,6 @@
 namespace App\DAO;
 
 use App\Contracts\UserBBDDContract;
-//use App\Contracts\TableroContract;
 use App\Models\UserBBDD;
 use Exception;
 use Illuminate\Support\Facades\DB;

@@ -6,12 +6,10 @@ use App\DAO\BoardDAO;
 use App\DAO\FigureBoardDAO;
 use App\DAO\FigureDAO;
 use App\DAO\UserBBDDDAO;
-use App\DAO\UserFileDAO;
+use App\File\UserFileCrud;
 use App\Models\Board;
-use App\Models\FigureBoard;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class BoardController extends Controller
 {
@@ -21,14 +19,14 @@ class BoardController extends Controller
     protected $figureBoardDAO;
     protected $figureDAO;
     
-    protected $userFileDAO;
+    protected $userFileCrud;
     protected $userDAO;
 
     public function __construct(){
         $this->boardDAO = new BoardDAO();
         $this->figureBoardDAO = new FigureBoardDAO();
         $this->figureDAO = new FigureDAO();
-        $this->userFileDAO = new UserFileDAO();
+        $this->userFileCrud = new UserFileCrud();
         $this->userDAO = new UserBBDDDAO();
     }
 
@@ -49,13 +47,11 @@ class BoardController extends Controller
 
         $boards = [];
 
-
         if($this->checkIfUserExistsInBBDD($user) !== null){
             $userId = $this->checkIfUserExistsInBBDD($user);
             $boards = $this->boardDAO->findAllBoardsPerUser($userId);    
             return view('home', compact('boards'));
         }
-
 
         return view('home', compact('boards'));
     }
@@ -66,9 +62,9 @@ class BoardController extends Controller
     public function checkIfUserExistsInBBDD($user){
         $usersFile = null;
         $usersBBDD = null;
-        
+
         try {
-            $usersFile = $this->userFileDAO->findAll();
+            $usersFile = $this->userFileCrud->findAll();
             $usersBBDD = $this->userDAO->findAll();
         } catch (Exception $e){
             return null;

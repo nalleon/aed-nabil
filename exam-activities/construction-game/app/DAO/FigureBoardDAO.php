@@ -78,9 +78,7 @@ class FigureBoardDAO implements ICrud{
     }
 
 
-    
 
-    
 
     /**
      * Functiuon to delete a specific figure from a position from a board
@@ -215,7 +213,6 @@ class FigureBoardDAO implements ICrud{
         $sql = "INSERT INTO $tablename ($colBoardId, $colFigureId, $colPosition)
         VALUES (:boardId, :figureId, :position)";
 
-        $figureBoardList = [];
         try {
             $myPDO->beginTransaction();
             $stmt = $myPDO->prepare($sql);

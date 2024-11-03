@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Exception;
 
-class MapperUserBBDD {
+class UserMapper {
 
     private const sizeUTF8 = 4;
     private const sizeName = 30 * self::sizeUTF8; // 30 caracteres UTF-8
@@ -31,6 +31,10 @@ class MapperUserBBDD {
         return $textToUTF8;
     }
 
+    /**
+     * Function to  create a register of  a user in file
+     */
+    
     public function toRegister(UserBBDD $userBBDD) {
         // Generamos una cadena de \0 para concatenar
         $sizeCadena0 = 100;
@@ -58,6 +62,7 @@ class MapperUserBBDD {
 
         return $registro;
     }
+
 
     public function toUser($binary) {
         try {

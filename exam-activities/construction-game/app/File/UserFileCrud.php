@@ -30,10 +30,6 @@ class UserFileCrud implements ICrud {
             $pos = ftell($file);
             $registerBinary = fread($file, $this->userMapper->getSizeRegister());
 
-            if (strlen($registerBinary) < $this->userMapper->getSizeRegister()) {
-                continue;
-            }
-
             $user = $this->userMapper->toUser($registerBinary);
             if ($user && $user->getId() === $id && $user->getDeleted() == 0) {
                 $user->setDeleted(1);
@@ -61,10 +57,6 @@ class UserFileCrud implements ICrud {
             $pos = ftell($file);
             $registerBinary = fread($file, $this->userMapper->getSizeRegister());
 
-            if (strlen($registerBinary) < $this->userMapper->getSizeRegister()) {
-                continue;
-            }
-
             $user = $this->userMapper->toUser($registerBinary);
             if ($user && $user->getId() === $p->getId()) {
                 fseek($file, $pos);
@@ -88,9 +80,6 @@ class UserFileCrud implements ICrud {
 
         while (!feof($file)) {
             $registerBinary = fread($file, $this->userMapper->getSizeRegister());
-            if (strlen($registerBinary) < $this->userMapper->getSizeRegister()){
-                continue;
-            }
 
             $user = $this->userMapper->toUser($registerBinary);
             if ($user && $user->getId() === $id) {
@@ -113,9 +102,6 @@ class UserFileCrud implements ICrud {
 
         while (!feof($file)) {
             $registerBinary = fread($file, $this->userMapper->getSizeRegister());
-            if (strlen($registerBinary) < $this->userMapper->getSizeRegister()) {
-                continue;
-            }
 
             $user = $this->userMapper->toUser($registerBinary);
             if ($user && $user->getName() === $username) {
@@ -137,9 +123,7 @@ class UserFileCrud implements ICrud {
 
         while (!feof($file)) {
             $registerBinary = fread($file, $this->userMapper->getSizeRegister());
-            if (strlen($registerBinary) < $this->userMapper->getSizeRegister()) {
-                continue;
-            }
+
             $user = $this->userMapper->toUser($registerBinary);
             if ($user) { 
                 $usersFile[] = $user;
@@ -174,11 +158,7 @@ class UserFileCrud implements ICrud {
            
             while (!feof($file)) {
                 $registerBinary = fread($file, $this->userMapper->getSizeRegister());
-                
-                if (strlen($registerBinary) < $this->userMapper->getSizeRegister()) {
-                    continue;
-                }
-
+              
                 $user = $this->userMapper->toUser($registerBinary);
 
                 if ($user && $user->getId()) {

@@ -16,6 +16,9 @@ class RegisterController extends Controller{
     }
 
 
+    /**
+     * Function to show the register form
+     */
     public function showRegister(){
         return view('register');
     }
@@ -35,18 +38,15 @@ class RegisterController extends Controller{
         $user->setRol('usuario');
 
 
-
         if (!$this->checkIfUsernameIsAvailable($user)){
             return redirect()->route('register')->with('message',
             'Your username is not available. Please use another one');
         }
 
         $this->userRepository->save($user);
-
-        //session()->put('user', $user);
       
         return redirect()->route('login')->with('message',
-         'Successfully registered. Log in to your account');
+        'Successfully registered. Log in to your account');
     }
 
     /**

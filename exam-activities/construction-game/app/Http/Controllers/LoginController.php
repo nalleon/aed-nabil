@@ -42,7 +42,6 @@ class LoginController extends Controller {
 
 
         $user = $this->userRepository->findByName($request->input('username'));
-
         
         if (!$user) {
             return redirect()->route('login')->with('message', 'User does not exist');
@@ -53,15 +52,13 @@ class LoginController extends Controller {
             return redirect()->route('adminhome');
         }
 
-        
         $hashedPassword = $user->getPassword();
         
-
         if (Hash::check($request->password, $hashedPassword)) {
-            session()->regenerate();
             session()->put('user', $user);
             $username = $user->getName();
             session()->put('username', $username);
+            session()->regenerate();
 
             $this->checkIfUserExistsInFile($user);
 

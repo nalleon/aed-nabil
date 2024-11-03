@@ -14,21 +14,31 @@ class AdminController extends Controller{
         $this->userRepository = new UserRepository();
     }
 
+
+    /**
+     * Function to check if the user is logged in and is an administrator
+     */
     public function checkUser(){
         if(!session()->has('user')){
             $user = session()->get('user');
 
-            if($user->getRol()!= 'admin') {
+            if($user->getRol()!= 'admin' || $user->getRol() != '2'){
                 return redirect()->route('login')->send();
             }
         }
     }
 
+    /**
+     * Function to show the admin's home
+     */
     public function index(){
         $this->checkUser();
         return view('adminhome');
     }
 
+    /**
+     * Function to show the users 
+     */
     public function showUsers(){
         $this->checkUser();
         $usersArray = $this->userRepository->findAll();
@@ -36,6 +46,9 @@ class AdminController extends Controller{
         return view('manageusers', compact('usersArray'));
     }
 
+    /**
+     * Function to select the user to edit
+     */
     public function editUser($id){
         $this->checkUser();
 
@@ -43,6 +56,9 @@ class AdminController extends Controller{
         return view('edituser', compact('userEdit'));
     }
     
+    /**
+     * Function to update the user selected
+     */
     public function updateUser(Request $request, $id){
         $this->checkUser();
     
@@ -76,6 +92,10 @@ class AdminController extends Controller{
         return redirect()->route('manageusers')->with('message', 'User updated successfully.');
     }
 
+
+    /**
+     * Function to delete an user 
+     */
     public function deleteUser($id){
         $this->checkUser();
 

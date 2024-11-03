@@ -14,21 +14,30 @@ class FigureController extends Controller {
         $this->figureDAO = new FigureDAO();
     }
 
+    /**
+     * Function to check if the user is logged in and is an administrator
+     */
     public function checkUser(){
         if(!session()->has('user')){
             $user = session()->get('user');
 
-            if($user->getRol()!= 'admin') {
+            if($user->getRol()!= 'admin' || $user->getRol() != '2') {
                 return redirect()->route('login')->send();
             }
         }
     }
 
+    /**
+     * Function to show the figure upload form 
+     */
     public function showFigures(){
         $this->checkUser();
         return view('figureupload');
     }
 
+    /**
+     * Function to upload an image
+     */
     public function uploadImg(Request $request){
         $this->checkUser();
 

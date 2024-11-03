@@ -16,6 +16,9 @@ class UserRepository implements IRepositoryCrud {
         $this->userFileCrud = new UserFileCrud();
     }
 
+    /**
+     * Function to find all users 
+     */
     public function findAll(): array{
         $users = [];
         try {
@@ -26,6 +29,10 @@ class UserRepository implements IRepositoryCrud {
 
         return $users;
     }
+    
+    /**
+     * Function to add an user 
+     */
     public function save($p): object | null{
         $userAdded = null;
         try {
@@ -38,6 +45,9 @@ class UserRepository implements IRepositoryCrud {
         return $userAdded;
     }
 
+    /**
+     * Function to find by Id an user
+     */
     public function findById($id): object | null {
         $userFind = null;
         try {
@@ -49,6 +59,9 @@ class UserRepository implements IRepositoryCrud {
         return $userFind;
     }
 
+    /**
+     * Function to find by name an user
+     */
     public function findByName($name): object | null {
         $userFind = null;
         try {
@@ -60,6 +73,9 @@ class UserRepository implements IRepositoryCrud {
         return $userFind;
     }
 
+    /**
+     * Function to to update an user
+     */
     public function update($p): bool {   
         $userUpdate = false;
         try {
@@ -71,6 +87,10 @@ class UserRepository implements IRepositoryCrud {
 
         return $userUpdate;
     }
+
+    /**
+     * Function to delete an user
+     */
     public function delete($id): bool{
         $userDeleted = false;
 

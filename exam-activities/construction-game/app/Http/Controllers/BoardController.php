@@ -11,9 +11,7 @@ use App\Models\Board;
 use Exception;
 use Illuminate\Http\Request;
 
-class BoardController extends Controller
-{
-
+class BoardController extends Controller{
 
     protected $boardDAO;
     protected $figureBoardDAO;
@@ -39,7 +37,9 @@ class BoardController extends Controller
         }
     }
 
-
+    /**
+     * Function to show the home of the user logged in
+     */
     public function index() {
         $this->checkUser();
 
@@ -83,10 +83,9 @@ class BoardController extends Controller
         return null;
     }
 
-    public function checkIfUserExistsInFile($user){
-
-    }
-
+    /**
+     * Function to create a new board for a user
+     */
     public function createBoard(Request $request) {
         $this->checkUser();
 
@@ -113,6 +112,9 @@ class BoardController extends Controller
         return redirect()->route('userhome')->with('message', 'Board created successfully');
     }
 
+    /**
+     * Function to delete the board of a user
+     */
     public function deleteBoard($id){
         $this->checkUser();
         $boardToDelete = $this->boardDAO->findById($id);
@@ -125,6 +127,9 @@ class BoardController extends Controller
         return redirect()->route('userhome')->with('message', 'Board ' . $boardToDelete->getName() . 'succesfully deleted!');
     }
 
+    /**
+     * Function to select the board to edit
+     */
     public function editBoard($id) {
         $this->checkUser();
         $board = $this->boardDAO->findById($id);
@@ -141,6 +146,9 @@ class BoardController extends Controller
     }
 
 
+    /**
+     * Function to update the board selected
+     */
     public function updateBoard(Request $request, $id) {
         $this->checkUser();
 

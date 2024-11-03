@@ -9,6 +9,7 @@ use App\DAO\UserBBDDDAO;
 use App\DAO\UserFileDAO;
 use App\Models\Board;
 use App\Models\FigureBoard;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -47,9 +48,10 @@ class BoardController extends Controller
         $user = session()->get('user');
 
         $boards = [];
-        
+
+
         if($this->checkIfUserExistsInBBDD($user) !== null){
-            $userId =$this->checkIfUserExistsInBBDD($user);
+            $userId = $this->checkIfUserExistsInBBDD($user);
             $boards = $this->boardDAO->findAllBoardsPerUser($userId);    
             return view('home', compact('boards'));
         }
@@ -62,9 +64,16 @@ class BoardController extends Controller
      * Function to check if the user exists in the bbdd 
      */
     public function checkIfUserExistsInBBDD($user){
-        $usersFile = $this->userFileDAO->findAll();
-        $usersBBDD = $this->userDAO->findAll();
+        $usersFile = null;
+        $usersBBDD = null;
         
+        try {
+            $usersFile = $this->userFileDAO->findAll();
+            $usersBBDD = $this->userDAO->findAll();
+        } catch (Exception $e){
+            return null;
+        }
+
         foreach ($usersFile as $userFile){
             foreach ($usersBBDD as $userBBDD){
                 if($userFile->getName() == $userBBDD->getName()){
@@ -76,6 +85,10 @@ class BoardController extends Controller
             }
         }
         return null;
+    }
+
+    public function checkIfUserExistsInFile($user){
+
     }
 
     public function createBoard(Request $request) {

@@ -134,9 +134,7 @@ class UserFileDAO implements ICrud {
         
 
     public function save($p): object | null {
-        if($p->getId() == null){
-            $p->setId($this->createId());
-        }
+        $p->setId($this->createId());
         
         $registerBinary = $this->userMapper->toRegister($p);
         file_put_contents(self::FILE_PATH, $registerBinary, FILE_APPEND);
@@ -148,25 +146,32 @@ class UserFileDAO implements ICrud {
     /**
      * Function to generate an id for a user
      */
-    public function createId(){
-        if(!file_exists(self::FILE_PATH)){
-            return;
-        }
+    public function createId(): int {
+        $id = 1; 
+        
+        if (file_exists(self::FILE_PATH)) {
+            $file = fopen(self::FILE_PATH, 'rb');
+           
+            while (!feof($file)) {
+                $registerBinary = fread($file, $this->userMapper->getSizeRegister());
+                
+                if (strlen($registerBinary) < $this->userMapper->getSizeRegister()) {
+                    continue;
+                }
 
-        $id = 1;
-        $open = fopen(self::FILE_PATH, 'r');
+                $user = $this->userMapper->toUser($registerBinary);
 
-        while (($data = fgetcsv($open, 1000, ','))!== false) {
-            if(isset($data[0])){
-                $actualId = (int)$data[0];
+                if ($user && $user->getId()) {
+                    $id = max($id, $user->getId() + 1);
+                }
             }
-            $id = max($id, $actualId);
-        }
 
-        fclose($open);
+            fclose($file);
+        }
         
         return $id;
     }
+
 
 
 

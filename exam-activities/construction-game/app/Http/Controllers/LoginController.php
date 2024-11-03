@@ -48,6 +48,7 @@ class LoginController extends Controller
 
         $hashedPassword = $user['password'];
         if (Hash::check($request->password, $hashedPassword)) {
+            session()->regenerate();
             session()->put('user', $user);
             $username = $user['nombre'];
             session()->put('username', $username);
@@ -55,7 +56,6 @@ class LoginController extends Controller
             if ($user['rol'] == 2) {
                 return redirect()->route('adminhome');
             } else {
-              
                 return redirect()->route('userhome');
             }
             

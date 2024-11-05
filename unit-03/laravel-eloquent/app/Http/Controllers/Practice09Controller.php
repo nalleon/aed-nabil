@@ -17,7 +17,7 @@ class Practice09Controller extends Controller{
                     ->orderBy('year','desc')
                     ->take(1)
                     ->get();
-                    
+
         $dataFirst = Matricula::where('year', 2021)
                     ->orderBy('year','desc')
                     ->take(1)

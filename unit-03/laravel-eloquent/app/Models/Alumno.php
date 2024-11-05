@@ -43,9 +43,8 @@ class Alumno extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function matriculas()
-    {
-        //TODO: dossier 5-7
+    public function matriculas(){
+        // TODO: dossier 5-13
         
         return $this->hasMany('App\Models\Matricula', 'dni', 'dni');
     }

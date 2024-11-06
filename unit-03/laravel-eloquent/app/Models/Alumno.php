@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Alumno extends Model
 {
+    public $timestamps = false;
+
     /**
      * The primary key for the model.
      *
@@ -44,7 +46,6 @@ class Alumno extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function matriculas(){
-        // TODO: dossier 5-13
         
         return $this->hasMany('App\Models\Matricula', 'dni', 'dni');
     }

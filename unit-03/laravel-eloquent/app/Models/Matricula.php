@@ -11,8 +11,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property AsignaturaMatricula[] $asignaturaMatriculas
  * @property Alumno $alumno
  */
-class Matricula extends Model
-{
+class Matricula extends Model {
+    public $timestamps = false;
+    
     /**
      * @var array
      */

@@ -41,7 +41,6 @@
 
                 <h1>Welcome, {{ $username }}!</h1>
 
-
                 <div class="files">
                     <div class="private-files">
                         <h2>Your files:</h2>

@@ -11,6 +11,11 @@ Repository for the data access module.
   - [Dossier - Laravel](./unit-01/dossier-laravel/)
   - [RndNum Game](./unit-01/rndnum-game/)
 
+- [Unit 02](./unit-02/)
+
+- [Unit 03](./unit-03/)
+  - [Dossier - Eloquent](./unit-03/dossier-eloquent/)
+  
 - [Class Exercises](./class-exercise/)
 - [Exam Activities](./exam-activities/)
 

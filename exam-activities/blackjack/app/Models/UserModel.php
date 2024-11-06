@@ -9,8 +9,14 @@ class UserModel extends Model
 {
     use HasFactory;
 
+    /**
+     * @var int
+     */
     public $id;
 
+    /**
+     * @var string
+     */
     public $username;
 
 

@@ -8,7 +8,7 @@ use App\Models\Mapper\UserMapper;
  */
 class UserFileCrud implements ICrud {
 
-    protected const FILE_PATH =  "C:\Users\\nabil\\repositorios-git\aed-nabil\\exam-activities\construction-game\storage\app\users.dat";
+    protected const FILE_PATH = "C:\Users\\nabil\\repositorios-git\aed-nabil\\exam-activities\construction-game\storage\app\users.dat";
     private $userMapper;
 
     /**

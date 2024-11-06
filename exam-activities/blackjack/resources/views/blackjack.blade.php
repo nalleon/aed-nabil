@@ -92,7 +92,5 @@
 
             </div>
         </div>
-
-        <script src="./scripts/blackjack.js"></script>
     </body>
 </html>

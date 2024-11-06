@@ -1,0 +1,2452 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<div align="justify">
+<h2 id="php-dossier">PHP Dossier</h2>
+<ul>
+<li><a href="#pr%C3%A1ctica-01">Práctica 01</a></li>
+<li><a href="#pr%C3%A1ctica-02">Práctica 02</a></li>
+<li><a href="#pr%C3%A1ctica-03">Práctica 03</a></li>
+<li><a href="#pr%C3%A1ctica-04">Práctica 04</a></li>
+<li><a href="#pr%C3%A1ctica-05">Práctica 05</a></li>
+<li><a href="#pr%C3%A1ctica-06">Práctica 06</a></li>
+<li><a href="#pr%C3%A1ctica-07">Práctica 07</a></li>
+<li><a href="#pr%C3%A1ctica-08">Práctica 08</a></li>
+<li><a href="#pr%C3%A1ctica-09">Práctica 09</a></li>
+<li><a href="#pr%C3%A1ctica-10">Práctica 10</a></li>
+<li><a href="#pr%C3%A1ctica-11">Práctica 11</a></li>
+<li><a href="#pr%C3%A1ctica-12">Práctica 12</a></li>
+<li><a href="#pr%C3%A1ctica-13">Práctica 13</a></li>
+<li><a href="#pr%C3%A1ctica-14">Práctica 14</a></li>
+<li><a href="#pr%C3%A1ctica-15">Práctica 15</a></li>
+<li><a href="#pr%C3%A1ctica-16">Práctica 16</a></li>
+<li><a href="#pr%C3%A1ctica-17">Práctica 17</a></li>
+<li><a href="#pr%C3%A1ctica-18">Práctica 18</a></li>
+<li><a href="#pr%C3%A1ctica-19">Práctica 19</a></li>
+<li><a href="#pr%C3%A1ctica-20">Práctica 20</a></li>
+</ul>
+<h4 id="extras">Extras:</h4>
+<ul>
+<li><a href="#to-do-list---session">To do tasks - Session</a></li>
+<li><a href="#to-do-list---files">To do tasks - Files</a></li>
+<li><a href="#blackjack">BlackJack</a></li>
+</ul>
+<hr>
+<h3 id="pr%C3%A1ctica-01">Práctica 01</h3>
+<blockquote>
+<p>📂
+Modificar el fichero web.php para que las peticiones GET ( parecido al ejemplo anterior ) al raíz de la aplicación: “/” muestren un mensaje que diga: “Under construction</p>
+</blockquote>
+<pre class="hljs"><code><div> Route::get('/', function () {
+    echo &quot;Under construction&quot;;
+});
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p1.png"/>
+</div>
+<hr>
+</br>
+<h3 id="pr%C3%A1ctica-02">Práctica 02</h3>
+<blockquote>
+<p>📂
+Modificar el fichero web.php para que las peticiones POST a: /pruebita muestren el mensaje: “se ha ejecutado una petición POST a la dirección: /pruebita ” Probar a hacer la petición POST ¿ muestra lo solicitado ? ¿ qué ocurre si se hace mediante una petición GET ? Volver a reestablecer la protección CSRF y hacer de nuevo la petición POST ¿ qué muestra ahora ?</p>
+</blockquote>
+<pre class="hljs"><code><div>Route::post('/pruebita', function () {
+    echo &quot;Se ha ejecutado una petición POST a la dirección: /pruebita&quot;;
+});
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p2.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-03">Práctica 03</h3>
+<blockquote>
+<p>📂
+Crear una ruta para TODA petición ( ya sea GET, POST, … ) hacia /relatos/numero ( recordar que hemos visto una opción para recoger todo tipo de petición) De tal forma que numero deba ser un número y muestre el mensaje: “petición recibida para
+el parámetro: numero”</p>
+</blockquote>
+<pre class="hljs"><code><div>Route::any('/relatos/numeros/{num}', function ($num) {
+    echo &quot;Petición recivida para el parámetro: &quot;. $num;
+    exit();
+})-&gt;where('num', '[0-9]+');
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p3-1.png"/>
+<img src="./img/p3-2.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-04">Práctica 04</h3>
+<blockquote>
+<p>📂
+Crear una ruta para el raíz: “/” En una primera implementación mostrará el mensaje: “página raíz de nuestra aplicación” que se resolverá en el propio web.php Haremos una segunda versión de esta actividad en la que redireccionará hacia el controlador y la función pertinente y allí se mostrará un mensaje que indique adicionalmente que se ha respondido desde el controlador</p>
+</blockquote>
+<ul>
+<li>Version 1:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get('/', function (){
+    echo &quot;Página raíz de nuestra aplicación&quot;;
+});
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p4-1.png"/>
+</div>
+<ul>
+<li>Version 2:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get('/', [Practice04Controller::class, 'controllerResponse']);
+</div></code></pre>
+<pre class="hljs"><code><div>class Practice04Controller extends Controller
+{
+    function controllerResponse(){
+        echo &quot;Responding from the controller!&quot;;
+    }
+}
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p4-2.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-05">Práctica 05</h3>
+<blockquote>
+<p>📂
+Crear un controlador llamado: ListarProductos que sea redireccionado en web.php cuando se acceda al raíz: “/” y muestre un mensaje que diga: “Ejecutando el controlador ListarProductos mediante get”. ( si la llamada fue get. En el caso de que la llamada fuera post deberá decirlo )</p>
+</blockquote>
+<pre class="hljs"><code><div>Route::any('/', [ListarProductos::class, 'index']);
+
+class ListarProductos extends Controller
+{
+    public function index(Request $request) {
+        if ($request-&gt;isMethod('GET')){
+            echo &quot;Ejecutando el controlador ListarProductos mediante get&quot;;
+        } elseif ($request-&gt;isMethod('POST')) {
+            echo &quot;Ejecutando el controlador ListarProductos mediante POST&quot;;
+        }
+    }
+}
+
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p5-1.png"/>
+<img src="./img/p5-2.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-06">Práctica 06</h3>
+<blockquote>
+<p>📂
+Comprobar que la anotación @var para un objeto permite que el ide con
+inteliphense nos ayude con los atributos y los métodos</p>
+</blockquote>
+<pre class="hljs"><code><div>&lt;?php
+class Practice06 {
+    /**
+     * @var string 
+     */
+    protected $name;
+}
+?&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p6.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-07">Práctica 07</h3>
+<blockquote>
+<p>📂
+Reproducir la vista descrita. Crear una tabla html por cada primo con un
+encabezado en la tabla que nos diga que campo estamos visualizando.</p>
+</blockquote>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::any('/practice07', [Practice07Controller::class, 'primeNums']);
+</div></code></pre>
+<pre class="hljs"><code><div>class Practice07Controller extends Controller
+{
+    public function primeNums()
+    {
+    $primeArray = collect([1,2,3,5,7,11,13,17,19]);
+    return view('practice07',compact('primeArray'));
+    }
+}
+</div></code></pre>
+<ul>
+<li>View:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+&lt;/head&gt;
+&lt;body class=&quot;antialiased&quot;&gt;
+    @foreach ($primeArray as $num)
+    &lt;p&gt; num: {{$num}} &lt;/p&gt;
+    @endforeach
+&lt;/body&gt;
+&lt;/html&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p7.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-08">Práctica 08</h3>
+<blockquote>
+<p>📂
+Agregar al comienzo de la vista el mensaje(sustituye por la hora/día actual): Son las: 17:53 del día: 29-11-2020 Nota: buscar información y usar la función PHP date()</p>
+</blockquote>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get('/practice08', [Practice08Controller::class, 'date']);
+</div></code></pre>
+<ul>
+<li>Controller:</li>
+</ul>
+<pre class="hljs"><code><div>class Practice08Controller extends Controller
+{
+    public function date() {
+        $currentDateTime = date('H:i \d\e l, d-m-Y');
+        return view('practice08', compact('currentDateTime'));
+    }
+}
+</div></code></pre>
+<ul>
+<li>View:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+&lt;/head&gt;
+&lt;body class=&quot;antialiased&quot;&gt;
+        &lt;h1&gt;{{$currentDateTime}}&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p8.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-09">Práctica 09</h3>
+<blockquote>
+<p>📂
+El comando sleep() en php permite pausar la ejecución la cantidad de segundo especificada como parámetro. Modificar el ejemplo anterior para que lo muestre 3 veces con una espera de 1 segundo entre una iteración y la siguiente, mostrando de forma actualizada la información de los segundos desde 1970</p>
+</blockquote>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get('/practice09', function(){
+    return view('practice09');
+});
+</div></code></pre>
+<ul>
+<li>View:</li>
+</ul>
+<pre class="hljs"><code><div>    @php
+        $dataSecondsArray = [];
+
+        for($i=0; $i &lt; 3; $i++){
+            $seconds = time();
+            $dataSecondsArray[$i] = $seconds;
+            sleep(1);
+        }
+        
+    @endphp
+
+    @foreach ($dataSecondsArray as $seconds ){
+        &lt;h1&gt;Since 1-01-1970 have passed: {{$seconds}} seconds&lt;/h1&gt;
+    }
+        
+    @endforeach
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p9.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-10">Práctica 10</h3>
+<blockquote>
+<p>📂
+Generar una lista de números aleatorios de 0 a100 en el controlador. Desde
+nuestra plantilla blade mostraremos primero la lista de números obtenidos menores de 50 y un poco más abajo en la página los mayores que 50. Hacer uso de las directivas @if para que al mostrar aquellos que sean mayores de 50</p>
+</blockquote>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get('/practice10', [Practice10Controller::class, 'rndNum']);
+</div></code></pre>
+<ul>
+<li>Controller</li>
+</ul>
+<pre class="hljs"><code><div>    public function rndNum() {
+        $array = [];
+        for ($i = 0; $i &lt; 15; $i++) {
+            $array[] = rand(1, 100);
+        }
+        return view('practice10', compact('array'));
+    }
+</div></code></pre>
+<ul>
+<li>View:</li>
+</ul>
+<pre class="hljs"><code><div>    &lt;h2&gt;Smaller than 50:&lt;/h2&gt;
+    &lt;ul&gt;
+        @foreach ($array as $num )
+            @if ($num &lt; 50)
+                &lt;li&gt;{{$num}}&lt;/li&gt;
+            
+            @endif
+        
+        @endforeach
+    &lt;/ul&gt;
+
+    &lt;h2&gt;Greater than 50:&lt;/h2&gt;
+    &lt;ul&gt;
+        @foreach ($array as $num )
+            @if ($num &gt; 50)
+                &lt;li&gt;{{$num}}&lt;/li&gt;
+            
+            @endif
+        
+        @endforeach 
+    &lt;/ul&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p10-1.png"/>
+<img src="./img/p10-2.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-11">Práctica 11</h3>
+<blockquote>
+<p>📂
+Enviar en un textarea una lista de palabras separadas por comas. Mostrar en
+una lista html esas palabras recibidas (una palabra por cada <li> de la lista ) convertidas todas a mayúsculas. Para ello se usará el bucle: @for ( cuidado! No el foreach ) Observar que eso implicará “contar” el número de elementos que tiene la colección de palabras</p>
+</blockquote>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get('/processwords', [Practice11Controller::class, 'processWords']);
+</div></code></pre>
+<ul>
+<li>Controller</li>
+</ul>
+<pre class="hljs"><code><div>class Practice11Controller extends Controller
+{
+    public function processWords(Request $request) {
+        $words = explode(',',  $request-&gt;input('words')??null);
+
+        return view('practice11result', [
+            'words' =&gt; $words,
+        ]);
+    }
+}
+</div></code></pre>
+<ul>
+<li>Views:</li>
+</ul>
+<pre class="hljs"><code><div>    &lt;form action=&quot;processwords&quot; method=&quot;GET&quot;&gt;
+        &lt;textarea name=&quot;words&quot; placeholder=&quot;Word's list&quot;&gt;ç&lt;/textarea&gt;
+        &lt;input type=&quot;submit&quot; value=&quot;Send&quot;&gt;
+    &lt;/form&gt;
+</div></code></pre>
+<pre class="hljs"><code><div>    @php
+    $length = count($words);
+    @endphp
+
+    &lt;ul&gt;
+        @for ($i=0; $i&lt;$length; $i++)
+            &lt;li&gt;{{$words[$i]}}&lt;/li&gt;
+        @endfor
+    &lt;/ul&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p11-1.png"/>
+<img src="./img/p11-2.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-12">Práctica 12</h3>
+<blockquote>
+<p>📂
+Ubicar imágenes en la carpeta descrita para las imágenes que quieras mostrar
+( mínimo 5 ). Hacer que se visualicen en el navegador las imágenes en nuestra vista</p>
+</blockquote>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get('/practice12', [Practice12Controller::class, 'showImgs']);
+</div></code></pre>
+<ul>
+<li>Controller:</li>
+</ul>
+<pre class="hljs"><code><div>class Practice12Controller extends Controller
+{
+    function showImgs(){
+        $imgArray =['img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg', 'img5.jpg'];
+    
+        return view('practice12', compact('imgArray' ));
+    }
+}
+</div></code></pre>
+<ul>
+<li>View:</li>
+</ul>
+<pre class="hljs"><code><div>    @foreach ($imgArray as $img)
+        &lt;img src=&quot;img/{{$img}}&quot; alt=&quot;practice12&quot;&gt;
+    @endforeach
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p12-1.png"/>
+<img src="./img/p12-2.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-13">Práctica 13</h3>
+<blockquote>
+<p>📂
+Crear un formulario que envíe nombres de colores en cada ejecución del usuario. Obtendrá por respuesta una página con la lista de colores que ha ido introduciendo (usar session() para almacenar la lista de colores ) ( es un formulario post tendremos que tener en cuenta @csrf leer más abajo )</p>
+</blockquote>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get('/practice13', [Practice13Controller::class, 'getColors']);
+Route::post('/add-color', [Practice13Controller::class, 'addColor']);
+Route::post('/delete-color/{id}', [Practice13Controller::class, 'deleteColor']);
+</div></code></pre>
+<ul>
+<li>Controller:</li>
+</ul>
+<pre class="hljs"><code><div>class Practice13Controller extends Controller
+{
+    public function getColors() {
+        $colors = session()-&gt;get('colors', []);
+
+        if(!isset($colors)){
+            $colors = [];
+            session()-&gt;put('colors', $colors);
+        }
+      
+        return view('practice13', compact('colors'));    
+    }
+    
+    public function addColor(Request $request){
+        $colors = session()-&gt;get('colors', []);
+
+        $name = $request-&gt;input('color')??null;
+        $id = count($colors) + 1;
+      
+
+        $newColor = new Color( $id, $name);
+        $colors[] = $newColor;
+
+        session()-&gt;put('colors', $colors); 
+
+        return redirect('/practice13');
+    }
+
+    public function deleteColor(Request $request){
+        $colors = session()-&gt;get('colors', []);
+        $id = $request-&gt;input('id');
+
+        foreach($colors as $key =&gt; $item){
+            if($item-&gt;getId() == $id){
+                unset($colors[$key]);
+                break;
+            }
+        }
+
+        session()-&gt;put('colors', array_values($colors));
+        return redirect('/practice13');
+    }
+
+}
+</div></code></pre>
+<ul>
+<li>View:</li>
+</ul>
+<pre class="hljs"><code><div>   &lt;form method=&quot;POST&quot; action=&quot;{{ url('/add-color')}}&quot;&gt;
+        @csrf
+        @if(isset($color))
+            &lt;input type=&quot;hidden&quot; name=&quot;id&quot; value=&quot;{{ $color-&gt;id }}&quot;&gt;
+        @endif
+        &lt;label for=&quot;color&quot;&gt;Color's name: &lt;/label&gt;
+        &lt;input type=&quot;text&quot; name=&quot;color&quot; id=&quot;color&quot;&gt;
+        &lt;br&gt;
+        &lt;input type=&quot;submit&quot; name=&quot;submit&quot; id=&quot;submit&quot; value=&quot;Send&quot;&gt;
+    &lt;/form&gt;
+    &lt;br&gt;
+    &lt;div class=&quot;history&quot;&gt;
+        &lt;ul&gt;
+            @if(!empty($colors))
+                @foreach ($colors as $color)
+                &lt;li&gt;
+                    {{ $color-&gt;getName() }}
+                    &lt;form method=&quot;POST&quot; action=&quot;{{ url('/delete-color/'.$color-&gt;id) }}&quot;&gt;
+                        @csrf
+                        &lt;input type=&quot;hidden&quot; name=&quot;id&quot; value=&quot;{{ $color-&gt;id }}&quot;&gt;
+                        &lt;button type=&quot;submit&quot;&gt;Delete&lt;/button&gt;
+                    &lt;/form&gt;
+                &lt;/li&gt;
+                @endforeach
+            @else
+                &lt;li&gt;Empty list.&lt;/li&gt;
+            @endif
+        &lt;/ul&gt;
+    &lt;/div&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p13-1.png"/>
+<img src="./img/p13-2.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-14">Práctica 14</h3>
+<blockquote>
+<p>📂
+Una forma fácil de visualizar el token csrf es mediante: {{ csrf_token() }}
+Introducir en la práctica 12 ese código y comprobar que está activo.</p>
+</blockquote>
+<ul>
+<li>View (práctica 12 modificada):</li>
+</ul>
+<pre class="hljs"><code><div>&lt;body class=&quot;antialiased&quot;&gt;
+    &lt;p&gt;CSRF Token: {{ csrf_token() }}&lt;/p&gt;
+    @foreach ($imgArray as $img)
+        &lt;img src=&quot;img/{{$img}}&quot; alt=&quot;practice12&quot;&gt;
+    @endforeach
+&lt;/body&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p14.png"/>
+</div>
+<br>
+<h3 id="pr%C3%A1ctica-15">Práctica 15</h3>
+<blockquote>
+<p>📂
+Crear un formulario POST Con los datos de un posible usuario ( nombre,
+edad, gustos, etc ) En cada ejecución de este formulario se le muestra al usuario la información almacenada del usuario en session() Observar que si se envía el formulario sin rellenar algún campo, se mantendrá la información anterior respecto a ese campo</p>
+</blockquote>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get('/practice15', [Practice15Controller::class, 'showForm']);
+
+Route::post('practice15/update', [Practice15Controller::class, 'handleForm']);
+</div></code></pre>
+<ul>
+<li>Controller:</li>
+</ul>
+<pre class="hljs"><code><div>    public function showForm(Request $request) {
+
+        $name = session()-&gt;get('name');
+        $age = session()-&gt;get('age');
+        $likes = session()-&gt;get('likes');
+
+        return view('practice15', compact('name', 'age', 'likes'));
+    }
+
+    public function handleForm(Request $request)
+    {
+        $nameSession = session()-&gt;get('name', '');
+        $ageSession = session()-&gt;get('age', '');
+        $likesSession = session()-&gt;get('likes', '');
+
+        $nameUpdate = $request-&gt;get('name', $nameSession);
+        $ageUpdate = $request-&gt;get('age', $ageSession);
+        $likesUpdate = $request-&gt;get('likes', $likesSession);
+
+        $request-&gt;session()-&gt;put('name', $nameUpdate);
+        $request-&gt;session()-&gt;put('age', $ageUpdate);
+        $request-&gt;session()-&gt;put('likes', $likesUpdate);
+
+        return redirect('practice15')-&gt;with('success', 'Updated correctly.');
+    }
+</div></code></pre>
+<ul>
+<li>View:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;div class=&quot;main-container&quot;&gt;
+    @if(session('success'))
+        &lt;p&gt; {{session('success')}}&lt;/p&gt;
+    @endif
+
+    &lt;p&gt;DATA: {{session('name')}}, {{session('age')}}, {{session('likes')}}&lt;/p&gt;
+    &lt;form action=&quot;{{ url('/practice15/update')}}&quot; method=&quot;POST&quot;&gt;
+        @csrf
+            &lt;label for=&quot;name&quot;&gt;Name&lt;/label&gt;
+            &lt;input type=&quot;text&quot; name=&quot;name&quot; id=&quot;name&quot; value=&quot;{{session('name')}}&quot; /&gt;
+            &lt;br&gt;
+            &lt;label for=&quot;age&quot;&gt;Age&lt;/label&gt;
+            &lt;input type=&quot;text&quot; name=&quot;age&quot; id=&quot;age&quot; value=&quot;{{session('age')}}&quot; /&gt;
+            &lt;br&gt;
+            &lt;label for=&quot;likes&quot;&gt;Likes&lt;/label&gt;
+            &lt;input type=&quot;text&quot; name=&quot;likes&quot; id=&quot;likes&quot; value=&quot;{{session('likes')}}&quot; /&gt;
+            &lt;br&gt;
+            &lt;input type=&quot;submit&quot; name=&quot;submit&quot; value=&quot;submit&quot;&gt;
+    &lt;/form&gt;
+    &lt;br&gt;
+&lt;/div&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p15.png"/>
+</div>
+<br>
+<h3 id="pr%C3%A1ctica-16">Práctica 16</h3>
+<blockquote>
+<p>📂
+Crear un fichero con nombre y dirección de correo por fila ( en formato csv )
+almacenado en Storage Leer el fichero y mostrarlo en pantalla</p>
+</blockquote>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div> Route::get('/practice16', [Practice16Controller::class, 'readCsv']);
+</div></code></pre>
+<ul>
+<li>Controller:</li>
+</ul>
+<pre class="hljs"><code><div>public function readCsv (){
+    $csvContent = Storage::get('users.csv');
+    $rows = explode(&quot;\n&quot;, $csvContent);
+    $data = [];
+
+    foreach ($rows as $row) {
+        $columns = explode(',', $row);
+        $data[] = [
+            'name' =&gt; $columns[0],
+            'email' =&gt; $columns[1],
+        ];
+    }
+
+    return view('practice16', compact('data'));
+}
+</div></code></pre>
+<ul>
+<li>View:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;div class=&quot;main-container&quot;&gt;
+
+    &lt;h3&gt;Data of the csv:&lt;/h3&gt;
+    &lt;ul&gt;
+        @foreach($data as $row)
+        &lt;li&gt;
+            {{ $row['name'] }} -- {{ $row['email'] }} 
+        &lt;/li&gt;
+    @endforeach
+    &lt;/ul&gt;
+&lt;/div&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p16.png"/>
+</div>
+<br>
+<h3 id="pr%C3%A1ctica-17">Práctica 17</h3>
+<blockquote>
+<p>📂
+Crear un formulario que se introduzca un nombre y cree un directorio en
+storage con ese nombre</p>
+</blockquote>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get('/practice17', function (){
+    return view('/practice17');
+});
+
+Route::post('/create-directory', [Practice17Controller::class 'createDirectory']);
+</div></code></pre>
+<ul>
+<li>Controller:</li>
+</ul>
+<pre class="hljs"><code><div>class Practice17Controller extends Controller
+{
+    public function createDirectory(Request $request){
+        $directory = $request-&gt;input('directory');
+        if($directory ==! null){
+            Storage::makeDirectory('/' . $directory, 700, true);
+            echo &quot;Directory created successfully&quot;;
+        }
+        return view('/practice17');
+    }
+
+}
+</div></code></pre>
+<ul>
+<li>View:</li>
+</ul>
+<pre class="hljs"><code><div>     &lt;form method=&quot;POST&quot; action=&quot;{{ url('/create-directory')}}&quot;&gt;
+        @csrf
+        @if(isset($directory))
+            &lt;input type=&quot;hidden&quot; name=&quot;id&quot; value=&quot;{{ $color-&gt;id }}&quot;&gt;
+        @endif
+        &lt;label for=&quot;directory&quot;&gt;Directory's name: &lt;/label&gt;
+        &lt;input type=&quot;text&quot; name=&quot;directory&quot; id=&quot;directory&quot;&gt;
+        &lt;br&gt;
+        &lt;input type=&quot;submit&quot; name=&quot;submit&quot; id=&quot;submit&quot; value=&quot;Send&quot;&gt;
+    &lt;/form&gt;
+    &lt;br&gt;
+    &lt;div class=&quot;history&quot;&gt;
+            
+    &lt;/div&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p17-1.png"/>
+<img src="./img/p17-2.png"/>
+<img src="./img/p17-3.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-18">Práctica 18</h3>
+<blockquote>
+<p>📂
+Crear un formulario que se introduzca un nombre y cree un directorio en
+storage con ese nombre</p>
+</blockquote>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get('/practice18', function (){
+    return view('/practice18');
+});
+
+Route::post('/read-file', [Practice18Controller::class, 'readFile']);
+</div></code></pre>
+<ul>
+<li>Controller:</li>
+</ul>
+<pre class="hljs"><code><div>class Practice18Controller extends Controller
+class Practice18Controller extends Controller
+{
+    public function readFile(Request $request) {
+        if (!$request-&gt;hasFile('myFile')) {
+            return back()-&gt;withErrors(['myFile' =&gt; 'No se ha subido ningún archivo.']);
+        }
+
+      
+        $file = $request-&gt;file('myFile');
+
+        $content = [];
+
+        $fileOriginalName = $file-&gt;getClientOriginalName();
+
+        $path =$file-&gt;storeAs(&quot;/&quot;, $fileOriginalName);
+        
+        if (($open = fopen(storage_path('app/' . $path), &quot;r&quot;)) !== FALSE) {
+            while (($data = fgetcsv($open, 1000, &quot;,&quot;)) !== FALSE) {
+                $content[] = $data;
+            }
+            fclose($open);
+        }
+
+        return redirect('/practice18')-&gt;with('content', $content);
+    }
+}
+
+</div></code></pre>
+<ul>
+<li>View:</li>
+</ul>
+<pre class="hljs"><code><div>    &lt;form method=&quot;POST&quot; action=&quot;{{ url('/read-file')}}&quot; enctype='multipart/form-data' &gt;
+        @csrf
+        &lt;input type=&quot;file&quot; name=&quot;myFile&quot; id=&quot;myFile&quot;&gt;
+        &lt;br&gt;
+        &lt;input type=&quot;submit&quot; name=&quot;submit&quot; id=&quot;submit&quot; value=&quot;Send&quot;&gt;
+    &lt;/form&gt;
+    &lt;br&gt;
+    &lt;div class=&quot;history&quot;&gt;
+        @if (session('content') &amp;&amp; count(session('content')) &gt; 0)
+            &lt;ul&gt;
+                @foreach (session('content') as $row)
+                    &lt;li&gt;{{ implode(', ', $row) }}&lt;/li&gt;
+                @endforeach
+            &lt;/ul&gt;
+        @endif
+    &lt;/div&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p18.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-19">Práctica 19</h3>
+<blockquote>
+<p>📂
+Mostrar en una página una lista de ficheros de una carpeta en storage.
+Cuando se pulse en el nombre del fichero se descargará</p>
+</blockquote>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get('/practice19', [Practice19Controller::class, 'showFiles']);
+Route::get('/practice19/download/{filename}', [Practice19Controller::class, 'downloadFile']);
+</div></code></pre>
+<ul>
+<li>Controller:</li>
+</ul>
+<pre class="hljs"><code><div>    public function showFiles(){
+        $files = Storage::files('practice19'); 
+        return view('practice19', compact('files'));
+    }
+
+
+    public function downloadFile($filename){
+        return Storage::download('practice19/' . $filename);
+    }
+</div></code></pre>
+<ul>
+<li>View:</li>
+</ul>
+<pre class="hljs"><code><div>    &lt;div class=&quot;main-container&quot;&gt;
+        &lt;h1&gt;Files in directory&lt;/h1&gt;
+        &lt;ul&gt;
+            @foreach ($files as $file)
+                &lt;li&gt;
+                    &lt;a href=&quot;{{ url('practice19/download/' . basename($file)) }}&quot;&gt;{{ basename($file) }}&lt;/a&gt;
+                &lt;/li&gt;
+            @endforeach
+        &lt;/ul&gt;
+
+        @if ($files === null)
+            &lt;p&gt;There are no files in this directory.&lt;/p&gt;
+        @endif
+    &lt;/div&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p19-1.png"/>
+<img src="./img/p19-2.png"/>
+<img src="./img/p19-3.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-20">Práctica 20</h3>
+<blockquote>
+<p>📂
+Continuando con el ejemplo anterior crear una opción para borrar los ficheros
+listados</p>
+</blockquote>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get('/practice20', [Practice20Controller::class, 'showFiles']);
+Route::get('/practice20/download/{filename}', [Practice20Controller::class, 'downloadFile']);
+Route::post('/practice20/delete/{filename}', [Practice20Controller::class, 'deleteFile']);
+</div></code></pre>
+<ul>
+<li>Controller:</li>
+</ul>
+<pre class="hljs"><code><div>    public function showFiles(){
+        $files = Storage::files('practice19'); 
+        return view('practice19', compact('files'));
+    }
+
+
+    public function downloadFile($filename){
+        return Storage::download('practice19/' . $filename);
+    }
+
+    public function deleteFile($filename){
+        Storage::delete('practice20/' . $filename);
+        return redirect('/practice20');
+    }
+</div></code></pre>
+<ul>
+<li>View:</li>
+</ul>
+<pre class="hljs"><code><div>&lt;div class=&quot;main-container&quot;&gt;
+    &lt;h1&gt;Files in directory&lt;/h1&gt;
+    &lt;ul&gt;
+        @foreach ($files as $file)
+            &lt;li&gt;
+                &lt;a href=&quot;{{ url('practice20/download/' . basename($file)) }}&quot;&gt;{{ basename($file) }}&lt;/a&gt;
+                &lt;form action=&quot;{{ url('practice20/delete', basename($file)) }}&quot; method=&quot;POST&quot; style=&quot;display:inline;&quot;&gt;
+                    @csrf
+                    &lt;button type=&quot;submit&quot;&gt;Delete&lt;/button&gt;
+                &lt;/form&gt;
+            &lt;/li&gt;
+        @endforeach
+    &lt;/ul&gt;
+
+    @if ($files === null)
+        &lt;p&gt;There are no files in this directory.&lt;/p&gt;
+    @endif
+&lt;/div&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p20-1.png"/>
+<img src="./img/p20-2.png"/>
+</div>
+</br>
+<h3 id="extra">Extra:</h3>
+<h4 id="to-do-list---session">To do list - Session</h4>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get('/', [FormController::class, 'show']);
+Route::get('/task', [FormController::class, 'getTask']);
+
+Route::post('/task/create', [FormController::class, 'createTask']);
+
+Route::post('/task/delete', [FormController::class, 'deleteTask']);
+
+Route::post('/task/update', [FormController::class, 'updateForm']);
+</div></code></pre>
+<p>Esta es la única clase del modelo.</p>
+<ul>
+<li>Task:</li>
+</ul>
+<pre class="hljs"><code><div>  /**
+     * @var int
+     */
+    public $id;
+
+    /**
+     * @var string
+     */
+    public $subject;
+
+    /**
+     * @var string
+     */
+    public $description;
+
+    /**
+     * @var bool
+     */
+    public $finished;
+
+    /**
+     * Task constructor.
+     *
+     * @param string $subject
+     * @param string $description
+     *
+     *
+     * */
+
+     public function __construct(string $subject = &quot;&quot;, int $id = 0, string $description = &quot;&quot;, bool $finished = false){
+        $this-&gt;subject = $subject;
+        $this-&gt;id = $id;
+        $this-&gt;description = $description;
+        $this-&gt;finished = $finished;
+    }
+
+    // getters and setters
+</div></code></pre>
+<ul>
+<li>Controller:</li>
+</ul>
+<pre class="hljs"><code><div> public function show(){
+        $todolist = session()-&gt;get('todolist');
+    
+        if (!isset($todolist)) {
+            $todolist = [];
+            session()-&gt;put('todolist', $todolist);
+        }
+    
+        return view('startpage', compact('todolist'));
+    }
+    
+
+    public function getTask(Request $request){
+        $id = $request-&gt;input('id');
+
+        $todolist = session()-&gt;get('todolist');
+        $auxTask = null;
+
+
+        foreach ($todolist as $item) {
+            if($item-&gt;getId() == $id){
+                $auxTask = $item;
+                break;
+            }
+        }
+
+        return view('tasks', compact('auxTask'));
+    }
+
+    public function createTask(Request $request){
+            $todolist = session()-&gt;get('todolist', []);
+
+            $subject = $request-&gt;input('subject')??null;
+            $id = count($todolist) + 1;
+            $description=$request-&gt;input('description')??null;
+            $finished = $request-&gt;input('finished') === 'Closed' ? true : false; 
+
+            $newTask = new Task($subject, $id, $description, $finished);
+            $todolist[] = $newTask;
+    
+            session()-&gt;put('todolist', $todolist); 
+
+        return redirect('/');
+    }
+
+    public function updateForm(Request $request){
+        $todolist = session()-&gt;get('todolist', []);
+
+        $subject = $request-&gt;input('subject');
+        $id = $request-&gt;input('id');
+        $description=$request-&gt;input('description');
+        $finished = $request-&gt;input('finished') === 'Closed' ? true : false; // important to declare
+
+        foreach($todolist as $key =&gt; $item){
+            if($item-&gt;getId() == $id){
+                $item-&gt;setSubject($subject);
+                $item-&gt;setDescription($description);
+                $item-&gt;setFinished($finished);
+                $todolist[$key] = $item;
+                break;
+            }
+        }
+
+        session()-&gt;put('todolist', $todolist);
+        return redirect('/');
+    }
+
+
+    public function deleteTask(Request $request){
+        $todolist = session()-&gt;get('todolist', []);
+        $id = $request-&gt;input('id');
+
+        foreach($todolist as $key =&gt; $item){
+            if($item-&gt;getId() == $id){
+                unset($todolist[$key]);
+                break;
+            }
+        }
+
+        session()-&gt;put('todolist', array_values($todolist));
+        return redirect('/');
+    }
+</div></code></pre>
+<ul>
+<li>View (página principal):</li>
+</ul>
+<pre class="hljs"><code><div>&lt;div class=&quot;main-container&quot;&gt;
+
+    &lt;h2&gt;ALL TASKS&lt;/h2&gt;
+    &lt;ul&gt;
+        @foreach ($todolist as $task)
+            &lt;li&gt;
+                &lt;a href=&quot;./task?id={{$task-&gt;id}}&quot;&gt;{{ $task-&gt;subject }}&lt;/a&gt;
+                &lt;a href=&quot;./task?id={{$task-&gt;id}}&quot;&gt;{{ $task-&gt;description }}&lt;/a&gt;
+                &lt;a href=&quot;./task?id={{$task-&gt;id}}&quot;&gt;{{ $task-&gt;finished ? 'Finished' : 'Not finished' }}&lt;/a&gt;
+
+                &lt;form action=&quot;{{ url('task/delete') }}&quot; method=&quot;POST&quot; style=&quot;display:inline;&quot;&gt;
+                    @csrf
+                    &lt;input type=&quot;hidden&quot; name=&quot;id&quot; value=&quot;{{ $task-&gt;id }}&quot;&gt;
+                    &lt;input type=&quot;submit&quot; name=&quot;delete&quot; id=&quot;delete&quot; value=&quot;Delete&quot;&gt;
+                &lt;/form&gt;
+            &lt;/li&gt;
+        @endforeach
+    &lt;/ul&gt;     
+
+    &lt;form action=&quot;{{ url('task/create') }}&quot; method=&quot;POST&quot;&gt;
+        @csrf
+        &lt;label for=&quot;subject&quot;&gt;Task Subject:&lt;/label&gt;
+        &lt;input type=&quot;text&quot; name=&quot;subject&quot; id=&quot;subject&quot; placeholder=&quot;Task subject&quot; /&gt;
+        &lt;br&gt;
+        &lt;label for=&quot;description&quot;&gt;Task Description:&lt;/label&gt;
+        &lt;textarea cols=&quot;50&quot; rows=&quot;5&quot; name=&quot;description&quot; id=&quot;description&quot; placeholder=&quot;Task description&quot;&gt;&lt;/textarea&gt;
+        &lt;br&gt;
+        &lt;label for=&quot;finished&quot;&gt;Status:&lt;/label&gt;&lt;br&gt;
+        &lt;div class=&quot;status-container&quot;&gt;
+            &lt;input type=&quot;radio&quot; value=&quot;Open&quot; name=&quot;finished&quot; id=&quot;finishedOpen&quot; checked&gt; 
+            &lt;label for=&quot;finishedOpen&quot;&gt;Open&lt;/label&gt;&lt;br&gt;
+            &lt;input type=&quot;radio&quot; value=&quot;Closed&quot; name=&quot;finished&quot; id=&quot;finishedClosed&quot;&gt; 
+            &lt;label for=&quot;finishedClosed&quot;&gt;Closed&lt;/label&gt;&lt;br&gt;
+        &lt;/div&gt;                
+        &lt;br&gt;
+        &lt;input type=&quot;submit&quot; name=&quot;create&quot; value=&quot;Create&quot;&gt;
+    &lt;/form&gt;
+&lt;/div&gt;   
+</div></code></pre>
+<ul>
+<li>View (Task seleccionada):</li>
+</ul>
+<pre class="hljs"><code><div>&lt;div class=&quot;main-container&quot;&gt;
+    &lt;h2&gt;TASK TO UPDATE&lt;/h2&gt;
+    &lt;form action=&quot;{{ url('task/update')}}&quot; method=&quot;POST&quot; id=&quot;formTasks&quot;&gt;
+        @csrf
+        &lt;label for=&quot;subject&quot;&gt;Task ID: {{$auxTask-&gt;id}}&lt;/label&gt;
+        &lt;br&gt;
+        &lt;input type=&quot;hidden&quot; name=&quot;id&quot; value=&quot;{{ $auxTask-&gt;id }}&quot;&gt;
+        &lt;input type=&quot;text&quot; name=&quot;subject&quot; id=&quot;subject&quot; placeholder=&quot;Task subject&quot; value=&quot;{{$auxTask-&gt;subject}}&quot; /&gt;
+        &lt;textarea cols=&quot;200&quot; rows=&quot;5&quot; name=&quot;description&quot; placeholder=&quot;Task description&quot; id=&quot;description&quot;&gt;{{$auxTask-&gt;description}}&lt;/textarea&gt;
+    
+        &lt;label for=&quot;finished&quot;&gt;Status:&lt;/label&gt;&lt;br&gt;
+        &lt;div class=&quot;status-container&quot;&gt;
+            @if ($auxTask-&gt;finished)
+                &lt;input type=&quot;radio&quot; value=&quot;Open&quot; name=&quot;finished&quot; id=&quot;finishedOpen&quot;&gt; 
+                &lt;label for=&quot;finishedOpen&quot;&gt;Open&lt;/label&gt;
+                &lt;input type=&quot;radio&quot; value=&quot;Closed&quot; name=&quot;finished&quot; id=&quot;finishedClosed&quot; checked&gt; 
+                &lt;label for=&quot;finishedClosed&quot;&gt;Close&lt;/label&gt;
+            @else
+                &lt;input type=&quot;radio&quot; value=&quot;Open&quot; name=&quot;finished&quot; id=&quot;finishedOpen&quot; checked&gt; 
+                &lt;label for=&quot;finishedOpen&quot;&gt;Open&lt;/label&gt;
+                &lt;input type=&quot;radio&quot; value=&quot;Closed&quot; name=&quot;finished&quot; id=&quot;finishedClosed&quot;&gt; 
+                &lt;label for=&quot;finishedClosed&quot;&gt;Close&lt;/label&gt;
+            @endif
+        &lt;/div&gt;
+    
+        &lt;input type=&quot;submit&quot; name=&quot;submit&quot; id=&quot;submit&quot; value=&quot;Update&quot;&gt;
+    &lt;/form&gt;
+&lt;/div&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/tds-1.png"/>
+<img src="./img/tds-2.png"/>
+<img src="./img/tds-3.png"/>
+<img src="./img/tds-4.png"/>
+<img src="./img/tds-5.png"/>
+</div>
+</br>
+<h4 id="to-do-list---files">To do list - Files</h4>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get('/', [FormController::class, 'getAllTasks']);
+Route::get('/task', [FormController::class, 'getTask']);
+Route::post('/task/create', [FormController::class, 'createTask']);
+Route::post('/task/delete', [FormController::class, 'deleteTask']);
+Route::post('/task/update', [FormController::class, 'updateForm']);
+</div></code></pre>
+<p>Esta es la única clase del modelo.</p>
+<ul>
+<li>Task:</li>
+</ul>
+<pre class="hljs"><code><div>  /**
+     * @var int
+     */
+    public $id;
+
+    /**
+     * @var string
+     */
+    public $subject;
+
+    /**
+     * @var string
+     */
+    public $description;
+
+    /**
+     * @var bool
+     */
+    public $finished;
+
+    /**
+     * Task constructor.
+     *
+     * @param string $subject
+     * @param string $description
+     *
+     *
+     * */
+
+     public function __construct(string $subject = &quot;&quot;, int $id = 0, string $description = &quot;&quot;, bool $finished = false){
+        $this-&gt;subject = $subject;
+        $this-&gt;id = $id;
+        $this-&gt;description = $description;
+        $this-&gt;finished = $finished;
+    }
+
+    // getters and setters
+</div></code></pre>
+<ul>
+<li>Controller</li>
+</ul>
+<pre class="hljs"><code><div>  /**
+     * Read file
+     */
+    public function getAllTasks(){
+        $filePath = storage_path('app/tasks.csv');
+
+        if(!file_exists($filePath)){
+            return redirect('/);
+        }
+
+        $tasks = [];
+
+
+        if(($open = fopen($filePath, 'r') )!== false){
+            while (($data = fgetcsv($open, 1000, ','))!== false) {
+                if(count($data) == 4){
+                    $tasks[] = new Task($data[0], 
+                                        $data[1], 
+                                        $data[2],
+                                        $data[3] === 'Closed'? true : false);
+            
+                }                    
+            }
+            fclose($open);
+            return view('startpage', compact('tasks'));
+        }
+    }
+        
+    /**
+     * Get specific file 
+     */
+
+    public function getTask(Request $request){
+
+        $id = $request-&gt;input('id');
+
+        $filePath = storage_path('app/tasks.csv');
+
+        if(!file_exists($filePath)){
+            return redirect('/');
+        }
+
+        $auxTask = null;
+
+        if(($open = fopen($filePath, 'r') )!== false){
+            while (($data = fgetcsv($open, 1000, ','))!== false) {
+                if($data[1] == $id){
+                    $auxTask =  new Task(
+                                $data[0], 
+                                $data[1], 
+                                $data[2],
+                                $data[3] === 'Closed'? true : false);
+                    break;
+                }                    
+
+            }
+
+            fclose($open);
+            return view('tasks', compact('auxTask'));
+        }
+    }
+
+    /**
+     * Create a new Task
+     */
+
+    public function createTask(Request $request){
+            $filePath = storage_path('app/tasks.csv');
+
+            $subject = $request-&gt;input('subject')??null;
+            $id = $this-&gt;getIdFromCsv($filePath);
+            $description=$request-&gt;input('description')??null;
+            $finished = $request-&gt;input('finished') === 'Closed' ? true : false; 
+
+            $newTask = new Task($subject, $id, $description, $finished);
+
+            $open = fopen($filePath, 'a');
+            if($open){
+                fputcsv($open,[
+                            $newTask-&gt;getSubject(),
+                            $newTask-&gt;getId(),
+                            $newTask-&gt;getDescription(),
+                            $newTask-&gt;getFinished() ? 'Closed' : 'Open'
+                        ]);
+                fclose($open);
+            }
+    
+        return redirect('/');
+    }
+
+    public function getIdFromCsv($filePath){
+        if(file_exists($filePath)){
+            $open = fopen($filePath, 'r');
+            $id = 1;
+            while (($data = fgetcsv($open, 1000, ','))!== false) {
+                if(isset($data[1])){
+                    $actualId = (int)$data[1];
+                }
+                $id = max($id, $actualId);
+            }
+            fclose($open);
+            return $id+1;
+        }
+        
+        return 1;
+    }
+    
+    public function updateForm(Request $request){
+
+        $filePath = storage_path('app/tasks.csv');
+
+        if(!file_exists($filePath)){
+            return redirect('/');
+        }
+
+        $subject = $request-&gt;input('subject');
+        $id = $request-&gt;input('id');
+        $description=$request-&gt;input('description');
+        $finished = $request-&gt;input('finished') === 'Closed' ? true : false;
+
+        $tasks = [];
+
+        if(($open = fopen($filePath, 'r'))!== false){
+            while (($data = fgetcsv($open, 1000, ','))!== false) {
+                if($data[1] == $id){
+                    $data[0] = $subject;
+                    $data[2] = $description;
+                    $data[3] = $finished ? 'Closed' : 'Open';
+                }                    
+                $tasks[] = $data;
+            }
+            fclose($open);
+        }
+
+        //var_dump($tasks);
+        //die();
+
+        if(($open = fopen($filePath, 'w'))!== false){
+            foreach($tasks as $task){
+                fputcsv($open, $task);
+            }
+            fclose($open);
+        }
+
+        return redirect('/');
+    }
+
+
+    /**
+     * @param Request $request for get the id of the item to delete
+     */
+    public function deleteTask(Request $request){
+
+        $filePath = storage_path('app/tasks.csv');
+
+        if(!file_exists($filePath)){
+            return redirect('/');
+        }
+
+
+        $id = $request-&gt;input('id');
+        $tasks = [];
+
+        if(($open = fopen($filePath, 'r'))!== false){
+            while (($data = fgetcsv($open, 1000, ','))!== false) {
+                if($data[1] != $id &amp;&amp; count($data) &gt;= 4){
+                    $task =  new Task(
+                                $data[0], 
+                                (int)$data[1], 
+                                $data[2],
+                                $data[3] === 'Closed'? true : false
+                            );
+                    $tasks[] = $task;
+                }                    
+               
+            }
+            fclose($open);
+        }
+
+
+        if(($open = fopen($filePath, 'w'))!== false){
+            foreach($tasks as $task){
+                fputcsv($open,[
+                    $task-&gt;getSubject(),
+                    $task-&gt;getId(),
+                    $task-&gt;getDescription(),
+                    $task-&gt;getFinished() ? 'Closed' : 'Open'
+                ]);     
+            }
+            fclose($open);
+        }
+
+        return redirect('/');
+
+    }
+</div></code></pre>
+<ul>
+<li>View (página principal):</li>
+</ul>
+<pre class="hljs"><code><div>&lt;div class=&quot;main-container&quot;&gt;
+
+    &lt;h2&gt;ALL TASKS&lt;/h2&gt;
+    &lt;ul&gt;
+        @foreach ($todolist as $task)
+            &lt;li&gt;
+                &lt;a href=&quot;./task?id={{$task-&gt;id}}&quot;&gt;{{ $task-&gt;subject }}&lt;/a&gt;
+                &lt;a href=&quot;./task?id={{$task-&gt;id}}&quot;&gt;{{ $task-&gt;description }}&lt;/a&gt;
+                &lt;a href=&quot;./task?id={{$task-&gt;id}}&quot;&gt;{{ $task-&gt;finished ? 'Finished' : 'Not finished' }}&lt;/a&gt;
+
+                &lt;form action=&quot;{{ url('task/delete') }}&quot; method=&quot;POST&quot; style=&quot;display:inline;&quot;&gt;
+                    @csrf
+                    &lt;input type=&quot;hidden&quot; name=&quot;id&quot; value=&quot;{{ $task-&gt;id }}&quot;&gt;
+                    &lt;input type=&quot;submit&quot; name=&quot;delete&quot; id=&quot;delete&quot; value=&quot;Delete&quot;&gt;
+                &lt;/form&gt;
+            &lt;/li&gt;
+        @endforeach
+    &lt;/ul&gt;     
+
+    &lt;form action=&quot;{{ url('task/create') }}&quot; method=&quot;POST&quot;&gt;
+        @csrf
+        &lt;label for=&quot;subject&quot;&gt;Task Subject:&lt;/label&gt;
+        &lt;input type=&quot;text&quot; name=&quot;subject&quot; id=&quot;subject&quot; placeholder=&quot;Task subject&quot; /&gt;
+        &lt;br&gt;
+        &lt;label for=&quot;description&quot;&gt;Task Description:&lt;/label&gt;
+        &lt;textarea cols=&quot;50&quot; rows=&quot;5&quot; name=&quot;description&quot; id=&quot;description&quot; placeholder=&quot;Task description&quot;&gt;&lt;/textarea&gt;
+        &lt;br&gt;
+        &lt;label for=&quot;finished&quot;&gt;Status:&lt;/label&gt;&lt;br&gt;
+        &lt;div class=&quot;status-container&quot;&gt;
+            &lt;input type=&quot;radio&quot; value=&quot;Open&quot; name=&quot;finished&quot; id=&quot;finishedOpen&quot; checked&gt; 
+            &lt;label for=&quot;finishedOpen&quot;&gt;Open&lt;/label&gt;&lt;br&gt;
+            &lt;input type=&quot;radio&quot; value=&quot;Closed&quot; name=&quot;finished&quot; id=&quot;finishedClosed&quot;&gt; 
+            &lt;label for=&quot;finishedClosed&quot;&gt;Closed&lt;/label&gt;&lt;br&gt;
+        &lt;/div&gt;                
+        &lt;br&gt;
+        &lt;input type=&quot;submit&quot; name=&quot;create&quot; value=&quot;Create&quot;&gt;
+    &lt;/form&gt;
+&lt;/div&gt;   
+</div></code></pre>
+<ul>
+<li>View (Task seleccionada):</li>
+</ul>
+<pre class="hljs"><code><div>&lt;div class=&quot;main-container&quot;&gt;
+    &lt;h2&gt;TASK TO UPDATE&lt;/h2&gt;
+    &lt;form action=&quot;{{ url('task/update')}}&quot; method=&quot;POST&quot; id=&quot;formTasks&quot;&gt;
+        @csrf
+        &lt;label for=&quot;subject&quot;&gt;Task ID: {{$auxTask-&gt;id}}&lt;/label&gt;
+        &lt;br&gt;
+        &lt;input type=&quot;hidden&quot; name=&quot;id&quot; value=&quot;{{ $auxTask-&gt;id }}&quot;&gt;
+        &lt;input type=&quot;text&quot; name=&quot;subject&quot; id=&quot;subject&quot; placeholder=&quot;Task subject&quot; value=&quot;{{$auxTask-&gt;subject}}&quot; /&gt;
+        &lt;textarea cols=&quot;200&quot; rows=&quot;5&quot; name=&quot;description&quot; placeholder=&quot;Task description&quot; id=&quot;description&quot;&gt;{{$auxTask-&gt;description}}&lt;/textarea&gt;
+    
+        &lt;label for=&quot;finished&quot;&gt;Status:&lt;/label&gt;&lt;br&gt;
+        &lt;div class=&quot;status-container&quot;&gt;
+            @if ($auxTask-&gt;finished)
+                &lt;input type=&quot;radio&quot; value=&quot;Open&quot; name=&quot;finished&quot; id=&quot;finishedOpen&quot;&gt; 
+                &lt;label for=&quot;finishedOpen&quot;&gt;Open&lt;/label&gt;
+                &lt;input type=&quot;radio&quot; value=&quot;Closed&quot; name=&quot;finished&quot; id=&quot;finishedClosed&quot; checked&gt; 
+                &lt;label for=&quot;finishedClosed&quot;&gt;Close&lt;/label&gt;
+            @else
+                &lt;input type=&quot;radio&quot; value=&quot;Open&quot; name=&quot;finished&quot; id=&quot;finishedOpen&quot; checked&gt; 
+                &lt;label for=&quot;finishedOpen&quot;&gt;Open&lt;/label&gt;
+                &lt;input type=&quot;radio&quot; value=&quot;Closed&quot; name=&quot;finished&quot; id=&quot;finishedClosed&quot;&gt; 
+                &lt;label for=&quot;finishedClosed&quot;&gt;Close&lt;/label&gt;
+            @endif
+        &lt;/div&gt;
+    
+        &lt;input type=&quot;submit&quot; name=&quot;submit&quot; id=&quot;submit&quot; value=&quot;Update&quot;&gt;
+    &lt;/form&gt;
+&lt;/div&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/tdf-1.png"/>
+<img src="./img/tdf-2.png"/>
+<img src="./img/tdf-3.png"/>
+<img src="./img/tdf-4.png"/>
+<img src="./img/tdf-5.png"/>
+</div>
+</br>
+<h4 id="blackjack">BlackJack</h4>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>/**
+ * Login
+ */
+Route::get('/', function (){
+    return view('login');
+});
+
+Route::post('/login', [LoginController::class, 'createUser']);
+
+
+/**
+ * Game
+ */
+
+Route::get('/blackjack', function () {
+    return view('blackjack');
+});
+
+Route::post('/start-game', [GameController::class, 'startGame']);
+
+Route::post('/player-action', [GameController::class, 'getActions']);
+</div></code></pre>
+<p>Las clases del modelo son las siguientes:</p>
+<ul>
+<li>Card:</li>
+</ul>
+<pre class="hljs"><code><div>
+    /**
+    * @var string type of card (hearts, )
+    */
+    public $suit;
+
+    /**
+    * @var string
+    */
+    public $rank;
+
+    /**
+    * @var int
+    */
+    public $value;
+
+
+    /**
+    * Constructor of the class
+    */
+    public function __construct(string $suit, string $rank, int $value){
+        $this-&gt;suit = $suit;
+        $this-&gt;rank = $rank;
+        $this-&gt;value = $value;
+    }
+
+    // getters and setters
+</div></code></pre>
+<ul>
+<li>DeckCards:</li>
+</ul>
+<pre class="hljs"><code><div>
+ /**
+     * @var array
+     */
+    public $deckCards = [];
+
+    public $currentIndexDeck = 0;
+
+    public function __construct(){
+        $this-&gt;deckCards = $this-&gt;initializeDeck();
+        shuffle($this-&gt;deckCards);
+    }
+
+    /**
+     * Function to create the deck cards
+     */
+    public function initializeDeck() {
+        $suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
+        $ranks = [
+            '2' =&gt; 2, '3' =&gt; 3, '4' =&gt; 4, '5' =&gt; 5, '6' =&gt; 6, '7' =&gt; 7, '8' =&gt; 8, '9' =&gt; 9, '10' =&gt; 10,
+            'J' =&gt; 10, 'Q' =&gt; 10, 'K' =&gt; 10, 'A' =&gt; 11
+        ];
+
+        foreach ($suits as $suit) {
+            foreach ($ranks as $rank =&gt; $value) {
+                $this-&gt;deckCards[] = new Card($suit, $rank, $value);
+            }
+        }
+        return $this-&gt;deckCards;
+    }
+
+    /**
+     * Function to draw a card from the deck and remove it from it
+     */
+    public function drawCard(){
+        if ($this-&gt;currentIndexDeck &gt;= count($this-&gt;deckCards)){
+            return null;
+        }
+
+        $cardSelected = $this-&gt;deckCards[$this-&gt;currentIndexDeck];
+        $this-&gt;currentIndexDeck++;
+        return $cardSelected;
+    }
+
+    // getters and setters
+</div></code></pre>
+<ul>
+<li>Game:</li>
+</ul>
+<pre class="hljs"><code><div>    /**
+     * @var DeckCards
+     */
+    public $deck;
+    /**
+     * @var Player
+     */
+    public $playerGame;
+
+    /**
+     * @var Player
+     */
+
+     public $dealer;
+
+    const BLACKJACK = 21;
+    const DEALER_STAND = 17;
+    const HIT = 'hit';
+    const STAND = 'stand';
+
+
+    public function __construct($playerGame){
+        $this-&gt;deck = new DeckCards();
+        $this-&gt;dealer = new Player(&quot;Dealer&quot;);
+        $this-&gt;playerGame = $playerGame;
+    }
+
+    public function initialDeal() {
+        for ($i = 0; $i &lt; 2; $i++) {
+            $this-&gt;playerGame-&gt;addCard($this-&gt;deck-&gt;drawCard());
+            $this-&gt;dealer-&gt;addCard($this-&gt;deck-&gt;drawCard());
+        }
+    }
+
+
+    public function getActions($playerAction){
+        if($playerAction == self::HIT){
+            $card = $this-&gt;deck-&gt;drawCard();
+            $this-&gt;playerGame-&gt;addCard($card);
+
+            if($this-&gt;playerGame-&gt;getScore() &gt; self::BLACKJACK){
+                return $this-&gt;checkGameOver();
+            }
+
+        } elseif($playerAction == self::STAND){
+            $this-&gt;playerGame-&gt;setIsStand(true);
+        }
+
+        $dealerAction = $this-&gt;dealerActions();
+
+        if($dealerAction == self::HIT){
+            $card = $this-&gt;deck-&gt;drawCard();
+            $this-&gt;dealer-&gt;addCard($card);
+
+        } elseif($dealerAction == self::STAND){
+            $this-&gt;dealer-&gt;setIsStand(true);
+            //dd($dealerAction);
+        }
+
+        if ($this-&gt;playerGame-&gt;getIsStand() &amp;&amp; $this-&gt;dealer-&gt;getIsStand()) {
+            return $this-&gt;checkGameOver();
+        }
+    }
+
+
+    public function dealerActions(){
+        $score = $this-&gt;dealer-&gt;getScore();
+
+        if($score &lt; 11){
+            return self::HIT;
+        }
+
+        if($score &gt;= 11 &amp;&amp; $score &lt;= self::DEALER_STAND){
+            $probability = rand(1, 100);
+            if($probability &gt;= 70){
+                return self::HIT;
+            } else {
+                return self::STAND;
+            }
+        }
+
+        if($score == self::BLACKJACK){
+            return self::STAND;
+        }
+
+        return self::STAND;
+    }
+
+
+
+    public function checkGameOver() {
+        $playerScore = $this-&gt;playerGame-&gt;getScore();
+        $dealerScore = $this-&gt;dealer-&gt;getScore();
+        if ($playerScore &gt; self::BLACKJACK) {
+            $this-&gt;endGame();
+            return false;
+        }
+
+        if ($dealerScore &gt; self::BLACKJACK) {
+            $this-&gt;endGame();
+            return true;
+        }
+
+        if ($playerScore &gt; $dealerScore) {
+            $this-&gt;endGame();
+            return true;
+        } else {
+            $this-&gt;endGame();
+            return false;
+        }
+    }
+
+
+
+    public function endGame(){
+        $this-&gt;playerGame-&gt;setIsStand(false);
+        $this-&gt;dealer-&gt;setIsStand(false);
+
+        $this-&gt;deck = new DeckCards();
+    }
+
+    // getters and setters
+</div></code></pre>
+<ul>
+<li>Player:</li>
+</ul>
+<pre class="hljs"><code><div>    /**
+     * @var string name of the player
+     */
+    public $playerName;
+    /**
+     * @var array of cards in the player's hand
+     */
+    public $hand;
+    /**
+     * @var int number of points of the player
+     */
+    public $score;
+
+    /**
+     * @var bool
+     */
+    public $isStand;
+
+
+    const BLACKJACK = 21;
+    const ACE_VALUE = 10;
+
+    /**
+     * Constructor of the class
+     */
+    public function __construct($playerName=&quot;&quot;) {
+        $this-&gt;playerName = $playerName;
+        $this-&gt;hand = [];
+        $this-&gt;score = 0;
+        $this-&gt;isStand = false;
+    }
+
+
+    /**
+     * Add a card to the player's hand
+     * @param  Card  $card  the card to be added
+     **/
+
+    public function addCard(Card $card) {
+         $this-&gt;hand[] = $card;
+         $this-&gt;score = $this-&gt;calculateScore();
+
+    }
+
+    /**
+     * Function to calculate the score of the player
+     */
+
+    public function calculateScore() {
+        $aceCounter = 0;
+        $this-&gt;score = 0;
+
+        foreach ($this-&gt;hand as $card) {
+            $this-&gt;score += $card-&gt;getValue();
+            if ($card-&gt;getRank() == 'A') {
+                $aceCounter++;
+            }
+        }
+
+        while($aceCounter &gt; 0 &amp;&amp; $this-&gt;score &gt; self::BLACKJACK){
+            $this-&gt;score = $this-&gt;score - self::ACE_VALUE;
+            $aceCounter--;
+        }
+
+        return $this-&gt;score;
+    }
+
+    // getters and setters
+</div></code></pre>
+<ul>
+<li>UserModel:</li>
+</ul>
+<pre class="hljs"><code><div>    /**
+     * @var int
+     */
+    public $id;
+
+    /**
+     * @var string
+     */
+    public $username;
+
+
+    public function __construct (int $id=0, string $username=&quot;&quot;){
+        $this-&gt;id=$id;
+        $this-&gt;username=$username;
+    }
+
+    // getters and setters
+</div></code></pre>
+<ul>
+<li>LoginController:</li>
+</ul>
+<pre class="hljs"><code><div>       public function createUser(Request $request){
+
+        $filePath = storage_path('app/users.csv');
+        $username = $request-&gt;input('username');
+
+        $userExists = $this-&gt;getUserIfExists($username, $filePath);
+
+        if($userExists !== null){
+            session(['user' =&gt; $userExists]);
+
+            if (session('player') === null) {
+                session(['player' =&gt; new Player($username)]);
+            }
+
+            return redirect('/blackjack');
+        }
+
+        $id = $this-&gt;createId($filePath);
+
+        $newUser = new UserModel();
+        $newUser-&gt;setId($id);
+        $newUser-&gt;setUsername($username);
+
+        session(['user' =&gt; $newUser]);
+        session(['player' =&gt; new Player($username)]);
+
+        $open = fopen($filePath, 'a');
+        if($open){
+            fputcsv($open, [
+                        $newUser-&gt;getId(),
+                        $newUser-&gt;getUsername()
+                    ]);
+            fclose($open);
+        }
+
+        return redirect('/blackjack');
+    }
+
+
+
+   public function createId($filePath){
+    if(file_exists($filePath)){
+        $open = fopen($filePath, 'r');
+        $id = 1;
+        while (($data = fgetcsv($open, 1000, ','))!== false) {
+            if(isset($data[0])){
+                $actualId = (int)$data[0];
+            }
+            $id = max($id, $actualId);
+        }
+        fclose($open);
+        return $id+1;
+    }
+    return 1;
+   }
+
+   public function getUserIfExists($username, $filePath){
+        if(!file_exists($filePath)){
+            return redirect('/');
+        }
+
+        $auxUser = null;
+
+        if (($open = fopen($filePath, 'r')) !== false) {
+            while (($data = fgetcsv($open, 1000, ',')) !== false) {
+                if (isset($data[1]) &amp;&amp; $data[1] == $username) {
+                    $auxUser = new UserModel();
+                    $auxUser-&gt;setId($data[0]);
+                    $auxUser-&gt;setUsername($data[1]);
+                    fclose($open);
+                    return $auxUser;
+                }
+            }
+        }
+
+        return null;
+
+    }
+</div></code></pre>
+<ul>
+<li>GameController:</li>
+</ul>
+<pre class="hljs"><code><div>
+    public  $game;
+
+    // route /player-action
+    public function getActions(Request $request){
+       $game = session('game');
+       $player = new Player();
+       if (!$game) {
+            $playerName = $request-&gt;input('playerName');
+            $player-&gt;setPlayerName($playerName);
+            $game = new Game($player);
+            session(['game' =&gt; $game]);
+        } else {
+            $player = $game-&gt;getPlayerGame();
+        }
+
+        $action = $request-&gt;input('action');
+        $result = $game-&gt;getActions($action);
+        $dealer = $game-&gt;getDealer();
+
+            if ($result === true){
+                $message = $player-&gt;getPlayerName() . &quot; wins!&quot;;
+                session(['firstTry' =&gt; true]);
+            } elseif ($result === false){
+                $message = $dealer-&gt;getPlayerName() . &quot; wins!&quot;;
+                session(['firstTry' =&gt; true]);
+            } else {
+                $message = &quot;&quot;;
+                session(['firstTry' =&gt; false]);
+            }
+
+            session(['message' =&gt; $message]);
+
+
+        $dealer = $game-&gt;getDealer();
+
+        session(['game' =&gt; $game]);
+        session(['player' =&gt; $player]);
+        session(['dealer' =&gt; $dealer]);
+
+        return redirect('/blackjack');
+    }
+
+    // route /start-game
+    public function startGame(Request $request) {
+        $playerName = $request-&gt;input('playerName');
+        $player = new Player();
+        $player-&gt;setPlayerName($playerName);
+        $game = new Game($player);
+        $dealer = $game-&gt;getDealer();
+        $message = &quot;&quot;;
+        $game-&gt;initialDeal();
+        $firstTry = false;
+
+        session(['game' =&gt; $game]);
+        session(['player' =&gt; $player]);
+        session(['dealer' =&gt; $dealer]);
+        session(['message' =&gt; $message]);
+        session(['firstTry' =&gt; $firstTry]);
+
+
+        return redirect('/blackjack');
+    }
+</div></code></pre>
+<ul>
+<li>View (login):</li>
+</ul>
+<pre class="hljs"><code><div>&lt;div class=&quot;main-container&quot;&gt;
+    &lt;form action=&quot;{{ url('/login')}}&quot; method=&quot;POST&quot;&gt;
+            @csrf
+            &lt;label for=&quot;username&quot;&gt;Username&lt;/label&gt;
+            &lt;input type=&quot;text&quot; name=&quot;username&quot; id=&quot;username&quot; placeholder=&quot;Enter your username&quot; /&gt;
+            &lt;br&gt;
+            &lt;input type=&quot;submit&quot; name=&quot;login&quot; value=&quot;Login&quot;&gt;
+    &lt;/form&gt;
+&lt;/div&gt;
+</div></code></pre>
+<ul>
+<li>View (juego):</li>
+</ul>
+<pre class="hljs"><code><div>    @php
+        $user = session('user');
+        $username = $user ? $user-&gt;getUsername(): 'Anonymous';
+
+        $player = session('player');
+        $playerName = $username;
+        $hand = $player ? $player-&gt;getHand() : [];
+        $score = $player ? $player-&gt;getScore() : 0;
+        $isStand = $player ? $player-&gt;getIsStand() : false;
+
+        $dealer = session('dealer');
+        $dealerHand = $dealer ? $dealer-&gt;getHand() : [];
+        $dealerScore = $dealer ? $dealer-&gt;getScore() : 0;
+        $dealerIsStand = $dealer ? $dealer-&gt;getIsStand() : false;
+
+        $firstTry = session('firstTry', false);
+    @endphp
+
+    &lt;div class=&quot;main-container&quot;&gt;
+    &lt;div class=&quot;player-name&quot;&gt;
+        &lt;p&gt;Player: {{$playerName}}&lt;/p&gt;
+    &lt;/div&gt;
+
+    @if($firstTry)
+        &lt;div class=&quot;action-container&quot;&gt;
+            &lt;form action=&quot;{{ url('start-game') }}&quot; method=&quot;POST&quot;&gt;
+                @csrf
+                &lt;input type=&quot;hidden&quot; id=&quot;playerName&quot; name=&quot;playerName&quot; value=&quot;{{ $playerName }}&quot;&gt;&lt;/input&gt;
+                &lt;input type=&quot;submit&quot; id=&quot;startBtn&quot; value=&quot;Start Game&quot;&gt;
+            &lt;/form&gt;
+        &lt;/div&gt;
+    @endif
+
+    &lt;br&gt;&lt;/br&gt;
+    &lt;div class=&quot;result&quot;&gt;
+        @if(session('message'))
+            &lt;div class=&quot;message&quot;&gt;
+                &lt;b&gt;{{ session('message') }}&lt;/b&gt;
+            &lt;/div&gt;
+            &lt;p&gt;Your score: {{ $score }}&lt;/p&gt;
+            &lt;p&gt;Dealer's score: {{ $dealerScore }}&lt;/p&gt;
+        @endif
+    &lt;/div&gt;
+
+    &lt;div class=&quot;players-container&quot;&gt;
+        &lt;p&gt;Your hand:&lt;/p&gt;
+        &lt;ul&gt;
+            @foreach ($hand as $index =&gt; $card)
+                &lt;li&gt;{{ $card-&gt;getRank() }} of {{ $card-&gt;getSuit() }}&lt;/li&gt;
+            @endforeach
+        &lt;/ul&gt;
+
+
+        @if (session('dealer') !== null)
+            &lt;p&gt;Dealer's hand:&lt;/p&gt;
+            &lt;ul&gt;
+                @foreach ($dealerHand as $index =&gt; $card)
+                    @if($index != 0 &amp;&amp; !$dealerIsStand)
+                        &lt;li&gt;??&lt;/li&gt;
+                    @else
+                        &lt;li&gt;{{ $card-&gt;getRank() }} of {{ $card-&gt;getSuit() }}&lt;/li&gt;
+                    @endif
+                @endforeach
+            &lt;/ul&gt;
+        @endif
+
+        &lt;div class=&quot;action-container&quot;&gt;
+            &lt;form action=&quot;{{ url('player-action') }}&quot; method=&quot;POST&quot;&gt;
+                @csrf
+                &lt;input type=&quot;hidden&quot; id=&quot;playerName&quot; name=&quot;playerName&quot; value=&quot;{{ $playerName }}&quot;&gt;&lt;/input&gt;
+                &lt;input type=&quot;submit&quot; name=&quot;action&quot; value=&quot;hit&quot;
+                    @if($player-&gt;getIsStand())
+                        disabled
+                    @endif
+                &gt;&lt;/input&gt;
+                &lt;input type=&quot;submit&quot; name=&quot;action&quot; value=&quot;stand&quot;&gt;&lt;/input&gt;
+            &lt;/form&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</div></code></pre>
+<ul>
+<li>Capturas:</li>
+</ul>
+<div align="center">
+<img src="./img/bljk-1.png"/>
+<img src="./img/bljk-2.png"/>
+<img src="./img/bljk-3.png"/>
+<img src="./img/bljk-4.png"/>
+<img src="./img/bljk-5.png"/>
+</div>
+</br>
+</div>
+</body>
+</html>

@@ -87,8 +87,8 @@ class TextEditorController extends Controller
             Storage::put($directory ."/". $filenameToCreate, $content);
         } else {
             $directory = $filename;
-            date_default_timezone_set('Atlantic/Canary');
-            $filenameToCreate = date('Y-m-d_H-i-s').'_'.$username . ".txt";
+            //date_default_timezone_set('Atlantic/Canary');
+            //$filenameToCreate = date('Y-m-d_H-i-s').'_'.$username . ".txt";
             Storage::put("/public/". $directory . "/" . $filenameToCreate, $content);
         }
 
@@ -161,7 +161,7 @@ class TextEditorController extends Controller
         $usernameSession = $userSession->getUsername();
 
         $filename = $request->input('filename');
-        $fileTypeArr = explode('/', $filename);
+        //$fileTypeArr = explode('/', $filename);
 
         $content = $request->input('content');
 

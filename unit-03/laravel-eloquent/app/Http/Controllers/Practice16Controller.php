@@ -3,15 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Models\Historico;
-use Illuminate\Http\Request;
+use App\Models\Moneda;
 
-class Practice16Controller extends Controller
-{
+
+class Practice16Controller extends Controller{
     public function createHistoric(){
-        $historicoNuevo = new Historico();
-        $historicoNuevo->fecha = '2021-12-31';
-        $historicoNuevo->equivalenteeuro = 0.89;
+        $dolar = Moneda::find(1);    
+        $newDate = date('Y-m-d', strtotime('+2 days'));
+
+
+        $historicDolar1 = Historico::where('id', 1)->take(1)
+        ->first();
+
+        $newValue = $historicDolar1->equivalenteeuro;
+        $newValue -= 0.02;
         
-        //$dolar1->historicos()->save($historicoNuevo);
+
+
+        $newHistoric = new Historico();
+        $newHistoric->fecha = $newDate;
+        $newHistoric->equivalenteeuro = $newValue;
+
+        $dolar->historicos()->save($newHistoric);
+
+
+        $historic = Historico::where('id', 4)->get();
+
+        return view('Practice16', compact('historic'));
     }
 }

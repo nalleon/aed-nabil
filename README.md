@@ -19,4 +19,13 @@ Repository for the data access module.
 - [Class Exercises](./class-exercise/)
 - [Exam Activities](./exam-activities/)
 
+
+
+## Change-log commands
+
+```
+npm install -g conventional-changelog-cli
+conventional-changelog -p angular -i CHANGELOG.MD -s
+```
+
 </div>

@@ -9,10 +9,10 @@ use Exception;
 class UserMapper {
 
     private const sizeUTF8 = 4;
-    
-    private const sizeName = 30 * self::sizeUTF8; 
-    private const sizePassword = 30 * self::sizeUTF8; 
-    private const sizeRol = 20 * self::sizeUTF8; 
+
+    private const sizeName = 30 * self::sizeUTF8;
+    private const sizePassword = 30 * self::sizeUTF8;
+    private const sizeRol = 20 * self::sizeUTF8;
     private const sizeId = 4;
 
     private const bytesName = self::sizeName * self::sizeUTF8;
@@ -20,7 +20,7 @@ class UserMapper {
     private const bytesRol = self::sizeRol * self::sizeUTF8;
 
 
-    
+
     /**
      * Function to get the size of the register
      */
@@ -63,7 +63,6 @@ class UserMapper {
             $password,
             $rol
         );
-
         return $registro;
     }
 
@@ -72,8 +71,8 @@ class UserMapper {
      */
     public function toUser($binary) {
         try {
-            $datos = unpack('iid/a' . self::bytesName . 
-            'name/a' . self::bytesPassword . 'password/a' . self::bytesRol . 
+            $datos = unpack('iid/a' . self::bytesName .
+            'name/a' . self::bytesPassword . 'password/a' . self::bytesRol .
             'rol', $binary);
         } catch (Exception $e) {
             return null;

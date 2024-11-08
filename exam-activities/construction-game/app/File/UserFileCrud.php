@@ -18,7 +18,6 @@ class UserFileCrud implements ICrud {
         $this->userMapper = new UserMapper();
     }
 
-    
     /**
      * Function to delete a user
      */
@@ -65,12 +64,10 @@ class UserFileCrud implements ICrud {
                 break;
             }
         }
-
         fclose($file);
-
         return $updated;
     }
-    
+
 
     /**
      * Function to find by id an user
@@ -92,7 +89,7 @@ class UserFileCrud implements ICrud {
         return null;
     }
 
-    
+
     /**
      * Function to find the user by username
      */
@@ -115,7 +112,7 @@ class UserFileCrud implements ICrud {
     }
 
     /**
-     * Function to find all users 
+     * Function to find all users
      */
     public function findAll(): array{
         $usersFile = [];
@@ -125,7 +122,7 @@ class UserFileCrud implements ICrud {
             $registerBinary = fread($file, $this->userMapper->getSizeRegister());
 
             $user = $this->userMapper->toUser($registerBinary);
-            if ($user) { 
+            if ($user) {
                 $usersFile[] = $user;
             }
         }
@@ -133,13 +130,13 @@ class UserFileCrud implements ICrud {
         fclose($file);
         return $usersFile;
     }
-        
+
     /**
      * Function to add an user
      */
     public function save($p): object | null {
         $p->setId($this->createId());
-        
+
         $registerBinary = $this->userMapper->toRegister($p);
         file_put_contents(self::FILE_PATH, $registerBinary, FILE_APPEND);
 
@@ -151,14 +148,14 @@ class UserFileCrud implements ICrud {
      * Function to generate an id for a user
      */
     public function createId(): int {
-        $id = 1; 
-        
+        $id = 1;
+
         if (file_exists(self::FILE_PATH)) {
             $file = fopen(self::FILE_PATH, 'rb');
-           
+
             while (!feof($file)) {
                 $registerBinary = fread($file, $this->userMapper->getSizeRegister());
-              
+
                 $user = $this->userMapper->toUser($registerBinary);
 
                 if ($user && $user->getId()) {
@@ -168,7 +165,6 @@ class UserFileCrud implements ICrud {
 
             fclose($file);
         }
-        
         return $id;
     }
 

@@ -46,7 +46,7 @@ class RegisterController extends Controller{
         }
 
         $this->userRepository->save($user);
-      
+    
         return redirect()->route('login')->with('message',
         'Successfully registered. Log in to your account');
     }
@@ -65,6 +65,6 @@ class RegisterController extends Controller{
 
         return true;
     }
-    
+
 
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Practice09Controller;
 use App\Http\Controllers\Practice11Controller;
 use App\Http\Controllers\Practice12Controller;
 use App\Http\Controllers\Practice14Controller;
+use App\Http\Controllers\Practice15Controller;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,3 +29,4 @@ Route::get('/practice11',[Practice11Controller::class, 'find1DAM']);
 Route::get('/practice12',[Practice12Controller::class, 'create']);
 Route::get('/practice13',[Practice12Controller::class, 'modify']);
 Route::get('/practice14',[Practice14Controller::class, 'createHistoric' ]);
+Route::get('/practice15',[Practice15Controller::class, 'createHistoric15']);

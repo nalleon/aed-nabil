@@ -27,7 +27,6 @@ Repository for the data access module.
   - [Construction Game](./exam-activities/construction-game/)
 
 
-
 ## Change-log commands
 
 ```

@@ -117,5 +117,63 @@ un objeto. Devulve null si el parámetro que se le pasa no es un objeto
 
 ### Laravel
 
+1. El archivo web.php contiene rutas que RouteServiceProvider coloca en el grupo de
+middlewareweb, que proporciona estado de sesión, protección CSRF y encriptación de cookies
+
+2. El directorio storage/app/public puede ser usado para almacenar archivos generados por el
+usario,tales como imagenes de perfil, que deberían ser accesibles públicamente. Debes crear un enlacesimbólico en public/storage que apunte a este directorio. Puedes crear el enlace usando el comando php artisan storage:link.
+
+3. web.php le indica a laravel que se debe hacer con cada solicitud que realiza el usuario
+
+4. Route::any() esto significa que cualquier petición que se haga a: /pruebita se resuelve con esta ruta indistintamente del tipo de petición HTTP que sea
+
+5. Coincide la ruta del namespace con la ruta de la carpeta. Esto es una buena política: se recomienda estructurar los namespace por la ubicación en carpetas
+
+6. Nosotros le pasamos el nombre de las variables y compact nos construye un array
+clave/valor donde la clave es el nombre de la variable y el valor aquello que contenga la variables
+
+7. ¿Qué es un helper para Laravel?: Una función global que tenemos disponible en cualquier parte de la aplicación
+
+8. **session():**
+- Saber si existe un elemento en la sesión:
+    > session()->has('usuario');//devuelve true si está presente y no es nulo
+
+- Guardar en la sesión ( se puede hacer mediante Request o el helper session ):
+    > $request->session->put('key' , 'value');
+    session(['key' => 'value']); //también vale: session()->put(‘key’,’value’)
+
+- Tomar todos los datos de la sesión:
+    > $data = session()->all()
+
+- Borrar un elemento de la sesión:
+    > session()->forget('orderId');
+
+- Y si queremos obtener el dato y borrarlo a la vez del array de session:
+    > $value = $request->session()->pull('key', 'default')
+
+- Borrar todos los elementos de la sesión
+    > $request->session()->flush()
+
+- Y si queremos borrar todos los datos de la sesión y tener un nuevo identificador de sesión:
+    >$request->session()->flush();
+    $request→session()→regenerate();
+
+- Si queremos borrar la información de usuario de la sesión
+    > auth()→logout();
+
+9. Cuando generemos un formulario, se debe incluir un campo: @csrf para que el middleware
+valide el token
+
+10. Los Middleware proveen un mecanismo eficiente para el filtro de peticiones HTTP que
+ingresen a tu aplicación. Es un puente entre la solicitud y la respuesta que ejecuta un filtrado
+
+11. Una forma fácil de visualizar el token csrf es mediante: {{ csrf_token() }}
+
+12. Es importante que especifiquemos enctype para que podamos subir el fichero. Pondremos
+enctype='multipart/form-data' habitualmente cuando queramos subir fichero
+
+13. response()->download() para ejecutar la
+descarga. Ese método es el que hará la descarga del fichero que le indiquemos.
+
 
 </div>

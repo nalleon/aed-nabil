@@ -100,10 +100,10 @@ class FigureBoardDAO implements ICrud{
             return false;
         }
 
-        $sql = "UPDATE $tablename ".
-               " SET $colFigureId = :figureId, " .
-               " $colPosition = :position " .
-               " WHERE $colid = :id AND $colBoardId = :boardId" ;
+        $sql =  "UPDATE $tablename ".
+                " SET $colFigureId = :figureId, " .
+                " $colPosition = :position " .
+                " WHERE $colid = :id AND $colBoardId = :boardId" ;
 
         try {
             $myPDO->beginTransaction();
@@ -229,7 +229,6 @@ class FigureBoardDAO implements ICrud{
             }
 
         } catch (Exception $ex) {
-            echo "Error: " . $ex->getMessage();
             $myPDO->rollBack();
             return null;
         }
@@ -281,8 +280,6 @@ class FigureBoardDAO implements ICrud{
 
         $colBoardId = FigureBoardContract::COL_BOARD_ID;
 
-        $figures = [];
-
         $sql = "SELECT f.* FROM $tablenameFigure AS f
                 INNER JOIN $tablenameFigureBoard AS fb
                 ON f.$colFigureIdFromFigure = fb.$colFigureIdFromFigureBoard
@@ -291,17 +288,16 @@ class FigureBoardDAO implements ICrud{
         $stmt = $myPDO->prepare($sql);
         $stmt->execute([':boardId' => $boardId]);
         $row = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
+        
         $figures = [];
+
         while ($row = $stmt->fetch()) {
             $p = new Figure();
             $p->setId($row[FigureContract::COL_ID]);
             $p->setImage($row[FigureContract::COL_IMG]);
             $p->setTypeImage($row[FigureContract::COL_TYPE]);
-
             $figures[] = $p;
         }
-
         return $figures;
     }
 

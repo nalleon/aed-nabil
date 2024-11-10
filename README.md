@@ -12,12 +12,19 @@ Repository for the data access module.
   - [RndNum Game](./unit-01/rndnum-game/)
 
 - [Unit 02](./unit-02/)
+  - [Laravel - Databases](./unit-02/laravel/laravel-bbdd/)
 
 - [Unit 03](./unit-03/)
   - [Dossier - Eloquent](./unit-03/dossier-eloquent/)
   
 - [Class Exercises](./class-exercise/)
+  - [Forum](/class-exercise/forum/)
+  - [Proto-Soup letter](/class-exercise/proto-letter-soup/)
+  - [Blackjack](/class-exercise/blackjack)
+
 - [Exam Activities](./exam-activities/)
+  - [Text Editor](./exam-activities/text-editor/)
+  - [Construction Game](./exam-activities/construction-game/)
 
 
 

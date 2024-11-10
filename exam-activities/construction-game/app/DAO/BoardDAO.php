@@ -64,12 +64,12 @@ class BoardDAO implements ICrud{
         if (!($p->getId() > 0)) {
             return false;
         }
-        $sql = "UPDATE $tablename ".
-               " SET $colcontent = :content, " .
-               " $coldate = :dateBoard, " .
-               " $colname = :nameBoard, " .
-               " $coluser = :userid " .
-               " WHERE $colid = :id" ;
+        $sql =  "UPDATE $tablename ".
+                " SET $colcontent = :content, " .
+                " $coldate = :dateBoard, " .
+                " $colname = :nameBoard, " .
+                " $coluser = :userid " .
+                " WHERE $colid = :id" ;
 
 
         try {

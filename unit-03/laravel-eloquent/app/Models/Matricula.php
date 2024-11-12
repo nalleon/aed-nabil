@@ -13,19 +13,12 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Matricula extends Model {
     public $timestamps = false;
-    
+
     /**
      * @var array
      */
     protected $fillable = ['dni', 'year'];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function asignaturaMatriculas()
-    {
-        return $this->hasMany('App\Models\AsignaturaMatricula', 'idmatricula');
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -33,5 +26,12 @@ class Matricula extends Model {
     public function alumno()
     {
         return $this->belongsTo('App\Models\Alumno', 'dni', 'dni');
+    }
+
+    public function matriculas(){
+        return $this->belongsToMany('App\Models\Asignatura',
+                                    'asignatura_matricula',
+                                    'asignaturaid',
+                                    'matriculaid');
     }
 }

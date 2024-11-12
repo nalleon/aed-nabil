@@ -13,18 +13,18 @@ use Illuminate\Database\Eloquent\Model;
 class Asignatura extends Model
 {
     public $timestamps = false;
-    
+
     /**
      * @var array
      */
     protected $fillable = ['nombre', 'curso'];
 
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function asignaturaMatriculas()
-    {
-        return $this->hasMany('App\Models\AsignaturaMatricula', 'idasignatura');
+
+    public function matriculas(){
+        return $this->belongsToMany('App\Models\Matricula',
+                                    'asignatura_matricula',
+                                    'asignaturaid',
+                                    'matriculaid');
     }
 }

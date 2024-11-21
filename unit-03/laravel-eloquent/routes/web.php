@@ -10,6 +10,7 @@ use App\Http\Controllers\Practice14Controller;
 use App\Http\Controllers\Practice15Controller;
 use App\Http\Controllers\Practice16Controller;
 use App\Http\Controllers\Practice17Controller;
+use App\Http\Controllers\Practice18Controller;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,3 +36,4 @@ Route::get('/practice15',[Practice15Controller::class, 'createHistoric15']);
 Route::get('/practice16',[Practice16Controller::class, 'createHistoric']);
 Route::get('/practice17',[Practice17Controller::class, 'createCurrency']);
 Route::get('/practice17-modify',[Practice17Controller::class, 'updateCurrency']);
+Route::get('/practice18',[Practice18Controller::class, 'index']);

@@ -1,9 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Moneda;
-use Illuminate\Http\Request;
 
 class Practice17Controller extends Controller
 {
@@ -26,4 +24,6 @@ class Practice17Controller extends Controller
     
         return view('Practice17', compact('currency'));
     }
+
+    
 }

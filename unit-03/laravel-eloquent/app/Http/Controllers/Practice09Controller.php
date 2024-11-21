@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Matricula;
-use Illuminate\Http\Request;
 
 class Practice09Controller extends Controller{
     public function findByDate(){

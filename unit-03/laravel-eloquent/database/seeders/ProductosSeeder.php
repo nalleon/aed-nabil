@@ -2,11 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
 use Illuminate\Support\Facades\DB;
-use Ramsey\Uuid\Type\Decimal;
-use Illuminate\Support\Str;
 
 class ProductosSeeder extends DatabaseSeeder
 {
@@ -15,10 +12,13 @@ class ProductosSeeder extends DatabaseSeeder
      */
     public function run(): void
     {
+        $faker = Faker::create();
+
         DB::table('productos')->insert([
-            'name' => Str::random(10),
-            'price' => 1.2,
-            'quantity' => 1,
+            'name' => $faker->word, 
+            'price' => $faker->randomFloat(2, 1, 20), 
+            'quantity' => $faker->numberBetween(1, 100),
         ]);
-      }
+        
+    }
 }

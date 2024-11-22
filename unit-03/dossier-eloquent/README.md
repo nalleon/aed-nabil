@@ -38,7 +38,7 @@ nombre apellidos y edad )
 >
 
 
-```code
+```php
 <?php
 
 namespace App\Models;
@@ -101,7 +101,7 @@ guardaremos será el nombre apellidos y edad ) Comprobar mediante el addon sqlit
 ha creado en la database
 >
 
-```code
+```php
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -152,7 +152,7 @@ precios con decimales. Así como un campo cantidad que represente la cantidad de
 de la que disponemos
 >
 
-```code
+```php
 <?php
 
 namespace App\Models;
@@ -251,7 +251,7 @@ class Productos extends Model
 
 - Migracion:
 
-```code
+```php
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -301,7 +301,7 @@ y rellenar datos aleatorios en la tabla productos de la base de datos con ese si
 
 - Version 1:
 
-```code
+```php
 <?php
 
 namespace Database\Seeders;
@@ -355,13 +355,13 @@ que mostrará la información
 
 - web.php:
 
-```code
+```php
 Route::get('/practice06/{dni}',[Practice06Controller::class, 'searchByDNI']);
 ``` 
 
 - Controller:
 
-```code
+```php
  public function searchByDNI($dni){
         DB::connection()->enableQueryLog();
         $student = Alumno::find($dni)
@@ -386,7 +386,7 @@ la base de datos como sentencia. Toma captura de pantalla del dd() obtenido
 >
 
 
-```code
+```php
  public function searchByDNI($dni){
         DB::connection()->enableQueryLog();
         $student = Alumno::find($dni);
@@ -415,12 +415,12 @@ blade)
 
 - Routes:
 
-```code
+```php
 Route::get('/practice08/findAll',[Practice08Controller::class, 'findAll']);
 ```
 
 - Controller:
-```code
+```php
  public function findAll(){
         $students = Alumno::all();
         return view('Practice08', compact('students'));
@@ -444,13 +444,13 @@ obtener la consulta sql que ejecuta Eloquent en la base de datos
 
 - Routes:
 
-```code
+```php
 Route::get('/practice09',[Practice09Controller::class, 'findByDate']);
 ```
 
 - Controller:
 
-```code
+```php
     public function findByDate(){
         $data = Matricula::where('year', 2021)->get();
         return view('Practice09', compact('data'));
@@ -478,13 +478,13 @@ first es tomar un objeto y get era el conjunto de objetos
 
 - Routes:
 
-```code
+```php
 Route::get('/practice10',[Practice09Controller::class, 'find']);
 ```
 
 - Controller
 
-```code
+```php
     public function find(){
         $dataGet = Matricula::where('year', 2021)
                     ->orderBy('year','desc')
@@ -517,13 +517,13 @@ Route::get('/practice10',[Practice09Controller::class, 'find']);
 
 - Routes:
 
-```code
+```php
 Route::get('/practice11',[Practice11Controller::class, 'find1DAM']);
 ```
 
 - Controller
 
-```code
+```php
     public function find1DAM(){
         $data = Asignatura::where('curso', '1º DAM')->get();   
         return view('Practice11', compact('data'));
@@ -549,13 +549,13 @@ DB.
 
 - Routes:
 
-```code
+```php
 Route::get('/practice12',[Practice12Controller::class, 'create']);
 ```
 
 - Controller:
 
-```code
+```php
   public function create(){
         $asignatura = new Asignatura();
         $asignatura->nombre='ETS';
@@ -594,13 +594,13 @@ segundo
 
 - Routes:
 
-```code
+```php
 Route::get('/practice13',[Practice12Controller::class, 'modify']);
 ```
 
 - Controller:
 
-```code
+```php
     public function modify(){
         $asignatura2do = null;
         $asignatura2do = Asignatura::find(9); 
@@ -650,13 +650,13 @@ euro
 
 - Route:
 
-```code
+```php
 Route::get('/practice14',[Practice14Controller::class, 'createHistoric' ]);
 ```
 
 - Controller:
 
-```code
+```php
     public function createHistoric(){
         $moneda = new Moneda();
         $moneda->pais = "Estados Unidos";
@@ -695,13 +695,13 @@ tipo de cambio con el euro actual menos un céntimo, usando save() y associate()
 
 - Routes:
 
-```code
+```php
 Route::get('/practice15',[Practice15Controller::class, 'createHistoric15']);
 ```
 
 - Controller:
 
-```code
+```php
     public function createHistoric15(){
         $moneda = Moneda::find(1);
 
@@ -737,13 +737,13 @@ entidad Moneda ( siguiendo el ejemplo que acabamos de ver )
 
 - Routes:
 
-```code
+```php
 Route::get('/practice16',[Practice16Controller::class, 'createHistoric']);
 ```
 
 - Controller:
 
-```code
+```php
   public function createHistoric(){
         $dolar = Moneda::find(1);    
         $newDate = date('Y-m-d', strtotime('+2 days'));
@@ -789,14 +789,14 @@ pantalla solicitada
 
 - Routes:
 
-```code
+```php
 Route::get('/practice17',[Practice17Controller::class, 'createCurrency']);
 Route::get('/practice17-modify',[Practice17Controller::class, 'updateCurrency']);
 ```
 
 - Controller:
 
-```code
+```php
     public function createCurrency(){
         $currency = Moneda::create([
             'pais' => 'australia',
@@ -837,60 +837,33 @@ asignatura que personas ( su nombre y su dni ) se han matriculado
 
 - Routes:
 
-```code
+```php
 Route::get('/practice18',[Practice18Controller::class, 'index']);
-```
-
-- Migracion:
-
-```code
-<?php
-
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
-
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
-    {
-        Schema::create('asignatura_matricula', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('asignatura_id')->constrained();
-            $table->foreignId('matricula_id')->constrained();
-            $table->timestamps();
-        });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('asignatura_matricula');
-    }
-};
 ```
 
 - Controller:
 
-```code
+```php
+    public function index(){
+        $asignaturas = Asignatura::all();
 
+        foreach ($asignaturas as $asignatura) {
+            echo "Asignatura: " . $asignatura->nombre . "\n";
+            foreach ($asignatura->matriculas as $matricula) {
+                echo json_enphp( $matricula->alumno, JSON_UNESCAPED_UNIphp);
+            }
+        }
+        
+    }
 ```
 
-- View:
-
-```code
-
-```
 
 - Captura:
 
 <div align="center">
-<img src="./img/p18.png"/>
+<img src="./img/p18-1.png"/>
+<img src="./img/p18-2.png"/>
+
 </div>
 
 </br>
@@ -906,20 +879,60 @@ dos objetos
 
 - Routes:
 
-```code
-
+```php
+Route::get('/practice19',[Practice19Controller::class, 'index']);
+Route::get('/practice19/create',[Practice19Controller::class, 'createMoneda']);
 ```
 
 - Controller:
 
-```code
+```php
+    public function index(){
+        return view('Practice19');
+    }
+    public function createMoneda(Request $request){
+        DB::transaction(function () use ($request) : void{
+            $moneda = new Moneda();
+            $moneda->pais = $request->get('pais');
+            $moneda->nombre = $request->get('nombre');
+            $moneda->save();
 
+            $newHistoric = new Historico();
+            $newHistoric->moneda()->associate($moneda);
+            $newHistoric->fecha = $request->get('fecha');
+            $newHistoric->equivalenteeuro = $request->get('equivalenteeuro');
+            $newHistoric->save();
+
+            if(!is_numeric($request->get('equivalenteeuro'))){
+                DB::rollBack();
+            }
+        });
+    }
 ```
 
 - View:
 
-```code
-   
+```php
+   <form action="/practice19/create" method="POST">
+        @csrf
+        <label for="pais">País:</label>
+        <input type="text" id="pais" name="pais" required>
+        <br><br>
+
+        <label for="nombre">Nombre de la moneda:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <br><br>
+
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" name="fecha" required>
+        <br><br>
+
+        <label for="equivalenteeuro">Equivalente en Euro:</label>
+        <input type="text" id="equivalenteeuro" name="equivalenteeuro" required>
+        <br><br>
+
+        <button type="submit">Guardar</button>
+    </form>
 ```
 
 - Captura:
@@ -928,6 +941,7 @@ dos objetos
 <img src="./img/p19-1.png"/>
 <img src="./img/p19-2.png"/>
 <img src="./img/p19-3.png"/>
+<img src="./img/p19-4.png"/>
 </div>
 
 </br>
@@ -942,19 +956,19 @@ hora:minutos
 
 - Routes:
 
-```code
+```php
 
 ```
 
 - Controller:
 
-```code
+```php
 
 ```
 
 - View:
 
-```code
+```php
 
 </div>
 ```
@@ -976,19 +990,19 @@ hechas después de 2020
 
 - Routes:
 
-```code
+```php
 
 ```
 
 - Controller:
 
-```code
+```php
 
 ```
 
 - View:
 
-```code
+```php
 
 </div>
 ```
@@ -1013,19 +1027,19 @@ le asignamos PRO y LND
 
 - Routes:
 
-```code
+```php
 
 ```
 
 - Controller:
 
-```code
+```php
 
 ```
 
 - View:
 
-```code
+```php
 
 </div>
 ```
@@ -1048,19 +1062,19 @@ listado de alumnos y que no se pueda acceder salvo que se haya hecho login/regis
 
 - Routes:
 
-```code
+```php
 
 ```
 
 - Controller:
 
-```code
+```php
 
 ```
 
 - View:
 
-```code
+```php
 
 </div>
 ```
@@ -1084,19 +1098,19 @@ el otro no
 
 - Routes:
 
-```code
+```php
 
 ```
 
 - Controller:
 
-```code
+```php
 
 ```
 
 - View:
 
-```code
+```php
 
 </div>
 ```
@@ -1119,19 +1133,19 @@ el otro no
 
 - Routes:
 
-```code
+```php
 
 ```
 
 - Controller:
 
-```code
+```php
 
 ```
 
 - View:
 
-```code
+```php
 
 </div>
 ```

@@ -954,30 +954,19 @@ almacenado en base de datos a una fecha legible por ser humano. Formato: Año-me
 hora:minutos
 >
 
-- Routes:
+
+- Model:
 
 ```php
+protected $dates = ['fechanacimiento'];
+public function setFechaAttribute($dateValue) : void {
+    $this->attributes['fechanacimiento'] = (new Carbon($dateValue))->format('Y-m-d H:i');
+}
 
+public function getFechaAttribute($dateValue) : string {
+    return (new Carbon($dateValue))->format('Y-m-d H:i');
+}
 ```
-
-- Controller:
-
-```php
-
-```
-
-- View:
-
-```php
-
-</div>
-```
-
-- Captura:
-
-<div align="center">
-<img src="./img/p20-1.png"/>
-</div>
 
 </br>
 
@@ -991,26 +980,30 @@ hechas después de 2020
 - Routes:
 
 ```php
-
+Route::get('/practice21',[Practice21Controller::class, 'matriculas']);
 ```
 
 - Controller:
 
 ```php
-
+public function matriculas(){
+    $nombre = 'Ana';
+    $matriculas = Matricula::whereHas(
+        'alumno',
+        function ($query) use ($nombre) {
+            $query->where('nombre', $nombre)->where('year', '>', '2020');
+        }
+    );
+    
+    dd($matriculas->get());
+}
 ```
 
-- View:
-
-```php
-
-</div>
-```
 
 - Captura:
 
 <div align="center">
-<img src="./img/p20-1.png"/>
+<img src="./img/p21-1.png"/>
 </div>
 
 </br>
@@ -1028,26 +1021,46 @@ le asignamos PRO y LND
 - Routes:
 
 ```php
-
+Route::get('/practice211',[Practice21Controller::class, 'createAlumno']);
 ```
 
 - Controller:
 
 ```php
+public function createAlumno() {
+    DB::table('alumnos')->insert([
+        'dni' => '35792468Q',
+        'nombre' => 'Elvira',
+        'apellidos' => 'Lindo',
+        'fechanacimiento' => '821234400000'
+    ]);
 
+    DB::table('matriculas')->insert([
+        'dni' => '35792468Q',
+        'year' => '2024'
+    ]);
+
+    $matricula = DB::table('matriculas')->where('dni', '35792468Q')->first();
+
+    DB::table('asignatura_matricula')->insert([
+        'idasignatura' => 3,
+        'idmatricula' => $matricula->id
+    ]);
+
+    DB::table('asignatura_matricula')->insert([
+        'idasignatura' => 7,
+        'idmatricula' => $matricula->id
+    ]);
+}
 ```
 
-- View:
-
-```php
-
-</div>
-```
 
 - Captura:
 
 <div align="center">
-<img src="./img/p20-1.png"/>
+<img src="./img/p211-1.png"/>
+<img src="./img/p211-2.png"/>
+<img src="./img/p211-3.png"/>
 </div>
 
 </br>
@@ -1063,26 +1076,35 @@ listado de alumnos y que no se pueda acceder salvo que se haya hecho login/regis
 - Routes:
 
 ```php
-
+Route::get('/practice22',[Practice22Controller::class, 'showAlumnos'])->middleware('auth');
 ```
 
 - Controller:
 
 ```php
-
+public function showAlumnos() {
+    $alumnos = Alumno::all();
+    return view('Practice22', compact('alumnos'));
+}
 ```
 
 - View:
 
 ```php
-
-</div>
+    @auth
+        <div>
+            <p>Info: {{json_encode($alumnos, JSON_UNESCAPED_UNICODE)}}</p>
+        </div>
+    @endauth
 ```
+
+Al añadir el middleware auth de breeze automaticamente no podemos acceder sin estar loggeados y efectivamente los devuelve al login. En caso de estar loggeados veremos la lista de alumnos.
+
 
 - Captura:
 
 <div align="center">
-<img src="./img/p20-1.png"/>
+<img src="./img/p22.png"/>
 </div>
 
 </br>
@@ -1092,70 +1114,23 @@ listado de alumnos y que no se pueda acceder salvo que se haya hecho login/regis
 
 > 📂
 > Seguir los pasos para crear el middleware rolAdmin y crear una ruta que pase
-por los middleware auth y rolAdmin Comprobar que un usuario administrador si accede y
-el otro no
+por los middleware auth y rolAdmin Comprobar que un usuario administrador si accede y el otro no
 >
 
 - Routes:
 
 ```php
-
-```
-
-- Controller:
-
-```php
-
-```
-
-- View:
-
-```php
-
-</div>
+Route::get('/practice23', function () {
+    dd('soy admin');
+    })->middleware('auth', 'rolAdmin');
 ```
 
 - Captura:
 
 <div align="center">
-<img src="./img/p20-1.png"/>
+<img src="./img/p23-1.png"/>
+<img src="./img/p23-2.png"/>
 </div>
 
 </br>
-
-### Práctica 23
-
-> 📂
-> Seguir los pasos para crear el middleware rolAdmin y crear una ruta que pase
-por los middleware auth y rolAdmin Comprobar que un usuario administrador si accede y
-el otro no
->
-
-- Routes:
-
-```php
-
-```
-
-- Controller:
-
-```php
-
-```
-
-- View:
-
-```php
-
-</div>
-```
-
-- Captura:
-
-<div align="center">
-<img src="./img/p20-1.png"/>
-</div>
-
-</br>
-
 </div>

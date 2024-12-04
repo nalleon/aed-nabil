@@ -13,6 +13,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Matricula extends Model
 {
+
+    public $timestamps = false;
+    
     /**
      * @var array
      */

@@ -12,7 +12,9 @@ class TaskRESTController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json([
+            'foo' => 'bar',
+            ]);
     }
 
     /**

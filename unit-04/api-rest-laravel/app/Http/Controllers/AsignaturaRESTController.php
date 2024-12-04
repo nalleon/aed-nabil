@@ -2,20 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Alumno;
+use App\Models\Asignatura;
 use Illuminate\Http\Request;
 
-class AlumnoRESTController extends Controller
+class AsignaturaRESTController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(){
-        $greetings = 'Hola soy Nabil';
-
-        return response()->json([
-            'greetings' => $greetings
-        ]);
+    public function index()
+    {
+        //
     }
 
     /**
@@ -37,7 +34,7 @@ class AlumnoRESTController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Alumno $alumno)
+    public function show(Asignatura $asignatura)
     {
         //
     }
@@ -45,7 +42,7 @@ class AlumnoRESTController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Alumno $alumno)
+    public function edit(Asignatura $asignatura)
     {
         //
     }
@@ -53,7 +50,7 @@ class AlumnoRESTController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Alumno $alumno)
+    public function update(Request $request, Asignatura $asignatura)
     {
         //
     }
@@ -61,7 +58,7 @@ class AlumnoRESTController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Alumno $alumno)
+    public function destroy(Asignatura $asignatura)
     {
         //
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AlumnoResource;
 use App\Models\Alumno;
 use Illuminate\Http\Request;
 
@@ -11,11 +12,7 @@ class AlumnoRESTController extends Controller
      * Display a listing of the resource.
      */
     public function index(){
-        $greetings = 'Hola soy Nabil';
-
-        return response()->json([
-            'greetings' => $greetings
-        ]);
+        return AlumnoResource::collection(Alumno::all());
     }
 
     /**

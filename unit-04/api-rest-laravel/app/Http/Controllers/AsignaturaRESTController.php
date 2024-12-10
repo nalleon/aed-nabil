@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AsignaturaResource;
 use App\Models\Asignatura;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,8 @@ class AsignaturaRESTController extends Controller
      */
     public function index()
     {
-        //
+        return AsignaturaResource::collection(Asignatura::all());
+
     }
 
     /**

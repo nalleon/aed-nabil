@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\MatriculaResource;
 use App\Models\Matricula;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,8 @@ class MatriculaRESTController extends Controller
      */
     public function index()
     {
-        //
+        return MatriculaResource::collection(Matricula::all());
+
     }
 
     /**

@@ -63,6 +63,11 @@ class AlumnoRESTController extends Controller
      */
     public function destroy(Alumno $alumno)
     {
-        //
+        $alumno->delete();
+        $message = 'Student successfully deleted';
+
+        return response()->json([
+            'message' => $message
+        ]);
     }
 }

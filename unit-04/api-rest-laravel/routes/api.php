@@ -22,26 +22,22 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Route::apiResource('tasks', 'TasksRESTController');
 
-//Route::get('alumnos', [AlumnoRESTController::class, 'index']);
-
-
-Route::apiResource('alumnos', AlumnoRESTController::class);
+Route::apiResource('alumnos', AlumnoRESTController::class)->except(['destroy']);
 
 Route::prefix('')->group(function (){
     Route::get('alumnos', [AlumnoRESTController::class, 'index']);
-    Route::delete();
+    Route::delete('alumnos/{alumno}', [AlumnoRESTController::class, 'destroy']);
+});
+
+Route::apiResource('asignaturas', AsignaturaRESTController::class);
+
+Route::prefix('asignaturas')->group(function (){
+    Route::get('/', [AsignaturaRESTController::class, 'index']);
 });
 
 
 Route::apiResource('matriculas', MatriculaRESTController::class);
-
-Route::prefix('asignaturas')->group(function (){
-    Route::get('/', [AsignaturaRESTController::class, 'index']);
-    Route::delete();
+Route::prefix('matriculas')->group(function (){
+    Route::get('/', [MatriculaRESTController::class, 'index']);
 });
-
-
-Route::apiResource('asignaturas', AsignaturaRESTController::class);
-

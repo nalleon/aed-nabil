@@ -14,7 +14,10 @@ class AlumnoResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $alumno =parent::toArray($request);
+
+        return parent::toArray($request);
+
+        /*$alumno =parent::toArray($request);
         $id_alumno = $alumno['dni'];
 
         $nombre_completo = $alumno['nombre'] . ' ' . $alumno['apellidos'];
@@ -24,6 +27,6 @@ class AlumnoResource extends JsonResource
             'id_alumno' => $id_alumno,
             'nombre_completo' => $nombre_completo,
             'es_mayor_de_edad' => $es_mayor_de_edad,
-        ];
+        ];*/
     }
 }

@@ -30,7 +30,23 @@ class MatriculaRESTController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $matricula = new Matricula();
+        $matricula->dni = $request->input('dni');
+        $matricula->year = $request->input('year');
+        $matricula->save();
+
+        $matricula = Matricula::create([
+            'alumno_id' => $request->alumno_id,
+        ]);
+    
+        if ($request->has('asignaturas')) {
+            foreach ($request->asignaturas as $asignaturaId) {
+                $matricula->asignaturas()->attach($asignaturaId);
+            }
+        }
+    
+        return new MatriculaResource($matricula);
     }
 
     /**
@@ -38,7 +54,7 @@ class MatriculaRESTController extends Controller
      */
     public function show(Matricula $matricula)
     {
-        //
+        return new MatriculaResource($matricula);
     }
 
     /**
@@ -54,7 +70,17 @@ class MatriculaRESTController extends Controller
      */
     public function update(Request $request, Matricula $matricula)
     {
-        //
+
+        $matricula->update($request->only('dni', 'year'));
+        $matricula->asignaturas()->detach();
+        
+        if ($request->has('asignaturas')) {
+            foreach ($request->asignaturas as $asignaturaId) {
+                $matricula->asignaturas()->attach($asignaturaId);
+            }
+        }
+
+        return new MatriculaResource($matricula);
     }
 
     /**
@@ -62,6 +88,10 @@ class MatriculaRESTController extends Controller
      */
     public function destroy(Matricula $matricula)
     {
-        //
+        $matricula->asignaturas()->detach();
+        $matricula->delete();
+
+        return response()->json(null, 204);
+
     }
 }

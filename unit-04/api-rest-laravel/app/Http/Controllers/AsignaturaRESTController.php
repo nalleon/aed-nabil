@@ -30,7 +30,12 @@ class AsignaturaRESTController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $asignatura = new Asignatura();
+        $asignatura->nombre = $request->input('nombre');
+        $asignatura->curso = $request->input('curso');
+        $asignatura->save();
+
+        return new AsignaturaResource($asignatura);
     }
 
     /**
@@ -38,7 +43,7 @@ class AsignaturaRESTController extends Controller
      */
     public function show(Asignatura $asignatura)
     {
-        //
+        return new AsignaturaResource($asignatura);
     }
 
     /**
@@ -54,7 +59,8 @@ class AsignaturaRESTController extends Controller
      */
     public function update(Request $request, Asignatura $asignatura)
     {
-        //
+        $asignatura->update($request->only('nombre', 'curso'));
+        return new AsignaturaResource($asignatura);
     }
 
     /**
@@ -62,6 +68,7 @@ class AsignaturaRESTController extends Controller
      */
     public function destroy(Asignatura $asignatura)
     {
-        //
+        $asignatura->delete();
+        return response()->json(null, 204);
     }
 }

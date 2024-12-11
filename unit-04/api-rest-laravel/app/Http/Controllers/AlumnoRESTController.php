@@ -34,7 +34,7 @@ class AlumnoRESTController extends Controller
      */
     public function create()
     {
-  
+
     }
 
     /**
@@ -43,9 +43,9 @@ class AlumnoRESTController extends Controller
     public function store(Request $request)
     {
         $alumno = new Alumno();
-        $alumno->nombre = $request->input('dni');
+        $alumno->dni = $request->input('dni');
         $alumno->nombre = $request->input('nombre');
-        $alumno->nombre = $request->input('fechanacimiento');
+        $alumno->fechanacimiento = $request->input('fechanacimiento');
         $alumno->curso = $request->input('apellidos');
         $alumno->save();
 
@@ -73,7 +73,7 @@ class AlumnoRESTController extends Controller
      */
     public function update(Request $request, Alumno $alumno)
     {
-        $alumno->update($request->only('nombre', 'apellidos'));
+        $alumno->update($request->only('nombre', 'apellidos', 'fechanacimiento'));
         return new AlumnoResource($alumno);
     }
 

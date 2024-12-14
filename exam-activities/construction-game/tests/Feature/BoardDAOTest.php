@@ -40,15 +40,7 @@ class BoardDAOTest extends TestCase
 
         $boardBBDD = $boardDAO->findById(1);
 
-        /**
-         * $pdo->exec("INSERT INTO tableros (id, usuario_id, nombre, contenido, fecha) VALUES 
-         * (1, 1, 'Board  of John Doe', 'Content of board', 2024),
-         */
-
-
-
         assertTrue($boardBBDD->getId() == 1, self::MESSAGE_ERROR);
-        
         assertTrue($boardBBDD->getUserId() == 1, self::MESSAGE_ERROR);
         assertTrue($boardBBDD->getName() == 'Board  of John Doe', self::MESSAGE_ERROR);
         assertTrue($boardBBDD->getContent() == 'Content of board', self::MESSAGE_ERROR);
@@ -114,7 +106,6 @@ class BoardDAOTest extends TestCase
         $boardDAO->save($boardToAdd);
 
         $boardToAdd->setId(3);
-
 
         $boardList = $boardDAO->findAll();
 

@@ -4,8 +4,6 @@ namespace Tests\Feature;
 
 use App\DAO\UserBBDDDAO;
 use App\Models\UserBBDD;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 

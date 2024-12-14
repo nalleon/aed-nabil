@@ -30,6 +30,7 @@ class UserFileCrud implements ICrud {
             $registerBinary = fread($file, $this->userMapper->getSizeRegister());
 
             $user = $this->userMapper->toUser($registerBinary);
+            
             if ($user && $user->getId() === $id && $user->getDeleted() == 0) {
                 $user->setDeleted(1);
                 fseek($file, $pos);

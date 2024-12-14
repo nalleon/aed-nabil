@@ -63,6 +63,7 @@ class UserMapper {
             $password,
             $rol
         );
+        
         return $registro;
     }
 

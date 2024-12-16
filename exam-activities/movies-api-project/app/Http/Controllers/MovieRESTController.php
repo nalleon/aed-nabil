@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\MovieResource;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 
@@ -9,40 +10,54 @@ class MovieRESTController extends Controller
 {
     /**
     * @OA\Get(
-    * path="/api/movies",
-    * summary="Obtener lista de peliculas",
-    * description="Retorna una lista de peliculas",
-    * tags={"Peliculas"},
+    *   path="/api/movies",
+    *   summary="Obtain the movies list",
+    *   description="Returns the list of movies",
+    *   tags={"Movie"},
     * @OA\Response(
-    * response=200,
-    * description="Lista de peliculas"
-    * )
+    *   response=200,
+    *   description="List of movies"
+    *   )
     * )
     */
     public function index()
     {
-        //
+        return MovieResource::collection(Movie::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
         //
     }
-
     /**
-     * Display the specified resource.
-     */
+    * @OA\Get(
+    *     path="/api/movies/{id}",
+    *     summary="Get a specific movie",
+    *     description="Returns a specific movie by ID",
+    *     tags={"Movie"},
+    *     @OA\Parameter(
+    *         name="id",
+    *         in="path",
+    *         required=true,
+    *         description="ID of the movie",
+    *         @OA\Schema(type="integer")
+    *     ),
+    *     @OA\Response(
+    *         response=200,
+    *         description="Movie details",
+    *     ),
+    *     @OA\Response(
+    *         response=404,
+    *         description="Movie not found"
+    *     )
+    * )
+    */
     public function show(Movie $movie)
     {
         //

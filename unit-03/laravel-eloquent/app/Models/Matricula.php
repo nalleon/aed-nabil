@@ -31,8 +31,8 @@ class Matricula extends Model {
     public function matriculas(){
         return $this->belongsToMany('App\Models\Asignatura',
                                     'asignatura_matricula',
-                                    'asignaturaid',
-                                    'matriculaid');
+                                    'idasignatura',
+                                    'idmatricula');
     }
 
     public function asignaturas()
@@ -40,8 +40,8 @@ class Matricula extends Model {
         return $this->belongsToMany(
             'App\Models\Asignatura',
             'asignatura_matricula',  
-            'matriculaid',          
-            'asignaturaid' 
+            'idmatricula',          
+            'asignatura' 
         );
     }
     

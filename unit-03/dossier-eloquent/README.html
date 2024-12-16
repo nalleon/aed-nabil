@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<div align="justify">
+<h2 id="eloquent-dossier">Eloquent Dossier</h2>
+<ul>
+<li><a href="#pr%C3%A1ctica-01">Práctica 01</a></li>
+<li><a href="#pr%C3%A1ctica-02">Práctica 02</a></li>
+<li><a href="#pr%C3%A1ctica-03">Práctica 03</a></li>
+<li><a href="#pr%C3%A1ctica-04">Práctica 04</a></li>
+<li><a href="#pr%C3%A1ctica-05">Práctica 05</a></li>
+<li><a href="#pr%C3%A1ctica-06">Práctica 06</a></li>
+<li><a href="#pr%C3%A1ctica-07">Práctica 07</a></li>
+<li><a href="#pr%C3%A1ctica-08">Práctica 08</a></li>
+<li><a href="#pr%C3%A1ctica-09">Práctica 09</a></li>
+<li><a href="#pr%C3%A1ctica-10">Práctica 10</a></li>
+<li><a href="#pr%C3%A1ctica-11">Práctica 11</a></li>
+<li><a href="#pr%C3%A1ctica-12">Práctica 12</a></li>
+<li><a href="#pr%C3%A1ctica-13">Práctica 13</a></li>
+<li><a href="#pr%C3%A1ctica-14">Práctica 14</a></li>
+<li><a href="#pr%C3%A1ctica-15">Práctica 15</a></li>
+<li><a href="#pr%C3%A1ctica-16">Práctica 16</a></li>
+<li><a href="#pr%C3%A1ctica-17">Práctica 17</a></li>
+<li><a href="#pr%C3%A1ctica-18">Práctica 18</a></li>
+<li><a href="#pr%C3%A1ctica-19">Práctica 19</a></li>
+<li><a href="#pr%C3%A1ctica-20">Práctica 20</a></li>
+<li><a href="#pr%C3%A1ctica-21">Práctica 21</a></li>
+<li><a href="#pr%C3%A1ctica-211">Práctica 21.1</a></li>
+<li><a href="#pr%C3%A1ctica-22">Práctica 22</a></li>
+<li><a href="#pr%C3%A1ctica-23">Práctica 23</a></li>
+</ul>
+<hr>
+<h3 id="pr%C3%A1ctica-01">Práctica 01</h3>
+<blockquote>
+<p>📂
+Crear un elemento del modelo mediante php artisan para luego guardarlo en
+sqlite. En concreto crearemos: Alumno ( para esta prueba lo único que guardaremos será el
+nombre apellidos y edad )</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Eloquent</span>\<span class="hljs-title">Factories</span>\<span class="hljs-title">HasFactory</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Eloquent</span>\<span class="hljs-title">Model</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Alumno</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Model</span></span>{
+    <span class="hljs-keyword">use</span> <span class="hljs-title">HasFactory</span>;
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@var</span> string
+     */</span>
+    <span class="hljs-keyword">private</span> $name;
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@var</span> string
+     */</span>
+    <span class="hljs-keyword">private</span> $surname;
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@var</span> int
+     */</span>
+    <span class="hljs-keyword">private</span> $age;
+
+    <span class="hljs-comment">//constructor</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">$this</span>-&gt;name = <span class="hljs-string">""</span>;
+        <span class="hljs-keyword">$this</span>-&gt;surname = <span class="hljs-string">""</span>;
+        <span class="hljs-keyword">$this</span>-&gt;age = <span class="hljs-number">1</span>;
+    }
+
+    <span class="hljs-comment">//getters and setters</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getName</span><span class="hljs-params">()</span>: <span class="hljs-title">string</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>-&gt;name;
+    }
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setName</span><span class="hljs-params">(string $name)</span>: <span class="hljs-title">void</span> </span>{
+        <span class="hljs-keyword">$this</span>-&gt;name = $name;
+    }
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getSurname</span><span class="hljs-params">()</span>: <span class="hljs-title">string</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>-&gt;surname;
+    }
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setSurname</span><span class="hljs-params">(string $surname)</span>: <span class="hljs-title">void</span> </span>{
+        <span class="hljs-keyword">$this</span>-&gt;surname = $surname;
+    }
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getAge</span><span class="hljs-params">()</span>: <span class="hljs-title">int</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>-&gt;age;
+    }
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setAge</span><span class="hljs-params">(int $age)</span>: <span class="hljs-title">void</span> </span>{
+        <span class="hljs-keyword">$this</span>-&gt;age = $age;
+    }
+}
+</div></code></pre>
+<hr>
+</br>
+<h3 id="pr%C3%A1ctica-02">Práctica 02</h3>
+<blockquote>
+<p>📂
+Realizar la migración para Alumno ( para esta prueba lo único que
+guardaremos será el nombre apellidos y edad ) Comprobar mediante el addon sqlite que se
+ha creado en la database</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Migrations</span>\<span class="hljs-title">Migration</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Schema</span>\<span class="hljs-title">Blueprint</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">Schema</span>;
+
+<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Migration</span>
+</span>{
+    <span class="hljs-comment">/**
+     * Run the migrations.
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">up</span><span class="hljs-params">()</span>: <span class="hljs-title">void</span>
+    </span>{
+        Schema::create(<span class="hljs-string">'alumnos'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(Blueprint $table)</span> </span>{
+            $table-&gt;id();
+            $table-&gt;timestamps();
+            $table-&gt;string(<span class="hljs-string">'name'</span>,<span class="hljs-number">30</span>)-&gt;nullable(<span class="hljs-keyword">false</span>);
+            $table-&gt;string(<span class="hljs-string">'surename'</span>);
+            $table-&gt;integer(<span class="hljs-string">'age'</span>);
+        });
+    }
+
+    <span class="hljs-comment">/**
+     * Reverse the migrations.
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">down</span><span class="hljs-params">()</span>: <span class="hljs-title">void</span>
+    </span>{
+        Schema::dropIfExists(<span class="hljs-string">'alumnos'</span>);
+    }
+};
+
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p1-2.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-03">Práctica 03</h3>
+<blockquote>
+<p>📂
+Haciendo uso de la documentación oficial y ejecutando las migraciones Crear
+una tabla Productos con string nombre y también un campo llamado precio que soporte
+precios con decimales. Así como un campo cantidad que represente la cantidad de producto
+de la que disponemos</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Eloquent</span>\<span class="hljs-title">Factories</span>\<span class="hljs-title">HasFactory</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Eloquent</span>\<span class="hljs-title">Model</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Productos</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Model</span>
+</span>{
+    <span class="hljs-keyword">public</span> $timestamps = <span class="hljs-keyword">false</span>;
+    
+    <span class="hljs-keyword">use</span> <span class="hljs-title">HasFactory</span>;
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@var</span> string
+     */</span>
+    <span class="hljs-keyword">private</span> $name;
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@var</span> float
+     */</span>
+    <span class="hljs-keyword">private</span> $price;
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@var</span> integer
+     */</span>
+    <span class="hljs-keyword">private</span> $quantity;
+
+    <span class="hljs-comment">/**
+     * Default constructor
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">$this</span>-&gt;name = <span class="hljs-string">""</span>;
+        <span class="hljs-keyword">$this</span>-&gt;price = <span class="hljs-number">0.0</span>;
+        <span class="hljs-keyword">$this</span>-&gt;quantity = <span class="hljs-number">0</span>;
+    }
+
+    <span class="hljs-comment">/**
+     * Get the product's name.
+     *
+     * <span class="hljs-doctag">@return</span> string
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getName</span><span class="hljs-params">()</span>: <span class="hljs-title">string</span>
+    </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>-&gt;name;
+    }
+
+    <span class="hljs-comment">/**
+     * Set the product's name.
+     *
+     * <span class="hljs-doctag">@param</span> string $name
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setName</span><span class="hljs-params">(string $name)</span>: <span class="hljs-title">void</span>
+    </span>{
+        <span class="hljs-keyword">$this</span>-&gt;name = $name;
+    }
+
+    <span class="hljs-comment">/**
+     * Get the product's price.
+     *
+     * <span class="hljs-doctag">@return</span> float
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getPrice</span><span class="hljs-params">()</span>: <span class="hljs-title">float</span>
+    </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>-&gt;price;
+    }
+
+    <span class="hljs-comment">/**
+     * Set the product's price.
+     *
+     * <span class="hljs-doctag">@param</span> float $price
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setPrice</span><span class="hljs-params">(float $price)</span>: <span class="hljs-title">void</span>
+    </span>{
+        <span class="hljs-keyword">$this</span>-&gt;price = $price;
+    }
+
+    <span class="hljs-comment">/**
+     * Get the product's quantity.
+     *
+     * <span class="hljs-doctag">@return</span> integer
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getQuantity</span><span class="hljs-params">()</span>: <span class="hljs-title">int</span>
+    </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>-&gt;quantity;
+    }
+
+    <span class="hljs-comment">/**
+     * Set the product's quantity.
+     *
+     * <span class="hljs-doctag">@param</span> integer $quantity
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setQuantity</span><span class="hljs-params">(int $quantity)</span>: <span class="hljs-title">void</span>
+    </span>{
+        <span class="hljs-keyword">$this</span>-&gt;quantity = $quantity;
+    }
+}
+</div></code></pre>
+<ul>
+<li>Migracion:</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Migrations</span>\<span class="hljs-title">Migration</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Schema</span>\<span class="hljs-title">Blueprint</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">Schema</span>;
+
+<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Migration</span>
+</span>{
+    <span class="hljs-comment">/**
+     * Run the migrations.
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">up</span><span class="hljs-params">()</span>: <span class="hljs-title">void</span>
+    </span>{
+        Schema::create(<span class="hljs-string">'productos'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(Blueprint $table)</span> </span>{
+            $table-&gt;id();
+            $table-&gt;timestamps();
+            $table-&gt;string(<span class="hljs-string">'name'</span>, <span class="hljs-number">50</span>)-&gt;nullable(<span class="hljs-keyword">false</span>);
+            $table-&gt;float(<span class="hljs-string">'price'</span>, <span class="hljs-number">10</span>, <span class="hljs-number">2</span>)-&gt;nullable(<span class="hljs-keyword">false</span>);
+            $table-&gt;integer(<span class="hljs-string">'quantity'</span>)-&gt;nullable(<span class="hljs-keyword">false</span>);
+        });
+    }
+
+    <span class="hljs-comment">/**
+     * Reverse the migrations.
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">down</span><span class="hljs-params">()</span>: <span class="hljs-title">void</span>
+    </span>{
+        Schema::dropIfExists(<span class="hljs-string">'productos'</span>);
+    }
+};
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p3.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-04">Práctica 04</h3>
+<blockquote>
+<p>📂
+Esta es una práctica de autoformación. Buscar como hacer uso de los: “seeder”
+y rellenar datos aleatorios en la tabla productos de la base de datos con ese sistema</p>
+</blockquote>
+<ul>
+<li>Version 1:</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Database</span>\<span class="hljs-title">Seeders</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Faker</span>\<span class="hljs-title">Factory</span> <span class="hljs-title">as</span> <span class="hljs-title">Faker</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">DB</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ProductosSeeder</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">DatabaseSeeder</span>
+</span>{
+    <span class="hljs-comment">/**
+     * Run the database seeds.
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span><span class="hljs-params">()</span>: <span class="hljs-title">void</span>
+    </span>{
+        $faker = Faker::create();
+
+        DB::table(<span class="hljs-string">'productos'</span>)-&gt;insert([
+            <span class="hljs-string">'name'</span> =&gt; $faker-&gt;word, 
+            <span class="hljs-string">'price'</span> =&gt; $faker-&gt;randomFloat(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">20</span>), 
+            <span class="hljs-string">'quantity'</span> =&gt; $faker-&gt;numberBetween(<span class="hljs-number">1</span>, <span class="hljs-number">100</span>),
+        ]);
+        
+    }
+}
+</div></code></pre>
+</br>
+<h3 id="pr%C3%A1ctica-05">Práctica 05</h3>
+<blockquote>
+<p>📂
+Hacer los cambios pertinentes en: .env para que la aplicación use la base de datos mysql con las tablas pertinentes para instituto matrículas. Crear con generate:model
+las clases correspondientes. Nota: observar que posiblemente haya que borrar las clase Alumno de prácticas anteriores</p>
+</blockquote>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p5-1.png"/>
+<img src="./img/p5-2.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-06">Práctica 06</h3>
+<blockquote>
+<p>📂
+Construir la ruta para las peticiones GET a: veralumno que nos lleve a un controlador Este controlador hará la búsqueda por id del alumno y lo enviará a una vista
+que mostrará la información</p>
+</blockquote>
+<ul>
+<li>web.php:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get(<span class="hljs-string">'/practice06/{dni}'</span>,[Practice06Controller::class, <span class="hljs-string">'searchByDNI'</span>]);
+</div></code></pre>
+<ul>
+<li>Controller:</li>
+</ul>
+<pre class="hljs"><code><div> <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">searchByDNI</span><span class="hljs-params">($dni)</span></span>{
+        DB::connection()-&gt;enableQueryLog();
+        $student = Alumno::find($dni)
+
+        <span class="hljs-keyword">return</span> view(<span class="hljs-string">'Practice06'</span>, compact(<span class="hljs-string">'student'</span>));
+    }
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p6.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-07">Práctica 07</h3>
+<blockquote>
+<p>📂
+Modificar la actividad anterior de tal forma que se sepa que está ejecutando en
+la base de datos como sentencia. Toma captura de pantalla del dd() obtenido</p>
+</blockquote>
+<pre class="hljs"><code><div> <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">searchByDNI</span><span class="hljs-params">($dni)</span></span>{
+        DB::connection()-&gt;enableQueryLog();
+        $student = Alumno::find($dni);
+        $lastQuery = DB::getQueryLog();
+        dd($lastQuery);
+
+        <span class="hljs-keyword">return</span> view(<span class="hljs-string">'Practice06'</span>, compact(<span class="hljs-string">'student'</span>));
+    }
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+    <img src="./img/p7.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-08">Práctica 08</h3>
+<blockquote>
+<p>📂
+Listar todos los alumnos de nuestra base de datos (debe mostrarse en una vista
+blade)</p>
+</blockquote>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get(<span class="hljs-string">'/practice08/findAll'</span>,[Practice08Controller::class, <span class="hljs-string">'findAll'</span>]);
+</div></code></pre>
+<ul>
+<li>Controller:</li>
+</ul>
+<pre class="hljs"><code><div> <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">findAll</span><span class="hljs-params">()</span></span>{
+        $students = Alumno::all();
+        <span class="hljs-keyword">return</span> view(<span class="hljs-string">'Practice08'</span>, compact(<span class="hljs-string">'students'</span>));
+    }
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p8.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-09">Práctica 09</h3>
+<blockquote>
+<p>📂
+Buscar mediante where y mostrar en una vista las matrículas anteriores a 2021
+obtener la consulta sql que ejecuta Eloquent en la base de datos</p>
+</blockquote>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get(<span class="hljs-string">'/practice09'</span>,[Practice09Controller::class, <span class="hljs-string">'findByDate'</span>]);
+</div></code></pre>
+<ul>
+<li>Controller:</li>
+</ul>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">findByDate</span><span class="hljs-params">()</span></span>{
+        $data = Matricula::where(<span class="hljs-string">'year'</span>, <span class="hljs-number">2021</span>)-&gt;get();
+        <span class="hljs-keyword">return</span> view(<span class="hljs-string">'Practice09'</span>, compact(<span class="hljs-string">'data'</span>));
+    }   
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+    <img src="./img/p9.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-10">Práctica 10</h3>
+<blockquote>
+<p>📂
+Continuando con la anterior, ordenaremos las matrículas por fecha y
+ejecutaremos un take(1) (seguir el ejemplo de encima: :where(..l)-&gt;orderBy(...)-&gt;take(1 )
+y finalmente terminaremos con un get() Mediante var_dump() o dd() veremos que
+estructura nos devuelve. Hacer lo mismo de nuevo pero ahora en lugar de terminar con un
+get() terminamos con un first() ¿ da estructuras diferentes ? Nota: observar que la idea de
+first es tomar un objeto y get era el conjunto de objetos</p>
+</blockquote>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get(<span class="hljs-string">'/practice10'</span>,[Practice09Controller::class, <span class="hljs-string">'find'</span>]);
+</div></code></pre>
+<ul>
+<li>Controller</li>
+</ul>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">find</span><span class="hljs-params">()</span></span>{
+        $dataGet = Matricula::where(<span class="hljs-string">'year'</span>, <span class="hljs-number">2021</span>)
+                    -&gt;orderBy(<span class="hljs-string">'year'</span>,<span class="hljs-string">'desc'</span>)
+                    -&gt;take(<span class="hljs-number">1</span>)
+                    -&gt;get();
+
+        $dataFirst = Matricula::where(<span class="hljs-string">'year'</span>, <span class="hljs-number">2021</span>)
+                    -&gt;orderBy(<span class="hljs-string">'year'</span>,<span class="hljs-string">'desc'</span>)
+                    -&gt;take(<span class="hljs-number">1</span>)
+                    -&gt;first();
+
+        dd($dataGet, $dataFirst);
+    }
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+    <img src="./img/p10.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-11">Práctica 11</h3>
+<blockquote>
+<p>📂
+Obtener la cantidad total de asignaturas de 1ºDAM y mostrarlo</p>
+</blockquote>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get(<span class="hljs-string">'/practice11'</span>,[Practice11Controller::class, <span class="hljs-string">'find1DAM'</span>]);
+</div></code></pre>
+<ul>
+<li>Controller</li>
+</ul>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">find1DAM</span><span class="hljs-params">()</span></span>{
+        $data = Asignatura::where(<span class="hljs-string">'curso'</span>, <span class="hljs-string">'1º DAM'</span>)-&gt;get();   
+        <span class="hljs-keyword">return</span> view(<span class="hljs-string">'Practice11'</span>, compact(<span class="hljs-string">'data'</span>));
+    }
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p11.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-12">Práctica 12</h3>
+<blockquote>
+<p>📂
+Crear 2 nuevas asignaturas Siguiendo lo que se detallado: Una de 1ºDAM
+mediante new Asignatura() y save() y otra de 2ºDAM mediante: Asignatura::create() Se
+debe haber especificado mediante: fillable los campos que se aceptan para rellenar en la
+DB.</p>
+</blockquote>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get(<span class="hljs-string">'/practice12'</span>,[Practice12Controller::class, <span class="hljs-string">'create'</span>]);
+</div></code></pre>
+<ul>
+<li>Controller:</li>
+</ul>
+<pre class="hljs"><code><div>  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">create</span><span class="hljs-params">()</span></span>{
+        $asignatura = <span class="hljs-keyword">new</span> Asignatura();
+        $asignatura-&gt;nombre=<span class="hljs-string">'ETS'</span>;
+        $asignatura-&gt;curso=<span class="hljs-string">'1º DAM'</span>;
+        $asignatura-&gt;save();
+
+        Asignatura::create([
+           <span class="hljs-string">'nombre'</span> =&gt; <span class="hljs-string">'DAD'</span>,
+           <span class="hljs-string">'curso'</span> =&gt; <span class="hljs-string">'2º DAM'</span>,
+        ]);
+
+        
+        $data1ro = Asignatura::where(<span class="hljs-string">'nombre'</span>, <span class="hljs-string">'ETS'</span>)-&gt;get();   
+        $data2do = Asignatura::where(<span class="hljs-string">'nombre'</span>, <span class="hljs-string">'DAD'</span>)-&gt;get();
+
+        <span class="hljs-keyword">return</span> view(<span class="hljs-string">'practice12'</span>, compact(<span class="hljs-string">'data1ro'</span>, <span class="hljs-string">'data2do'</span>));
+    }
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p12-1.png"/>
+<img src="./img/p12-2.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-13">Práctica 13</h3>
+<blockquote>
+<p>📂
+Modificar las dos asignaturas anteriores de tal forma que la que era de
+primero pase a segundo y viceversa. Finalmente borrar de la base de datos la que sea de
+segundo</p>
+</blockquote>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get(<span class="hljs-string">'/practice13'</span>,[Practice12Controller::class, <span class="hljs-string">'modify'</span>]);
+</div></code></pre>
+<ul>
+<li>Controller:</li>
+</ul>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">modify</span><span class="hljs-params">()</span></span>{
+        $asignatura2do = <span class="hljs-keyword">null</span>;
+        $asignatura2do = Asignatura::find(<span class="hljs-number">9</span>); 
+        $asignatura2do-&gt;nombre=<span class="hljs-string">'ETS modify'</span>;
+        $asignatura2do-&gt;curso=<span class="hljs-string">'2º DAM'</span>;
+
+
+        $asignatura2do-&gt;save();
+
+        $asignatura1ro = Asignatura::find(<span class="hljs-number">10</span>); 
+        $asignatura1ro-&gt;nombre=<span class="hljs-string">'DAD modify'</span>;
+        $asignatura1ro-&gt;curso=<span class="hljs-string">'1º DAM'</span>;
+        
+        $asignatura1ro-&gt;save();
+
+        <span class="hljs-keyword">$this</span>-&gt;delete($asignatura2do);
+
+        <span class="hljs-keyword">return</span> view(<span class="hljs-string">'practice13'</span>, compact(<span class="hljs-string">'asignatura2do'</span>, <span class="hljs-string">'asignatura1ro'</span>));
+    }
+
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">delete</span><span class="hljs-params">($asignatura2do)</span></span>{
+        $asignatura2do-&gt;delete();
+    }
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p13-1.png"/>
+<img src="./img/p13-2.png"/>
+<img src="./img/p13-3.png"/>
+<img src="./img/p13-4.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-14">Práctica 14</h3>
+<blockquote>
+<p>📂
+Basándose en el ejemplo anterior ( usando Historico::create ) crear un
+histórico para la moneda dólar que sea para la fecha actual al tipo de cambio actual con el
+euro</p>
+</blockquote>
+<ul>
+<li>Route:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get(<span class="hljs-string">'/practice14'</span>,[Practice14Controller::class, <span class="hljs-string">'createHistoric'</span> ]);
+</div></code></pre>
+<ul>
+<li>Controller:</li>
+</ul>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createHistoric</span><span class="hljs-params">()</span></span>{
+        $moneda = <span class="hljs-keyword">new</span> Moneda();
+        $moneda-&gt;pais = <span class="hljs-string">"Estados Unidos"</span>;
+        $moneda-&gt;nombre = <span class="hljs-string">"Dolar"</span>;
+        $moneda-&gt;save();
+
+        $newHistoric = <span class="hljs-keyword">new</span> Historico();
+        $newHistoric-&gt;moneda_id = <span class="hljs-number">1</span>;
+        $newHistoric-&gt;fecha = <span class="hljs-string">'2024-11-06'</span>;
+        $newHistoric-&gt;equivalenteeuro = <span class="hljs-number">0.92</span>;
+        $newHistoric-&gt;save();
+
+        $historic = Historico::where(<span class="hljs-string">'moneda_id'</span>, <span class="hljs-number">1</span>)-&gt;get();
+        <span class="hljs-keyword">return</span> view(<span class="hljs-string">'Practice14'</span>, compact(<span class="hljs-string">'historic'</span>));
+    }
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p14-1.png"/>
+<img src="./img/p14-2.png"/>
+</div>
+<br>
+<h3 id="pr%C3%A1ctica-15">Práctica 15</h3>
+<blockquote>
+<p>📂
+Crear un histórico para la moneda dólar que sea para la fecha de mañana con
+tipo de cambio con el euro actual menos un céntimo, usando save() y associate()</p>
+</blockquote>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get(<span class="hljs-string">'/practice15'</span>,[Practice15Controller::class, <span class="hljs-string">'createHistoric15'</span>]);
+</div></code></pre>
+<ul>
+<li>Controller:</li>
+</ul>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createHistoric15</span><span class="hljs-params">()</span></span>{
+        $moneda = Moneda::find(<span class="hljs-number">1</span>);
+
+        $newHistoric = <span class="hljs-keyword">new</span> Historico();
+        $newHistoric-&gt;fecha = <span class="hljs-string">'2024-11-07'</span>;
+        $newHistoric-&gt;equivalenteeuro = <span class="hljs-number">0.92</span>;
+        $newHistoric-&gt;moneda()-&gt;associate($moneda);
+
+        $newHistoric-&gt;save();
+
+        $historic = Historico::where(<span class="hljs-string">'id'</span>, <span class="hljs-number">5</span>)-&gt;get();
+
+        <span class="hljs-keyword">return</span> view(<span class="hljs-string">'Practice15'</span>, compact(<span class="hljs-string">'historic'</span>));
+    }
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p15.png"/>
+</div>
+<br>
+<h3 id="pr%C3%A1ctica-16">Práctica 16</h3>
+<blockquote>
+<p>📂
+Crear un histórico para la moneda dólar que sea para la fecha de pasado
+mañana con tipo de cambio con el euro actual menos dos céntimos usando save() desde la
+entidad Moneda ( siguiendo el ejemplo que acabamos de ver )</p>
+</blockquote>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get(<span class="hljs-string">'/practice16'</span>,[Practice16Controller::class, <span class="hljs-string">'createHistoric'</span>]);
+</div></code></pre>
+<ul>
+<li>Controller:</li>
+</ul>
+<pre class="hljs"><code><div>  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createHistoric</span><span class="hljs-params">()</span></span>{
+        $dolar = Moneda::find(<span class="hljs-number">1</span>);    
+        $newDate = date(<span class="hljs-string">'Y-m-d'</span>, strtotime(<span class="hljs-string">'+2 days'</span>));
+
+
+        $historicDolar1 = Historico::where(<span class="hljs-string">'id'</span>, <span class="hljs-number">1</span>)-&gt;take(<span class="hljs-number">1</span>)
+        -&gt;first();
+
+        $newValue = $historicDolar1-&gt;equivalenteeuro;
+        $newValue -= <span class="hljs-number">0.02</span>;
+        
+
+
+        $newHistoric = <span class="hljs-keyword">new</span> Historico();
+        $newHistoric-&gt;fecha = $newDate;
+        $newHistoric-&gt;equivalenteeuro = $newValue;
+
+        $dolar-&gt;historicos()-&gt;save($newHistoric);
+
+
+        $historic = Historico::where(<span class="hljs-string">'id'</span>, <span class="hljs-number">4</span>)-&gt;get();
+
+        <span class="hljs-keyword">return</span> view(<span class="hljs-string">'Practice16'</span>, compact(<span class="hljs-string">'historic'</span>));
+    }
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p16.png"/>
+</div>
+<br>
+<h3 id="pr%C3%A1ctica-17">Práctica 17</h3>
+<blockquote>
+<p>📂
+Crear una moneda: dólar, país australia y guardarla con: create(). Mostrar el
+resultado obtenido haciendo una búsqueda por país: australia. Luego modificarla poniendo
+en mayúscula Australia usando save(). Toma captura de pantalla que muestre la salida en
+pantalla solicitada</p>
+</blockquote>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get(<span class="hljs-string">'/practice17'</span>,[Practice17Controller::class, <span class="hljs-string">'createCurrency'</span>]);
+Route::get(<span class="hljs-string">'/practice17-modify'</span>,[Practice17Controller::class, <span class="hljs-string">'updateCurrency'</span>]);
+</div></code></pre>
+<ul>
+<li>Controller:</li>
+</ul>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createCurrency</span><span class="hljs-params">()</span></span>{
+        $currency = Moneda::create([
+            <span class="hljs-string">'pais'</span> =&gt; <span class="hljs-string">'australia'</span>,
+            <span class="hljs-string">'nombre'</span> =&gt; <span class="hljs-string">'Dolar'</span>
+        ]);
+    
+
+        <span class="hljs-keyword">return</span> view(<span class="hljs-string">'Practice17'</span>, compact(<span class="hljs-string">'currency'</span>));
+    }
+
+    
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updateCurrency</span><span class="hljs-params">()</span></span>{
+        $currency = Moneda::where(<span class="hljs-string">'pais'</span>, <span class="hljs-string">'australia'</span>)-&gt;first();
+
+        $currency-&gt;pais = <span class="hljs-string">'Australia'</span>;
+        $currency-&gt;save();
+    
+        <span class="hljs-keyword">return</span> view(<span class="hljs-string">'Practice17'</span>, compact(<span class="hljs-string">'currency'</span>));
+    }
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p17-1.png"/>
+<img src="./img/p17-2.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-18">Práctica 18</h3>
+<blockquote>
+<p>📂
+Crear entre asignatura y matrícula una relación N:M sin generar entity para la
+tabla intermedia. Tanto desde matrícula como desde asignatura. Luego mostrar por cada
+asignatura que personas ( su nombre y su dni ) se han matriculado</p>
+</blockquote>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get(<span class="hljs-string">'/practice18'</span>,[Practice18Controller::class, <span class="hljs-string">'index'</span>]);
+</div></code></pre>
+<ul>
+<li>Controller:</li>
+</ul>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">index</span><span class="hljs-params">()</span></span>{
+        $asignaturas = Asignatura::all();
+
+        <span class="hljs-keyword">foreach</span> ($asignaturas <span class="hljs-keyword">as</span> $asignatura) {
+            <span class="hljs-keyword">echo</span> <span class="hljs-string">"Asignatura: "</span> . $asignatura-&gt;nombre . <span class="hljs-string">"\n"</span>;
+            <span class="hljs-keyword">foreach</span> ($asignatura-&gt;matriculas <span class="hljs-keyword">as</span> $matricula) {
+                <span class="hljs-keyword">echo</span> json_enphp( $matricula-&gt;alumno, JSON_UNESCAPED_UNIphp);
+            }
+        }
+        
+    }
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p18-1.png"/>
+<img src="./img/p18-2.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-19">Práctica 19</h3>
+<blockquote>
+<p>📂
+Crear un miniformulario donde se introduzca una moneda y un histórico.
+Utilizar una transacción de tal forma que si al guardar un histórico que no tiene un tipo de
+cambio numérico sino que el usuario ha introducido texto, se deshaga el guardado de los
+dos objetos</p>
+</blockquote>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get(<span class="hljs-string">'/practice19'</span>,[Practice19Controller::class, <span class="hljs-string">'index'</span>]);
+Route::get(<span class="hljs-string">'/practice19/create'</span>,[Practice19Controller::class, <span class="hljs-string">'createMoneda'</span>]);
+</div></code></pre>
+<ul>
+<li>Controller:</li>
+</ul>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">index</span><span class="hljs-params">()</span></span>{
+        <span class="hljs-keyword">return</span> view(<span class="hljs-string">'Practice19'</span>);
+    }
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createMoneda</span><span class="hljs-params">(Request $request)</span></span>{
+        DB::transaction(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> <span class="hljs-title">use</span> <span class="hljs-params">($request)</span> : <span class="hljs-title">void</span></span>{
+            $moneda = <span class="hljs-keyword">new</span> Moneda();
+            $moneda-&gt;pais = $request-&gt;get(<span class="hljs-string">'pais'</span>);
+            $moneda-&gt;nombre = $request-&gt;get(<span class="hljs-string">'nombre'</span>);
+            $moneda-&gt;save();
+
+            $newHistoric = <span class="hljs-keyword">new</span> Historico();
+            $newHistoric-&gt;moneda()-&gt;associate($moneda);
+            $newHistoric-&gt;fecha = $request-&gt;get(<span class="hljs-string">'fecha'</span>);
+            $newHistoric-&gt;equivalenteeuro = $request-&gt;get(<span class="hljs-string">'equivalenteeuro'</span>);
+            $newHistoric-&gt;save();
+
+            <span class="hljs-keyword">if</span>(!is_numeric($request-&gt;get(<span class="hljs-string">'equivalenteeuro'</span>))){
+                DB::rollBack();
+            }
+        });
+    }
+</div></code></pre>
+<ul>
+<li>View:</li>
+</ul>
+<pre class="hljs"><code><div>   &lt;form action=<span class="hljs-string">"/practice19/create"</span> method=<span class="hljs-string">"POST"</span>&gt;
+        @csrf
+        &lt;label <span class="hljs-keyword">for</span>=<span class="hljs-string">"pais"</span>&gt;País:&lt;/label&gt;
+        &lt;input type=<span class="hljs-string">"text"</span> id=<span class="hljs-string">"pais"</span> name=<span class="hljs-string">"pais"</span> required&gt;
+        &lt;br&gt;&lt;br&gt;
+
+        &lt;label <span class="hljs-keyword">for</span>=<span class="hljs-string">"nombre"</span>&gt;Nombre de la moneda:&lt;/label&gt;
+        &lt;input type=<span class="hljs-string">"text"</span> id=<span class="hljs-string">"nombre"</span> name=<span class="hljs-string">"nombre"</span> required&gt;
+        &lt;br&gt;&lt;br&gt;
+
+        &lt;label <span class="hljs-keyword">for</span>=<span class="hljs-string">"fecha"</span>&gt;Fecha:&lt;/label&gt;
+        &lt;input type=<span class="hljs-string">"date"</span> id=<span class="hljs-string">"fecha"</span> name=<span class="hljs-string">"fecha"</span> required&gt;
+        &lt;br&gt;&lt;br&gt;
+
+        &lt;label <span class="hljs-keyword">for</span>=<span class="hljs-string">"equivalenteeuro"</span>&gt;Equivalente en Euro:&lt;/label&gt;
+        &lt;input type=<span class="hljs-string">"text"</span> id=<span class="hljs-string">"equivalenteeuro"</span> name=<span class="hljs-string">"equivalenteeuro"</span> required&gt;
+        &lt;br&gt;&lt;br&gt;
+
+        &lt;button type=<span class="hljs-string">"submit"</span>&gt;Guardar&lt;/button&gt;
+    &lt;/form&gt;
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p19-1.png"/>
+<img src="./img/p19-2.png"/>
+<img src="./img/p19-3.png"/>
+<img src="./img/p19-4.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-20">Práctica 20</h3>
+<blockquote>
+<p>📂
+Modificar el Model: Alumno para que tenga soporte y nos convierta el número
+almacenado en base de datos a una fecha legible por ser humano. Formato: Año-mes-dia
+hora:minutos</p>
+</blockquote>
+<ul>
+<li>Model:</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">protected</span> $dates = [<span class="hljs-string">'fechanacimiento'</span>];
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setFechaAttribute</span><span class="hljs-params">($dateValue)</span> : <span class="hljs-title">void</span> </span>{
+    <span class="hljs-keyword">$this</span>-&gt;attributes[<span class="hljs-string">'fechanacimiento'</span>] = (<span class="hljs-keyword">new</span> Carbon($dateValue))-&gt;format(<span class="hljs-string">'Y-m-d H:i'</span>);
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getFechaAttribute</span><span class="hljs-params">($dateValue)</span> : <span class="hljs-title">string</span> </span>{
+    <span class="hljs-keyword">return</span> (<span class="hljs-keyword">new</span> Carbon($dateValue))-&gt;format(<span class="hljs-string">'Y-m-d H:i'</span>);
+}
+</div></code></pre>
+</br>
+<h3 id="pr%C3%A1ctica-21">Práctica 21</h3>
+<blockquote>
+<p>📂
+Busca para los alumnos que incluyan en su nombre: Ana las matrículas
+hechas después de 2020</p>
+</blockquote>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get(<span class="hljs-string">'/practice21'</span>,[Practice21Controller::class, <span class="hljs-string">'matriculas'</span>]);
+</div></code></pre>
+<ul>
+<li>Controller:</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">matriculas</span><span class="hljs-params">()</span></span>{
+    $nombre = <span class="hljs-string">'Ana'</span>;
+    $matriculas = Matricula::whereHas(
+        <span class="hljs-string">'alumno'</span>,
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">($query)</span> <span class="hljs-title">use</span> <span class="hljs-params">($nombre)</span> </span>{
+            $query-&gt;where(<span class="hljs-string">'nombre'</span>, $nombre)-&gt;where(<span class="hljs-string">'year'</span>, <span class="hljs-string">'&gt;'</span>, <span class="hljs-string">'2020'</span>);
+        }
+    );
+    
+    dd($matriculas-&gt;get());
+}
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p21-1.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-211">Práctica 21.1</h3>
+<blockquote>
+<p>📂
+Crear los siguiente objetos usando: DB::table
+Alumno( “Elvira”, “Lindo”, “35792468Q”, 821234400000)
+Una matrícula para ese alumno Elvira en el año 2024
+Y para esa matrícula ponemos en la tabla intermedia entre Matricula y Asignatura
+le asignamos PRO y LND</p>
+</blockquote>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get(<span class="hljs-string">'/practice211'</span>,[Practice21Controller::class, <span class="hljs-string">'createAlumno'</span>]);
+</div></code></pre>
+<ul>
+<li>Controller:</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createAlumno</span><span class="hljs-params">()</span> </span>{
+    DB::table(<span class="hljs-string">'alumnos'</span>)-&gt;insert([
+        <span class="hljs-string">'dni'</span> =&gt; <span class="hljs-string">'35792468Q'</span>,
+        <span class="hljs-string">'nombre'</span> =&gt; <span class="hljs-string">'Elvira'</span>,
+        <span class="hljs-string">'apellidos'</span> =&gt; <span class="hljs-string">'Lindo'</span>,
+        <span class="hljs-string">'fechanacimiento'</span> =&gt; <span class="hljs-string">'821234400000'</span>
+    ]);
+
+    DB::table(<span class="hljs-string">'matriculas'</span>)-&gt;insert([
+        <span class="hljs-string">'dni'</span> =&gt; <span class="hljs-string">'35792468Q'</span>,
+        <span class="hljs-string">'year'</span> =&gt; <span class="hljs-string">'2024'</span>
+    ]);
+
+    $matricula = DB::table(<span class="hljs-string">'matriculas'</span>)-&gt;where(<span class="hljs-string">'dni'</span>, <span class="hljs-string">'35792468Q'</span>)-&gt;first();
+
+    DB::table(<span class="hljs-string">'asignatura_matricula'</span>)-&gt;insert([
+        <span class="hljs-string">'idasignatura'</span> =&gt; <span class="hljs-number">3</span>,
+        <span class="hljs-string">'idmatricula'</span> =&gt; $matricula-&gt;id
+    ]);
+
+    DB::table(<span class="hljs-string">'asignatura_matricula'</span>)-&gt;insert([
+        <span class="hljs-string">'idasignatura'</span> =&gt; <span class="hljs-number">7</span>,
+        <span class="hljs-string">'idmatricula'</span> =&gt; $matricula-&gt;id
+    ]);
+}
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p211-1.png"/>
+<img src="./img/p211-2.png"/>
+<img src="./img/p211-3.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-22">Práctica 22</h3>
+<blockquote>
+<p>📂
+Seguir los pasos para incorporar la tabla users en la base de datos de instituto
+y que se pueda usar la autenticación que nos da: breeze. Hacer una página que devuelva el
+listado de alumnos y que no se pueda acceder salvo que se haya hecho login/register</p>
+</blockquote>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get(<span class="hljs-string">'/practice22'</span>,[Practice22Controller::class, <span class="hljs-string">'showAlumnos'</span>])-&gt;middleware(<span class="hljs-string">'auth'</span>);
+</div></code></pre>
+<ul>
+<li>Controller:</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">showAlumnos</span><span class="hljs-params">()</span> </span>{
+    $alumnos = Alumno::all();
+    <span class="hljs-keyword">return</span> view(<span class="hljs-string">'Practice22'</span>, compact(<span class="hljs-string">'alumnos'</span>));
+}
+</div></code></pre>
+<ul>
+<li>View:</li>
+</ul>
+<pre class="hljs"><code><div>    @auth
+        &lt;div&gt;
+            &lt;p&gt;Info: {{json_encode($alumnos, JSON_UNESCAPED_UNICODE)}}&lt;/p&gt;
+        &lt;/div&gt;
+    @endauth
+</div></code></pre>
+<p>Al añadir el middleware auth de breeze automaticamente no podemos acceder sin estar loggeados y efectivamente los devuelve al login. En caso de estar loggeados veremos la lista de alumnos.</p>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p22.png"/>
+</div>
+</br>
+<h3 id="pr%C3%A1ctica-23">Práctica 23</h3>
+<blockquote>
+<p>📂
+Seguir los pasos para crear el middleware rolAdmin y crear una ruta que pase
+por los middleware auth y rolAdmin Comprobar que un usuario administrador si accede y el otro no</p>
+</blockquote>
+<ul>
+<li>Routes:</li>
+</ul>
+<pre class="hljs"><code><div>Route::get(<span class="hljs-string">'/practice23'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+    dd(<span class="hljs-string">'soy admin'</span>);
+    })-&gt;middleware(<span class="hljs-string">'auth'</span>, <span class="hljs-string">'rolAdmin'</span>);
+</div></code></pre>
+<ul>
+<li>Captura:</li>
+</ul>
+<div align="center">
+<img src="./img/p23-1.png"/>
+<img src="./img/p23-2.png"/>
+</div>
+</br>
+</div>
+</body>
+</html>

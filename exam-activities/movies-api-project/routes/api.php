@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthApiController;
+use App\Http\Controllers\MovieRESTController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,11 +21,27 @@ use Illuminate\Support\Facades\Route;
 });*/
 
 
+/**
+ * Register/Login routes
+ */
 Route::post('register', [AuthApiController::class, 'register']);
 Route::post('login', [AuthApiController::class, 'login']);
 
+/**
+ * Public movies routes
+ */
 
-Route::apiResource('peliculas', AuthApiController::class)->middleware('auth:api')->except('destroy');
-Route::apiResource('actor', AuthApiController::class)->middleware('auth:api')->except('destroy');
-Route::apiResource('director', AuthApiController::class)->middleware('auth:api')->except('destroy');
-Route::apiResource('categorias', AuthApiController::class)->middleware('auth:api')->except('destroy');
+Route::get('/movies', [MovieRESTController::class, 'index']); 
+Route::get('/movies/{id}', [MovieRESTController::class, 'show']);
+
+
+/**
+ * Private movies routes
+ */
+Route::middleware('auth:api')->group(function () {
+    Route::post('/movies', [MovieRESTController::class, 'store']); 
+    Route::put('/movies/{id}', [MovieRESTController::class, 'update']);
+});
+
+
+

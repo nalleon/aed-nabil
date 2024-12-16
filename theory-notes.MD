@@ -175,5 +175,4 @@ enctype='multipart/form-data' habitualmente cuando queramos subir fichero
 13. response()->download() para ejecutar la
 descarga. Ese método es el que hará la descarga del fichero que le indiquemos.
 
-
 </div>

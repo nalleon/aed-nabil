@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -48,5 +49,14 @@ class Alumno extends Model
     public function matriculas(){
         
         return $this->hasMany('App\Models\Matricula', 'dni', 'dni');
+    }
+
+    protected $dates = ['fechanacimiento'];
+    public function setFechaAttribute($dateValue) : void {
+        $this->attributes['fechanacimiento'] = (new Carbon($dateValue))->format('Y-m-d H:i');
+    }
+
+    public function getFechaAttribute($dateValue) : string {
+        return (new Carbon($dateValue))->format('Y-m-d H:i');
     }
 }

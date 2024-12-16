@@ -24,7 +24,7 @@ class Asignatura extends Model
     public function matriculas(){
         return $this->belongsToMany('App\Models\Matricula',
                                     'asignatura_matricula',
-                                    'asignaturaid',
-                                    'matriculaid');
+                                    'idasignatura',
+                                    'idmatricula');
     }
 }

@@ -82,7 +82,7 @@ class MovieRESTController extends Controller
     * )
     */
     public function show(Movie $movie){
-        return MovieResource::show($movie);
+        return new MovieResource($movie);
     }
 
     /**

@@ -15,7 +15,7 @@ class Matricula extends Model
 {
 
     public $timestamps = false;
-    
+
     /**
      * @var array
      */
@@ -34,6 +34,6 @@ class Matricula extends Model
      */
     public function asignaturaMatriculas()
     {
-        return $this->hasMany('App\Models\AsignaturaMatricula', 'idmatricula');
+        return $this->hasMany('App\Models\Asignatura', 'idasignatura');
     }
 }

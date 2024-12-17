@@ -39,13 +39,13 @@ class MatriculaRESTController extends Controller
         $matricula = Matricula::create([
             'alumno_id' => $request->alumno_id,
         ]);
-    
+
         if ($request->has('asignaturas')) {
             foreach ($request->asignaturas as $asignaturaId) {
                 $matricula->asignaturas()->attach($asignaturaId);
             }
         }
-    
+
         return new MatriculaResource($matricula);
     }
 
@@ -73,7 +73,7 @@ class MatriculaRESTController extends Controller
 
         $matricula->update($request->only('dni', 'year'));
         $matricula->asignaturas()->detach();
-        
+
         if ($request->has('asignaturas')) {
             foreach ($request->asignaturas as $asignaturaId) {
                 $matricula->asignaturas()->attach($asignaturaId);
@@ -88,7 +88,7 @@ class MatriculaRESTController extends Controller
      */
     public function destroy(Matricula $matricula)
     {
-        $matricula->asignaturas()->detach();
+        $matricula->asignaturaMatriculas()->detach();
         $matricula->delete();
 
         return response()->json(null, 204);

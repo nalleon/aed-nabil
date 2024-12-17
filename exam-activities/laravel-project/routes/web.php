@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,18 +15,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
-
-Route::get("/basica", function(Request $request){
-    $authHeader = $request->header('Authorization');
-    if(!$authHeader){
-        return response('Unauthorized', 401)
-                ->header('WWW-Authenticate', 'Basic realm="Acceso al recurso protegido"');
-
-    } else {
-        $decoded = base64_decode(substr($authHeader, 6));
-        echo $decoded;
-        die();
-    }
-
 });

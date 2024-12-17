@@ -13,15 +13,19 @@ class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    public $timestamps = false;
-
-
+    /**
+     * get custom JWTIdentifier
+     */
     public function getJWTIdentifier(){
         return $this->getKey();
     }
-    public function getJWTCustomClaims() {
+
+    /**
+     * get JWTCustomClaims 
+     */
+    public function getJWTCustomClaims(){
         return [
-            'role' => 'admin',
+            'role' => 'user',
             'name' => $this->name
         ];
     }
@@ -35,7 +39,6 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
-        'role'
     ];
 
     /**

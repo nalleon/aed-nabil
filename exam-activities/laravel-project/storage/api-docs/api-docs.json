@@ -1,0 +1,63 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Peliculas api",
+        "description": "Esta es la documentación de la API generada automáticamente con Swagger",
+        "contact": {
+            "email": "soporte@example.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/movies": {
+            "get": {
+                "tags": [
+                    "Movie"
+                ],
+                "summary": "Obtain the movies list",
+                "description": "Returns the list of movies",
+                "operationId": "4bc8de342b38772c2974b2feb1f7848c",
+                "responses": {
+                    "200": {
+                        "description": "List of movies"
+                    }
+                }
+            }
+        },
+        "/api/movies/{id}": {
+            "get": {
+                "tags": [
+                    "Movie"
+                ],
+                "summary": "Get a specific movie",
+                "description": "Returns a specific movie by ID",
+                "operationId": "12d3292a3b3f64322bb06c2d05c5d091",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the movie",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Movie details"
+                    },
+                    "404": {
+                        "description": "Movie not found"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Movie",
+            "description": "Movie"
+        }
+    ]
+}

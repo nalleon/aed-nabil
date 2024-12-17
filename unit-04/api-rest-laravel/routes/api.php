@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AlumnoRESTController;
 use App\Http\Controllers\AsignaturaRESTController;
+use App\Http\Controllers\AuthApiController;
 use App\Http\Controllers\MatriculaRESTController;
 
 use Illuminate\Http\Request;
@@ -18,16 +19,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
+Route::apiResource('alumnos', AlumnoRESTController::class)->except(['destroy'])->middleware('auth:api');;
 
-Route::apiResource('alumnos', AlumnoRESTController::class)->except(['destroy']);
-
-Route::prefix('')->group(function (){
-    Route::get('alumnos', [AlumnoRESTController::class, 'index']);
-    Route::delete('alumnos/{alumno}', [AlumnoRESTController::class, 'destroy']);
+Route::prefix('alumnos')->group(function (){
+    Route::get('alumnos', [AlumnoRESTController::class, 'index'])->middleware('auth:api');;
+    Route::delete('alumnos/{alumno}', [AlumnoRESTController::class, 'destroy'])->middleware('auth:api');;
 });
 
 Route::apiResource('asignaturas', AsignaturaRESTController::class);
@@ -37,7 +34,10 @@ Route::prefix('asignaturas')->group(function (){
 });
 
 
-Route::apiResource('matriculas', MatriculaRESTController::class);
+Route::apiResource('matriculas', MatriculaRESTController::class)->middleware('auth:api');
 Route::prefix('matriculas')->group(function (){
-    Route::get('/', [MatriculaRESTController::class, 'index']);
+    Route::get('/', [MatriculaRESTController::class, 'index'])->middleware('auth:api');
 });
+
+Route::post('register', [AuthApiController::class, 'register']);
+Route::post('login', [AuthApiController::class, 'login']);

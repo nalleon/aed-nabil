@@ -9,8 +9,17 @@ use Illuminate\Http\Request;
 class AlumnoRESTController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
+    * @OA\Get(
+    * path="/api/alumnos",
+    * summary="Obtener lista de alumnos",
+    * description="Retorna una lista de alumnos",
+    * tags={"Alumnos"},
+    * @OA\Response(
+    * response=200,
+    * description="Lista de alumnos"
+    * )
+    * )
+    */
     public function index(Request $request){
 
         $nombreFilter = $request->input('nombre');

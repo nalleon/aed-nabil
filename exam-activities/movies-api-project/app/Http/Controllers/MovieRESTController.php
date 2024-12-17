@@ -33,7 +33,30 @@ class MovieRESTController extends Controller
 
     public function store(Request $request)
     {
-        //
+
+        $movie = new Movie();
+        $movie->titulo = $request->titulo;
+        $movie->year = $request->year;
+        $movie->descripcion = $request->descripcion;
+        $movie->trailer = $request->trailer;
+
+        /**if ($request->hasFile('image')) {
+            $movie->caratula = $request->file('image')->store('images', 'public');
+        }*/
+
+        if ($request->has('categories')) {
+            $movie->categorias()->attach($request->categorias);
+        }
+    
+        if ($request->has('actors')) {
+            $movie->actors()->attach($request->actors);
+        }
+    
+        if ($request->has('directors')) {
+            $movie->directors()->attach($request->directors);
+        }
+
+        return response()->json($movie->load(['categorias', 'actors', 'directors']), 201);
     }
     /**
     * @OA\Get(

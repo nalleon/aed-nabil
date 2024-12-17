@@ -60,7 +60,7 @@ class MovieRESTController extends Controller
     */
     public function show(Movie $movie)
     {
-        //
+        return MovieResource::show($movie);
     }
 
     /**
@@ -76,7 +76,8 @@ class MovieRESTController extends Controller
      */
     public function update(Request $request, Movie $movie)
     {
-        //
+        $movie->update($request->only('titulo', 'year', 'descripcion', 'trailer', 'caratula'));
+        return new MovieResource($movie);
     }
 
     /**
@@ -84,6 +85,7 @@ class MovieRESTController extends Controller
      */
     public function destroy(Movie $movie)
     {
-        //
+        $movie->delete();
+        return response()->json(null, 204);
     }
 }

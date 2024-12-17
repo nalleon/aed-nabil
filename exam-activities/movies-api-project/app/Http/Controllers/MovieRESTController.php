@@ -85,6 +85,10 @@ class MovieRESTController extends Controller
      */
     public function destroy(Movie $movie)
     {
+        $movie->categorias()->detach();
+        $movie->actors()->detach();
+        $movie->directors()->detach();
+
         $movie->delete();
         return response()->json(null, 204);
     }

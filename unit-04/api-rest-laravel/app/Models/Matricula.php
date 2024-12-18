@@ -13,9 +13,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Matricula extends Model
 {
-
-    public $timestamps = false;
-
     /**
      * @var array
      */
@@ -32,8 +29,13 @@ class Matricula extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function asignaturaMatriculas()
+    public function asignaturas()
     {
-        return $this->hasMany('App\Models\Asignatura', 'idasignatura');
+        return $this->belongsToMany(
+            'App\Models\Asignatura',
+            'asignatura_matricula',
+            'idmatricula',
+            'asignatura'
+        );
     }
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AlumnoRESTController;
 use App\Http\Controllers\AsignaturaRESTController;
 use App\Http\Controllers\AuthApiController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MatriculaRESTController;
 
 use Illuminate\Support\Facades\Route;
@@ -44,3 +45,6 @@ Route::prefix('matriculas')->group(function (){
  */
 Route::post('register', [AuthApiController::class, 'register']);
 Route::post('login', [AuthApiController::class, 'login']);
+
+
+Route::post('/upload', [ImageController::class, 'upload']);

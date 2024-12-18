@@ -88,7 +88,7 @@ class MatriculaRESTController extends Controller
      */
     public function destroy(Matricula $matricula)
     {
-        $matricula->asignaturaMatriculas()->detach();
+        $matricula->asignaturas()->detach();
         $matricula->delete();
 
         return response()->json(null, 204);

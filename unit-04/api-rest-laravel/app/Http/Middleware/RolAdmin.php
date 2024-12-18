@@ -16,7 +16,7 @@ class RolAdmin
      */
     public function handle($request, Closure $next){
         $token = JWTAuth::parseToken();
-        JWTAuth::getPayload();
+        //JWTAuth::getPayload();
         $resp = JWTAuth::getPayload()->get('role');
         if( $resp == 'admin'){
             return $next($request);

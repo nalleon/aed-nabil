@@ -19,8 +19,11 @@ class AuthApiController extends Controller
         return auth('api')->login($user);
     }
     public function login(Request $request) {
-        $nom = $request->input('name');
-        $pass = $request->input('password');
+        //$nom = $request->input('name');
+        //$pass = $request->input('password');
+        $nom = $request->name;
+        $pass = $request->password;
+
         $user = User::where('name', '=', $nom)
         ->first();
 

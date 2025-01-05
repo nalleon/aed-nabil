@@ -53,7 +53,8 @@ class CategoryRESTController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $category->update($request->only('nombre'));
+        return new CategoryResource($category);
     }
 
     /**
@@ -61,6 +62,9 @@ class CategoryRESTController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->categoriasPeliculas()->detach();
+        $category->delete();
+        
+        return response()->json(null, 204);
     }
 }

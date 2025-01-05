@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\DirectorResource;
 use App\Models\Director;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class DirectorRESTController extends Controller
      */
     public function index()
     {
-        //
+        return DirectorResource::collection(Director::all());
     }
 
     /**
@@ -36,7 +37,7 @@ class DirectorRESTController extends Controller
      */
     public function show(Director $director)
     {
-        //
+        return new DirectorResource($director);
     }
 
     /**
@@ -52,7 +53,8 @@ class DirectorRESTController extends Controller
      */
     public function update(Request $request, Director $director)
     {
-        //
+        $director->update($request->only('nombre', 'apellidos'));
+        return new DirectorResource($director);
     }
 
     /**
@@ -60,6 +62,9 @@ class DirectorRESTController extends Controller
      */
     public function destroy(Director $director)
     {
-        //
+        $director->directoresPeliculas()->detach();
+        $director->delete();
+        
+        return response()->json(null, 204);
     }
 }

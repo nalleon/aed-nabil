@@ -9,8 +9,17 @@ use Illuminate\Http\Request;
 class CategoryRESTController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
+    * @OA\Get(
+    *   path="/api/categories",
+    *   summary="Obtain the category list",
+    *   description="Returns the list of category",
+    *   tags={"Category"},
+    * @OA\Response(
+    *   response=200,
+    *   description="List of category"
+    *   )
+    * )
+    */
     public function index()
     {
         return CategoryResource::collection(Category::all());
@@ -24,9 +33,32 @@ class CategoryRESTController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+/**
+    * @OA\Post(
+    *   path="/api/categories",
+    *   summary="Store a new category",
+    *   description="Store a new category in the database",
+    *   tags={"Category"},
+    *   @OA\RequestBody(
+    *       required=true,
+    *       description="Category data",
+    *       @OA\JsonContent(
+    *           type="object",
+    *           required={"nombre"},
+    *           @OA\Property(property="nombre", type="string", description="Name of the category"),
+    *           @OA\Property(property="peliculas", type="array", @OA\Items(type="integer"), description="List of movie IDs related to the category")
+    *       )
+    *   ),
+    *   @OA\Response(
+    *       response=201,
+    *       description="Category created successfully"
+    *   ),
+    *   @OA\Response(
+    *       response=400,
+    *       description="Invalid data provided"
+    *   )
+    * )
+    */
     public function store(Request $request)
     {
         $actor = new Category();
@@ -41,8 +73,28 @@ class CategoryRESTController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
+    * @OA\Get(
+    *   path="/api/categories/{id}",
+    *   summary="Get a specific category",
+    *   description="Returns the details of a specific category by ID",
+    *   tags={"Category"},
+    *   @OA\Parameter(
+    *       name="id",
+    *       in="path",
+    *       required=true,
+    *       description="ID of the category",
+    *       @OA\Schema(type="integer")
+    *   ),
+    *   @OA\Response(
+    *       response=200,
+    *       description="Category details",
+    *   ),
+    *   @OA\Response(
+    *       response=404,
+    *       description="Category not found"
+    *   )
+    * )
+    */
     public function show(Category $category)
     {
         return new CategoryResource($category);
@@ -56,9 +108,41 @@ class CategoryRESTController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+/**
+    * @OA\Put(
+    *   path="/api/categories/{id}",
+    *   summary="Update an existing category",
+    *   description="Update the details of an existing category by ID",
+    *   tags={"Category"},
+    *   @OA\Parameter(
+    *       name="id",
+    *       in="path",
+    *       required=true,
+    *       description="ID of the category to update",
+    *       @OA\Schema(type="integer")
+    *   ),
+    *   @OA\RequestBody(
+    *       required=true,
+    *       description="Updated category data",
+    *       @OA\JsonContent(
+    *           type="object",
+    *           @OA\Property(property="nombre", type="string", description="Name of the category")
+    *       )
+    *   ),
+    *   @OA\Response(
+    *       response=200,
+    *       description="Category updated successfully"
+    *   ),
+    *   @OA\Response(
+    *       response=400,
+    *       description="Invalid data provided"
+    *   ),
+    *   @OA\Response(
+    *       response=404,
+    *       description="Category not found"
+    *   )
+    * )
+    */
     public function update(Request $request, Category $category)
     {
         $category->update($request->only('nombre'));
@@ -66,8 +150,28 @@ class CategoryRESTController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     */
+    * @OA\Delete(
+    *   path="/api/categories/{id}",
+    *   summary="Delete a category",
+    *   description="Delete a category by ID",
+    *   tags={"Category"},
+    *   @OA\Parameter(
+    *       name="id",
+    *       in="path",
+    *       required=true,
+    *       description="ID of the category to delete",
+    *       @OA\Schema(type="integer")
+    *   ),
+    *   @OA\Response(
+    *       response=204,
+    *       description="Category deleted successfully"
+    *   ),
+    *   @OA\Response(
+    *       response=404,
+    *       description="Category not found"
+    *   )
+    * )
+    */
     public function destroy(Category $category)
     {
         $category->categoriasPeliculas()->detach();

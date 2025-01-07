@@ -30,6 +30,7 @@ class AuthApiController extends Controller
                 $token = JWTAuth::fromUser($user);
                 return $token;
             } else {
+                
                 return response()->json(['error' => 'Unauthorized', $nom => $pass], 401);
             }
         } else {

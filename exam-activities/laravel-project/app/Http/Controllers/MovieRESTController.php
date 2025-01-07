@@ -39,24 +39,31 @@ class MovieRESTController extends Controller
         $movie->year = $request->year;
         $movie->descripcion = $request->descripcion;
         $movie->trailer = $request->trailer;
+        $movie->caratula = $request->caratula;
 
         /**if ($request->hasFile('image')) {
             $movie->caratula = $request->file('image')->store('images', 'public');
         }*/
 
-        if ($request->has('categories')) {
-            $movie->categorias()->attach($request->categorias);
+        //dd($movie);
+        $movie->save();
+        
+        if ($request->has('categorias')) {
+            $movie->categoriasPeliculas()->attach($request->categorias);
         }
 
-        if ($request->has('actors')) {
-            $movie->actors()->attach($request->actors);
+        if ($request->has('actores')) {
+            $movie->actoresPeliculas()->attach($request->actors);
         }
 
-        if ($request->has('directors')) {
-            $movie->directors()->attach($request->directors);
+        if ($request->has('directores')) {
+            $movie->directoresPeliculas()->attach($request->directors);
         }
 
-        return response()->json($movie->load(['categorias', 'actors', 'directors']), 201);
+    
+        return response()->json('saved', 204);
+        
+        //return response()->json($movie->load(['categorias', 'actores', 'directores']), 201);
     }
     /**
     * @OA\Get(

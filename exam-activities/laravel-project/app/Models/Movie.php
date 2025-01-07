@@ -36,7 +36,7 @@ class Movie extends Model
      */
     public function actoresPeliculas()
     {
-        return $this->hasMany('App\Models\ActoresPelicula');
+        return $this->belongsToMany('App\Models\Actor', 'actores_peliculas', 'pelicula_id', 'actor_id');
     }
 
     /**
@@ -44,7 +44,7 @@ class Movie extends Model
      */
     public function directoresPeliculas()
     {
-        return $this->hasMany('App\Models\DirectoresPelicula');
+        return $this->belongsToMany('App\Models\Director','directores_peliculas', 'pelicula_id', 'director_id');
     }
 
     /**
@@ -52,6 +52,6 @@ class Movie extends Model
      */
     public function categoriasPeliculas()
     {
-        return $this->hasMany('App\Models\CategoriasPelicula');
+        return $this->belongsToMany('App\Models\Category', 'categorias_peliculas', 'pelicula_id', 'categoria_id');
     }
 }

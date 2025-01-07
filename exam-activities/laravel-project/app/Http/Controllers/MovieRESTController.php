@@ -47,17 +47,17 @@ class MovieRESTController extends Controller
 
         //dd($movie);
         $movie->save();
-        
+
         if ($request->has('categorias')) {
             $movie->categoriasPeliculas()->attach($request->categorias);
         }
 
         if ($request->has('actores')) {
-            $movie->actoresPeliculas()->attach($request->actors);
+            $movie->actoresPeliculas()->attach($request->actores);
         }
 
         if ($request->has('directores')) {
-            $movie->directoresPeliculas()->attach($request->directors);
+            $movie->directoresPeliculas()->attach($request->directores);
         }
 
     
@@ -105,7 +105,18 @@ class MovieRESTController extends Controller
      */
     public function update(Request $request, Movie $movie)
     {
-        $movie->update($request->only('titulo', 'year', 'descripcion', 'trailer', 'caratula'));
+        $movie->update($request->only('titulo', 'year', 'descripcion', 'trailer', 'caratula', 'categorias', 'actores', 'directores'));
+
+        if ($request->has('categorias')) {
+            $movie->categoriasPeliculas()->sync($request->categorias);
+        }
+        if ($request->has('actores')) {
+            $movie->actoresPeliculas()->sync($request->actores);
+        }
+        if ($request->has('directores')) {
+            $movie->directoresPeliculas()->sync($request->directores);
+        }
+
         return new MovieResource($movie);
     }
 

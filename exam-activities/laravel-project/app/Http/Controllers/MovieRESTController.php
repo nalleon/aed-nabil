@@ -61,7 +61,7 @@ class MovieRESTController extends Controller
         }
 
     
-        return response()->json('saved', 204);
+        return response()->json('saved', 201);
         
         //return response()->json($movie->load(['categorias', 'actores', 'directores']), 201);
     }

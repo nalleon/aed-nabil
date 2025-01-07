@@ -81,7 +81,7 @@ Route::get('/actors/{actor}', [ActorRESTController::class, 'show']);
 Route::middleware('auth:api')->group(function () {
     Route::post('/actors', [ActorRESTController::class, 'store']);
     Route::put('/actors/{actor}', [ActorRESTController::class, 'update']);
-    Route::delete('/actors/{actors}', [ActorRESTController::class, 'destroy'])->middleware('roleAdmin');
+    Route::delete('/actors/{actor}', [ActorRESTController::class, 'destroy'])->middleware('roleAdmin');
 });
 
 

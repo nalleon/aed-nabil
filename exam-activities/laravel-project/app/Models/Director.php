@@ -13,6 +13,11 @@ use Illuminate\Database\Eloquent\Model;
 class Director extends Model
 {
     /**
+     * Disable timestamps
+     */
+    public $timestamps = false;
+
+    /**
      * The table associated with the model.
      * 
      * @var string
@@ -29,6 +34,6 @@ class Director extends Model
      */
     public function directoresPeliculas()
     {
-        return $this->hasMany('App\Models\DirectoresPelicula', 'director_id');
+        return $this->belongsToMany('App\Models\Movie', 'directores_peliculas', 'director_id', 'pelicula_id');
     }
 }

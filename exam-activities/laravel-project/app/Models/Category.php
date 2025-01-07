@@ -11,6 +11,12 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Category extends Model
 {
+    
+    /**
+     * Disable timestamps
+     */
+    public $timestamps = false;
+
     /**
      * The table associated with the model.
      * 
@@ -28,6 +34,7 @@ class Category extends Model
      */
     public function categoriasPeliculas()
     {
-        return $this->hasMany('App\Models\CategoriasPelicula');
+        return $this->belongsToMany('App\Models\Movie', 'categorias_peliculas', 'categoria_id', 'pelicula_id');
+
     }
 }

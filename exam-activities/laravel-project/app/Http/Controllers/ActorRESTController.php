@@ -29,7 +29,16 @@ class ActorRESTController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $actor = new Actor();
+        $actor->nombre = $request->nombre;
+        $actor->apellidos = $request->apellidos;
+        $actor->save();
+
+        if ($request->has('peliculas')) {
+            $actor->actoresPeliculas()->attach($request->peliculas);
+        }
+
+        return response()->json('saved', 201);
     }
 
     /**
@@ -62,9 +71,10 @@ class ActorRESTController extends Controller
      */
     public function destroy(Actor $actor)
     {
+
         $actor->actoresPeliculas()->detach();
         $actor->delete();
-        
+    
         return response()->json(null, 204);
     }
 }

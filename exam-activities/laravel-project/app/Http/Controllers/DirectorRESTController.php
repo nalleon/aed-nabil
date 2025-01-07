@@ -29,7 +29,16 @@ class DirectorRESTController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $director = new Director();
+        $director->nombre = $request->nombre;
+        $director->apellidos = $request->apellidos;
+        $director->save();
+
+        if ($request->has('peliculas')) {
+            $director->actoresPeliculas()->attach($request->peliculas);
+        }
+
+        return response()->json('saved', 201);
     }
 
     /**

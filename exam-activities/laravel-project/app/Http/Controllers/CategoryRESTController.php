@@ -29,7 +29,15 @@ class CategoryRESTController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $actor = new Category();
+        $actor->nombre = $request->nombre;
+        $actor->save();
+
+        if ($request->has('peliculas')) {
+            $actor->actoresPeliculas()->attach($request->peliculas);
+        }
+
+        return response()->json('saved', 201);
     }
 
     /**

@@ -49,6 +49,7 @@ class MovieRESTController extends Controller
         $movie->save();
 
         if ($request->has('categorias')) {
+            
             $movie->categoriasPeliculas()->attach($request->categorias);
         }
 
@@ -64,6 +65,11 @@ class MovieRESTController extends Controller
         return response()->json('saved', 201);
         
         //return response()->json($movie->load(['categorias', 'actores', 'directores']), 201);
+    }
+
+
+    function checkIfCategoryExist(){
+
     }
     /**
     * @OA\Get(

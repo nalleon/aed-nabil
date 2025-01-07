@@ -18,6 +18,10 @@ class Director extends Model
     public $timestamps = false;
 
     /**
+     * Hidde pivot table
+     */
+    protected $hidden = ['pivot'];
+    /**
      * The table associated with the model.
      * 
      * @var string

@@ -12,7 +12,6 @@ class ImageController extends Controller{
             $path = $fichero->storeAs($nombre);
 
             return response()->json([
-                'message' => 'ok, fichero subido',
                 'path' => $path
             ], 200);
         }

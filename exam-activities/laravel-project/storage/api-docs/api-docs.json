@@ -22,6 +22,83 @@
                         "description": "List of movies"
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "Movie"
+                ],
+                "summary": "Store a new movie",
+                "description": "Store a new movie in the database",
+                "operationId": "dccb5e0a38c0446ab92f498bf1f164ce",
+                "requestBody": {
+                    "description": "Movie data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "titulo",
+                                    "year",
+                                    "descripcion",
+                                    "trailer",
+                                    "caratula"
+                                ],
+                                "properties": {
+                                    "titulo": {
+                                        "description": "Title of the movie",
+                                        "type": "string"
+                                    },
+                                    "year": {
+                                        "description": "Release year of the movie",
+                                        "type": "integer"
+                                    },
+                                    "descripcion": {
+                                        "description": "Description of the movie",
+                                        "type": "string"
+                                    },
+                                    "trailer": {
+                                        "description": "URL of the movie trailer",
+                                        "type": "string"
+                                    },
+                                    "caratula": {
+                                        "description": "Cover image of the movie",
+                                        "type": "string"
+                                    },
+                                    "categorias": {
+                                        "description": "List of category",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "actores": {
+                                        "description": "List of actors",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "directores": {
+                                        "description": "List of directors",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Movie created successfully"
+                    },
+                    "400": {
+                        "description": "Invalid data provided"
+                    }
+                }
             }
         },
         "/api/movies/{id}": {
@@ -46,6 +123,117 @@
                 "responses": {
                     "200": {
                         "description": "Movie details"
+                    },
+                    "404": {
+                        "description": "Movie not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Movie"
+                ],
+                "summary": "Update an existing movie",
+                "description": "Update the details of an existing movie by ID",
+                "operationId": "26d073120c30fb3e5bdf7e7dc6d4b046",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the movie to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Updated movie data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "titulo": {
+                                        "description": "Title of the movie",
+                                        "type": "string"
+                                    },
+                                    "year": {
+                                        "description": "Release year of the movie",
+                                        "type": "integer"
+                                    },
+                                    "descripcion": {
+                                        "description": "Description of the movie",
+                                        "type": "string"
+                                    },
+                                    "trailer": {
+                                        "description": "URL of the movie trailer",
+                                        "type": "string"
+                                    },
+                                    "caratula": {
+                                        "description": "Cover image of the movie",
+                                        "type": "string"
+                                    },
+                                    "categorias": {
+                                        "description": "List of categories",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "actores": {
+                                        "description": "List of actors",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "directores": {
+                                        "description": "List of directors",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Movie updated successfully"
+                    },
+                    "400": {
+                        "description": "Invalid data provided"
+                    },
+                    "404": {
+                        "description": "Movie not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Movie"
+                ],
+                "summary": "Delete a movie",
+                "description": "Delete a movie by ID",
+                "operationId": "9443a06d8cd02ace7830210f6ffac99f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the movie to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Movie deleted successfully"
                     },
                     "404": {
                         "description": "Movie not found"

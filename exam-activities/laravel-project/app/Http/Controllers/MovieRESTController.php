@@ -30,7 +30,38 @@ class MovieRESTController extends Controller
         //
     }
 
-
+ /**
+    * @OA\Post(
+    *   path="/api/movies",
+    *   summary="Store a new movie",
+    *   description="Store a new movie in the database",
+    *   tags={"Movie"},
+    *   @OA\RequestBody(
+    *       required=true,
+    *       description="Movie data",
+    *       @OA\JsonContent(
+    *           type="object",
+    *           required={"titulo", "year", "descripcion", "trailer", "caratula"},
+    *           @OA\Property(property="titulo", type="string", description="Title of the movie"),
+    *           @OA\Property(property="year", type="integer", description="Release year of the movie"),
+    *           @OA\Property(property="descripcion", type="string", description="Description of the movie"),
+    *           @OA\Property(property="trailer", type="string", description="URL of the movie trailer"),
+    *           @OA\Property(property="caratula", type="string", description="Cover image of the movie"),
+    *           @OA\Property(property="categorias", type="array", @OA\Items(type="integer"), description="List of category"),
+    *           @OA\Property(property="actores", type="array", @OA\Items(type="integer"), description="List of actors"),
+    *           @OA\Property(property="directores", type="array", @OA\Items(type="integer"), description="List of directors")
+    *       )
+    *   ),
+    *   @OA\Response(
+    *       response=201,
+    *       description="Movie created successfully"
+    *   ),
+    *   @OA\Response(
+    *       response=400,
+    *       description="Invalid data provided"
+    *   )
+    * )
+    */
     public function store(Request $request)
     {
 
@@ -49,7 +80,7 @@ class MovieRESTController extends Controller
         $movie->save();
 
         if ($request->has('categorias')) {
-            
+
             $movie->categoriasPeliculas()->attach($request->categorias);
         }
 
@@ -63,9 +94,7 @@ class MovieRESTController extends Controller
 
     
         return response()->json('saved', 201);
-        
-        //return response()->json($movie->load(['categorias', 'actores', 'directores']), 201);
-    }
+        }
 
 
     function checkIfCategoryExist(){
@@ -107,7 +136,46 @@ class MovieRESTController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\Put(
+     *   path="/api/movies/{id}",
+     *   summary="Update an existing movie",
+     *   description="Update the details of an existing movie by ID",
+     *   tags={"Movie"},
+     *   @OA\Parameter(
+     *       name="id",
+     *       in="path",
+     *       required=true,
+     *       description="ID of the movie to update",
+     *       @OA\Schema(type="integer")
+     *   ),
+     *   @OA\RequestBody(
+     *       required=true,
+     *       description="Updated movie data",
+     *       @OA\JsonContent(
+     *           type="object",
+     *           @OA\Property(property="titulo", type="string", description="Title of the movie"),
+     *           @OA\Property(property="year", type="integer", description="Release year of the movie"),
+     *           @OA\Property(property="descripcion", type="string", description="Description of the movie"),
+     *           @OA\Property(property="trailer", type="string", description="URL of the movie trailer"),
+     *           @OA\Property(property="caratula", type="string", description="Cover image of the movie"),
+     *           @OA\Property(property="categorias", type="array", @OA\Items(type="integer"), description="List of categories"),
+     *           @OA\Property(property="actores", type="array", @OA\Items(type="integer"), description="List of actors"),
+     *           @OA\Property(property="directores", type="array", @OA\Items(type="integer"), description="List of directors")
+     *       )
+     *   ),
+     *   @OA\Response(
+     *       response=200,
+     *       description="Movie updated successfully"
+     *   ),
+     *   @OA\Response(
+     *       response=400,
+     *       description="Invalid data provided"
+     *   ),
+     *   @OA\Response(
+     *       response=404,
+     *       description="Movie not found"
+     *   )
+     * )
      */
     public function update(Request $request, Movie $movie)
     {
@@ -126,8 +194,28 @@ class MovieRESTController extends Controller
         return new MovieResource($movie);
     }
 
-    /**
-     * Remove the specified resource from storage.
+/**
+     * @OA\Delete(
+     *   path="/api/movies/{id}",
+     *   summary="Delete a movie",
+     *   description="Delete a movie by ID",
+     *   tags={"Movie"},
+     *   @OA\Parameter(
+     *       name="id",
+     *       in="path",
+     *       required=true,
+     *       description="ID of the movie to delete",
+     *       @OA\Schema(type="integer")
+     *   ),
+     *   @OA\Response(
+     *       response=204,
+     *       description="Movie deleted successfully"
+     *   ),
+     *   @OA\Response(
+     *       response=404,
+     *       description="Movie not found"
+     *   )
+     * )
      */
     public function destroy(Movie $movie)
     {

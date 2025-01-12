@@ -89,6 +89,23 @@ public class Raffle {
 	}
 
 	/**
+	 * Method to bet in the raffle
+	 * @param name of the user
+	 * @param numBet of the selected num to bet on
+	 * @param betAmount of the selected amount of money bet
+	 * @return
+	 */
+	public synchronized boolean placeBet(String name, Integer numBet, Float betAmount){
+		if(isOverdueTime()){
+			return false;
+		}
+
+		Bet bet = new Bet(name, numBet, betAmount);
+		currentBets.add(bet);
+		return true;
+	}
+
+	/**
 	 * Method to select the winners of the raffle
 	 */
 	public void selectWinners(){

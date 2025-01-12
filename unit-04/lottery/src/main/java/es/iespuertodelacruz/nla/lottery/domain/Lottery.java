@@ -34,7 +34,7 @@ public class Lottery {
 	 * Method to get the current instance of the lottery
 	 * @return new Lottery if null, the current Lottery otherwise
 	 */
-	public static Lottery getInstance(){
+	public Lottery getInstance(){
 		if (instance == null){
 			instance = new Lottery();
 		}

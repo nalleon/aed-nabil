@@ -3,12 +3,17 @@
  */
 package es.iespuertodelacruz.nla.lottery.domain;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * @author Nabil L. A. <@nalleon>
  */
+
+@Component
 public class Lottery {
 
 	/**
@@ -21,15 +26,15 @@ public class Lottery {
 	/**
 	 * Default constructor of the class
 	 */
-	private Lottery () {
-		raffles = new ArrayList<>();
+	public Lottery () {
+		raffles = new ArrayList<>(Arrays.asList(new Raffle(1)));
 	}
 
 	/**
 	 * Method to get the current instance of the lottery
 	 * @return new Lottery if null, the current Lottery otherwise
 	 */
-	public Lottery getInstance(){
+	public static Lottery getInstance(){
 		if (instance == null){
 			instance = new Lottery();
 		}

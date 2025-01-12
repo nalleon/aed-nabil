@@ -3,9 +3,8 @@
  */
 package es.iespuertodelacruz.nla.lottery.domain;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Nabil L. A. <@nalleon>
@@ -62,7 +61,14 @@ public class Raffle {
 	}
 
 
+	/**
+	 * Method to generate a random number between 0 and 10000
+	 */
 	private void generateRndNum(){
+		if(winningNum != null){
+			return;
+		}
+
 		int start = 0;
 		int end = 10000;
 
@@ -70,9 +76,39 @@ public class Raffle {
         winningNum = rnd.nextInt(start, end);
 	}
 
+	/**
+	 * Method to select the winners of the raffle
+	 * @return false if time its over, true otherwise
+	 */
 	private boolean selectWinners(){
 		if ((new Date().getTime() - endTime.getTime() <= 0)){
 			return false;
+		}
+
+		if (currentBets.isEmpty() && (new Date().getTime() - endTime.getTime() >= 0)) {
+			winners.add(null);
+			return true;
+		} else if (currentBets.size() == 1) {
+			winners.add(currentBets.get(0));
+			return true;
+		}
+
+		Set<Integer> auxSet = new HashSet<>();
+
+		for(Bet bet : currentBets){
+			int difference = Math.abs(winningNum-bet.numBet);
+			auxSet.add(difference);
+		}
+
+		List <Integer> sortedList = new ArrayList<>(auxSet);
+		Collections.sort(sortedList);
+		int lowestDiff = sortedList.get(sortedList.size()-1);
+
+		for (Bet bet : currentBets){
+			int difference = Math.abs(winningNum-bet.numBet);
+			if (difference == lowestDiff){
+				winners.add(bet);
+			}
 		}
 
 		return true;

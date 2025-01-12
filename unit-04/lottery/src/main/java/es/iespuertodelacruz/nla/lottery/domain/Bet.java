@@ -8,9 +8,9 @@ package es.iespuertodelacruz.nla.lottery.domain;
  * POST
  */
 public class Bet {
-	private String name;
-	private int numBet;
-	private float betAmount;
+	String name;
+	int numBet;
+	float betAmount;
 
 	/**
 	 * Default constructor of the class

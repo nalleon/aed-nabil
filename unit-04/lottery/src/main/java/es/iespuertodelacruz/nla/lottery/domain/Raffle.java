@@ -3,8 +3,6 @@
  */
 package es.iespuertodelacruz.nla.lottery.domain;
 
-import org.springframework.stereotype.Component;
-
 import java.util.*;
 
 /**
@@ -55,13 +53,12 @@ public class Raffle {
 	/**
 	 * Method to select the raffle duration
 	 */
-	private boolean selectDuration(){
-		long time = 36000*2;
+	private void selectDuration(){
+		long time = 22000;
+				//48000;
 
 		startTime = new Date();
 		endTime = new Date(startTime.getTime() + time);
-
-		return true;
 	}
 
 
@@ -80,21 +77,33 @@ public class Raffle {
         winningNum = rnd.nextInt(start, end);
 	}
 
+
+	/**
+	 * Method to check if the raffle is over
+	 */
+	public boolean isOverdueTime(){
+		if(new Date().getTime() - endTime.getTime() >= 0){
+			return true;
+		}
+		return false;
+	}
+
 	/**
 	 * Method to select the winners of the raffle
-	 * @return false if time its over, true otherwise
 	 */
-	public boolean selectWinners(){
-		if ((new Date().getTime() - endTime.getTime() <= 0)){
-			return false;
+	public void selectWinners(){
+		if (!isOverdueTime()){
+			return;
 		}
 
-		if (currentBets.isEmpty() && (new Date().getTime() - endTime.getTime() >= 0)) {
-			winners.add(null);
-			return true;
-		} else if (currentBets.size() == 1) {
+		if (currentBets.size() == 1 && isOverdueTime()) {
 			winners.add(currentBets.get(0));
-			return true;
+			return;
+		}
+
+		if (currentBets.isEmpty() && isOverdueTime()) {
+			winners.add(null);
+			return;
 		}
 
 		Set<Integer> auxSet = new HashSet<>();
@@ -106,7 +115,7 @@ public class Raffle {
 
 		List <Integer> sortedList = new ArrayList<>(auxSet);
 		Collections.sort(sortedList);
-		int lowestDiff = sortedList.get(sortedList.size()-1);
+		int lowestDiff = sortedList.get(0);
 
 		for (Bet bet : currentBets){
 			int difference = Math.abs(winningNum-bet.numBet);
@@ -115,10 +124,16 @@ public class Raffle {
 			}
 		}
 
-		return true;
 	}
 
+	/**
+	 * Getters
+	 */
+	public Integer getWinningNum() {
+		return winningNum;
+	}
 
-
-
+	public List<Bet> getWinners() {
+		return winners;
+	}
 }

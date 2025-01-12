@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -59,10 +60,14 @@ public class LotteryController implements IController {
             return false;
         }
 
-        if((lottery.getCurrentRaffle().id != idRaffle) && (new Date().getTime() -
-                lottery.getCurrentRaffle().endTime.getTime() >= 0)){
+        if((lottery.getCurrentRaffle().isOverdueTime())){
             return false;
         }
+
+        if((lottery.getCurrentRaffle().id != idRaffle) && lottery.getCurrentRaffle().isOverdueTime()){
+            return false;
+        }
+
 
         Bet bet = new Bet(name, numBet, betAmount);
         lottery.getCurrentRaffle().currentBets.add(bet);
@@ -85,7 +90,21 @@ public class LotteryController implements IController {
     @GetMapping
     @Override
     public ResponseEntity<?> getLatest() {
-        return ResponseEntity.ok(lottery.getCurrentRaffle());
+        if (lottery.getCurrentRaffle().isOverdueTime() && lottery.getCurrentRaffle().getWinners().isEmpty()){
+            lottery.getCurrentRaffle().selectWinners();
+        }
+
+        RaffleDTO raffleDTO = new RaffleDTO(
+                lottery.getCurrentRaffle().id,
+                lottery.getCurrentRaffle().getWinningNum(),
+                lottery.getCurrentRaffle().getWinners(),
+                lottery.getCurrentRaffle().startTime,
+                lottery.getCurrentRaffle().endTime,
+                lottery.getCurrentRaffle().currentBets
+        );
+
+
+        return ResponseEntity.ok(raffleDTO);
     }
 
 

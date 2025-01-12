@@ -24,7 +24,11 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("api/v1/lottery")
 public class LotteryController implements IController {
+    /**
+     * Properties
+     */
     private Lottery lottery;
+
     @Autowired
     public void setLottery(Lottery lottery){
         this.lottery = lottery;

@@ -113,4 +113,146 @@ public function destroy(Alumno $alumno)
 
 </br>
 
+### Práctica 04
+
+> 📂
+> 
+>
+
+- api.php
+```php
+
+
+```
+
+- AlumnoRESTController:
+
+```php	
+
+```
+
+- Captura:
+<div align="center">
+<img src="./img/p4.png"/>
+</div>
+
+</br>
+
+### Práctica 05
+
+> 📂
+> 
+>
+
+- api.php
+```php
+
+
+```
+
+- AlumnoRESTController:
+
+```php	
+
+```
+
+- Captura:
+<div align="center">
+<img src="./img/p5.png"/>
+</div>
+
+</br>
+
+### Práctica 05.1
+
+> 📂
+> 
+>
+
+- api.php
+```php
+
+
+```
+
+- AlumnoRESTController:
+
+```php	
+
+```
+
+- Captura:
+<div align="center">
+<img src="./img/p51-1.png"/>
+</div>
+
+</br>
+
+
+### Práctica 06
+
+> 📂
+> Buscar la línea que incluya la palabra JWT en el fichero .env ¿ aparece la clave
+? ¿ cómo se llama el nombre del campo donde se guarda la clave 
+>
+
+Efectivamente, en el fichero .env encontramos al final del todo la clave de JWT, la cual es llamada JWT_SECRET.
+
+- .env:
+
+```php
+JWT_SECRET=hAyv06xFQUGkRQQRZGp3DqDNay4s4w2lNUsHFndgCPE0Z4dkyvjh94hqx0tnfLRD
+```
+
+</br>
+
+### Práctica 7
+
+> 📂
+> 
+>
+
+- token reguister
+```php
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzM0NDQwOTU3LCJleHAiOjE3MzQ0NDQ1NTcsIm5iZiI6MTczNDQ0MDk1NywianRpIjoiN2Yzd3k1cm9GOUIzRXAwQiIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sIjoidXNlciIsIm5hbWUiOiJuYWJpbCJ9.pDU_llE7YMu_zGGHNmPGLg9JZyHTgAEh82Qt01OFyzE
+```
+
+- AlumnoRESTController:
+
+```php	
+
+```
+
+- Captura:
+<div align="center">
+<img src="./img/p7.png"/>
+</div>
+
+</br>
+
+### Práctica 8
+
+> 📂
+> 
+>
+
+- api.php
+```php
+
+
+```
+
+- AlumnoRESTController:
+
+```php	
+
+```
+
+- Captura:
+<div align="center">
+<img src="./img/p8.png"/>
+</div>
+
+</br>
+
 </div>

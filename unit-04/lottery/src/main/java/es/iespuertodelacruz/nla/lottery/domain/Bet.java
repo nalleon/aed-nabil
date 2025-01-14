@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
  */
 
 public class Bet {
-	public String name;
-	public Integer numBet;
-	public Float betAmount;
+	private String name;
+	private Integer numBet;
+	private Float betAmount;
 
 	/**
 	 * Default constructor of the class
@@ -31,4 +31,18 @@ public class Bet {
 		this.betAmount = betAmount;
 	}
 
+	/**
+	 * Getters
+	 */
+	public String getName() {
+		return name;
+	}
+
+	public Integer getNumBet() {
+		return numBet;
+	}
+
+	public Float getBetAmount() {
+		return betAmount;
+	}
 }

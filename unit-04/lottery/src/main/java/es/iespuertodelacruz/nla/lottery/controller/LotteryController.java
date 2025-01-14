@@ -4,7 +4,6 @@
 package es.iespuertodelacruz.nla.lottery.controller;
 
 import es.iespuertodelacruz.nla.lottery.controller.interfaces.IController;
-import es.iespuertodelacruz.nla.lottery.domain.Bet;
 import es.iespuertodelacruz.nla.lottery.domain.Lottery;
 import es.iespuertodelacruz.nla.lottery.domain.Raffle;
 import es.iespuertodelacruz.nla.lottery.dto.BetDTO;
@@ -24,34 +23,27 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("api/v1/lottery")
 public class LotteryController implements IController {
-    /**
-     * Properties
-     */
-    private Lottery lottery;
 
-    @Autowired
-    public void setLottery(Lottery lottery){
-        this.lottery = lottery;
-    }
 
     @PostMapping("/raffles/{id}")
     @Override
     public ResponseEntity<?> add(@PathVariable int id, @RequestBody BetDTO betDTO) {
+        Lottery instance = Lottery.getInstance();
 
-        if (lottery.getCurrentRaffle() == null ||
-                lottery.getInstance().getCurrentRaffle().id != id) {
+        if (instance.getCurrentRaffle() == null ||
+                instance.getCurrentRaffle().getId() != id) {
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body
                     ("Error: This raffle does not exist or is closed ");
         }
 
-        boolean result = lottery.getCurrentRaffle().
+        boolean result = instance.getCurrentRaffle().
                 placeBet(betDTO.getName(), betDTO.getNumBet(), betDTO.getBetAmount());
 
         if (!result){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                     "Error. This raffle is closed. " +
-                    "Current raffle is: " + lottery.getCurrentRaffle().id
+                    "Current raffle is: " + instance.getCurrentRaffle().getId()
             );
         }
 
@@ -62,15 +54,17 @@ public class LotteryController implements IController {
     @GetMapping("/raffles")
     @Override
     public ResponseEntity<List<RaffleDTO>> getAll() {
+        Lottery instance = Lottery.getInstance();
+
         List<RaffleDTO> result = new ArrayList<>();
-        for (Raffle raffle : lottery.raffles){
+        for (Raffle raffle : instance.getRaffles()){
             RaffleDTO raffleDTO = new RaffleDTO(
-                    raffle.id,
+                    raffle.getId(),
                     raffle.getWinningNum(),
                     raffle.getWinners(),
-                    raffle.startTime,
-                    raffle.endTime,
-                    raffle.currentBets
+                    raffle.getStartTime(),
+                    raffle.getEndTime(),
+                    raffle.getCurrentBets()
             );
 
             result.add(raffleDTO);
@@ -82,21 +76,22 @@ public class LotteryController implements IController {
     @GetMapping("/raffles/{id}")
     @Override
     public ResponseEntity<RaffleDTO> getById(@PathVariable int id) {
-        List<Raffle> auxList = lottery.raffles;
+        Lottery instance = Lottery.getInstance();
+        List<Raffle> auxList = instance.getRaffles();
 
         boolean found = false;
         int arrPos = 0;
         RaffleDTO raffleDTO = null;
 
         while (!found){
-            if(auxList.get(arrPos).id == id){
+            if(auxList.get(arrPos).getId() == id){
                  raffleDTO = new RaffleDTO(
-                         auxList.get(arrPos).id,
+                         auxList.get(arrPos).getId(),
                          auxList.get(arrPos).getWinningNum(),
                          auxList.get(arrPos).getWinners(),
-                         auxList.get(arrPos).startTime,
-                         auxList.get(arrPos).endTime,
-                         auxList.get(arrPos).currentBets
+                         auxList.get(arrPos).getStartTime(),
+                         auxList.get(arrPos).getEndTime(),
+                         auxList.get(arrPos).getCurrentBets()
                 );
                  found = true;
             }
@@ -109,17 +104,19 @@ public class LotteryController implements IController {
     @GetMapping
     @Override
     public ResponseEntity<?> getLatest() {
-        if (lottery.getCurrentRaffle().isOverdueTime() && lottery.getCurrentRaffle().getWinners().isEmpty()){
-            lottery.getCurrentRaffle().selectWinners();
+        Lottery instance = Lottery.getInstance();
+
+        if (instance.getCurrentRaffle().isOverdueTime() && instance.getCurrentRaffle().getWinners().isEmpty()){
+            instance.getCurrentRaffle().selectWinners();
         }
 
         RaffleDTO raffleDTO = new RaffleDTO(
-                lottery.getCurrentRaffle().id,
-                lottery.getCurrentRaffle().getWinningNum(),
-                lottery.getCurrentRaffle().getWinners(),
-                lottery.getCurrentRaffle().startTime,
-                lottery.getCurrentRaffle().endTime,
-                lottery.getCurrentRaffle().currentBets
+                instance.getCurrentRaffle().getId(),
+                instance.getCurrentRaffle().getWinningNum(),
+                instance.getCurrentRaffle().getWinners(),
+                instance.getCurrentRaffle().getStartTime(),
+                instance.getCurrentRaffle().getEndTime(),
+                instance.getCurrentRaffle().getCurrentBets()
         );
 
 

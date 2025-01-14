@@ -19,9 +19,9 @@ public class Lottery {
 	/**
 	 * Properties
 	 */
-	public List<Raffle> raffles;
-	public static Lottery instance;
-	public Raffle currentRaffle;
+	private List<Raffle> raffles;
+	private static Lottery instance;
+	private Raffle currentRaffle;
 
 	/**
 	 * Default constructor of the class
@@ -34,7 +34,7 @@ public class Lottery {
 	 * Method to get the current instance of the lottery
 	 * @return new Lottery if null, the current Lottery otherwise
 	 */
-	public Lottery getInstance(){
+	public static synchronized Lottery getInstance(){
 		if (instance == null){
 			instance = new Lottery();
 		}
@@ -52,5 +52,9 @@ public class Lottery {
 		}
 
 		return null;
+	}
+
+	public List<Raffle> getRaffles() {
+		return raffles;
 	}
 }

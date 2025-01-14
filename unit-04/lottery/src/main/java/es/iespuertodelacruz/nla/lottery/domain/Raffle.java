@@ -13,12 +13,12 @@ public class Raffle {
 	/**
 	 * Properties
 	 */
-	 public Integer id;
+	 private Integer id;
 	 private Integer winningNum;
 	 private List<Bet> winners;
-	 public Date startTime;
-	 public Date endTime;
-	 public List<Bet> currentBets;
+	private Date startTime;
+	private Date endTime;
+	private List<Bet> currentBets;
 
 	/**
 	 * Default constructor of the class
@@ -55,7 +55,6 @@ public class Raffle {
 	 */
 	private void selectDuration(){
 		long time = 22000;
-				//48000;
 
 		startTime = new Date();
 		endTime = new Date(startTime.getTime() + time);
@@ -126,7 +125,7 @@ public class Raffle {
 		Set<Integer> auxSet = new HashSet<>();
 
 		for(Bet bet : currentBets){
-			int difference = Math.abs(winningNum-bet.numBet);
+			int difference = Math.abs(winningNum-bet.getNumBet());
 			auxSet.add(difference);
 		}
 
@@ -135,7 +134,7 @@ public class Raffle {
 		int lowestDiff = sortedList.get(0);
 
 		for (Bet bet : currentBets){
-			int difference = Math.abs(winningNum-bet.numBet);
+			int difference = Math.abs(winningNum-bet.getNumBet());
 			if (difference == lowestDiff){
 				winners.add(bet);
 			}
@@ -152,5 +151,21 @@ public class Raffle {
 
 	public List<Bet> getWinners() {
 		return winners;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public List<Bet> getCurrentBets() {
+		return currentBets;
 	}
 }

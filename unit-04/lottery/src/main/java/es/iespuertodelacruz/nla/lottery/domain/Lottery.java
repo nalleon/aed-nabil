@@ -50,11 +50,11 @@ public class Lottery {
 			currentRaffle = raffles.get(raffles.size()-1);
 			return currentRaffle;
 		}
-
 		return null;
 	}
 
 	public List<Raffle> getRaffles() {
 		return raffles;
 	}
+
 }

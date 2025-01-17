@@ -10,7 +10,6 @@ public interface IController {
     public ResponseEntity add(int id, BetDTO betDTO);
     public ResponseEntity<List<RaffleDTO>> getAll();
     public ResponseEntity<RaffleDTO> getById(int id);
-
     public ResponseEntity getLatest();
 
 }

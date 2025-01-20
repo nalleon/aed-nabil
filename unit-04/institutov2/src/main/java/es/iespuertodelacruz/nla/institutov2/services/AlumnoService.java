@@ -12,10 +12,8 @@ import es.iespuertodelacruz.nla.institutov2.repository.IAlumnoRepository;
 @Service
 public class AlumnoService implements IServiceGeneric<Alumno, String>{
 
-	
 	@Autowired IAlumnoRepository repository; 
-	
-	
+
 	@Override
 	public List<Alumno> findAll() {
 		return repository.findAll();

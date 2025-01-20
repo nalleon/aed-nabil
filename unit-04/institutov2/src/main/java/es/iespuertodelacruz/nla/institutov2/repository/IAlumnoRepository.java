@@ -14,7 +14,7 @@ public interface IAlumnoRepository extends JpaRepository<Alumno, String>{
 	@Modifying
 	//@Query("DELETE FROM Alumno a WHERE a.dni=:dni")
 	@Query(
-			value="DELETE FROM Alumno a WHERE a.dni =:dni",
+			value="DELETE FROM alumnos AS a WHERE a.dni=:dni",
 			nativeQuery=true
 	)
 	int deleteAlumnoByDNI(@Param("dni") String dni);

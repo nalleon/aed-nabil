@@ -1,6 +1,8 @@
 package es.iespuertodelacruz.nla.institutov2.entities;
 
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -25,6 +27,7 @@ public class Matricula implements Serializable {
 	//bi-directional many-to-one association to Alumno
 	@ManyToOne
 	@JoinColumn(name="dni")
+	@JsonIgnore
 	private Alumno alumno;
 
 	//bi-directional many-to-many association to Asignatura

@@ -1,6 +1,8 @@
 package es.iespuertodelacruz.nla.institutov2.entities;
 
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -28,6 +30,7 @@ public class Asignatura implements Serializable {
 
 	//bi-directional many-to-many association to Matricula
 	@ManyToMany  //(fetch=FetchType.LAZY)
+	@JsonIgnore
 	@JoinTable(
 		name="asignatura_matricula"
 		, joinColumns={

@@ -4,12 +4,14 @@ import es.iespuertodelacruz.nla.institutov2.controller.interfaces.IController;
 import es.iespuertodelacruz.nla.institutov2.dto.AlumnoRecord;
 import es.iespuertodelacruz.nla.institutov2.entities.Alumno;
 import es.iespuertodelacruz.nla.institutov2.services.AlumnoService;
+import es.iespuertodelacruz.nla.institutov2.utils.Globals;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @RestController
@@ -55,6 +57,8 @@ public class AlumnoRESTController implements IController<AlumnoRecord, String> {
     @GetMapping
     @Override
     public ResponseEntity<List<AlumnoRecord>> getAll() {
+
+
         return ResponseEntity.ok(alumnoService.findAll().stream().map(alumno -> new AlumnoRecord(
                 alumno.getDni(), alumno.getApellidos(), alumno.getFechanacimiento(),
                 alumno.getNombre(),alumno.getMatriculas())).collect(Collectors.toList()));
@@ -76,6 +80,7 @@ public class AlumnoRESTController implements IController<AlumnoRecord, String> {
     @DeleteMapping("/{id}")
     @Override
     public ResponseEntity<?> delete(@RequestParam(value = "id") String id) {
+        Logger logger = Logger.getLogger(Globals.LOGGER_ALUMNO);
         boolean deleted = alumnoService.delete(id);
         String message = "";
         int status = 0;
@@ -83,10 +88,12 @@ public class AlumnoRESTController implements IController<AlumnoRecord, String> {
         if(deleted){
             message = "El alumno ha sido correcŧamente eliminado";
             status = 204;
+            logger.info(message + ", status: " + status);
             return ResponseEntity.ok("message: " + message + "\n status: " + status);
         } else {
             message = "El alumno no ha sido eliminado";
             status = 500;
+            logger.info(message + ", status: " + status);
             return ResponseEntity.ok("message: " + message + "\n status: " + status);
         }
     }

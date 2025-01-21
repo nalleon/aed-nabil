@@ -29,7 +29,6 @@ public class AlumnoService implements IServiceGeneric<Alumno, String>{
 	@Transactional
 	public Alumno save(Alumno t) {
 		return repository.save(t);
-	
 	}
 
 	@Override

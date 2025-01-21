@@ -46,7 +46,8 @@ public class MatriculaService implements IServiceGeneric<Matricula, Integer>{
             return null;
         }
 
-        List<Asignatura> list = new ArrayList<Asignatura>();
+
+        List<Asignatura> list = new ArrayList<>();
 
         if(matricula.getAsignaturas()!= null && !matricula.getAsignaturas().isEmpty()){
             matricula.getAsignaturas().forEach(
@@ -56,7 +57,25 @@ public class MatriculaService implements IServiceGeneric<Matricula, Integer>{
                         throw new RuntimeException("No existe la asignatura");
                     }
 
-                    //TODO: Add validations
+                    if(asignatura.getId() != aux.getId()){
+                        throw new RuntimeException("El id es distinto");
+                    }
+
+
+                    if(!asignatura.getNombre().equals(aux.getNombre())){
+                        throw new RuntimeException("El nombre es distinto");
+                    }
+
+
+                    if(!asignatura.getCurso().equals(aux.getCurso())){
+                        throw new RuntimeException("El curso es distinto");
+                    }
+
+
+                    if(!asignatura.getMatriculas().equals(aux.getMatriculas())){
+                        throw new RuntimeException("La lista de matriculas");
+                    }
+
                     list.add(aux);
                     aux.getMatriculas().add(matricula);
                 }
@@ -70,9 +89,13 @@ public class MatriculaService implements IServiceGeneric<Matricula, Integer>{
     @Override
     @Transactional
     public boolean delete(Integer id) {
-        matriculaRepository.deleteRelatedAsignaturaRelationsById(id);
-        int quantity = matriculaRepository.deleteMatriculaById(id);
-        return quantity > 0;
+        try {
+            matriculaRepository.deleteRelatedAsignaturaRelationsById(id);
+            int quantity = matriculaRepository.deleteMatriculaById(id);
+            return quantity > 0;
+        } catch (RuntimeException e){
+            return false;
+        }
     }
 
     @Override

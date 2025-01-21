@@ -35,22 +35,21 @@ public class MatriculaService implements IServiceGeneric<Matricula, Integer>{
 
     @Override
     @Transactional
-    public Matricula save(Matricula matricula) {
-        if(matricula.getAlumno() == null){
+    public Matricula save(Matricula obj) {
+        if(obj.getAlumno() == null){
             return null;
         }
 
-        Alumno alumno = alumnoRepository.findById(matricula.getAlumno().getDni()).orElse(null);
+        Alumno alumno = alumnoRepository.findById(obj.getAlumno().getDni()).orElse(null);
 
         if(alumno == null){
             return null;
         }
-
-
+        
         List<Asignatura> list = new ArrayList<>();
 
-        if(matricula.getAsignaturas()!= null && !matricula.getAsignaturas().isEmpty()){
-            matricula.getAsignaturas().forEach(
+        if(obj.getAsignaturas()!= null && !obj.getAsignaturas().isEmpty()){
+            obj.getAsignaturas().forEach(
                 asignatura -> {
                     Asignatura aux = asignaturaRepository.findById(asignatura.getId()).orElse(null);
                     if(aux == null){
@@ -77,13 +76,13 @@ public class MatriculaService implements IServiceGeneric<Matricula, Integer>{
                     }
 
                     list.add(aux);
-                    aux.getMatriculas().add(matricula);
+                    aux.getMatriculas().add(obj);
                 }
             );
 
-            matricula.setAsignaturas(list);
+            obj.setAsignaturas(list);
         }
-        return matriculaRepository.save(matricula);
+        return matriculaRepository.save(obj);
     }
 
     @Override
@@ -99,7 +98,16 @@ public class MatriculaService implements IServiceGeneric<Matricula, Integer>{
     }
 
     @Override
-    public boolean update(Matricula matricula) {
+    public boolean update(Matricula obj) {
+        if(obj!=null) {
+            Matricula dbItem = matriculaRepository.findById(obj.getId()).orElse(null);
+            if(dbItem != null){
+                dbItem.setAlumno(obj.getAlumno());
+                dbItem.setYear(obj.getYear());
+                dbItem.setAsignaturas(obj.getAsignaturas());
+                return true;
+            }
+        }
         return false;
     }
 }

@@ -12,8 +12,7 @@ import es.iespuertodelacruz.nla.institutov2.repository.IAlumnoRepository;
 @Service
 public class AlumnoService implements IServiceGeneric<Alumno, String>{
 
-	@Autowired IAlumnoRepository repository; 
-
+	@Autowired IAlumnoRepository repository;
 	@Override
 	public List<Alumno> findAll() {
 		return repository.findAll();
@@ -21,14 +20,13 @@ public class AlumnoService implements IServiceGeneric<Alumno, String>{
 
 	@Override
 	public Alumno findById(String id) {
-
 		return repository.findById(id).orElse(null);
 	}
 
 	@Override
 	@Transactional
-	public Alumno save(Alumno t) {
-		return repository.save(t);
+	public Alumno save(Alumno obj) {
+		return repository.save(obj);
 	}
 
 	@Override
@@ -40,17 +38,21 @@ public class AlumnoService implements IServiceGeneric<Alumno, String>{
 
 	@Override
 	@Transactional
-	public boolean update(Alumno t) {
-		if(t!=null &&  t.getDni() != null) {
-			Alumno alumno = repository.findById(t.getDni()).orElse(null);
-			alumno.setNombre(t.getNombre());
-			alumno.setApellidos(t.getApellidos());
-			alumno.setFechanacimiento(t.getFechanacimiento());
-			alumno.setMatriculas(t.getMatriculas());
+	public boolean update(Alumno obj) {
+		if(obj!=null &&  obj.getDni() != null) {
+			Alumno dbItem = repository.findById(obj.getDni()).orElse(null);
+			if(dbItem != null){
+				try {
+					dbItem.setNombre(obj.getNombre());
+					dbItem.setApellidos(obj.getApellidos());
+					dbItem.setFechanacimiento(obj.getFechanacimiento());
+					dbItem.setMatriculas(obj.getMatriculas());
+					return true;
+				} catch (RuntimeException e){
+					throw new RuntimeException("Invalid data");
+				}
+			}
 		}
-		
-		// RunTimeException para parar 
-		
 		return false;
 	}
 

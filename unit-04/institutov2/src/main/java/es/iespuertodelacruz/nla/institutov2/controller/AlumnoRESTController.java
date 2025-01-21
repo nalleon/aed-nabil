@@ -37,7 +37,7 @@ public class AlumnoRESTController implements IController<AlumnoRecord, String> {
 
     @PutMapping
     @Override
-    public ResponseEntity<?> update(@RequestParam(value = "id")String id, @RequestBody AlumnoRecord alumnoRecord) {
+    public ResponseEntity<?> update(@RequestParam(value = "id") String id, @RequestBody AlumnoRecord alumnoRecord) {
         if (alumnoRecord != null){
             Alumno aux = new Alumno();
             aux.setDni(alumnoRecord.dni());

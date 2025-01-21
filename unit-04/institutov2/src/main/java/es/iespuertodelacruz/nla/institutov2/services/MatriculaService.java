@@ -100,6 +100,50 @@ public class MatriculaService implements IServiceGeneric<Matricula, Integer>{
     @Override
     public boolean update(Matricula obj) {
         if(obj!=null) {
+
+            Alumno alumno = alumnoRepository.findById(obj.getAlumno().getDni()).orElse(null);
+
+            if(alumno == null){
+                throw new RuntimeException();
+            }
+
+            List<Asignatura> list = new ArrayList<>();
+
+            if(obj.getAsignaturas()!= null && !obj.getAsignaturas().isEmpty()){
+                obj.getAsignaturas().forEach(
+                        asignatura -> {
+                            Asignatura aux = asignaturaRepository.findById(asignatura.getId()).orElse(null);
+                            if(aux == null){
+                                throw new RuntimeException("No existe la asignatura");
+                            }
+
+                            if(asignatura.getId() != aux.getId()){
+                                throw new RuntimeException("El id es distinto");
+                            }
+
+
+                            if(!asignatura.getNombre().equals(aux.getNombre())){
+                                throw new RuntimeException("El nombre es distinto");
+                            }
+
+
+                            if(!asignatura.getCurso().equals(aux.getCurso())){
+                                throw new RuntimeException("El curso es distinto");
+                            }
+
+
+                            if(!asignatura.getMatriculas().equals(aux.getMatriculas())){
+                                throw new RuntimeException("La lista de matriculas es distinto");
+                            }
+
+                            list.add(aux);
+                            aux.getMatriculas().add(obj);
+                        }
+                );
+
+                obj.setAsignaturas(list);
+            }
+
             Matricula dbItem = matriculaRepository.findById(obj.getId()).orElse(null);
             if(dbItem != null){
                 dbItem.setAlumno(obj.getAlumno());

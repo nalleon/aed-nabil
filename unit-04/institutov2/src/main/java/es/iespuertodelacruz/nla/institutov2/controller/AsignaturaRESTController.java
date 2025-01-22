@@ -6,12 +6,12 @@ import es.iespuertodelacruz.nla.institutov2.entities.Asignatura;
 import es.iespuertodelacruz.nla.institutov2.services.AsignaturaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@RestController
+@RequestMapping("/instituto/api/v1/asignaturas")
+@CrossOrigin
 public class AsignaturaRESTController implements IController<Asignatura, Integer> {
 
     @Autowired

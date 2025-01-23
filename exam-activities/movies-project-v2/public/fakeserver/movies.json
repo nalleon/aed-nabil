@@ -1,0 +1,396 @@
+{
+  "categories": [
+    {
+      "id": "1",
+      "name": "Family",
+      "description": "Movies suitable for all ages and family viewing."
+    },
+    {
+      "id": "2",
+      "name": "Action-packed",
+      "description": "Movies filled with action, fast-paced scenes, and high-intensity."
+    },
+    {
+      "id": "3",
+      "name": "Classic",
+      "description": "Timeless films considered culturally significant or influential."
+    },
+    {
+      "id": "4",
+      "name": "Award-winning",
+      "description": "Movies that have received significant recognition and accolades."
+    },
+    {
+      "id": "5",
+      "name": "Animated",
+      "description": "Movies that feature animation, whether traditional or computer-generated."
+    },
+    {
+      "id": "6",
+      "name": "Blockbusters",
+      "description": "Movies with mass appeal, often with huge box office success."
+    }
+  ],
+  "movies": [
+    {
+      "id": "1",
+      "title": "Inception",
+      "actor": "Leonardo DiCaprio",
+      "director": "Christopher Nolan",
+      "genre": "Sci-Fi",
+      "year": 2010,
+      "description": "A skilled thief is given a chance at redemption if he is able to successfully perform an inception, planting an idea into a target's subconscious.",
+      "image": "inception-poster.jpg",
+      "trailer": "https://www.youtube.com/watch?v=YoHD9XEInc0",
+      "categories": [2, 3, 4]
+    },
+    {
+      "id": "2",
+      "title": "The Dark Knight",
+      "actor": "Christian Bale",
+      "director": "Christopher Nolan",
+      "genre": "Action",
+      "year": 2008,
+      "description": "Batman faces a new enemy, the Joker, who wants to plunge Gotham City into anarchy and chaos.",
+      "image": "dark-knight-poster.jpg",
+      "trailer": "https://youtu.be/EXeTwQWrcwY?si=eSXV9Q7vrGgxKEj7",
+      "categories": [2, 4, 6]
+    },
+    {
+      "id": "3",
+      "title": "Spider-Man: No Way Home",
+      "actor": "Tom Holland",
+      "director": "Jon Watts",
+      "genre": "Action, Adventure, Sci-Fi",
+      "year": 2021,
+      "description": "Spider-Man's identity is exposed, and he seeks the help of Doctor Strange to make the world forget who he is.",
+      "image": "spider-man-no-way-home.jpg",
+      "trailer": "https://www.youtube.com/watch?v=JfVOs4VSpmA",
+      "categories": [2, 1, 6]
+    },
+    {
+      "id": "4",
+      "title": "Dune",
+      "actor": "Timothée Chalamet",
+      "director": "Denis Villeneuve",
+      "genre": "Sci-Fi, Adventure",
+      "year": 2021,
+      "description": "A young nobleman becomes embroiled in a war over a valuable spice on the desert planet Arrakis.",
+      "image": "dune-poster.jpg",
+      "trailer": "https://www.youtube.com/watch?v=n9xhJrPXop4",
+      "categories": [2, 6, 4]
+    },
+    {
+      "id": "5",
+      "title": "The Matrix Resurrections",
+      "actor": "Keanu Reeves",
+      "director": "Lana Wachowski",
+      "genre": "Action, Sci-Fi",
+      "year": 2021,
+      "description": "Neo lives a seemingly normal life until he is pulled back into the Matrix and has to confront his past once again.",
+      "image": "matrix-resurrections.jpg",
+      "trailer": "https://www.youtube.com/watch?v=fA8o66rBWG4",
+      "categories": [2, 3, 6]
+    },
+    {
+      "id": "6",
+      "title": "Avatar",
+      "actor": "Sam Worthington",
+      "director": "James Cameron",
+      "genre": "Sci-Fi, Adventure",
+      "year": 2009,
+      "description": "A paraplegic Marine is sent to Pandora, where he becomes torn between following orders and protecting the world he feels is his new home.",
+      "image": "avatar.jpg",
+      "trailer": "https://www.youtube.com/watch?v=5PSNL1qE6VY",
+      "categories": [6, 2, 1]
+    },
+    {
+      "id": "7",
+      "title": "Titanic",
+      "actor": "Leonardo DiCaprio",
+      "director": "James Cameron",
+      "genre": "Drama, Romance",
+      "year": 1997,
+      "description": "A young aristocrat falls in love with a kind but poor artist aboard the luxurious, ill-fated Titanic.",
+      "image": "titanic.jpg",
+      "trailer": "https://www.youtube.com/watch?v=kVrqfYjkTdQ",
+      "categories": [1, 3, 4]
+    },
+    {
+      "id": "8",
+      "title": "Interstellar",
+      "actor": "Matthew McConaughey",
+      "director": "Christopher Nolan",
+      "genre": "Sci-Fi, Adventure",
+      "year": 2014,
+      "description": "A group of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
+      "image": "interstellar.jpg",
+      "trailer": "https://www.youtube.com/watch?v=zSWdZVtXT7E",
+      "categories": [2, 4, 6]
+    },
+    {
+      "id": "9",
+      "title": "Parasite",
+      "actor": "Song Kang-ho",
+      "director": "Bong Joon-ho",
+      "genre": "Thriller, Drama",
+      "year": 2019,
+      "description": "Greed and class discrimination threaten the newly formed symbiotic relationship between the wealthy Park family and the destitute Kim clan.",
+      "image": "parasite.jpg",
+      "trailer": "https://www.youtube.com/watch?v=SEUXfv87Wpk",
+      "categories": [3, 4]
+    },
+    {
+      "id": "10",
+      "title": "The Shawshank Redemption",
+      "actor": "Tim Robbins",
+      "director": "Frank Darabont",
+      "genre": "Drama",
+      "year": 1994,
+      "description": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
+      "image": "shawshank-redemption.jpg",
+      "trailer": "https://www.youtube.com/watch?v=6hB3S9bIaco",
+      "categories": [3, 4]
+    },
+    {
+      "id": "11",
+      "title": "The Godfather",
+      "actor": "Marlon Brando",
+      "director": "Francis Ford Coppola",
+      "genre": "Crime, Drama",
+      "year": 1972,
+      "description": "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
+      "image": "godfather.jpg",
+      "trailer": "https://www.youtube.com/watch?v=sY1S34973zA",
+      "categories": [3, 4]
+    },
+    {
+      "id": "12",
+      "title": "Pulp Fiction",
+      "actor": "John Travolta",
+      "director": "Quentin Tarantino",
+      "genre": "Crime, Drama",
+      "year": 1994,
+      "description": "The lives of two mob hitmen, a boxer, a gangster's wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
+      "image": "pulp-fiction.jpg",
+      "trailer": "https://www.youtube.com/watch?v=s7EdQ4FqbhY",
+      "categories": [3, 4]
+    },
+    {
+      "id": "13",
+      "title": "The Lord of the Rings: The Fellowship of the Ring",
+      "actor": "Elijah Wood",
+      "director": "Peter Jackson",
+      "genre": "Fantasy, Adventure",
+      "year": 2001,
+      "description": "A meek hobbit from the Shire and eight companions set out on a journey to destroy the powerful One Ring and save Middle-earth.",
+      "image": "lotr-fellowship.jpg",
+      "trailer": "https://www.youtube.com/watch?v=V75dMMIW2B4",
+      "categories": [2, 6]
+    },
+    {
+      "id": "14",
+      "title": "The Avengers",
+      "actor": "Robert Downey Jr.",
+      "director": "Joss Whedon",
+      "genre": "Action, Sci-Fi",
+      "year": 2012,
+      "description": "Earth's mightiest heroes must come together to stop Loki and his alien army from enslaving humanity.",
+      "image": "avengers.jpg",
+      "trailer": "https://www.youtube.com/watch?v=eOrNdBpGMv8",
+      "categories": [2, 6]
+    },
+    {
+      "id": "15",
+      "title": "Joker",
+      "actor": "Joaquin Phoenix",
+      "director": "Todd Phillips",
+      "genre": "Crime, Drama",
+      "year": 2019,
+      "description": "A mentally troubled comedian embarks on a downward spiral of social revolution and bloody crime.",
+      "image": "joker.jpg",
+      "trailer": "https://www.youtube.com/watch?v=zAGVQLHvwOY",
+      "categories": [3, 4]
+    },
+    {
+      "id": "16",
+      "title": "Frozen",
+      "actor": "Idina Menzel",
+      "director": "Chris Buck, Jennifer Lee",
+      "genre": "Animation, Fantasy",
+      "year": 2013,
+      "description": "When the newly crowned Queen Elsa accidentally uses her power to turn things into ice, her sister, Anna, teams up with a mountain man, his playful reindeer, and a snowman to change the weather condition.",
+      "image": "frozen.jpg",
+      "trailer": "https://www.youtube.com/watch?v=TbQm5doF_Uc",
+      "categories": [5, 1, 6]
+    },
+    {
+      "id": "17",
+      "title": "Black Panther",
+      "actor": "Chadwick Boseman",
+      "director": "Ryan Coogler",
+      "genre": "Action, Sci-Fi",
+      "year": 2018,
+      "description": "T'Challa, the heir to the hidden kingdom of Wakanda, must step forward to lead his people into a new future and confront a challenger from his country's past.",
+      "image": "black-panther.jpg",
+      "trailer": "https://www.youtube.com/watch?v=xjDjIWPwcPU",
+      "categories": [2, 6]
+    },
+    {
+      "id": "18",
+      "title": "Guardians of the Galaxy",
+      "actor": "Chris Pratt",
+      "director": "James Gunn",
+      "genre": "Action, Sci-Fi",
+      "year": 2014,
+      "description": "A group of intergalactic criminals must pull together to stop a fanatical warrior from taking control of the universe.",
+      "image": "guardians-of-the-galaxy.jpg",
+      "trailer": "https://www.youtube.com/watch?v=d96cjJhvlMA",
+      "categories": [2, 6]
+    },
+    {
+      "id": "19",
+      "title": "Toy Story",
+      "actor": "Tom Hanks",
+      "director": "John Lasseter",
+      "genre": "Animation, Family",
+      "year": 1995,
+      "description": "A cowboy doll is profoundly threatened and jealous when a new spaceman figure supplants him as top toy in a boy's room.",
+      "image": "toy-story.jpg",
+      "trailer": "https://www.youtube.com/watch?v=KYz2wyBy3kc",
+      "categories": [1, 5]
+    },
+    {
+      "id": "20",
+      "title": "Mad Max: Fury Road",
+      "actor": "Tom Hardy",
+      "director": "George Miller",
+      "genre": "Action, Sci-Fi",
+      "year": 2015,
+      "description": "In a post-apocalyptic wasteland, Max teams up with Furiosa to escape a warlord and his army in a high-octane road chase.",
+      "image": "mad-max-fury-road.jpg",
+      "trailer": "https://www.youtube.com/watch?v=hEJnMQG9ev8",
+      "categories": [2, 6]
+    },
+    {
+      "id": "21",
+      "title": "Shrek",
+      "actor": "Mike Myers",
+      "director": "Andrew Adamson, Vicky Jenson",
+      "genre": "Animation, Comedy",
+      "year": 2001,
+      "description": "An ogre and a donkey set out to rescue a princess, but their journey is filled with unexpected surprises.",
+      "image": "shrek.jpg",
+      "trailer": "https://www.youtube.com/watch?v=rmqEoH0kdQU",
+      "categories": [1, 5]
+    },
+    {
+      "id": "22",
+      "title": "The Lion King",
+      "actor": "Matthew Broderick",
+      "director": "Roger Allers, Rob Minkoff",
+      "genre": "Animation, Family",
+      "year": 1994,
+      "description": "Lion prince Simba and his father are targeted by his wicked uncle, who wants to rule the kingdom.",
+      "image": "the-lion-king.jpg",
+      "trailer": "https://www.youtube.com/watch?v=4sj1MT05lAA",
+      "categories": [1, 5]
+    },
+    {
+      "id": "23",
+      "title": "Doctor Strange",
+      "actor": "Benedict Cumberbatch",
+      "director": "Scott Derrickson",
+      "genre": "Action, Sci-Fi",
+      "year": 2016,
+      "description": "A neurosurgeon embarks on a journey of healing, only to be drawn into the world of the mystic arts.",
+      "image": "doctor-strange.jpg",
+      "trailer": "https://www.youtube.com/watch?v=Lt-U_t2pUHI",
+      "categories": [2, 4]
+    },
+    {
+      "id": "24",
+      "title": "Wonder Woman",
+      "actor": "Gal Gadot",
+      "director": "Patty Jenkins",
+      "genre": "Action, Fantasy",
+      "year": 2017,
+      "description": "Diana, princess of the Amazons, leaves her island paradise to fight alongside man in a war to end all wars.",
+      "image": "wonder-woman.jpg",
+      "trailer": "https://www.youtube.com/watch?v=1Q8fG0TtVAY",
+      "categories": [2, 4]
+    },
+    {
+      "id": "25",
+      "title": "Coco",
+      "actor": "Anthony Gonzalez",
+      "director": "Lee Unkrich, Adrian Molina",
+      "genre": "Animation, Family",
+      "year": 2017,
+      "description": "Aspiring musician Miguel, confronted with his family's ancestral ban on music, enters the Land of the Dead to find his great-great-grandfather, a legendary singer.",
+      "image": "coco.jpg",
+      "trailer": "https://www.youtube.com/watch?v=Rvr68u6k5sI",
+      "categories": [1, 5]
+    },
+    {
+      "id": "26",
+      "title": "Trolls",
+      "actor": "Anna Kendrick",
+      "director": "Mike Mitchell, Walt Dohrn",
+      "genre": "Animation, Family, Comedy",
+      "year": 2016,
+      "description": "After the Bergens invade their village, Poppy, the happiest Troll ever born, and the overly cautious Branch set off on a journey to rescue her friends.",
+      "image": "trolls.jpg",
+      "trailer": "https://www.youtube.com/watch?v=xyjm5VQ11TQ",
+      "categories": [1, 5, 3]
+    },
+    {
+      "id": "27",
+      "title": "The Theory of Everything",
+      "actor": "Eddie Redmayne",
+      "director": "James Marsh",
+      "genre": "Drama, Biography",
+      "year": 2014,
+      "description": "A look at the relationship between the famous physicist Stephen Hawking and his wife, Jane, as he battles ALS and works on his groundbreaking theories.",
+      "image": "theory-of-everything.jpg",
+      "trailer": "https://www.youtube.com/watch?v=Salz7uGp72c",
+      "categories": [6]
+    },
+    {
+      "id": "28",
+      "title": "The Revenant",
+      "actor": "Leonardo DiCaprio",
+      "director": "Alejandro G. Iñárritu",
+      "genre": "Adventure, Drama",
+      "year": 2015,
+      "description": "A frontiersman on a fur trading expedition in the 1820s fights for survival after being mauled by a bear and left for dead by members of his hunting team.",
+      "image": "the-revenant.jpg",
+      "trailer": "https://www.youtube.com/watch?v=LoebZZ8K5N0",
+      "categories": [2]
+    },
+    {
+      "id": "29",
+      "title": "Tenet",
+      "actor": "John David Washington",
+      "director": "Christopher Nolan",
+      "genre": "Sci-Fi, Action",
+      "year": 2020,
+      "description": "Armed with only one word, Tenet, a protagonist journeys through a twilight world of international espionage on a mission that will unfold in something beyond real time.",
+      "image": "tenet.jpg",
+      "trailer": "https://www.youtube.com/watch?v=L3pk_TBkihU",
+      "categories": [4, 2]
+    },
+    {
+      "id": "30",
+      "title": "[REC]",
+      "actor": "Manuela Velasco",
+      "director": "Jaume Balagueró, Paco Plaza",
+      "genre": "Horror, Thriller",
+      "year": 2007,
+      "description": "A reporter and her cameraman are trapped inside a building quarantined by the authorities after an outbreak of a deadly virus.",
+      "image": "rec.jpg",
+      "trailer": "https://www.youtube.com/watch?v=OeaUokzE9fI",
+      "categories": [3, 6]
+    }
+  ]    
+}

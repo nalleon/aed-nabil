@@ -1,0 +1,45 @@
+*{
+    overflow-x: hidden  
+}
+
+.preview-custom-card{
+    position: relative;
+    width: 13rem; 
+    aspect-ratio: 3 / 4; 
+    border-radius: 10px;
+    background: #212121;
+    border: 2px solid  rgb(30, 30, 30);
+
+    overflow: hidden; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 0 auto; 
+}
+
+.preview-custom-card-light{
+    position: relative;
+    width: 13rem; 
+    aspect-ratio: 3 / 4; 
+    border-radius: 10px;
+    background: #b3b3b3;
+    border: 2px solid  rgb(210, 210, 210);
+
+    overflow: hidden; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 0 auto; 
+}
+
+.preview-custom-card:hover {
+    transform: translateY(-10px);
+}
+
+.preview-custom-img {
+    width: 100%;
+    height: 100%; 
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease; 
+}
+
+.preview-custom-card:hover .preview-custom-img .preview-custom-img {
+    transform: scale(1.1); 
+}

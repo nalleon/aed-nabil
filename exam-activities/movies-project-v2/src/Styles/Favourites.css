@@ -1,0 +1,61 @@
+*{
+    overflow-x: hidden  
+}
+
+.fav-custom-card{
+    position: relative;
+    width: 100%; 
+    aspect-ratio: 3 / 4; 
+    border-radius: 10px;
+    background: #212121;
+    border: 2px solid  rgb(223, 164, 62);
+
+
+    overflow: hidden; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 0 auto; 
+}
+
+.fav-custom-card:hover {
+    transform: translateY(-10px);
+
+}
+
+.fav-custom-img {
+    width: 100%;
+    height: 100%; 
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease; 
+}
+
+.fav-custom-card:hover .custom-img {
+    transform: scale(1.1); 
+}
+
+.fav-custom-title {
+    font-family:Arial, Helvetica, sans-serif;
+    position: absolute;
+    bottom: 0; 
+    left: 0;
+    width: 100%; 
+    background: rgba(0, 0, 0, 0.6); 
+    color: white; 
+    text-align: center;
+    padding: 10px 0;
+    font-size: 1rem;
+    font-weight: bold;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: transform 0.3s ease, opacity 0.3s ease; 
+}
+
+.fav-custom-card:hover .fav-custom-title {
+    opacity: 1; 
+    transform: translateY(0);
+}
+
+.title {
+    color: #f9c74f; 
+    text-shadow: 1px 1.5px 1px rgb(97, 49, 23);
+}

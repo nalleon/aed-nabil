@@ -1,0 +1,888 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Peliculas api",
+        "description": "Esta es la documentación de la API generada automáticamente con Swagger",
+        "contact": {
+            "email": "soporte@example.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/actors": {
+            "get": {
+                "tags": [
+                    "Actor"
+                ],
+                "summary": "Obtain the actors list",
+                "description": "Returns the list of actors",
+                "operationId": "958bb6f36b1dbd7b7f6d3706d7aa2e20",
+                "responses": {
+                    "200": {
+                        "description": "List of actors"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Actor"
+                ],
+                "summary": "Store a new actor",
+                "description": "Store a new actor in the database",
+                "operationId": "68cb590d9cf946ce5fa22b21354ad769",
+                "requestBody": {
+                    "description": "Actor data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre",
+                                    "apellidos"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "description": "First name of the actor",
+                                        "type": "string"
+                                    },
+                                    "apellidos": {
+                                        "description": "Last name of the actor",
+                                        "type": "string"
+                                    },
+                                    "peliculas": {
+                                        "description": "List of movie IDs related to the actor",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Actor created successfully"
+                    },
+                    "400": {
+                        "description": "Invalid data provided"
+                    }
+                }
+            }
+        },
+        "/api/actors/{id}": {
+            "get": {
+                "tags": [
+                    "Actor"
+                ],
+                "summary": "Get a specific actor",
+                "description": "Returns the details of a specific actor by ID",
+                "operationId": "0d769932b8dce9fea1e8b29e344f6757",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the actor",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Actor details"
+                    },
+                    "404": {
+                        "description": "Actor not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Actor"
+                ],
+                "summary": "Update an existing actor",
+                "description": "Update the details of an existing actor by ID",
+                "operationId": "90469cc08c3ca87ceeb85cadb85a8094",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the actor to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Updated actor data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nombre": {
+                                        "description": "First name of the actor",
+                                        "type": "string"
+                                    },
+                                    "apellidos": {
+                                        "description": "Last name of the actor",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Actor updated successfully"
+                    },
+                    "400": {
+                        "description": "Invalid data provided"
+                    },
+                    "404": {
+                        "description": "Actor not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Actor"
+                ],
+                "summary": "Delete an actor",
+                "description": "Delete an actor by ID",
+                "operationId": "ef6fd4bccad01c6f3ee6a38af3bcec31",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the actor to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Actor deleted successfully"
+                    },
+                    "404": {
+                        "description": "Actor not found"
+                    }
+                }
+            }
+        },
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register a new user",
+                "description": "Registers a new user and returns the JWT token for authentication",
+                "operationId": "392091b67067bb84702403a281d29dff",
+                "requestBody": {
+                    "description": "User registration data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "User's name",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "User's email",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "User's password",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User successfully registered and JWT token returned",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "description": "JWT token for authentication",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request data"
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login user and get JWT token",
+                "description": "Logs in the user and returns a JWT token for authentication",
+                "operationId": "31dd365bddb46a996c2350b0a1fb7381",
+                "requestBody": {
+                    "description": "User login credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "User's name",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "User's password",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "JWT token returned successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "description": "JWT token for authentication",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized access, invalid credentials"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            }
+        },
+        "/api/categories": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Obtain the category list",
+                "description": "Returns the list of category",
+                "operationId": "2e8a072eef8075cc1da3ba8f9bcf08c0",
+                "responses": {
+                    "200": {
+                        "description": "List of category"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Store a new category",
+                "description": "Store a new category in the database",
+                "operationId": "8eb5334debde1399bb2f3bba9213b4c8",
+                "requestBody": {
+                    "description": "Category data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "description": "Name of the category",
+                                        "type": "string"
+                                    },
+                                    "peliculas": {
+                                        "description": "List of movie IDs related to the category",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Category created successfully"
+                    },
+                    "400": {
+                        "description": "Invalid data provided"
+                    }
+                }
+            }
+        },
+        "/api/categories/{id}": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Get a specific category",
+                "description": "Returns the details of a specific category by ID",
+                "operationId": "6833bd673f2f90f3647ba7e039c29131",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the category",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Category details"
+                    },
+                    "404": {
+                        "description": "Category not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Update an existing category",
+                "description": "Update the details of an existing category by ID",
+                "operationId": "e989bd218534470e629e1cc801671922",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the category to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Updated category data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nombre": {
+                                        "description": "Name of the category",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Category updated successfully"
+                    },
+                    "400": {
+                        "description": "Invalid data provided"
+                    },
+                    "404": {
+                        "description": "Category not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Delete a category",
+                "description": "Delete a category by ID",
+                "operationId": "2b33bbf49e5d0958cbedbfa01c4241f4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the category to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Category deleted successfully"
+                    },
+                    "404": {
+                        "description": "Category not found"
+                    }
+                }
+            }
+        },
+        "/api/directors": {
+            "get": {
+                "tags": [
+                    "Director"
+                ],
+                "summary": "Obtain the directors list",
+                "description": "Returns the list of directors",
+                "operationId": "128351fac0739f196796463e72a5a93a",
+                "responses": {
+                    "200": {
+                        "description": "List of directors"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Director"
+                ],
+                "summary": "Store a new director",
+                "description": "Store a new director in the database",
+                "operationId": "d0116341742a81504221cd1bd89aa0b5",
+                "requestBody": {
+                    "description": "Director data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre",
+                                    "apellidos"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "description": "First name of the director",
+                                        "type": "string"
+                                    },
+                                    "apellidos": {
+                                        "description": "Last name of the director",
+                                        "type": "string"
+                                    },
+                                    "peliculas": {
+                                        "description": "List of movie IDs related to the director",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Director created successfully"
+                    },
+                    "400": {
+                        "description": "Invalid data provided"
+                    }
+                }
+            }
+        },
+        "/api/directors/{id}": {
+            "get": {
+                "tags": [
+                    "Director"
+                ],
+                "summary": "Get a specific director",
+                "description": "Returns the details of a specific director by ID",
+                "operationId": "4df4ad294227fd9b19cee83dec478ec2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the director",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Director details"
+                    },
+                    "404": {
+                        "description": "Director not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Director"
+                ],
+                "summary": "Update an existing director",
+                "description": "Update the details of an existing director by ID",
+                "operationId": "fd1aa0206c40645e8b1b0ae0265e7ec9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the director to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Updated director data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nombre": {
+                                        "description": "First name of the director",
+                                        "type": "string"
+                                    },
+                                    "apellidos": {
+                                        "description": "Last name of the director",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Director updated successfully"
+                    },
+                    "400": {
+                        "description": "Invalid data provided"
+                    },
+                    "404": {
+                        "description": "Director not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Director"
+                ],
+                "summary": "Delete a director",
+                "description": "Delete a director by ID",
+                "operationId": "f28c59230c7b92ee70dfa97500e957cd",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the director to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Director deleted successfully"
+                    },
+                    "404": {
+                        "description": "Director not found"
+                    }
+                }
+            }
+        },
+        "/api/movies": {
+            "get": {
+                "tags": [
+                    "Movie"
+                ],
+                "summary": "Obtain the movies list",
+                "description": "Returns the list of movies",
+                "operationId": "4bc8de342b38772c2974b2feb1f7848c",
+                "responses": {
+                    "200": {
+                        "description": "List of movies"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Movie"
+                ],
+                "summary": "Store a new movie",
+                "description": "Store a new movie in the database",
+                "operationId": "dccb5e0a38c0446ab92f498bf1f164ce",
+                "requestBody": {
+                    "description": "Movie data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "titulo",
+                                    "year",
+                                    "descripcion",
+                                    "trailer",
+                                    "caratula"
+                                ],
+                                "properties": {
+                                    "titulo": {
+                                        "description": "Title of the movie",
+                                        "type": "string"
+                                    },
+                                    "year": {
+                                        "description": "Release year of the movie",
+                                        "type": "integer"
+                                    },
+                                    "descripcion": {
+                                        "description": "Description of the movie",
+                                        "type": "string"
+                                    },
+                                    "trailer": {
+                                        "description": "URL of the movie trailer",
+                                        "type": "string"
+                                    },
+                                    "caratula": {
+                                        "description": "Cover image of the movie",
+                                        "type": "string"
+                                    },
+                                    "categorias": {
+                                        "description": "List of category",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "actores": {
+                                        "description": "List of actors",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "directores": {
+                                        "description": "List of directors",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Movie created successfully"
+                    },
+                    "400": {
+                        "description": "Invalid data provided"
+                    }
+                }
+            }
+        },
+        "/api/movies/{id}": {
+            "get": {
+                "tags": [
+                    "Movie"
+                ],
+                "summary": "Get a specific movie",
+                "description": "Returns a specific movie by ID",
+                "operationId": "12d3292a3b3f64322bb06c2d05c5d091",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the movie",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Movie details"
+                    },
+                    "404": {
+                        "description": "Movie not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Movie"
+                ],
+                "summary": "Update an existing movie",
+                "description": "Update the details of an existing movie by ID",
+                "operationId": "26d073120c30fb3e5bdf7e7dc6d4b046",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the movie to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Updated movie data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "titulo": {
+                                        "description": "Title of the movie",
+                                        "type": "string"
+                                    },
+                                    "year": {
+                                        "description": "Release year of the movie",
+                                        "type": "integer"
+                                    },
+                                    "descripcion": {
+                                        "description": "Description of the movie",
+                                        "type": "string"
+                                    },
+                                    "trailer": {
+                                        "description": "URL of the movie trailer",
+                                        "type": "string"
+                                    },
+                                    "caratula": {
+                                        "description": "Cover image of the movie",
+                                        "type": "string"
+                                    },
+                                    "categorias": {
+                                        "description": "List of categories",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "actores": {
+                                        "description": "List of actors",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "directores": {
+                                        "description": "List of directors",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Movie updated successfully"
+                    },
+                    "400": {
+                        "description": "Invalid data provided"
+                    },
+                    "404": {
+                        "description": "Movie not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Movie"
+                ],
+                "summary": "Delete a movie",
+                "description": "Delete a movie by ID",
+                "operationId": "9443a06d8cd02ace7830210f6ffac99f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the movie to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Movie deleted successfully"
+                    },
+                    "404": {
+                        "description": "Movie not found"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Actor",
+            "description": "Actor"
+        },
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Category",
+            "description": "Category"
+        },
+        {
+            "name": "Director",
+            "description": "Director"
+        },
+        {
+            "name": "Movie",
+            "description": "Movie"
+        }
+    ]
+}

@@ -1,0 +1,77 @@
+*{
+    overflow-x: hidden  
+}
+
+.custom-card{
+    position: relative;
+    width: 100%; 
+    aspect-ratio: 3 / 4; 
+    border-radius: 10px;
+    background: #212121;
+    border: 2px solid  rgb(30, 30, 30);
+
+    overflow: hidden; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 0 auto; 
+}
+
+.custom-card:hover {
+    transform: translateY(-10px);
+
+}
+
+.custom-img {
+    width: 100%;
+    height: 100%; 
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease; 
+}
+
+.custom-card:hover .custom-img {
+    transform: scale(1.1); 
+}
+
+.custom-title {
+    font-family:Arial, Helvetica, sans-serif;
+    position: absolute;
+    bottom: 0; 
+    left: 0;
+    width: 100%; 
+    background: rgba(0, 0, 0, 0.6); 
+    color: white; 
+    text-align: center;
+    padding: 10px 0;
+    font-size: 1rem;
+    font-weight: bold;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: transform 0.3s ease, opacity 0.3s ease; 
+}
+
+.custom-card:hover .custom-title {
+    opacity: 1; 
+    transform: translateY(0);
+}
+
+/**
+* Light theme version
+*/
+
+
+.custom-card-light{
+    position: relative;
+    width: 100%; 
+    aspect-ratio: 3 / 4; 
+    border-radius: 10px;
+    background: #212121;
+    border: 2px solid  rgb(210, 210, 210);
+
+    overflow: hidden; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 0 auto; 
+}
+
+.custom-card-light:hover {
+    transform: translateY(-10px);
+}

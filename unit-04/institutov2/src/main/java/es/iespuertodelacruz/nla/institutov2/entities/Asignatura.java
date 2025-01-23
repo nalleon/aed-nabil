@@ -32,7 +32,7 @@ public class Asignatura implements Serializable {
 	@ManyToMany  //(fetch=FetchType.LAZY)
 	@JsonIgnore
 	@JoinTable(
-		name="asignatura_matricula"
+		name="asignaturas_matriculas"
 		, joinColumns={
 			  @JoinColumn(name="idasignatura")
 			}

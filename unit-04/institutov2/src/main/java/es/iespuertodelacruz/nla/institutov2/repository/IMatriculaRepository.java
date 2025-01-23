@@ -12,13 +12,13 @@ import es.iespuertodelacruz.nla.institutov2.entities.Matricula;
 public interface IMatriculaRepository extends JpaRepository<Matricula, Integer>{
     @Modifying
     @Query(
-            value="DELETE FROM asignatura_matricula AS am WHERE am.idmatricula=:idmatricula",
+            value="DELETE FROM asignaturas_matriculas AS am WHERE am.idmatricula=:idmatricula",
             nativeQuery=true
     )
     int deleteRelatedAsignaturaRelationsById(@Param("idmatricula") Integer idmatricula);
     @Modifying
     @Query(
-            value="DELETE FROM matricula AS m WHERE m.id=:id",
+            value="DELETE FROM matriculas AS m WHERE m.id=:id",
             nativeQuery=true
     )
     int deleteMatriculaById(@Param("id") Integer id);

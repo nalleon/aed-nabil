@@ -1,61 +1,84 @@
 SET MODE MYSQL;
 
-DROP TABLE IF EXISTS `asignatura_matricula`;
-DROP TABLE IF EXISTS `asignaturas`;
-DROP TABLE IF EXISTS `matriculas`;
-DROP TABLE IF EXISTS `alumnos`;
+DROP TABLE IF EXISTS asignaturas_matriculas;
+DROP TABLE IF EXISTS matriculas;
+DROP TABLE IF EXISTS alumnos;
+DROP TABLE IF EXISTS asignaturas;
 
-CREATE TABLE `alumnos`(
-    dni CHARACTER(20),
-    nombre CHARACTER(50),
-    apellidos CHARACTER(50),
-    fechanacimiento BIGINT,
+CREATE TABLE alumnos(
+   dni char(20) NOT NULL,
+   nombre char(50) DEFAULT NULL,
+   apellidos char(50) DEFAULT NULL,
+   fechanacimiento bigint DEFAULT NULL
+);
+INSERT INTO alumnos (dni, nombre, apellidos, fechanacimiento) VALUES
+('12312312K', 'María Luisa', 'Gutiérrez', 821234400000),
+('12345678Z', 'Ana', 'Martín', 968972400000),
+('87654321X', 'Marcos', 'Afonso Jiménez', 874278000000);
 
-    CONSTRAINT pk_alumnos PRIMARY KEY(dni)
+
+
+CREATE TABLE asignaturas (
+  id int AUTO_INCREMENT NOT NULL,
+  nombre char(50) DEFAULT NULL,
+  curso char(50) DEFAULT NULL
 );
 
-CREATE TABLE `asignaturas`(
-    id int AUTO_INCREMENT,
-    nombre CHARACTER(50),
-    curso CHARACTER(50),
-    CONSTRAINT pk_asignaturas PRIMARY KEY(id),
-    CONSTRAINT uc_nombrecurso UNIQUE(nombre,curso)
+
+INSERT INTO asignaturas (nombre, curso) VALUES
+('AED', '2º DAM'),
+('BAE', '1º DAM'),
+('DAA', '1ºDAM'),
+('DOO', '2ºDAM'),
+('DPL', '2º DAW'),
+('DSW', '2º DAW'),
+('LND', '1º DAM'),
+('PGL', '2º DAM'),
+('PGV', '2º DAM'),
+('PRO', '1º DAM');
+
+CREATE TABLE asignaturas_matriculas (
+  id int AUTO_INCREMENT NOT NULL,
+  idmatricula int DEFAULT NULL,
+  idasignatura int DEFAULT NULL
 );
 
+INSERT INTO asignaturas_matriculas (idmatricula, idasignatura) VALUES
+(1, 2),
+(2, 1),
+(2, 3);
 
-CREATE TABLE `matriculas`(
-    `id` int AUTO_INCREMENT,
-    `dni` CHARACTER(20),
-    `year` int,
-    CONSTRAINT `pk_matriculas` PRIMARY KEY(`id`),
-    CONSTRAINT `fk_alumnos` FOREIGN KEY(`dni`) REFERENCES `alumnos`(`dni`),
-    CONSTRAINT `uc_dniyear` UNIQUE(`dni`,`year`)
+CREATE TABLE matriculas (
+  id int AUTO_INCREMENT NOT NULL,
+  dni char(20) DEFAULT NULL,
+  `year` int DEFAULT NULL
 );
 
-CREATE TABLE asignatura_matricula(
-    id int AUTO_INCREMENT,
-    idmatricula int,
-    idasignatura int,
-    CONSTRAINT pk_asignatura_matriculas PRIMARY KEY(id),
-    CONSTRAINT fk_matriculas FOREIGN KEY(idmatricula) REFERENCES matriculas(id),
-    CONSTRAINT fk_asignaturas FOREIGN KEY(idasignatura) REFERENCES asignaturas(id)
+INSERT INTO matriculas (dni, `year`) VALUES
+('12312312K', 2020),
+('12345678Z', 2023);
 
-);
+ALTER TABLE alumnos
+  ADD PRIMARY KEY (dni);
 
-INSERT INTO `alumnos` (`dni`, `nombre`, `apellidos`, `fechanacimiento`) VALUES ('12345678Z', 'Ana', 'Martín', '968972400000');
-INSERT INTO `alumnos` (`dni`, `nombre`, `apellidos`, `fechanacimiento`) VALUES ('87654321X', 'Marcos', 'Afonso Jiménez', '874278000000');
-INSERT INTO `alumnos` (`dni`, `nombre`, `apellidos`, `fechanacimiento`) VALUES ('12312312K', 'María Luisa', 'Gutiérrez', '821234400000');
+ALTER TABLE asignaturas
+  ADD PRIMARY KEY (id);
+
+ALTER TABLE asignaturas
+  ADD UNIQUE KEY uc_nombrecurso (nombre,curso);
+
+ALTER TABLE asignaturas_matriculas
+  ADD PRIMARY KEY (id);
+ALTER TABLE asignaturas_matriculas
+  ADD UNIQUE KEY uq_matasig (idmatricula,idasignatura);
+ALTER TABLE asignaturas_matriculas
+  ADD KEY fk_asignaturas (idasignatura);
+
+  ALTER TABLE asignaturas_matriculas
+    ADD CONSTRAINT fk_asignaturas FOREIGN KEY (idasignatura) REFERENCES asignaturas (id);
+  ALTER TABLE asignaturas_matriculas
+    ADD CONSTRAINT fk_matriculas FOREIGN KEY (idmatricula) REFERENCES matriculas (id);
 
 
-INSERT INTO `asignaturas` (`id`, `nombre`, `curso`) VALUES (1, 'BAE', '1º DAM');
-INSERT INTO `asignaturas` (`id`, `nombre`, `curso`) VALUES (2, 'PGV', '2º DAM');
-INSERT INTO `asignaturas` (`id`, `nombre`, `curso`) VALUES (3, 'LND', '1º DAM');
-INSERT INTO `asignaturas` (`id`, `nombre`, `curso`) VALUES (4, 'AED', '2º DAM');
-INSERT INTO `asignaturas` (`id`, `nombre`, `curso`) VALUES (5, 'DSW', '2º DAW');
-INSERT INTO `asignaturas` (`id`, `nombre`, `curso`) VALUES (6, 'DPL', '2º DAW');
-INSERT INTO `asignaturas` (`id`, `nombre`, `curso`) VALUES (7, 'PRO', '1º DAM');
-INSERT INTO `asignaturas` (`id`, `nombre`, `curso`) VALUES (8, 'PGL', '2º DAM');
-
-INSERT INTO `matriculas` (`id`, `dni`,`year`) VALUES (1, '12345678Z', 2023);
-
-INSERT INTO `asignatura_matricula` (`idmatricula`,`idasignatura`) VALUES (1, 2);
+  ALTER TABLE matriculas
+    ADD CONSTRAINT fk_alumnos FOREIGN KEY (dni) REFERENCES alumnos (dni);

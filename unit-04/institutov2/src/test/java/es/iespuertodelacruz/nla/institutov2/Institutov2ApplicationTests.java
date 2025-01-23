@@ -12,7 +12,6 @@ import java.util.*;
 @SpringBootTest
 @ActiveProfiles("test")
 @Sql("/institutotest.sql")
-
 class Institutov2ApplicationTests {
 	public static final String MESSAGE_ERROR = "Expected result not found";
 	@Autowired

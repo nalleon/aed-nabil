@@ -15,6 +15,11 @@ import java.util.List;
 @Service
 public class MatriculaService implements IServiceGeneric<Matricula, Integer>{
 
+    public static final String ID_EXCEPTION = "El id es distinto";
+    public static final String NOMBRE_EXCEPTION = "El nombre es distinto";
+    public static final String CURSO_EXCEPTION = "El curso es distinto";
+    public static final String MATRICULAS_EXCEPTION = "La lista de matriculas";
+    public static final String NO_EXISTE_EXCEPTION = "No existe la asignatura";
     @Autowired
     IMatriculaRepository matriculaRepository;
 
@@ -53,26 +58,26 @@ public class MatriculaService implements IServiceGeneric<Matricula, Integer>{
                 asignatura -> {
                     Asignatura aux = asignaturaRepository.findById(asignatura.getId()).orElse(null);
                     if(aux == null){
-                        throw new RuntimeException("No existe la asignatura");
+                        throw new RuntimeException(NO_EXISTE_EXCEPTION);
                     }
 
                     if(asignatura.getId() != aux.getId()){
-                        throw new RuntimeException("El id es distinto");
+                        throw new RuntimeException(ID_EXCEPTION);
                     }
 
 
                     if(!asignatura.getNombre().equals(aux.getNombre())){
-                        throw new RuntimeException("El nombre es distinto");
+                        throw new RuntimeException(NOMBRE_EXCEPTION);
                     }
 
 
                     if(!asignatura.getCurso().equals(aux.getCurso())){
-                        throw new RuntimeException("El curso es distinto");
+                        throw new RuntimeException(CURSO_EXCEPTION);
                     }
 
 
                     if(!asignatura.getMatriculas().equals(aux.getMatriculas())){
-                        throw new RuntimeException("La lista de matriculas");
+                        throw new RuntimeException(MATRICULAS_EXCEPTION);
                     }
 
                     list.add(aux);
@@ -98,6 +103,7 @@ public class MatriculaService implements IServiceGeneric<Matricula, Integer>{
     }
 
     @Override
+    @Transactional
     public boolean update(Matricula obj) {
         if(obj!=null) {
 
@@ -114,26 +120,26 @@ public class MatriculaService implements IServiceGeneric<Matricula, Integer>{
                         asignatura -> {
                             Asignatura aux = asignaturaRepository.findById(asignatura.getId()).orElse(null);
                             if(aux == null){
-                                throw new RuntimeException("No existe la asignatura");
+                                throw new RuntimeException(NO_EXISTE_EXCEPTION);
                             }
 
                             if(asignatura.getId() != aux.getId()){
-                                throw new RuntimeException("El id es distinto");
+                                throw new RuntimeException(ID_EXCEPTION);
                             }
 
 
                             if(!asignatura.getNombre().equals(aux.getNombre())){
-                                throw new RuntimeException("El nombre es distinto");
+                                throw new RuntimeException(NOMBRE_EXCEPTION);
                             }
 
 
                             if(!asignatura.getCurso().equals(aux.getCurso())){
-                                throw new RuntimeException("El curso es distinto");
+                                throw new RuntimeException(CURSO_EXCEPTION);
                             }
 
 
                             if(!asignatura.getMatriculas().equals(aux.getMatriculas())){
-                                throw new RuntimeException("La lista de matriculas es distinto");
+                                throw new RuntimeException(MATRICULAS_EXCEPTION);
                             }
 
                             list.add(aux);

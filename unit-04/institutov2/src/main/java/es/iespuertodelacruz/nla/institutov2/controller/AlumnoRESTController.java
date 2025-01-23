@@ -37,7 +37,7 @@ public class AlumnoRESTController implements IController<AlumnoRecord, String> {
         return null;
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     @Override
     public ResponseEntity<?> update(@RequestParam(value = "id") String id, @RequestBody AlumnoRecord alumnoRecord) {
         if (alumnoRecord != null){

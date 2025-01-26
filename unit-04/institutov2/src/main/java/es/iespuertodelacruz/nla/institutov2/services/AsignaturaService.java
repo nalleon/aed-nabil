@@ -99,34 +99,32 @@ public class AsignaturaService implements IServiceGeneric<Asignatura, Integer> {
     @Transactional
     public boolean update(Asignatura obj) {
         if(obj!=null) {
-
-        }
             List<Matricula> list = new ArrayList<>();
-            if(obj.getMatriculas() != null && !obj.getMatriculas().isEmpty()){
+            if(obj.getMatriculas() != null && !obj.getMatriculas().isEmpty()) {
                 obj.getMatriculas().forEach(
                         matricula -> {
                             Matricula aux = matriculaRepository.findById(matricula.getId()).orElse(null);
 
-                            if(aux == null){
+                            if (aux == null) {
                                 throw new RuntimeException(NO_EXISTE_EXCEPTION);
                             }
 
-                            if(matricula.getId() != aux.getId()){
+                            if (matricula.getId() != aux.getId()) {
                                 throw new RuntimeException(ID_EXCEPTION);
                             }
 
 
-                            if(!matricula.getAlumno().equals(aux.getAlumno())){
+                            if (!matricula.getAlumno().equals(aux.getAlumno())) {
                                 throw new RuntimeException(ALUMNO_EXCEPTION);
                             }
 
 
-                            if(matricula.getYear() == (aux.getYear())){
+                            if (matricula.getYear() == (aux.getYear())) {
                                 throw new RuntimeException(CURSO_EXCEPTION);
                             }
 
 
-                            if(!matricula.getAsignaturas().equals(aux.getAsignaturas())){
+                            if (!matricula.getAsignaturas().equals(aux.getAsignaturas())) {
                                 throw new RuntimeException(ASIGNATURAS_EXCEPTION);
                             }
 
@@ -135,6 +133,7 @@ public class AsignaturaService implements IServiceGeneric<Asignatura, Integer> {
                         }
                 );
                 obj.setMatriculas(list);
+            }
 
             Asignatura dbItem = asignaturaRepository.findById(obj.getId()).orElse(null);
             if(dbItem != null){

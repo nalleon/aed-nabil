@@ -116,7 +116,6 @@ public class MatriculaService implements IServiceGeneric<Matricula, Integer>{
     @Transactional
     public boolean update(Matricula obj) {
         if(obj!=null) {
-
             Alumno alumno = alumnoRepository.findById(obj.getAlumno().getDni()).orElse(null);
 
             if(alumno == null){
@@ -166,15 +165,16 @@ public class MatriculaService implements IServiceGeneric<Matricula, Integer>{
                 dbItem.setYear(obj.getYear());
                 dbItem.setAsignaturas(obj.getAsignaturas());
 
-                //matriculaRepository.deleteRelatedAsignaturaRelationsById((obj.getId()));
-
-                if(!obj.getAsignaturas().isEmpty()){
-                    matriculaRepository.deleteRelatedAsignaturaRelationsById(obj.getId());
-                    for (int i=0; i< obj.getAsignaturas().size(); i++){
-                        matriculaRepository.insertAsignaturasMatriculas(obj.getId(), obj.getAsignaturas().get(i).getId());
-                    }
-                }
-
+/**
+ *                 matriculaRepository.deleteRelatedAsignaturaRelationsById((obj.getId()));
+ *
+ *                 if(!obj.getAsignaturas().isEmpty()){
+ *                     matriculaRepository.deleteRelatedAsignaturaRelationsById(obj.getId());
+ *                     for (int i=0; i< obj.getAsignaturas().size(); i++){
+ *                         matriculaRepository.insertAsignaturasMatriculas(obj.getId(), obj.getAsignaturas().get(i).getId());
+ *                     }
+ *                 }
+ */
 
 
                 return true;

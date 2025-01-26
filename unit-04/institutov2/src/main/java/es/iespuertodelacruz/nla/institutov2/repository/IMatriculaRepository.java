@@ -24,7 +24,10 @@ public interface IMatriculaRepository extends JpaRepository<Matricula, Integer>{
     int deleteMatriculaById(@Param("id") Integer id);
 
     @Modifying
-    @Query("INSERT INTO asignaturas_matriculas (idmatricula, idasignatura) VALUES (:idmatricula, :idasignatura)")
+    @Query(
+            value="INSERT INTO asignaturas_matriculas (idmatricula, idasignatura) VALUES (:idmatricula, :idasignatura)",
+            nativeQuery=true
+    )
     void insertAsignaturasMatriculas(@Param("idmatricula") Integer idmatricula, @Param("idasignatura") Integer idasignatura);
 
 

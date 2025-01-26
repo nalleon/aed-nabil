@@ -1,21 +1,23 @@
 package es.iespuertodelacruz.nla.institutov2.service;
 
 import es.iespuertodelacruz.nla.institutov2.entities.Asignatura;
-import es.iespuertodelacruz.nla.institutov2.services.AlumnoService;
 import es.iespuertodelacruz.nla.institutov2.services.AsignaturaService;
 import es.iespuertodelacruz.nla.institutov2.utils.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
 
 @SpringBootTest
+@ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
 @Sql("/institutotest.sql")
 public class AsignaturaServiceTest extends TestUtilities {

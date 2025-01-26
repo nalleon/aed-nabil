@@ -1,7 +1,10 @@
 package es.iespuertodelacruz.nla.institutov2.service;
 
 import es.iespuertodelacruz.nla.institutov2.entities.Alumno;
+import es.iespuertodelacruz.nla.institutov2.entities.Matricula;
 import es.iespuertodelacruz.nla.institutov2.services.AlumnoService;
+import es.iespuertodelacruz.nla.institutov2.services.AsignaturaService;
+import es.iespuertodelacruz.nla.institutov2.services.MatriculaService;
 import es.iespuertodelacruz.nla.institutov2.utils.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -21,59 +24,57 @@ public class MatriculaServiceTest extends TestUtilities {
 
 
     @Autowired
-     AlumnoService service;
+    MatriculaService service;
 
+    @Autowired
+    AlumnoService alumnoService;
+    @Autowired
+    AsignaturaService asignaturaService;
 
     @Test
     void getAllTest() {
-        List<Alumno> list = service.findAll();
+        List<Matricula> list = service.findAll();
         Assertions.assertNotNull(list, MESSAGE_ERROR);
-        Assertions.assertEquals(3, list.size(), MESSAGE_ERROR);
+        Assertions.assertEquals(1, list.size(), MESSAGE_ERROR);
     }
 
     @Test
     void getOneTest() {
-        Assertions.assertNotNull(service.findById("12312312K"), MESSAGE_ERROR);
+        Assertions.assertNotNull(service.findById(1), MESSAGE_ERROR);
     }
 
     @Test
     void addTest() {
-        Alumno itemToAdd = new Alumno();
-        itemToAdd.setNombre("testNombre");
-        itemToAdd.setApellidos("testApellidos");
-        itemToAdd.setDni("123456789P");
-        itemToAdd.setMatriculas(new ArrayList<>());
-        itemToAdd.setFechanacimiento(new Date());
 
-        Alumno dbItem = service.save(itemToAdd);
+        Matricula itemToAdd = new Matricula();
+
+        itemToAdd.setAlumno(alumnoService.findById("12345678Z"));
+        itemToAdd.setAsignaturas(asignaturaService.findAll());
+        itemToAdd.setYear(2023);
+        Matricula dbItem = service.save(itemToAdd);
 
         Assertions.assertNotNull(dbItem, MESSAGE_ERROR);
-        Assertions.assertEquals(itemToAdd.getDni(), dbItem.getDni(), MESSAGE_ERROR);
-        Assertions.assertEquals(itemToAdd.getNombre(), dbItem.getNombre(), MESSAGE_ERROR);
-        Assertions.assertEquals(itemToAdd.getApellidos(), dbItem.getApellidos(), MESSAGE_ERROR);
-        Assertions.assertEquals(itemToAdd.getFechanacimiento(), dbItem.getFechanacimiento(), MESSAGE_ERROR);
-        Assertions.assertEquals(itemToAdd.getMatriculas(), dbItem.getMatriculas(), MESSAGE_ERROR);
+        Assertions.assertEquals(itemToAdd.getAsignaturas(), dbItem.getAsignaturas(), MESSAGE_ERROR);
+        Assertions.assertEquals(itemToAdd.getAlumno(), dbItem.getAlumno(), MESSAGE_ERROR);
+        Assertions.assertEquals(itemToAdd.getYear(), dbItem.getYear(), MESSAGE_ERROR);
     }
 
     @Test
     void updateTest() {
-        Alumno itemToAdd = new Alumno();
-        itemToAdd.setNombre("testNombre");
-        itemToAdd.setApellidos("testApellidos");
-        itemToAdd.setDni("123456789P");
-        itemToAdd.setMatriculas(new ArrayList<>());
-        itemToAdd.setFechanacimiento(new Date());
+        Matricula itemToAdd = new Matricula();
 
-        Alumno dbItem = service.save(itemToAdd);
+        itemToAdd.setAlumno(alumnoService.findById("12345678Z"));
+        itemToAdd.setAsignaturas(asignaturaService.findAll());
+        itemToAdd.setYear(2023);
+        Matricula dbItem = service.save(itemToAdd);
 
         Assertions.assertNotNull(dbItem, MESSAGE_ERROR);
 
-        Alumno itemToUpdate = new Alumno();
-        itemToUpdate.setDni(dbItem.getDni());
-        itemToUpdate.setNombre("testNombre");
-        itemToUpdate.setApellidos("testApellidos");
-        itemToUpdate.setMatriculas(new ArrayList<>());
-        itemToUpdate.setFechanacimiento(new Date());
+        Matricula itemToUpdate = new Matricula();
+        itemToUpdate.setId(itemToAdd.getId());
+        itemToUpdate.setAlumno(alumnoService.findById("87654321X"));
+        itemToUpdate.setAsignaturas(asignaturaService.findAll());
+        itemToUpdate.setYear(2026);
 
         boolean dbUpdatedItem = service.update(itemToUpdate);
 
@@ -84,16 +85,16 @@ public class MatriculaServiceTest extends TestUtilities {
 
     @Test
     void deleteTest() {
-        Alumno itemToAdd = new Alumno();
-        itemToAdd.setNombre("testNombre");
-        itemToAdd.setApellidos("testApellidos");
-        itemToAdd.setDni("123456789P");
-        itemToAdd.setMatriculas(new ArrayList<>());
-        itemToAdd.setFechanacimiento(new Date());
+        Matricula itemToAdd = new Matricula();
 
-        Alumno dbItem = service.save(itemToAdd);
+        itemToAdd.setAlumno(alumnoService.findById("87654321X"));
+        itemToAdd.setAsignaturas(asignaturaService.findAll());
+        itemToAdd.setYear(2023);
+        Matricula dbItem = service.save(itemToAdd);
 
         Assertions.assertNotNull(dbItem, MESSAGE_ERROR);
-        Assertions.assertTrue(service.delete("123456789P"), MESSAGE_ERROR);
+
+        Assertions.assertNotNull(dbItem, MESSAGE_ERROR);
+        Assertions.assertTrue(service.delete(dbItem.getId()), MESSAGE_ERROR);
     }
 }

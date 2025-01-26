@@ -6,4 +6,4 @@ import java.util.Date;
 import java.util.List;
 
 
-public record AlumnoRecord (String dni, String apellidos, Date fechanacimiento, String nombre, List<Matricula> matriculas){};
+public record AlumnoRecord (String dni, String apellidos, Date fechanacimiento, String nombre){};

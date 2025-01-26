@@ -18,7 +18,7 @@ public class MatriculaService implements IServiceGeneric<Matricula, Integer>{
     public static final String ID_EXCEPTION = "El id es distinto";
     public static final String NOMBRE_EXCEPTION = "El nombre es distinto";
     public static final String CURSO_EXCEPTION = "El curso es distinto";
-    public static final String MATRICULAS_EXCEPTION = "La lista de matriculas";
+    public static final String MATRICULAS_EXCEPTION = "La lista de matriculas no existe";
     public static final String NO_EXISTE_EXCEPTION = "No existe la asignatura";
     @Autowired
     IMatriculaRepository matriculaRepository;
@@ -76,9 +76,9 @@ public class MatriculaService implements IServiceGeneric<Matricula, Integer>{
                     }
 
 
-                    if(!asignatura.getMatriculas().equals(aux.getMatriculas())){
-                        throw new RuntimeException(MATRICULAS_EXCEPTION);
-                    }
+                    //if(!asignatura.getMatriculas().equals(aux.getMatriculas())){
+                    //    throw new RuntimeException(MATRICULAS_EXCEPTION);
+                    //}
 
                     list.add(aux);
                     aux.getMatriculas().add(obj);
@@ -87,7 +87,17 @@ public class MatriculaService implements IServiceGeneric<Matricula, Integer>{
 
             obj.setAsignaturas(list);
         }
-        return matriculaRepository.save(obj);
+
+        Matricula result = matriculaRepository.save(obj);
+
+        if(!obj.getAsignaturas().isEmpty()){
+            matriculaRepository.deleteRelatedAsignaturaRelationsById(obj.getId());
+            for (int i=0; i< obj.getAsignaturas().size(); i++){
+                matriculaRepository.insertAsignaturasMatriculas(obj.getId(), obj.getAsignaturas().get(i).getId());
+            }
+        }
+
+        return result;
     }
 
     @Override
@@ -138,9 +148,9 @@ public class MatriculaService implements IServiceGeneric<Matricula, Integer>{
                             }
 
 
-                            if(!asignatura.getMatriculas().equals(aux.getMatriculas())){
-                                throw new RuntimeException(MATRICULAS_EXCEPTION);
-                            }
+                            // if(!asignatura.getMatriculas().equals(aux.getMatriculas())){
+                            //    throw new RuntimeException(MATRICULAS_EXCEPTION);
+                            //}
 
                             list.add(aux);
                             aux.getMatriculas().add(obj);
@@ -155,6 +165,18 @@ public class MatriculaService implements IServiceGeneric<Matricula, Integer>{
                 dbItem.setAlumno(obj.getAlumno());
                 dbItem.setYear(obj.getYear());
                 dbItem.setAsignaturas(obj.getAsignaturas());
+
+                //matriculaRepository.deleteRelatedAsignaturaRelationsById((obj.getId()));
+
+                if(!obj.getAsignaturas().isEmpty()){
+                    matriculaRepository.deleteRelatedAsignaturaRelationsById(obj.getId());
+                    for (int i=0; i< obj.getAsignaturas().size(); i++){
+                        matriculaRepository.insertAsignaturasMatriculas(obj.getId(), obj.getAsignaturas().get(i).getId());
+                    }
+                }
+
+
+
                 return true;
             }
         }

@@ -16,12 +16,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.mockito.Mockito.when;
 @SpringBootTest
 @ActiveProfiles("test")
 @Sql("/institutotest.sql")
 public class AlumnoServiceTest extends TestUtilities {
-
 
     @Autowired
      AlumnoService service;

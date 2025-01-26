@@ -26,7 +26,20 @@ public class AlumnoService implements IServiceGeneric<Alumno, String>{
 	@Override
 	@Transactional
 	public Alumno save(Alumno obj) {
-		return repository.save(obj);
+		if (obj == null){
+			return null;
+		}
+		Alumno dbItem = repository.findById(obj.getDni()).orElse(null);
+
+		if (dbItem != null){
+			return null;
+		}
+
+		try {
+			return repository.save(obj);
+		} catch (RuntimeException e){
+			throw new RuntimeException("Invalid data");
+		}
 	}
 
 	@Override

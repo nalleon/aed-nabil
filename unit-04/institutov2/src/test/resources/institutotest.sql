@@ -37,17 +37,6 @@ INSERT INTO asignaturas (nombre, curso) VALUES
 ('PGV', '2º DAM'),
 ('PRO', '1º DAM');
 
-CREATE TABLE asignaturas_matriculas (
-  id int AUTO_INCREMENT NOT NULL,
-  idmatricula int DEFAULT NULL,
-  idasignatura int DEFAULT NULL
-);
-
-INSERT INTO asignaturas_matriculas (idmatricula, idasignatura) VALUES
-(1, 2),
-(2, 1),
-(2, 3);
-
 CREATE TABLE matriculas (
   id int AUTO_INCREMENT NOT NULL,
   dni char(20) DEFAULT NULL,
@@ -55,8 +44,18 @@ CREATE TABLE matriculas (
 );
 
 INSERT INTO matriculas (dni, `year`) VALUES
-('12312312K', 2020),
-('12345678Z', 2023);
+('12312312K', 2020);
+
+
+CREATE TABLE asignaturas_matriculas (
+  id int AUTO_INCREMENT NOT NULL,
+  idmatricula int DEFAULT NULL,
+  idasignatura int DEFAULT NULL
+);
+
+INSERT INTO asignaturas_matriculas (idmatricula, idasignatura) VALUES
+(1, 2);
+
 
 ALTER TABLE alumnos
   ADD PRIMARY KEY (dni);

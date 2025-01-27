@@ -2,6 +2,7 @@ package es.iespuertodelacruz.nla.institutov2.services;
 
 import java.util.List;
 
+import es.iespuertodelacruz.nla.institutov2.services.interfaces.IServiceGeneric;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,7 +11,7 @@ import es.iespuertodelacruz.nla.institutov2.entities.Alumno;
 import es.iespuertodelacruz.nla.institutov2.repository.IAlumnoRepository;
 
 @Service
-public class AlumnoService implements IServiceGeneric<Alumno, String>{
+public class AlumnoService implements IServiceGeneric<Alumno, String> {
 
 	@Autowired IAlumnoRepository repository;
 	@Override

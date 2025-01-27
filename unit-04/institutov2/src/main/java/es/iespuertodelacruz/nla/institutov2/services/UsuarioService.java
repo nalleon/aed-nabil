@@ -1,16 +1,15 @@
 package es.iespuertodelacruz.nla.institutov2.services;
 
-import es.iespuertodelacruz.nla.institutov2.entities.Alumno;
-import es.iespuertodelacruz.nla.institutov2.entities.Asignatura;
 import es.iespuertodelacruz.nla.institutov2.entities.Usuario;
 import es.iespuertodelacruz.nla.institutov2.repository.IUsuarioRepository;
+import es.iespuertodelacruz.nla.institutov2.services.interfaces.IServiceGeneric;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Service
-public class UsuarioService implements IServiceGeneric<Usuario, String>{
+public class UsuarioService implements IServiceGeneric<Usuario, String> {
     @Autowired
     IUsuarioRepository repository;
     @Override
@@ -73,7 +72,7 @@ public class UsuarioService implements IServiceGeneric<Usuario, String>{
                 try {
                     dbItem.setNombre(obj.getNombre());
                     dbItem.setPassword(obj.getPassword());
-                    dbItem.setVerificado(obj.isVerificado());
+                    dbItem.setVerificado(obj.getVerificado());
                     dbItem.setRol(obj.getRol());
                     return true;
                 } catch (RuntimeException e){

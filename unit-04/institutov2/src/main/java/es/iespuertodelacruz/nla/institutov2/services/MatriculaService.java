@@ -6,6 +6,7 @@ import es.iespuertodelacruz.nla.institutov2.entities.Matricula;
 import es.iespuertodelacruz.nla.institutov2.repository.IAlumnoRepository;
 import es.iespuertodelacruz.nla.institutov2.repository.IAsignaturaRepository;
 import es.iespuertodelacruz.nla.institutov2.repository.IMatriculaRepository;
+import es.iespuertodelacruz.nla.institutov2.services.interfaces.IServiceGeneric;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 @Service
-public class MatriculaService implements IServiceGeneric<Matricula, Integer>{
+public class MatriculaService implements IServiceGeneric<Matricula, Integer> {
 
     public static final String ID_EXCEPTION = "El id es distinto";
     public static final String NOMBRE_EXCEPTION = "El nombre es distinto";

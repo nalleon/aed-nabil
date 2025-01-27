@@ -22,7 +22,7 @@ public class Usuario {
     @Column(nullable=false, length=45)
     private String rol;
 
-    private boolean verificado;
+    private int verificado;
 
     @Column(length=255)
     private String token_verificacion;
@@ -70,11 +70,11 @@ public class Usuario {
         this.rol = rol;
     }
 
-    public boolean isVerificado() {
+    public int getVerificado() {
         return verificado;
     }
 
-    public void setVerificado(boolean verificado) {
+    public void setVerificado(int verificado) {
         this.verificado = verificado;
     }
 

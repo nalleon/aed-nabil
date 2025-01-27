@@ -2,6 +2,8 @@ package es.iespuertodelacruz.nla.institutov2.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Entity
 @Table(name="usuarios")
 @NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
@@ -28,7 +30,8 @@ public class Usuario {
     private String token_verificacion;
 
     @Column(nullable=false, length=45)
-    private String fecha_creacion;
+    @Convert(converter = DateToLongConverter.class)
+    private Date fecha_creacion;
 
     public String getDni() {
         return dni;
@@ -86,11 +89,11 @@ public class Usuario {
         this.token_verificacion = token_verificacion;
     }
 
-    public String getFecha_creacion() {
+    public Date getFecha_creacion() {
         return fecha_creacion;
     }
 
-    public void setFecha_creacion(String fecha_creacion) {
+    public void setFecha_creacion(Date fecha_creacion) {
         this.fecha_creacion = fecha_creacion;
     }
 }

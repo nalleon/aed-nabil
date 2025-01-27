@@ -78,6 +78,8 @@ public class MatriculaRESTController implements IController<MatriculaRecord, Int
     @Override
     public ResponseEntity<MatriculaRecord> getById(@RequestParam(value = "id")Integer id) {
         Matricula aux = service.findById(id);
+        Logger logger = Logger.getLogger(Globals.LOGGER_MATRICULA);
+        logger.info("found");
 
         if (aux != null){
             MatriculaRecord record = getMatriculaRecord(aux);
@@ -87,7 +89,7 @@ public class MatriculaRESTController implements IController<MatriculaRecord, Int
         return null;
     }
 
-    private static MatriculaRecord getMatriculaRecord(Matricula aux) {
+    private MatriculaRecord getMatriculaRecord(Matricula aux) {
         List<AsignaturaRecord> asignaturaList = new ArrayList<>();
         for (Asignatura asignatura : aux.getAsignaturas()){
             AsignaturaRecord asignaturaRecord = new AsignaturaRecord(

@@ -44,7 +44,8 @@ public class User implements Serializable {
 	public User() {
 	}
 
-	public long getId() {
+	public long getId()
+	{
 		return this.id;
 	}
 

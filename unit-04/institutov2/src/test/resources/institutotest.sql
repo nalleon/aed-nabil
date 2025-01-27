@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS asignaturas_matriculas;
 DROP TABLE IF EXISTS matriculas;
 DROP TABLE IF EXISTS alumnos;
 DROP TABLE IF EXISTS asignaturas;
+DROP TABLE IF EXISTS usuarios;
 
 CREATE TABLE alumnos(
    dni char(20) NOT NULL,
@@ -82,3 +83,35 @@ ALTER TABLE asignaturas_matriculas
   ALTER TABLE matriculas
     ADD CONSTRAINT fk_alumnos FOREIGN KEY (dni) REFERENCES alumnos (dni);
 
+CREATE TABLE usuarios (
+    dni CHAR(20) UNIQUE NOT NULL,
+    nombre CHAR(45) UNIQUE NOT NULL,
+    password CHAR(200) NOT NULL,
+    correo CHAR(100) UNIQUE NOT NULL,
+    rol CHAR(45) NOT NULL,
+    verificado TINYINT(1) DEFAULT 0,
+    token_verificacion CHAR(255),
+    fecha_creacion BIGINT NOT NULL,
+    CONSTRAINT pk_usuarios PRIMARY KEY(dni)
+);
+
+INSERT INTO `usuarios` (
+        `dni`,
+        `nombre`,
+        `password`,
+        `correo`,
+        `rol`,
+        `verificado`,
+        `token_verificacion`,
+        `fecha_creacion`
+    )
+VALUES (
+        '1q2w3e4r',
+        'admin',
+        'CHANGE_THIS',
+        'admin@gmail.com',
+        'ROLE_ADMIN',
+        1,
+        '',
+        0
+    );

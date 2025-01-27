@@ -164,9 +164,11 @@ public class MatriculaService implements IServiceGeneric<Matricula, Integer>{
                 dbItem.setAlumno(obj.getAlumno());
                 dbItem.setYear(obj.getYear());
                 dbItem.setAsignaturas(obj.getAsignaturas());
+                matriculaRepository.deleteRelatedAsignaturaRelationsById((obj.getId()));
+
 
 /**
- *                 matriculaRepository.deleteRelatedAsignaturaRelationsById((obj.getId()));
+ *
  *
  *                 if(!obj.getAsignaturas().isEmpty()){
  *                     matriculaRepository.deleteRelatedAsignaturaRelationsById(obj.getId());

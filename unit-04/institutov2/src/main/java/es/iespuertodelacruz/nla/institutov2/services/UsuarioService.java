@@ -19,7 +19,18 @@ public class UsuarioService implements IServiceGeneric<Usuario, String>{
 
     @Override
     public Usuario findById(String id) {
-        return null;
+        return repository.findById(id).orElse(null);
+
+    }
+
+    public Usuario findByNombre(String nombre) {
+        return repository.findUsuarioByNombre(nombre).orElse(null);
+
+    }
+
+    public Usuario findByCorreo(String correo) {
+        return repository.findUsuarioByCorreo(correo).orElse(null);
+
     }
 
     @Override

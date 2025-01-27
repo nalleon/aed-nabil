@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface IUsuarioRepository extends JpaRepository<Usuario, String> {
 
@@ -23,12 +25,12 @@ public interface IUsuarioRepository extends JpaRepository<Usuario, String> {
             value="SELECT * FROM usuarios WHERE nombre LIKE %:nombre%",
             nativeQuery=true
     )
-    Usuario findUsuarioByNombre(@Param("nombre") String nombre);
+    Optional<Usuario> findUsuarioByNombre(@Param("nombre") String nombre);
 
 
     @Query(
             value="SELECT * FROM usuarios WHERE correo LIKE %:correo%",
             nativeQuery=true
     )
-    Usuario findUsuarioByCorreo(@Param("correo") String correo);
+    Optional<Usuario> findUsuarioByCorreo(@Param("correo") String correo);
 }

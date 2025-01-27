@@ -30,7 +30,6 @@ public class AlumnoRESTController implements IController<AlumnoRecord, String> {
             aux.setDni(alumnoRecord.dni());
             aux.setApellidos(alumnoRecord.apellidos());
             aux.setFechanacimiento(alumnoRecord.fechanacimiento());
-            aux.setMatriculas(alumnoRecord.matriculas());
             aux.setNombre(alumnoRecord.nombre());
             return ResponseEntity.ok(alumnoService.save(aux));
         }
@@ -45,7 +44,6 @@ public class AlumnoRESTController implements IController<AlumnoRecord, String> {
             aux.setDni(alumnoRecord.dni());
             aux.setApellidos(alumnoRecord.apellidos());
             aux.setFechanacimiento(alumnoRecord.fechanacimiento());
-            aux.setMatriculas(alumnoRecord.matriculas());
             aux.setNombre(alumnoRecord.nombre());
             return ResponseEntity.ok(alumnoService.update(aux));
         }
@@ -61,7 +59,7 @@ public class AlumnoRESTController implements IController<AlumnoRecord, String> {
 
         return ResponseEntity.ok(alumnoService.findAll().stream().map(alumno -> new AlumnoRecord(
                 alumno.getDni(), alumno.getApellidos(), alumno.getFechanacimiento(),
-                alumno.getNombre(),alumno.getMatriculas())).collect(Collectors.toList()));
+                alumno.getNombre())).collect(Collectors.toList()));
     }
     @GetMapping("/{id}")
     @Override
@@ -70,7 +68,7 @@ public class AlumnoRESTController implements IController<AlumnoRecord, String> {
 
         if (aux != null){
             AlumnoRecord record = new AlumnoRecord(aux.getDni(),
-                    aux.getApellidos(), aux.getFechanacimiento(), aux.getNombre(), aux.getMatriculas());
+                    aux.getApellidos(), aux.getFechanacimiento(), aux.getNombre());
             return ResponseEntity.ok(record);
         }
 

@@ -22,6 +22,7 @@ public class Matricula implements Serializable {
 	@Column(unique=true, nullable=false)
 	private int id;
 
+	@Column(name = "\"year\"")
 	private int year;
 
 	//bi-directional many-to-one association to Alumno

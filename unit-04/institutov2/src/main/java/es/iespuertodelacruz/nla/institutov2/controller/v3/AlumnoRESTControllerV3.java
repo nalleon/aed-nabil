@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.nla.institutov2.controller;
+package es.iespuertodelacruz.nla.institutov2.controller.v3;
 
 import es.iespuertodelacruz.nla.institutov2.controller.interfaces.IController;
 import es.iespuertodelacruz.nla.institutov2.dto.AlumnoRecord;
@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -17,7 +16,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/instituto/api/v1/alumnos")
 @CrossOrigin
-public class AlumnoRESTController implements IController<AlumnoRecord, String> {
+public class AlumnoRESTControllerV3 implements IController<AlumnoRecord, String> {
 
     @Autowired AlumnoService alumnoService;
 

@@ -1,10 +1,7 @@
-package es.iespuertodelacruz.nla.institutov2.controller;
+package es.iespuertodelacruz.nla.institutov2.controller.v3;
 
 import es.iespuertodelacruz.nla.institutov2.controller.interfaces.IController;
-import es.iespuertodelacruz.nla.institutov2.dto.AlumnoRecord;
 import es.iespuertodelacruz.nla.institutov2.dto.AsignaturaRecord;
-import es.iespuertodelacruz.nla.institutov2.entities.Alumno;
-import es.iespuertodelacruz.nla.institutov2.entities.Asignatura;
 import es.iespuertodelacruz.nla.institutov2.entities.Asignatura;
 import es.iespuertodelacruz.nla.institutov2.services.AsignaturaService;
 import es.iespuertodelacruz.nla.institutov2.utils.Globals;
@@ -19,7 +16,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/instituto/api/v1/asignaturas")
 @CrossOrigin
-public class AsignaturaRESTController implements IController<AsignaturaRecord, Integer> {
+public class AsignaturaRESTControllerV3 implements IController<AsignaturaRecord, Integer> {
 
     @Autowired
     AsignaturaService service;

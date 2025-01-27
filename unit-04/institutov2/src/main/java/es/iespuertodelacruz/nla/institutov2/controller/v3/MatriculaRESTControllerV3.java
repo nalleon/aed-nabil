@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.nla.institutov2.controller;
+package es.iespuertodelacruz.nla.institutov2.controller.v3;
 
 import es.iespuertodelacruz.nla.institutov2.controller.interfaces.IController;
 import es.iespuertodelacruz.nla.institutov2.dto.AlumnoRecord;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/instituto/api/v1/matriculas")
 @CrossOrigin
-public class MatriculaRESTController implements IController<MatriculaRecord, Integer> {
+public class MatriculaRESTControllerV3 implements IController<MatriculaRecord, Integer> {
 
     @Autowired
     MatriculaService service;

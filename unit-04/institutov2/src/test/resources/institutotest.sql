@@ -82,3 +82,4 @@ ALTER TABLE asignaturas_matriculas
 
   ALTER TABLE matriculas
     ADD CONSTRAINT fk_alumnos FOREIGN KEY (dni) REFERENCES alumnos (dni);
+

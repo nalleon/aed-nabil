@@ -52,3 +52,36 @@ INSERT INTO `asignaturas` (`id`, `nombre`, `curso`) VALUES (8, 'PGL', '2º DAM')
 INSERT INTO `matriculas` (`id`, `dni`,`year`) VALUES (1, '12345678Z', 2023);
 
 INSERT INTO `asignaturas_matriculas` (`idmatricula`,`idasignatura`) VALUES (1, 2);
+
+CREATE TABLE usuarios (
+    dni CHARACTER(20) UNIQUE NOT NULL,
+    nombre VARCHAR(45) UNIQUE NOT NULL,
+    password VARCHAR(200) NOT NULL,
+    correo VARCHAR(100) UNIQUE NOT NULL,
+    rol VARCHAR(45) NOT NULL,
+    verificado TINYINT(1) DEFAULT 0,
+    token_verificacion VARCHAR(255),
+    fecha_creacion BIGINT NOT NULL,
+    CONSTRAINT pk_usuarios PRIMARY KEY(dni)
+);
+
+INSERT INTO `usuarios` (
+        `dni`,
+        `nombre`,
+        `password`,
+        `correo`,
+        `rol`,
+        `verificado`,
+        `token_verificacion`,
+        `fecha_creacion`
+    )
+VALUES (
+        '1q2w3e4r',
+        'admin',
+        'CHANGE_THIS',
+        'admin@gmail.com',
+        'ROLE_ADMIN',
+        1,
+        '',
+        0
+    );

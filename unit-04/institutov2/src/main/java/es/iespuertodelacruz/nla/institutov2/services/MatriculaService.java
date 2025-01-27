@@ -126,6 +126,7 @@ public class MatriculaService implements IServiceGeneric<Matricula, Integer> {
             List<Asignatura> list = new ArrayList<>();
 
             if(obj.getAsignaturas()!= null && !obj.getAsignaturas().isEmpty()){
+                matriculaRepository.deleteRelatedAsignaturaRelationsById((obj.getId()));
                 obj.getAsignaturas().forEach(
                         asignatura -> {
                             Asignatura aux = asignaturaRepository.findById(asignatura.getId()).orElse(null);
@@ -160,19 +161,12 @@ public class MatriculaService implements IServiceGeneric<Matricula, Integer> {
                 obj.setAsignaturas(list);
             }
 
+
             Matricula dbItem = matriculaRepository.findById(obj.getId()).orElse(null);
             if(dbItem != null){
                 dbItem.setAlumno(obj.getAlumno());
                 dbItem.setYear(obj.getYear());
-                dbItem.setAsignaturas(obj.getAsignaturas());
-                matriculaRepository.deleteRelatedAsignaturaRelationsById((obj.getId()));
-
-                 if(!obj.getAsignaturas().isEmpty()){
-                   matriculaRepository.deleteRelatedAsignaturaRelationsById(obj.getId());
-                    for (int i=0; i< obj.getAsignaturas().size(); i++){
-                        matriculaRepository.insertAsignaturasMatriculas(obj.getId(), obj.getAsignaturas().get(i).getId());
-                     }
-                 }
+//                dbItem.setAsignaturas(obj.getAsignaturas());
 
 
 

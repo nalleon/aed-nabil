@@ -32,7 +32,9 @@ public class AsignaturaRESTController implements IController<AsignaturaRecord, I
             aux.setId(asignaturaRecord.id());
             aux.setNombre(asignaturaRecord.nombre());
             aux.setCurso(asignaturaRecord.curso());
-            return ResponseEntity.ok(service.save(aux));
+            Asignatura result = service.save(aux);
+
+            //return ResponseEntity.ok();
         }
         return null;
     }
@@ -53,6 +55,8 @@ public class AsignaturaRESTController implements IController<AsignaturaRecord, I
     @GetMapping
     @Override
     public ResponseEntity<List<AsignaturaRecord>> getAll() {
+        Logger logger = Logger.getLogger(Globals.LOGGER_ASIGNATURA);
+        logger.info("Buscando a todos los alumnos");
         return ResponseEntity.ok(service.findAll().stream().map(asignatura -> new AsignaturaRecord(
                 asignatura.getId(), asignatura.getCurso(), asignatura.getNombre()))
                 .collect(Collectors.toList()));
@@ -74,7 +78,7 @@ public class AsignaturaRESTController implements IController<AsignaturaRecord, I
     @DeleteMapping("/{id}")
     @Override
     public ResponseEntity<?> delete(@RequestParam(value = "id") Integer id) {
-        Logger logger = Logger.getLogger(Globals.LOGGER_ALUMNO);
+        Logger logger = Logger.getLogger(Globals.LOGGER_ASIGNATURA);
         boolean deleted = service.delete(id);
         String message = "";
         int status = 0;

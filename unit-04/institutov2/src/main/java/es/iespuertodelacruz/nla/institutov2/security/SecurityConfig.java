@@ -40,7 +40,7 @@ public class SecurityConfig {
                                 "/configuration/**",	"/swagger*/**",
                                 "/webjars/**", "/api/login",
                                 "/api/register", "/v3/**",
-                                "/websocket*/**", "/index.html", "/api/v1/**"
+                                "/websocket*/**", "/index.html", "/instituto/api/v1/asignaturas"
                         ).permitAll()
 
                         .requestMatchers("/api/v3/**").hasRole("ADMIN")

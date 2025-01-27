@@ -58,14 +58,13 @@ public class JwtFilter extends OncePerRequestFilter {
                 "configuration/",	"/swagger",
                 "/webjars/", "/api/login",
                 "/api/register", "/v3/",
-                "/websocket", "/index.html", "/api/v1"};
+                "/websocket", "/index.html", "/instituto/api/v1"};
 
         //String rutasPermitidas[] = {};
 
 
         for (String ruta : rutasPermitidas) {
             if (path.startsWith(ruta)) {
-                // Permitir la solicitud sin autenticación
                 filterChain.doFilter(request, response);
                 return;
             }

@@ -59,7 +59,7 @@ public class MatriculaServiceTest extends TestUtilities {
         Assertions.assertEquals(itemToAdd.getYear(), dbItem.getYear(), MESSAGE_ERROR);
     }
 
-    //@Test
+    @Test
     void updateTest() {
 
         Matricula dbItem = service.findById(1);

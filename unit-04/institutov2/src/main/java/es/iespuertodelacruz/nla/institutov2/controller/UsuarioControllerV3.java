@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/v3/usuarios")
+@RequestMapping("/instituto/api/v3/usuarios")
 public class UsuarioControllerV3 implements IController<Usuario, String> {
     @Autowired
     private IUsuarioRepository usuarioRepository;

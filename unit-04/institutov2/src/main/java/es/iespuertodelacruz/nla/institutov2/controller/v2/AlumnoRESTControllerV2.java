@@ -1,11 +1,7 @@
 package es.iespuertodelacruz.nla.institutov2.controller.v2;
 
-import es.iespuertodelacruz.nla.institutov2.dto.AlumnoDTO;
-import es.iespuertodelacruz.nla.institutov2.dto.AsignaturaDTO;
-import es.iespuertodelacruz.nla.institutov2.dto.UsuarioDTOV2V3;
+import es.iespuertodelacruz.nla.institutov2.dto.AlumnoDTOV3;
 import es.iespuertodelacruz.nla.institutov2.entities.Alumno;
-import es.iespuertodelacruz.nla.institutov2.entities.Asignatura;
-import es.iespuertodelacruz.nla.institutov2.entities.Usuario;
 import es.iespuertodelacruz.nla.institutov2.services.AlumnoService;
 import es.iespuertodelacruz.nla.institutov2.utils.Globals;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +25,7 @@ public class AlumnoRESTControllerV2 {
     Logger logger = Logger.getLogger(Globals.LOGGER_ALUMNO);
 
     @GetMapping
-    public ResponseEntity<List<AlumnoDTO>> getAll() {
+    public ResponseEntity<List<AlumnoDTOV3>> getAll() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String authenticatedUsername = ((UserDetails)principal).getUsername();
 
@@ -39,12 +35,12 @@ public class AlumnoRESTControllerV2 {
                 .toList();
 
         return ResponseEntity.ok(filteredList.stream().map(alumno ->
-                new AlumnoDTO(alumno.getDni(), alumno.getApellidos(), alumno.getFechanacimiento(), alumno.getNombre())
+                new AlumnoDTOV3(alumno.getDni(), alumno.getApellidos(), alumno.getFechanacimiento(), alumno.getNombre())
         ).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AlumnoDTO> getById(@RequestParam(value = "id")String id) {
+    public ResponseEntity<AlumnoDTOV3> getById(@RequestParam(value = "id")String id) {
         logger.info("Buscando el con el dni: " + id);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -58,7 +54,7 @@ public class AlumnoRESTControllerV2 {
         if (aux != null && authenticatedUsername != null &&
                 authenticatedUsername.equals(aux.getDni())){
 
-            AlumnoDTO dto = new AlumnoDTO(aux.getDni(),
+            AlumnoDTOV3 dto = new AlumnoDTOV3(aux.getDni(),
                     aux.getApellidos(), aux.getFechanacimiento(), aux.getNombre());
             return ResponseEntity.ok(dto);
         }

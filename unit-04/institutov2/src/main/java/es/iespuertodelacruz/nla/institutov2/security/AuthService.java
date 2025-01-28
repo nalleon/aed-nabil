@@ -1,6 +1,7 @@
 package es.iespuertodelacruz.nla.institutov2.security;
 import es.iespuertodelacruz.nla.institutov2.entities.Usuario;
 import es.iespuertodelacruz.nla.institutov2.repository.IUsuarioRepository;
+import es.iespuertodelacruz.nla.institutov2.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import java.util.UUID;
 @Service
 public class AuthService {
     @Autowired
-    private IUsuarioRepository usuarioRepository;
+    private UsuarioService service;
 
     @Autowired
     private JwtService jwtService;
@@ -28,7 +29,7 @@ public class AuthService {
      * @param email del usuario
      * @return el token si el registro fue exitoso
      */
-    public String register(String username, String password, String email) {
+    public boolean register(String username, String password, String email) {
         Usuario usuario = new Usuario();
         usuario.setNombre(username);
         usuario.setPassword(passwordEncoder.encode(password));
@@ -38,14 +39,8 @@ public class AuthService {
         usuario.setToken_verificacion(UUID.randomUUID().toString());
         usuario.setVerificado(0);
 
-        Usuario saved = usuarioRepository.save(usuario);
-
-        if( saved != null) {
-            String generateToken = jwtService.generateToken(usuario.getNombre(), usuario.getRol());
-            return generateToken;
-        } else {
-            return null;
-        }
+        Usuario saved = service.save(usuario);
+        return saved != null;
     }
 
     /**
@@ -56,7 +51,7 @@ public class AuthService {
      */
     public String authenticate(String username, String password)  {
         String generateToken = null;
-        Usuario usuario = usuarioRepository.findUsuarioByNombre(username).orElse(null);
+        Usuario usuario = service.findByNombre(username);
 
         if (usuario != null) {
             if (passwordEncoder.matches(password, usuario.getPassword())) {

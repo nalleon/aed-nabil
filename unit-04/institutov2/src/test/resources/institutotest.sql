@@ -3,6 +3,7 @@ SET MODE MYSQL;
 DROP TABLE IF EXISTS asignaturas_matriculas;
 DROP TABLE IF EXISTS matriculas;
 DROP TABLE IF EXISTS alumnos;
+DROP TABLE IF EXISTS alumnosconfoto;
 DROP TABLE IF EXISTS asignaturas;
 DROP TABLE IF EXISTS usuarios;
 
@@ -17,7 +18,13 @@ INSERT INTO alumnos (dni, nombre, apellidos, fechanacimiento) VALUES
 ('12345678Z', 'Ana', 'Martín', 968972400000),
 ('87654321X', 'Marcos', 'Afonso Jiménez', 874278000000);
 
-
+CREATE TABLE alumnosconfoto(
+   dni char(20) NOT NULL,
+   nombre char(50) DEFAULT NULL,
+   apellidos char(50) DEFAULT NULL,
+   fechanacimiento bigint DEFAULT NULL,
+   foto_ruta VARCHAR(255) DEFAULT NULL
+);
 
 CREATE TABLE asignaturas (
   id int AUTO_INCREMENT NOT NULL,
@@ -61,6 +68,9 @@ INSERT INTO asignaturas_matriculas (idmatricula, idasignatura) VALUES
 ALTER TABLE alumnos
   ADD PRIMARY KEY (dni);
 
+ALTER TABLE alumnosconfoto
+    ADD PRIMARY KEY (dni);
+
 ALTER TABLE asignaturas
   ADD PRIMARY KEY (id);
 
@@ -69,13 +79,16 @@ ALTER TABLE asignaturas
 
 ALTER TABLE asignaturas_matriculas
   ADD PRIMARY KEY (id);
+
 ALTER TABLE asignaturas_matriculas
   ADD UNIQUE KEY uq_matasig (idmatricula,idasignatura);
+
 ALTER TABLE asignaturas_matriculas
   ADD KEY fk_asignaturas (idasignatura);
 
   ALTER TABLE asignaturas_matriculas
     ADD CONSTRAINT fk_asignaturas FOREIGN KEY (idasignatura) REFERENCES asignaturas (id);
+
   ALTER TABLE asignaturas_matriculas
     ADD CONSTRAINT fk_matriculas FOREIGN KEY (idmatricula) REFERENCES matriculas (id);
 
@@ -106,7 +119,7 @@ INSERT INTO `usuarios` (
         `fecha_creacion`
     )
 VALUES (
-        'b05t46116p',
+        'root',
         '$2a$10$P0fZ.FcD.rBwolLS9P5bAOZETI3K9E5JsiE/NQC82HgkXccYnFvry',
         'admin@gmail.com',
         'ROLE_ADMIN',

@@ -1,6 +1,6 @@
 package es.iespuertodelacruz.nla.institutov2.controller.abstracts;
 
-import es.iespuertodelacruz.nla.institutov2.dto.AlumnoDTO;
+import es.iespuertodelacruz.nla.institutov2.dto.AlumnoDTOV3;
 import es.iespuertodelacruz.nla.institutov2.dto.AsignaturaDTO;
 import es.iespuertodelacruz.nla.institutov2.dto.MatriculaDTO;
 import es.iespuertodelacruz.nla.institutov2.entities.Alumno;
@@ -46,7 +46,7 @@ public abstract class MatriculaAbstractUtils {
         }
 
 
-        AlumnoDTO alumnoRecord = new AlumnoDTO(aux.getAlumno().getDni(),
+        AlumnoDTOV3 alumnoRecord = new AlumnoDTOV3(aux.getAlumno().getDni(),
                 aux.getAlumno().getApellidos(), aux.getAlumno().getFechanacimiento(),
                 aux.getAlumno().getNombre());
 

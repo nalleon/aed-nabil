@@ -1,7 +1,7 @@
 package es.iespuertodelacruz.nla.institutov2.controller.v3;
 
 import es.iespuertodelacruz.nla.institutov2.controller.interfaces.IControllerV3;
-import es.iespuertodelacruz.nla.institutov2.dto.AlumnoDTO;
+import es.iespuertodelacruz.nla.institutov2.dto.AlumnoDTOV3;
 import es.iespuertodelacruz.nla.institutov2.entities.Alumno;
 import es.iespuertodelacruz.nla.institutov2.services.AlumnoService;
 import es.iespuertodelacruz.nla.institutov2.utils.Globals;
@@ -16,14 +16,14 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/instituto/api/v3/alumnos")
 @CrossOrigin
-public class AlumnoRESTControllerV3 implements IControllerV3<AlumnoDTO, String> {
+public class AlumnoRESTControllerV3 implements IControllerV3<AlumnoDTOV3, String> {
 
     @Autowired AlumnoService alumnoService;
 
 
     @PostMapping
     @Override
-    public ResponseEntity<?> add(@RequestBody AlumnoDTO alumnoRecord) {
+    public ResponseEntity<?> add(@RequestBody AlumnoDTOV3 alumnoRecord) {
         if (alumnoRecord != null){
             Alumno aux = new Alumno();
             aux.setDni(alumnoRecord.dni());
@@ -37,7 +37,7 @@ public class AlumnoRESTControllerV3 implements IControllerV3<AlumnoDTO, String> 
 
     @PutMapping("/{id}")
     @Override
-    public ResponseEntity<?> update(@RequestParam(value = "id") String id, @RequestBody AlumnoDTO alumnoRecord) {
+    public ResponseEntity<?> update(@RequestParam(value = "id") String id, @RequestBody AlumnoDTOV3 alumnoRecord) {
         if (alumnoRecord != null){
             Alumno aux = new Alumno();
             aux.setDni(alumnoRecord.dni());
@@ -53,20 +53,20 @@ public class AlumnoRESTControllerV3 implements IControllerV3<AlumnoDTO, String> 
 
     @GetMapping
     @Override
-    public ResponseEntity<List<AlumnoDTO>> getAll() {
+    public ResponseEntity<List<AlumnoDTOV3>> getAll() {
 
 
-        return ResponseEntity.ok(alumnoService.findAll().stream().map(alumno -> new AlumnoDTO(
+        return ResponseEntity.ok(alumnoService.findAll().stream().map(alumno -> new AlumnoDTOV3(
                 alumno.getDni(), alumno.getApellidos(), alumno.getFechanacimiento(),
                 alumno.getNombre())).collect(Collectors.toList()));
     }
     @GetMapping("/{id}")
     @Override
-    public ResponseEntity<AlumnoDTO> getById(@RequestParam(value = "id") String id) {
+    public ResponseEntity<AlumnoDTOV3> getById(@RequestParam(value = "id") String id) {
         Alumno aux = alumnoService.findById(id);
 
         if (aux != null){
-            AlumnoDTO record = new AlumnoDTO(aux.getDni(),
+            AlumnoDTOV3 record = new AlumnoDTOV3(aux.getDni(),
                     aux.getApellidos(), aux.getFechanacimiento(), aux.getNombre());
             return ResponseEntity.ok(record);
         }

@@ -2,11 +2,7 @@ package es.iespuertodelacruz.nla.institutov2.controller.v3;
 
 import es.iespuertodelacruz.nla.institutov2.controller.abstracts.MatriculaAbstractUtils;
 import es.iespuertodelacruz.nla.institutov2.controller.interfaces.IControllerV3;
-import es.iespuertodelacruz.nla.institutov2.dto.AlumnoDTO;
-import es.iespuertodelacruz.nla.institutov2.dto.AsignaturaDTO;
 import es.iespuertodelacruz.nla.institutov2.dto.MatriculaDTO;
-import es.iespuertodelacruz.nla.institutov2.entities.Alumno;
-import es.iespuertodelacruz.nla.institutov2.entities.Asignatura;
 import es.iespuertodelacruz.nla.institutov2.entities.Matricula;
 import es.iespuertodelacruz.nla.institutov2.services.MatriculaService;
 import es.iespuertodelacruz.nla.institutov2.utils.Globals;
@@ -14,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;

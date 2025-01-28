@@ -1,5 +1,8 @@
-package es.iespuertodelacruz.nla.institutov2.controller;
+package es.iespuertodelacruz.nla.institutov2.controller.v1;
 
+import es.iespuertodelacruz.nla.institutov2.dto.UsuarioDTOV2V3;
+import es.iespuertodelacruz.nla.institutov2.dto.UsuarioLoginDTO;
+import es.iespuertodelacruz.nla.institutov2.dto.UsuarioRegisterDTO;
 import es.iespuertodelacruz.nla.institutov2.entities.Usuario;
 import es.iespuertodelacruz.nla.institutov2.repository.IUsuarioRepository;
 import es.iespuertodelacruz.nla.institutov2.security.AuthService;
@@ -20,10 +23,11 @@ import java.util.UUID;
 @CrossOrigin
 public class AuthController {
 
+    /**
+     * Properties
+     */
     @Autowired
     private UsuarioService service;
-
-
     @Autowired
     private MailService mailService;
 
@@ -33,85 +37,50 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    static class UsuarioLogin{
-        public UsuarioLogin() {}
-        public String nombre;
-        public String password;
-        public String getPassword() {
-            return password;
-        }
-        public void setPassword(String password) {
-            this.password = password;
-        }
-        public String getNombre() {
-            return nombre;
-        }
-        public void setNombre(String nombre) {
-            this.nombre = nombre;
-        }
-    }
 
+    /**
+     * Funcion para hacer login
+     * @param loginDTO usuario pàra hacerlo
+     * @return el token si todo va bien, RunTimeException si no
+     */
     @PostMapping("/login")
-    public String login(@RequestBody UsuarioLogin u ) {
-        //return "recibe: "+u.nombre + " "+ u.password;
-        String token = authService.authenticate(u.getNombre(), u.getPassword());
+    public String login(@RequestBody UsuarioLoginDTO loginDTO ) {
+        String token = authService.authenticate(loginDTO.nombre(), loginDTO.password());
 
-
-        if ( token == null ) {
+        if (token == null) {
             throw new RuntimeException("Credenciales inválidas");
         }
         return token;
-
     }
 
-
-
-    static class UsuarioRegister{
-        public UsuarioRegister() {}
-        public String nombre;
-        public String password;
-        public String correo;
-        public String getPassword() {
-            return password;
-        }
-        public void setPassword(String password) {
-            this.password = password;
-        }
-        public String getNombre() {
-            return nombre;
-        }
-        public void setNombre(String nombre) {
-            this.nombre = nombre;
-        }
-        public String getCorreo() {
-            return correo;
-        }
-        public void setCorreo(String correo) {
-            this.correo = correo;
-        }
-    }
-
-
-
-
+    /**
+     * Funcion para registrarse
+     * @param registerDTO usuario para hacerlo
+     * @return mensaje de que el correo de verificacion llegará
+     */
     @PostMapping("/register")
-    public String register(@RequestBody UsuarioRegister u ) {
-        //return "recibe: "+u.nombre + " "+ u.password;
-        String token = authService.register(u.getNombre(), u.getPassword(), u.getCorreo());
+    public String register(@RequestBody UsuarioRegisterDTO registerDTO ) {
 
-        Usuario usuario = service.findByCorreo(u.getCorreo());
+        authService.register(registerDTO.nombre(), registerDTO.password(), registerDTO.correo());
+
+        Usuario usuario = service.findByCorreo(registerDTO.correo());
 
         String authToken = usuario.getToken_verificacion();
 
         String confirmationUrl =
-                "http://localhost:8080/instituto/api/confirmation?correo=" + u.getCorreo() + "&token=" + authToken;
+                "http://localhost:8080/instituto/api/confirmation?correo=" + registerDTO.correo() + "&token=" + authToken;
 
-        String senders[] = {u.getCorreo()};
+        String[] senders = {registerDTO.correo()};
         mailService.send(senders, "Confirmacion de usuario", confirmationUrl);
 
         return "En breves momentos, le llegara un correo de verificacion";
     }
 
+    /**
+     * Funcion para confirmar y validar un usuario a traves de su correo electronico
+     * @param correo del usuario
+     * @param token del usuario
+     */
     @GetMapping("/confirmation")
     public ResponseEntity<?> confirmation (@RequestParam String correo, @RequestParam String token){
         Usuario authUsuario = service.findByCorreo(correo);

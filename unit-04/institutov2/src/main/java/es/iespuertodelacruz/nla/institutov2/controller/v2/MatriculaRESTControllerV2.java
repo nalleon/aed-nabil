@@ -1,12 +1,8 @@
 package es.iespuertodelacruz.nla.institutov2.controller.v2;
 
 import es.iespuertodelacruz.nla.institutov2.controller.abstracts.MatriculaAbstractUtils;
-import es.iespuertodelacruz.nla.institutov2.dto.AlumnoDTO;
 import es.iespuertodelacruz.nla.institutov2.dto.MatriculaDTO;
-import es.iespuertodelacruz.nla.institutov2.entities.Alumno;
 import es.iespuertodelacruz.nla.institutov2.entities.Matricula;
-import es.iespuertodelacruz.nla.institutov2.entities.Usuario;
-import es.iespuertodelacruz.nla.institutov2.services.AlumnoService;
 import es.iespuertodelacruz.nla.institutov2.services.MatriculaService;
 import es.iespuertodelacruz.nla.institutov2.utils.Globals;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +20,7 @@ import java.util.stream.Collectors;
 @RestController
 @CrossOrigin
 @RequestMapping("/instituto/api/v2/matriculas")
-public class MatriuclaRESTControllerV2 extends MatriculaAbstractUtils {
+public class MatriculaRESTControllerV2 extends MatriculaAbstractUtils {
     @Autowired
     MatriculaService service;
 

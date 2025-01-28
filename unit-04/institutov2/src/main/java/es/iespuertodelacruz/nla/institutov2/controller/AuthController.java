@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/instituto/api")
@@ -98,14 +99,12 @@ public class AuthController {
         //return "recibe: "+u.nombre + " "+ u.password;
         String token = authService.register(u.getNombre(), u.getPassword(), u.getCorreo());
 
-        if(token != null){
-            Usuario user = service.findByCorreo(u.correo);
-            user.setToken_verificacion(token);
-            service.save(user);
-        }
+        Usuario usuario = service.findByCorreo(u.getCorreo());
+
+        String authToken = usuario.getToken_verificacion();
 
         String confirmationUrl =
-                "http://localhost:8080/instituto/api/confirmation?username=" + u.getNombre() + "&token=" + token;
+                "http://localhost:8080/instituto/api/confirmation?correo=" + u.getCorreo() + "&token=" + authToken;
 
         String senders[] = {u.getCorreo()};
         mailService.send(senders, "Confirmacion de usuario", confirmationUrl);
@@ -114,16 +113,13 @@ public class AuthController {
     }
 
     @GetMapping("/confirmation")
-    public ResponseEntity<?> confirmation (@RequestParam String username, @RequestParam String token){
-
-        Usuario authUsuario = service.findByNombre(username);
+    public ResponseEntity<?> confirmation (@RequestParam String correo, @RequestParam String token){
+        Usuario authUsuario = service.findByCorreo(correo);
 
         if(authUsuario != null) {
-            String tokenAlmacenado = authUsuario.getToken_verificacion();
+            String tokenDB = authUsuario.getToken_verificacion();
 
-            System.out.println(tokenAlmacenado);
-            System.out.println(token);
-            if(tokenAlmacenado != null && tokenAlmacenado.equals(token)) {
+            if(tokenDB != null && tokenDB.equals(token)) {
                 authUsuario.setVerificado(1);
                 service.save(authUsuario);
                 return ResponseEntity.ok("Cuenta creada.");

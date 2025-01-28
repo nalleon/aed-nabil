@@ -40,10 +40,9 @@ public class SecurityConfig {
                                 "/configuration/**",	"/swagger*/**",
                                 "/webjars/**", "/instituto/api/login",
                                 "/instituto/api/register", "/v3/**",
-                                "/websocket*/**", "/index.html", "/instituto/api/v1/asignaturas"
+                                "/websocket*/**", "/index.html", "/instituto/api/v1/asignaturas",
+                                "/instituto/api/confirmation/**"
                         ).permitAll()
-
-                        .requestMatchers("/instituto/api/confirmation").hasRole("USER")
 
                         .requestMatchers("/api/v2").hasRole("USER")
 

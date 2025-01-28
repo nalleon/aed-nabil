@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.UUID;
 
 
 @Service
@@ -20,6 +21,13 @@ public class AuthService {
     private PasswordEncoder passwordEncoder;
 
 
+    /**
+     * Función para registrar un nuevo usuario
+     * @param username del usuario (DNI)
+     * @param password del usuario
+     * @param email del usuario
+     * @return el token si el registro fue exitoso
+     */
     public String register(String username, String password, String email) {
         Usuario usuario = new Usuario();
         usuario.setNombre(username);
@@ -27,6 +35,8 @@ public class AuthService {
         usuario.setCorreo(email);
         usuario.setFecha_creacion(new Date());
         usuario.setRol("ROLE_USER");
+        usuario.setToken_verificacion(UUID.randomUUID().toString());
+        usuario.setVerificado(0);
 
         Usuario saved = usuarioRepository.save(usuario);
 
@@ -38,35 +48,21 @@ public class AuthService {
         }
     }
 
-
-
-    public String register(String username, String password) {
-        Usuario usuario = new Usuario();
-        usuario.setNombre(username);
-        usuario.setPassword(passwordEncoder.encode(password));
-        usuario.setRol("ROLE_USER");
-
-        Usuario saved = usuarioRepository.save(usuario);
-
-        if( saved != null) {
-            String generateToken = jwtService.generateToken(usuario.getNombre(), usuario.getRol());
-            return generateToken;
-        }else {
-            return null;
-        }
-    }
-
+    /**
+     * Funcion para autenticar un usuario de cara al login
+     * @param username del usuario
+     * @param password del usuario
+     * @return token si la autenticacion fue exitosa, null si algo fue mal
+     */
     public String authenticate(String username, String password)  {
         String generateToken = null;
         Usuario usuario = usuarioRepository.findUsuarioByNombre(username).orElse(null);
-
 
         if (usuario != null) {
             if (passwordEncoder.matches(password, usuario.getPassword())) {
                 generateToken = jwtService.generateToken(usuario.getNombre(), usuario.getRol());
             }
         }
-
 
         return generateToken;
     }

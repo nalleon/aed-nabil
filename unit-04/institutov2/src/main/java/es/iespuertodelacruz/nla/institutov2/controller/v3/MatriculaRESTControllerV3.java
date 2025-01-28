@@ -42,7 +42,12 @@ public class MatriculaRESTControllerV3 extends MatriculaAbstractUtils implements
 
     @PutMapping("/{id}")
     @Override
-    public ResponseEntity<?> update(@RequestParam(value = "id") Integer id, @RequestBody MatriculaDTO matriculaRecord) {
+    public ResponseEntity<?> update(@RequestParam(value = "id") Integer id, @RequestBody MatriculaDTO dto) {
+        if (dto != null){
+            Matricula aux = getMatricula(dto);
+            aux.setId(id);
+            return ResponseEntity.ok(service.update(aux));
+        }
         return null;
     }
 

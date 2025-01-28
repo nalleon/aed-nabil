@@ -16,15 +16,15 @@ public abstract class MatriculaAbstractUtils {
         aux.setYear(matriculaRecord.year());
 
         Alumno alumnoAux = new Alumno();
-        alumnoAux.setDni(matriculaRecord.alumnoRecord().dni());
-        alumnoAux.setApellidos(matriculaRecord.alumnoRecord().apellidos());
-        alumnoAux.setFechanacimiento(matriculaRecord.alumnoRecord().fechanacimiento());
-        alumnoAux.setNombre(matriculaRecord.alumnoRecord().nombre());
+        alumnoAux.setDni(matriculaRecord.alumno().dni());
+        alumnoAux.setApellidos(matriculaRecord.alumno().apellidos());
+        alumnoAux.setFechanacimiento(matriculaRecord.alumno().fechanacimiento());
+        alumnoAux.setNombre(matriculaRecord.alumno().nombre());
 
         aux.setAlumno(alumnoAux);
 
         List<Asignatura> asignaturaList = new ArrayList<>();
-        for (AsignaturaDTO asignaturaRecord : matriculaRecord.listAsignaturas()){
+        for (AsignaturaDTO asignaturaRecord : matriculaRecord.asignaturas()){
             Asignatura asignaturaAux = new Asignatura();
             asignaturaAux.setId(asignaturaRecord.id());
             asignaturaAux.setNombre(asignaturaRecord.nombre());

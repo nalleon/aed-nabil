@@ -75,8 +75,8 @@ INSERT INTO `usuarios` (
         `fecha_creacion`
     )
 VALUES (
-        '12345678P',
-        '1q2w3e4r',
+        'b05t46116p',
+        '$2a$10$P0fZ.FcD.rBwolLS9P5bAOZETI3K9E5JsiE/NQC82HgkXccYnFvry',
         'admin@gmail.com',
         'ROLE_ADMIN',
         1,

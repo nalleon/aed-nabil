@@ -1,27 +1,33 @@
 package es.iespuertodelacruz.nla.institutov2.controller;
 
+import es.iespuertodelacruz.nla.institutov2.entities.Usuario;
 import es.iespuertodelacruz.nla.institutov2.repository.IUsuarioRepository;
 import es.iespuertodelacruz.nla.institutov2.security.AuthService;
+import es.iespuertodelacruz.nla.institutov2.security.JwtService;
 import es.iespuertodelacruz.nla.institutov2.services.MailService;
+import es.iespuertodelacruz.nla.institutov2.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/instituto/api")
+@CrossOrigin
 public class AuthController {
 
     @Autowired
-    private IUsuarioRepository usuarioRepository;
+    private UsuarioService service;
 
 
     @Autowired
     private MailService mailService;
+
+    @Autowired
+    private JwtService jwtService;
 
     @Autowired
     private AuthService authService;
@@ -92,11 +98,40 @@ public class AuthController {
         //return "recibe: "+u.nombre + " "+ u.password;
         String token = authService.register(u.getNombre(), u.getPassword(), u.getCorreo());
 
+        if(token != null){
+            Usuario user = service.findByCorreo(u.correo);
+            user.setToken_verificacion(token);
+            service.save(user);
+        }
 
-        String senders[] = {"ccpprr@gmail.com"};
-        mailService.send(senders, "usuario creado", token);
-        //return ResponseEntity.ok(token);
-        return token;
+        String confirmationUrl =
+                "http://localhost:8080/instituto/api/confirmation?username=" + u.getNombre() + "&token=" + token;
 
+        String senders[] = {u.getCorreo()};
+        mailService.send(senders, "Confirmacion de usuario", confirmationUrl);
+
+        return "En breves momentos, le llegara un correo de verificacion";
+    }
+
+    @GetMapping("/confirmation")
+    public ResponseEntity<?> confirmation (@RequestParam String username, @RequestParam String token){
+
+        Usuario authUsuario = service.findByNombre(username);
+
+        if(authUsuario != null) {
+            String tokenAlmacenado = authUsuario.getToken_verificacion();
+
+            System.out.println(tokenAlmacenado);
+            System.out.println(token);
+            if(tokenAlmacenado != null && tokenAlmacenado.equals(token)) {
+                authUsuario.setVerificado(1);
+                service.save(authUsuario);
+                return ResponseEntity.ok("Cuenta creada.");
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Token de verificacion invalido.");
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado.");
+        }
     }
 }

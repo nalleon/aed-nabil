@@ -38,10 +38,12 @@ public class SecurityConfig {
                                 "/", "/swagger-ui.html",
                                 "/swagger-ui/**", "/v2/**",
                                 "/configuration/**",	"/swagger*/**",
-                                "/webjars/**", "/api/login",
-                                "/api/register", "/v3/**",
+                                "/webjars/**", "/instituto/api/login",
+                                "/instituto/api/register", "/v3/**",
                                 "/websocket*/**", "/index.html", "/instituto/api/v1/asignaturas"
                         ).permitAll()
+
+                        .requestMatchers("/instituto/api/confirmation").hasRole("USER")
 
                         .requestMatchers("/api/v2").hasRole("USER")
 

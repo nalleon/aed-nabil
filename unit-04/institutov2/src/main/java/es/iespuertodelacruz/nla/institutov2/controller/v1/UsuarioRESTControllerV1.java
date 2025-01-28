@@ -30,12 +30,12 @@ public class UsuarioRESTControllerV1 {
     }
 
     @PostMapping
-    public Usuario crearUsuario(@RequestBody UsuarioDTO record) {
+    public Usuario crearUsuario(@RequestBody UsuarioDTO dto) {
         Usuario u = new Usuario();
-        u.setCorreo(record.correo());
+        u.setCorreo(dto.correo());
         u.setFecha_creacion(new Date());
-        u.setNombre(record.nombre());
-        u.setPassword(record.password());
+        u.setNombre(dto.nombre());
+        u.setPassword(dto.password());
         u.setRol("ROLE_USER");
         String tokenDeVerificacion = UUID.randomUUID().toString();
         u.setToken_verificacion(tokenDeVerificacion);

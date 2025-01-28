@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 
 @Service
 public class AuthService {
@@ -23,6 +25,7 @@ public class AuthService {
         usuario.setNombre(username);
         usuario.setPassword(passwordEncoder.encode(password));
         usuario.setCorreo(email);
+        usuario.setFecha_creacion(new Date());
         usuario.setRol("ROLE_USER");
 
         Usuario saved = usuarioRepository.save(usuario);
@@ -30,7 +33,7 @@ public class AuthService {
         if( saved != null) {
             String generateToken = jwtService.generateToken(usuario.getNombre(), usuario.getRol());
             return generateToken;
-        }else {
+        } else {
             return null;
         }
     }

@@ -10,15 +10,15 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface IUsuarioRepository extends JpaRepository<Usuario, String> {
+public interface IUsuarioRepository extends JpaRepository<Usuario, Integer> {
 
 
     @Modifying
     @Query(
-            value="DELETE FROM usuarios AS u WHERE u.dni=:dni",
+            value="DELETE FROM usuarios AS u WHERE u.id=:id",
             nativeQuery=true
     )
-    int deleteUsuarioByDNI(@Param("dni") String dni);
+    int deleteUsuarioById(@Param("id") Integer id);
 
 
     @Query(

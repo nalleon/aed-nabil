@@ -2,7 +2,6 @@ package es.iespuertodelacruz.nla.institutov2.tasks;
 
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import es.iespuertodelacruz.nla.institutov2.entities.Usuario;
 import es.iespuertodelacruz.nla.institutov2.repository.IUsuarioRepository;
@@ -23,10 +22,10 @@ public class RemoveNotValidatedRegisters {
     public void remove() {
         long unDia = 24 * 60 * 60 * 1000;
         List<Usuario> all = usuarioRepository.findAll();
-        List<String> idsParaBorrar = all.stream()
+        List<Integer> idsParaBorrar = all.stream()
                 .filter(u->u.getVerificado() == 0)
                 //.filter(u->u.getFechaCreacion() + unDia < (new Date()).getTime())
-                .map(Usuario::getDni)
+                .map(Usuario::getId)
                 .toList();
 
         //idsParaBorrar.forEach(id->usuarioRepository.deleteById(id));

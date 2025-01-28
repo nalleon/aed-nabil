@@ -43,6 +43,8 @@ public class SecurityConfig {
                                 "/websocket*/**", "/index.html", "/instituto/api/v1/asignaturas"
                         ).permitAll()
 
+                        .requestMatchers("/api/v2").hasRole("USER")
+
                         .requestMatchers("/api/v3/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )

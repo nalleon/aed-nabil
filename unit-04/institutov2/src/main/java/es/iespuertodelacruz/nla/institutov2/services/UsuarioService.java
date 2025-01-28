@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Service
-public class UsuarioService implements IServiceGeneric<Usuario, String> {
+public class UsuarioService implements IServiceGeneric<Usuario, Integer> {
     @Autowired
     IUsuarioRepository repository;
     @Override
@@ -18,7 +18,7 @@ public class UsuarioService implements IServiceGeneric<Usuario, String> {
     }
 
     @Override
-    public Usuario findById(String id) {
+    public Usuario findById(Integer id) {
         return repository.findById(id).orElse(null);
 
     }
@@ -39,7 +39,7 @@ public class UsuarioService implements IServiceGeneric<Usuario, String> {
         if (obj == null){
             return null;
         }
-        Usuario dbItem = repository.findById(obj.getDni()).orElse(null);
+        Usuario dbItem = repository.findById(obj.getId()).orElse(null);
 
         if (dbItem != null){
             return null;
@@ -54,9 +54,9 @@ public class UsuarioService implements IServiceGeneric<Usuario, String> {
 
     @Override
     @Transactional
-    public boolean delete(String id) {
+    public boolean delete(Integer id) {
         try {
-            int quantity = repository.deleteUsuarioByDNI(id);
+            int quantity = repository.deleteUsuarioById(id);
             return quantity > 0;
         } catch (RuntimeException e){
             throw new RuntimeException();
@@ -66,8 +66,8 @@ public class UsuarioService implements IServiceGeneric<Usuario, String> {
     @Override
     @Transactional
     public boolean update(Usuario obj) {
-        if(obj!=null &&  obj.getDni() != null) {
-            Usuario dbItem = repository.findById(obj.getDni()).orElse(null);
+        if(obj!=null) {
+            Usuario dbItem = repository.findById(obj.getId()).orElse(null);
             if(dbItem != null){
                 try {
                     dbItem.setNombre(obj.getNombre());

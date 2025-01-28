@@ -32,7 +32,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 
 @Component
-
 public class JwtFilter extends OncePerRequestFilter {
 
     public static final String authHeader="Authorization";

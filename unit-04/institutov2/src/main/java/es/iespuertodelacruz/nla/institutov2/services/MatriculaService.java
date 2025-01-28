@@ -89,16 +89,7 @@ public class MatriculaService implements IServiceGeneric<Matricula, Integer> {
             obj.setAsignaturas(list);
         }
 
-        Matricula result = matriculaRepository.save(obj);
-
-        if(!obj.getAsignaturas().isEmpty()){
-            matriculaRepository.deleteRelatedAsignaturaRelationsById(obj.getId());
-            for (int i=0; i< obj.getAsignaturas().size(); i++){
-                matriculaRepository.insertAsignaturasMatriculas(obj.getId(), obj.getAsignaturas().get(i).getId());
-            }
-        }
-
-        return result;
+        return matriculaRepository.save(obj);
     }
 
     @Override

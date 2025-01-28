@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin
 @RequestMapping("/instituto/api/v3/usuarios")
-public class UsuarioRESTControllerV3 implements IController<Usuario, String> {
+public class UsuarioRESTControllerV3 implements IController<Usuario, Integer> {
     @Autowired
     private IUsuarioRepository usuarioRepository;
 
@@ -31,7 +31,7 @@ public class UsuarioRESTControllerV3 implements IController<Usuario, String> {
     }
 
     @Override
-    public ResponseEntity<?> update(String id, Usuario usuario) {
+    public ResponseEntity<?> update(Integer id, Usuario usuario) {
         return ResponseEntity.ok(usuarioRepository.save(usuario));
     }
 
@@ -45,7 +45,7 @@ public class UsuarioRESTControllerV3 implements IController<Usuario, String> {
     @GetMapping("/{id}")
     @PreAuthorize("hasRol('ROLE_ADMIN')")
     @Override
-    public ResponseEntity<Usuario> getById(String id) {
+    public ResponseEntity<Usuario> getById(Integer id) {
         Usuario usuario = usuarioRepository.findById(id).orElse(null);
         return ResponseEntity.ok(usuario);
     }
@@ -53,8 +53,8 @@ public class UsuarioRESTControllerV3 implements IController<Usuario, String> {
     @Override
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRol('ROLE_ADMIN')")
-    public ResponseEntity<?> delete(String id) {
-        usuarioRepository.deleteUsuarioByDNI(id);
+    public ResponseEntity<?> delete(Integer id) {
+        usuarioRepository.deleteUsuarioById(id);
         return ResponseEntity.noContent().build();
     }
 }

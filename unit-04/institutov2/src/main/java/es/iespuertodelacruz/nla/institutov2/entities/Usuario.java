@@ -9,8 +9,9 @@ import java.util.Date;
 @NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
 public class Usuario {
     @Id
-    @Column(unique=true, nullable=false, length=20)
-    private String dni;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(unique=true, nullable=false)
+    private int id;
 
     @Column(unique = true, nullable=false, length=45)
     private String nombre;
@@ -33,12 +34,12 @@ public class Usuario {
     @Convert(converter = DateToLongConverter.class)
     private Date fecha_creacion;
 
-    public String getDni() {
-        return dni;
+    public int getId() {
+        return id;
     }
 
-    public void setDni(String dni) {
-        this.dni = dni;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {

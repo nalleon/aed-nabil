@@ -11,7 +11,8 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(unique=true, nullable=false)
-    private int id;
+    private int Id;
+
 
     @Column(unique = true, nullable=false, length=45)
     private String nombre;
@@ -35,11 +36,11 @@ public class Usuario {
     private Date fecha_creacion;
 
     public int getId() {
-        return id;
+        return Id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        Id = id;
     }
 
     public String getNombre() {

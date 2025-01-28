@@ -1,9 +1,9 @@
 package es.iespuertodelacruz.nla.institutov2.controller.v3;
 
-import es.iespuertodelacruz.nla.institutov2.controller.interfaces.IController;
-import es.iespuertodelacruz.nla.institutov2.dto.AlumnoRecord;
-import es.iespuertodelacruz.nla.institutov2.dto.AsignaturaRecord;
-import es.iespuertodelacruz.nla.institutov2.dto.MatriculaRecord;
+import es.iespuertodelacruz.nla.institutov2.controller.interfaces.IControllerV3;
+import es.iespuertodelacruz.nla.institutov2.dto.AlumnoDTO;
+import es.iespuertodelacruz.nla.institutov2.dto.AsignaturaDTO;
+import es.iespuertodelacruz.nla.institutov2.dto.MatriculaDTO;
 import es.iespuertodelacruz.nla.institutov2.entities.Alumno;
 import es.iespuertodelacruz.nla.institutov2.entities.Asignatura;
 import es.iespuertodelacruz.nla.institutov2.entities.Matricula;
@@ -19,16 +19,16 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/instituto/api/v1/matriculas")
+@RequestMapping("/instituto/api/v3/matriculas")
 @CrossOrigin
-public class MatriculaRESTControllerV3 implements IController<MatriculaRecord, Integer> {
+public class MatriculaRESTControllerV3 implements IControllerV3<MatriculaDTO, Integer> {
 
     @Autowired
     MatriculaService service;
 
     @PostMapping
     @Override
-    public ResponseEntity<?> add(@RequestBody MatriculaRecord matriculaRecord) {
+    public ResponseEntity<?> add(@RequestBody MatriculaDTO matriculaRecord) {
         if (matriculaRecord != null){
             Matricula aux = getMatricula(matriculaRecord);
 
@@ -37,7 +37,7 @@ public class MatriculaRESTControllerV3 implements IController<MatriculaRecord, I
         return null;
     }
 
-    private static Matricula getMatricula(MatriculaRecord matriculaRecord) {
+    private static Matricula getMatricula(MatriculaDTO matriculaRecord) {
         Matricula aux = new Matricula();
         aux.setYear(matriculaRecord.year());
 
@@ -50,7 +50,7 @@ public class MatriculaRESTControllerV3 implements IController<MatriculaRecord, I
         aux.setAlumno(alumnoAux);
 
         List<Asignatura> asignaturaList = new ArrayList<>();
-        for (AsignaturaRecord asignaturaRecord : matriculaRecord.listAsignaturas()){
+        for (AsignaturaDTO asignaturaRecord : matriculaRecord.listAsignaturas()){
             Asignatura asignaturaAux = new Asignatura();
             asignaturaAux.setId(asignaturaRecord.id());
             asignaturaAux.setNombre(asignaturaRecord.nombre());
@@ -63,36 +63,36 @@ public class MatriculaRESTControllerV3 implements IController<MatriculaRecord, I
 
     @PutMapping("/{id}")
     @Override
-    public ResponseEntity<?> update(@RequestParam(value = "id") Integer id, @RequestBody MatriculaRecord matriculaRecord) {
+    public ResponseEntity<?> update(@RequestParam(value = "id") Integer id, @RequestBody MatriculaDTO matriculaRecord) {
         return null;
     }
 
     @GetMapping
     @Override
-    public ResponseEntity<List<MatriculaRecord>> getAll() {
+    public ResponseEntity<List<MatriculaDTO>> getAll() {
         return ResponseEntity.ok(service.findAll().stream().map(matricula ->
                 getMatriculaRecord(matricula)).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
     @Override
-    public ResponseEntity<MatriculaRecord> getById(@RequestParam(value = "id")Integer id) {
+    public ResponseEntity<MatriculaDTO> getById(@RequestParam(value = "id")Integer id) {
         Matricula aux = service.findById(id);
         Logger logger = Logger.getLogger(Globals.LOGGER_MATRICULA);
         logger.info("found");
 
         if (aux != null){
-            MatriculaRecord record = getMatriculaRecord(aux);
+            MatriculaDTO record = getMatriculaRecord(aux);
             return ResponseEntity.ok(record);
         }
 
         return null;
     }
 
-    private MatriculaRecord getMatriculaRecord(Matricula aux) {
-        List<AsignaturaRecord> asignaturaList = new ArrayList<>();
+    private MatriculaDTO getMatriculaRecord(Matricula aux) {
+        List<AsignaturaDTO> asignaturaList = new ArrayList<>();
         for (Asignatura asignatura : aux.getAsignaturas()){
-            AsignaturaRecord asignaturaRecord = new AsignaturaRecord(
+            AsignaturaDTO asignaturaRecord = new AsignaturaDTO(
                     asignatura.getId(),
                     asignatura.getCurso(), asignatura.getNombre()
             );
@@ -100,12 +100,12 @@ public class MatriculaRESTControllerV3 implements IController<MatriculaRecord, I
         }
 
 
-        AlumnoRecord alumnoRecord = new AlumnoRecord(aux.getAlumno().getDni(),
+        AlumnoDTO alumnoRecord = new AlumnoDTO(aux.getAlumno().getDni(),
                 aux.getAlumno().getApellidos(), aux.getAlumno().getFechanacimiento(),
                 aux.getAlumno().getNombre());
 
 
-        return new MatriculaRecord(
+        return new MatriculaDTO(
                 aux.getYear(), asignaturaList, alumnoRecord);
     }
 

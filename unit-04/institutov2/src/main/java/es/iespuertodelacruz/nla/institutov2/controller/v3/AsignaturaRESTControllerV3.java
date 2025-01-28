@@ -1,7 +1,7 @@
 package es.iespuertodelacruz.nla.institutov2.controller.v3;
 
-import es.iespuertodelacruz.nla.institutov2.controller.interfaces.IController;
-import es.iespuertodelacruz.nla.institutov2.dto.AsignaturaRecord;
+import es.iespuertodelacruz.nla.institutov2.controller.interfaces.IControllerV3;
+import es.iespuertodelacruz.nla.institutov2.dto.AsignaturaDTO;
 import es.iespuertodelacruz.nla.institutov2.entities.Asignatura;
 import es.iespuertodelacruz.nla.institutov2.services.AsignaturaService;
 import es.iespuertodelacruz.nla.institutov2.utils.Globals;
@@ -14,16 +14,16 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/instituto/api/v1/asignaturas")
+@RequestMapping("/instituto/api/v3/asignaturas")
 @CrossOrigin
-public class AsignaturaRESTControllerV3 implements IController<AsignaturaRecord, Integer> {
+public class AsignaturaRESTControllerV3 implements IControllerV3<AsignaturaDTO, Integer> {
 
     @Autowired
     AsignaturaService service;
 
     @PostMapping
     @Override
-    public ResponseEntity<?> add(@RequestBody AsignaturaRecord asignaturaRecord) {
+    public ResponseEntity<?> add(@RequestBody AsignaturaDTO asignaturaRecord) {
         if (asignaturaRecord != null){
             Asignatura aux = new Asignatura();
             aux.setId(asignaturaRecord.id());
@@ -38,7 +38,7 @@ public class AsignaturaRESTControllerV3 implements IController<AsignaturaRecord,
 
     @PutMapping("/{id}")
     @Override
-    public ResponseEntity<?> update(@RequestParam(value = "id") Integer id, @RequestBody AsignaturaRecord asignaturaRecord) {
+    public ResponseEntity<?> update(@RequestParam(value = "id") Integer id, @RequestBody AsignaturaDTO asignaturaRecord) {
         if (asignaturaRecord != null){
             Asignatura aux = new Asignatura();
             aux.setId(asignaturaRecord.id());
@@ -51,20 +51,20 @@ public class AsignaturaRESTControllerV3 implements IController<AsignaturaRecord,
 
     @GetMapping
     @Override
-    public ResponseEntity<List<AsignaturaRecord>> getAll() {
+    public ResponseEntity<List<AsignaturaDTO>> getAll() {
         Logger logger = Logger.getLogger(Globals.LOGGER_ASIGNATURA);
         logger.info("Buscando a todos los alumnos");
-        return ResponseEntity.ok(service.findAll().stream().map(asignatura -> new AsignaturaRecord(
+        return ResponseEntity.ok(service.findAll().stream().map(asignatura -> new AsignaturaDTO(
                 asignatura.getId(), asignatura.getCurso(), asignatura.getNombre()))
                 .collect(Collectors.toList()));
     }
     @GetMapping("/{id}")
     @Override
-    public ResponseEntity<AsignaturaRecord> getById(@RequestParam(value = "id")Integer id) {
+    public ResponseEntity<AsignaturaDTO> getById(@RequestParam(value = "id")Integer id) {
         Asignatura aux = service.findById(id);
 
         if (aux != null){
-            AsignaturaRecord record = new AsignaturaRecord(aux.getId(),
+            AsignaturaDTO record = new AsignaturaDTO(aux.getId(),
                     aux.getCurso(), aux.getNombre());
             return ResponseEntity.ok(record);
         }

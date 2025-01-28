@@ -84,7 +84,7 @@ ALTER TABLE asignaturas_matriculas
     ADD CONSTRAINT fk_alumnos FOREIGN KEY (dni) REFERENCES alumnos (dni);
 
 CREATE TABLE usuarios (
-    id int AUTO_INCREMENT NOT NULL,
+    dni CHAR(20) UNIQUE NOT NULL,
     nombre CHAR(45) UNIQUE NOT NULL,
     password CHAR(200) NOT NULL,
     correo CHAR(100) UNIQUE NOT NULL,
@@ -92,10 +92,11 @@ CREATE TABLE usuarios (
     verificado TINYINT(1) DEFAULT 0,
     token_verificacion CHAR(255),
     fecha_creacion BIGINT NOT NULL,
-    CONSTRAINT pk_usuarios PRIMARY KEY(id)
+    CONSTRAINT pk_usuarios PRIMARY KEY(dni)
 );
 
 INSERT INTO `usuarios` (
+        `dni`,
         `nombre`,
         `password`,
         `correo`,
@@ -105,11 +106,12 @@ INSERT INTO `usuarios` (
         `fecha_creacion`
     )
 VALUES (
-        'admin',
         '1q2w3e4r',
+        'admin',
+        'CHANGE_THIS',
         'admin@gmail.com',
         'ROLE_ADMIN',
         1,
-        'CHANGE_THIS',
-        UNIX_TIMESTAMP()
+        '',
+        0
     );

@@ -2,7 +2,7 @@ package es.iespuertodelacruz.nla.institutov2.controller.v3;
 
 import java.util.List;
 
-import es.iespuertodelacruz.nla.institutov2.controller.interfaces.IController;
+import es.iespuertodelacruz.nla.institutov2.controller.interfaces.IControllerV3;
 import es.iespuertodelacruz.nla.institutov2.entities.Usuario;
 import es.iespuertodelacruz.nla.institutov2.repository.IUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin
 @RequestMapping("/instituto/api/v3/usuarios")
-public class UsuarioRESTControllerV3 implements IController<Usuario, Integer> {
+public class UsuarioRESTControllerV3 implements IControllerV3<Usuario, Integer> {
     @Autowired
     private IUsuarioRepository usuarioRepository;
 

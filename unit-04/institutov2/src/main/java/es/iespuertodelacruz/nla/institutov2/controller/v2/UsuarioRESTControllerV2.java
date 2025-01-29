@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RequestMapping("/instituto/api/v2/usuarios")
 public class UsuarioRESTControllerV2 {
-    Logger logger = Logger.getLogger(Globals.LOGGER_MATRICULA);
+    Logger logger = Logger.getLogger(Globals.LOGGER_USUARIO);
 
     @Autowired
     private UsuarioService service;

@@ -1,10 +1,6 @@
 package es.iespuertodelacruz.nla.institutov2.controller.v3;
 
-import es.iespuertodelacruz.nla.institutov2.controller.interfaces.IControllerV3;
-import es.iespuertodelacruz.nla.institutov2.dto.AlumnoDTOV2;
 import es.iespuertodelacruz.nla.institutov2.dto.AsignaturaDTO;
-import es.iespuertodelacruz.nla.institutov2.dto.AsignaturaDTO;
-import es.iespuertodelacruz.nla.institutov2.entities.Asignatura;
 import es.iespuertodelacruz.nla.institutov2.entities.Asignatura;
 import es.iespuertodelacruz.nla.institutov2.services.AsignaturaService;
 import es.iespuertodelacruz.nla.institutov2.utils.ApiResponse;

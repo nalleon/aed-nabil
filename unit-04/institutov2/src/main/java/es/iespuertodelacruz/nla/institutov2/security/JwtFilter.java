@@ -88,6 +88,13 @@ public class JwtFilter extends OncePerRequestFilter {
 
                 final String rol = mapInfoToken.get("role");
 
+                final Boolean verificado = Boolean.valueOf(mapInfoToken.get("verificado"));
+
+                if (verificado == null || !verificado) {
+                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                    response.getWriter().write("Account not verified");
+                    return;
+                }
 
                 //UserDetails en Spring Security es un interfaz basado en Principal de java
                 //y es la forma que tiene Spring de mantener la información de usuario "autenticado"

@@ -9,6 +9,7 @@ import es.iespuertodelacruz.nla.institutov2.security.AuthService;
 import es.iespuertodelacruz.nla.institutov2.security.JwtService;
 import es.iespuertodelacruz.nla.institutov2.services.MailService;
 import es.iespuertodelacruz.nla.institutov2.services.UsuarioService;
+import es.iespuertodelacruz.nla.institutov2.utils.Globals;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/instituto/api")
@@ -37,6 +39,9 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+    Logger logger = Logger.getLogger(Globals.LOGGER_AUTH);
+
+
 
     /**
      * Funcion para hacer login
@@ -48,8 +53,11 @@ public class AuthController {
         String token = authService.authenticate(loginDTO.nombre(), loginDTO.password());
 
         if (token == null) {
+            logger.info("Credenciales invalidas");
             throw new RuntimeException("Credenciales inválidas");
         }
+
+        logger.info("Logeo exitosos");
         return token;
     }
 
@@ -91,11 +99,15 @@ public class AuthController {
             if(tokenDB != null && tokenDB.equals(token)) {
                 authUsuario.setVerificado(1);
                 service.save(authUsuario);
-                return ResponseEntity.ok("Cuenta creada.");
+                logger.info("Cuenta verificada");
+
+                return ResponseEntity.ok("Cuenta verificada.");
             } else {
+                logger.info("Token de verificacion invalido.");
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Token de verificacion invalido.");
             }
         } else {
+            logger.info("Usuario no encontrado.");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado.");
         }
     }

@@ -1,6 +1,5 @@
 package es.iespuertodelacruz.nla.institutov2.controller.v2;
 
-import es.iespuertodelacruz.nla.institutov2.controller.interfaces.IControllerV2;
 import es.iespuertodelacruz.nla.institutov2.dto.AsignaturaDTO;
 import es.iespuertodelacruz.nla.institutov2.entities.Asignatura;
 import es.iespuertodelacruz.nla.institutov2.services.AsignaturaService;

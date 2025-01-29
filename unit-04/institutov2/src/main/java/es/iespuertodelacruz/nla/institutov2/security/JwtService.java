@@ -22,10 +22,11 @@ public class JwtService {
     //@Value("${jwt.expiration}")
     private long expiration=9876543210L;
 
-    public String generateToken(String username, String rol) {
+    public String generateToken(String username, String rol, int verificado) {
         return JWT.create()
                 .withSubject(username)
                 .withClaim("role", rol)
+                .withClaim("verificado",verificado)
                 .withExpiresAt(new Date(System.currentTimeMillis() + expiration))
                 .sign(Algorithm.HMAC256(secret));
     }

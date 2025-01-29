@@ -6,14 +6,11 @@ import java.util.UUID;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import es.iespuertodelacruz.nla.institutov2.controller.interfaces.IControllerV3;
 import es.iespuertodelacruz.nla.institutov2.dto.AsignaturaDTO;
 import es.iespuertodelacruz.nla.institutov2.dto.UsuarioDTOV2V3;
 import es.iespuertodelacruz.nla.institutov2.dto.UsuarioRegisterDTO;
 import es.iespuertodelacruz.nla.institutov2.dto.UsuarioUpdateDTO;
 import es.iespuertodelacruz.nla.institutov2.entities.Usuario;
-import es.iespuertodelacruz.nla.institutov2.security.AuthService;
-import es.iespuertodelacruz.nla.institutov2.security.JwtService;
 import es.iespuertodelacruz.nla.institutov2.services.UsuarioService;
 import es.iespuertodelacruz.nla.institutov2.utils.ApiResponse;
 import es.iespuertodelacruz.nla.institutov2.utils.Globals;
@@ -38,7 +35,7 @@ public class UsuarioRESTControllerV3  {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    Logger logger = Logger.getLogger(Globals.LOGGER_ALUMNO);
+    Logger logger = Logger.getLogger(Globals.LOGGER_USUARIO);
 
 
     @PostMapping

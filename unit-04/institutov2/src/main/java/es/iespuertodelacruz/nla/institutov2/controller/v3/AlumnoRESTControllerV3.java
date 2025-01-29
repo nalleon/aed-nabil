@@ -1,9 +1,11 @@
 package es.iespuertodelacruz.nla.institutov2.controller.v3;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import es.iespuertodelacruz.nla.institutov2.dto.AlumnoDTOV3;
 import es.iespuertodelacruz.nla.institutov2.entities.Alumno;
 import es.iespuertodelacruz.nla.institutov2.services.AlumnoService;
 import es.iespuertodelacruz.nla.institutov2.utils.Globals;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,21 +30,24 @@ public class AlumnoRESTControllerV3 {
     private final String RUTA_FOTOS = "uploads/fotos/";
 
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    @Api(value = "Agregar un nuevo alumno con foto", consumes = "multipart/form-data")
-    public ResponseEntity<?> add(@RequestPart(value = "alumno") AlumnoDTOV3 dto,
-                                 @RequestPart(value = "foto", required = false)
-                                 MultipartFile foto) throws IOException {
+    public ResponseEntity<?> add(
+            @RequestPart(value = "alumno") String alumnoJSON,
+             @RequestPart(value = "foto", required = false) MultipartFile foto) throws IOException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        AlumnoDTOV3 dto = objectMapper.readValue(alumnoJSON, AlumnoDTOV3.class);
+
         if (dto == null){
             return null;
         }
-        System.out.println("pruebita");
+
             Alumno aux = new Alumno();
             aux.setDni(dto.dni());
             aux.setApellidos(dto.apellidos());
             aux.setFechanacimiento(dto.fechanacimiento());
             aux.setNombre(dto.nombre());
             if(foto != null && !foto.isEmpty()){
-                String nombreArchivo = dto.dni() + "_" + foto.getOriginalFilename();
+                String nombreArchivo = dto.dni() + "_foto";
                 Path rutaFoto = Paths.get(RUTA_FOTOS + nombreArchivo);
                 Files.createDirectories(rutaFoto.getParent());
                 Files.write(rutaFoto, foto.getBytes());

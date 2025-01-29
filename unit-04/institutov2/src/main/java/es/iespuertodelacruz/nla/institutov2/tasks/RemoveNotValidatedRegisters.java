@@ -20,15 +20,16 @@ public class RemoveNotValidatedRegisters {
     // Usamos * para todo, e ? para informar: sin especificar el día de la semana
     @Scheduled(cron = "0 0 0 * * ?")
     public void remove() {
-        long unDia = 24 * 60 * 60 * 1000;
+        long tiempoComprobacion = 24 * 60 * 60 * 1000;
         List<Usuario> all = usuarioRepository.findAll();
         List<Integer> idsParaBorrar = all.stream()
                 .filter(u->u.getVerificado() == 0)
-                //.filter(u->u.getFechaCreacion() + unDia < (new Date()).getTime())
+                .filter(u->u.getFecha_creacion().getTime() + tiempoComprobacion
+                        < (new Date()).getTime())
                 .map(Usuario::getId)
                 .toList();
 
-        //idsParaBorrar.forEach(id->usuarioRepository.deleteById(id));
+        idsParaBorrar.forEach(id->usuarioRepository.deleteById(id));
 
         System.out.println("tarea programada desencadenada: " + (new Date()));
     }

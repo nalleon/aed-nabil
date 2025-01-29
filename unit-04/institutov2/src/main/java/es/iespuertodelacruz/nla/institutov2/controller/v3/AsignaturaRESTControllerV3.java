@@ -125,6 +125,23 @@ public class AsignaturaRESTControllerV3{
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
+    @GetMapping("/{nombre}/{curso}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public  ResponseEntity<?> getByNombreCurso(@RequestParam(value = "nombre") String nombre, @RequestParam(value = "curso") String curso) {
+        Asignatura aux = service.findByNombreCurso(nombre, curso);
+
+        if (aux != null){
+            AsignaturaDTO dto = new AsignaturaDTO(aux.getCurso(), aux.getNombre());
+            logger.info("Asignatura encontrada, status: 204");
+            ApiResponse<AsignaturaDTO> response = new ApiResponse<>(200, "Asignatura encontrada", dto);
+            return ResponseEntity.ok(response);
+        }
+
+        ApiResponse<AsignaturaDTO> errorResponse = new ApiResponse<>(404, "Asignatura no encontrada", null);
+        logger.info("No se ha encontrado la asignatura, status: 404");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    }
+
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRol('ROLE_ADMIN')")
     public ResponseEntity<?> delete(@RequestParam(value = "id") Integer id) {

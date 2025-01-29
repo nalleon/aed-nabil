@@ -44,9 +44,9 @@ public class SecurityConfig {
                                 "/instituto/api/confirmation/**"
                         ).permitAll()
 
-                        .requestMatchers("/api/v2").hasRole("USER")
+                        .requestMatchers("/instituto/api/v2/**").hasAnyRole("USER", "ADMIN")
 
-                        .requestMatchers("/api/v3/**").hasRole("ADMIN")
+                        .requestMatchers("/instituto/api/v3/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -10,6 +10,7 @@ import es.iespuertodelacruz.nla.institutov2.controller.interfaces.IControllerV3;
 import es.iespuertodelacruz.nla.institutov2.dto.AsignaturaDTO;
 import es.iespuertodelacruz.nla.institutov2.dto.UsuarioDTOV2V3;
 import es.iespuertodelacruz.nla.institutov2.dto.UsuarioRegisterDTO;
+import es.iespuertodelacruz.nla.institutov2.dto.UsuarioUpdateDTO;
 import es.iespuertodelacruz.nla.institutov2.entities.Usuario;
 import es.iespuertodelacruz.nla.institutov2.security.AuthService;
 import es.iespuertodelacruz.nla.institutov2.security.JwtService;
@@ -75,49 +76,7 @@ public class UsuarioRESTControllerV3  {
     }
 
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<UsuarioDTOV2V3>> update(
-            @PathVariable Integer id,
-            @RequestBody UsuarioRegisterDTO registerDTO,
-            @RequestBody String rol) {
 
-        if (registerDTO == null) {
-            return ResponseEntity.badRequest()
-                    .body(new ApiResponse<>(400, "El usuario no puede ser nulo", null));
-        }
-
-        Usuario dbItem = service.findById(id);
-
-        if (dbItem == null) {
-            logger.info("El usuario con id " + id + " NO existe en BBDD");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new ApiResponse<>(404, "Usuario no encontrado", null));
-        }
-
-        try {
-            Usuario usuarioEntity = new Usuario();
-            usuarioEntity.setId(dbItem.getId());
-            usuarioEntity.setNombre(dbItem.getNombre());
-            usuarioEntity.setPassword(passwordEncoder.encode(registerDTO.password()));
-            usuarioEntity.setCorreo(registerDTO.correo());
-            usuarioEntity.setRol(rol);
-
-            service.update(usuarioEntity);
-
-            Usuario updatedDbItem = service.findByNombre(registerDTO.nombre());
-
-            UsuarioDTOV2V3 result = new UsuarioDTOV2V3(updatedDbItem.getNombre(), updatedDbItem.getCorreo());
-
-            return ResponseEntity.ok(new ApiResponse<>(200, "Usuario actualizado correctamente", result));
-
-        } catch (RuntimeException e) {
-            logger.info("Error al actualizar el usuario: " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ApiResponse<>(500, "Error al intentar actualizar el usuario", null));
-        }
-    }
-
-    
     @GetMapping
     @PreAuthorize("hasRol('ROLE_ADMIN')")
     public ResponseEntity<?> getAll() {
@@ -134,6 +93,47 @@ public class UsuarioRESTControllerV3  {
         String message = "Lista de usuarios obtenida correctamente";
         logger.info(message);
         return ResponseEntity.ok(new ApiResponse<>(200, message, filteredList));
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRol('ROLE_ADMIN')")
+    public ResponseEntity<ApiResponse<UsuarioDTOV2V3>> update(
+            @PathVariable Integer id,
+            @RequestBody UsuarioUpdateDTO registerDTO,
+            @RequestBody String rol) {
+
+        if (registerDTO == null) {
+            return ResponseEntity.badRequest()
+                    .body(new ApiResponse<>(400, "El usuario no puede ser nulo", null));
+        }
+
+        Usuario dbItem = service.findById(id);
+
+        if (dbItem == null) {
+            logger.info("El usuario con id " + id + " NO existe en BBDD");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse<>(404, "Usuario no encontrado", null));
+        }
+
+        try {
+
+            dbItem.setPassword(passwordEncoder.encode(registerDTO.password()));
+            dbItem.setCorreo(registerDTO.correo());
+            dbItem.setRol(rol);
+
+            service.update(dbItem);
+
+            Usuario updatedDbItem = service.findByCorreo(registerDTO.correo());
+
+            UsuarioDTOV2V3 result = new UsuarioDTOV2V3(updatedDbItem.getNombre(), updatedDbItem.getCorreo());
+
+            return ResponseEntity.ok(new ApiResponse<>(200, "Usuario actualizado correctamente", result));
+
+        } catch (RuntimeException e) {
+            logger.info("Error al actualizar el usuario: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse<>(500, "Error al intentar actualizar el usuario", null));
+        }
     }
 
     @GetMapping("/{id}")

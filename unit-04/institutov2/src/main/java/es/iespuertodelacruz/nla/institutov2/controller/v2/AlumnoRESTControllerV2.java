@@ -1,12 +1,15 @@
 package es.iespuertodelacruz.nla.institutov2.controller.v2;
 
+import es.iespuertodelacruz.nla.institutov2.dto.AlumnoDTOV2;
 import es.iespuertodelacruz.nla.institutov2.dto.AlumnoDTOV3;
 import es.iespuertodelacruz.nla.institutov2.entities.Alumno;
 import es.iespuertodelacruz.nla.institutov2.services.AlumnoService;
+import es.iespuertodelacruz.nla.institutov2.utils.ApiResponse;
 import es.iespuertodelacruz.nla.institutov2.utils.Globals;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,40 +28,38 @@ public class AlumnoRESTControllerV2 {
     Logger logger = Logger.getLogger(Globals.LOGGER_ALUMNO);
 
     @GetMapping
-    public ResponseEntity<List<AlumnoDTOV3>> getAll() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String authenticatedUsername = ((UserDetails)principal).getUsername();
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public ResponseEntity<?> getAll() {
+        List<AlumnoDTOV2> filteredList = service.findAll().stream()
+                .map(alumno -> new AlumnoDTOV2(alumno.getNombre(), alumno.getApellidos()))
+                .collect(Collectors.toList());
 
-        List<Alumno> all = service.findAll();
-        List<Alumno> filteredList = all.stream()
-                .filter(u-> u.getNombre().equals(authenticatedUsername))
-                .toList();
+        if (filteredList.isEmpty()) {
+            String message = "No se encontraron alumnos registrados";
+            logger.info(message);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .body(new ApiResponse<>(204, message, filteredList));
+        }
 
-        return ResponseEntity.ok(filteredList.stream().map(alumno ->
-                new AlumnoDTOV3(alumno.getDni(), alumno.getApellidos(), alumno.getFechanacimiento(), alumno.getNombre())
-        ).collect(Collectors.toList()));
+        String message = "Lista de alumnos obtenida correctamente";
+        logger.info(message);
+        return ResponseEntity.ok(new ApiResponse<>(200, message, filteredList));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AlumnoDTOV3> getById(@RequestParam(value = "id")String id) {
-        logger.info("Buscando el con el dni: " + id);
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String authenticatedUsername = null;
-
-        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
-            authenticatedUsername = ((UserDetails) authentication.getPrincipal()).getUsername();
-        }
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public  ResponseEntity<?> getById(@RequestParam(value = "id") String id) {
         Alumno aux = service.findById(id);
 
-        if (aux != null && authenticatedUsername != null &&
-                authenticatedUsername.equals(aux.getDni())){
-
-            AlumnoDTOV3 dto = new AlumnoDTOV3(aux.getDni(),
-                    aux.getApellidos(), aux.getFechanacimiento(), aux.getNombre());
-            return ResponseEntity.ok(dto);
+        if (aux != null){
+            AlumnoDTOV2 dto = new AlumnoDTOV2(aux.getNombre(),
+                    aux.getApellidos());
+            ApiResponse<AlumnoDTOV2> response = new ApiResponse<>(200, "Alumno encontrado", dto);
+            return ResponseEntity.ok(response);
         }
 
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        ApiResponse<AlumnoDTOV2> errorResponse = new ApiResponse<>(404, "Alumno no encontrado", null);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
+
 }

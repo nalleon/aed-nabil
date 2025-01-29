@@ -1,10 +1,7 @@
 package es.iespuertodelacruz.nla.institutov2.security;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import es.iespuertodelacruz.nla.institutov2.repository.IUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,15 +47,20 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String path = request.getRequestURI();
 
-
-        String rutasPermitidas[]= { "/swagger-ui.html",
-                "/swagger-ui/", "/v2/",
-                "configuration/",	"/swagger",
-                "/webjars/", "/instituto/api/login",
-                "/instituto/api/register", "/v3/",
-                "/websocket", "/index.html", "/instituto/api/v1/",
+        Set<String> rutasPermitidas = Set.of(
+                "/swagger-ui.html", "/swagger-ui/", "/v2/", "/configuration/",
+                "/swagger", "/webjars/", "/instituto/api/login", "/instituto/api/register",
+                "/v3/", "/websocket", "/index.html", "/instituto/api/v1/",
                 "/instituto/api/confirmation"
-        };
+        );
+
+        for (String ruta : rutasPermitidas) {
+            if (path.startsWith(ruta)) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+        }
+
         //rutas permitidas sin estar autenticado
 
         //String rutasPermitidas[] = {};

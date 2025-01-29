@@ -1,10 +1,8 @@
 package es.iespuertodelacruz.nla.institutov2.controller.v3;
 
 import es.iespuertodelacruz.nla.institutov2.controller.abstracts.MatriculaAbstractUtils;
-import es.iespuertodelacruz.nla.institutov2.controller.interfaces.IControllerV3;
-import es.iespuertodelacruz.nla.institutov2.dto.AsignaturaDTO;
-import es.iespuertodelacruz.nla.institutov2.dto.MatriculaDTO;
-import es.iespuertodelacruz.nla.institutov2.entities.Asignatura;
+import es.iespuertodelacruz.nla.institutov2.dto.MatriculaOutputDTO;
+import es.iespuertodelacruz.nla.institutov2.dto.MatriculaInputDTO;
 import es.iespuertodelacruz.nla.institutov2.entities.Matricula;
 import es.iespuertodelacruz.nla.institutov2.services.MatriculaService;
 import es.iespuertodelacruz.nla.institutov2.utils.ApiResponse;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/instituto/api/v3/matriculas")
@@ -31,17 +28,16 @@ public class MatriculaRESTControllerV3 extends MatriculaAbstractUtils  {
 
     @PostMapping
     @PreAuthorize("hasRol('ROLE_ADMIN')")
-    public ResponseEntity<?> add(@RequestBody MatriculaDTO dto) {
+    public ResponseEntity<?> add(@RequestBody MatriculaInputDTO dto) {
         if (dto == null) {
             return ResponseEntity.badRequest()
                     .body(new ApiResponse<>(400, "Datos de la matricula inválidos", null));
         }
 
 
-
-        Matricula aux = getMatricula(dto);
+        Matricula aux = getMatriculaEntity(dto);
         Matricula saved = service.save(aux);
-        MatriculaDTO result = getMatriculaRecord(saved);
+        MatriculaOutputDTO result = getMatriculaDTO(saved);
 
 
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -52,20 +48,20 @@ public class MatriculaRESTControllerV3 extends MatriculaAbstractUtils  {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRol('ROLE_ADMIN')")
-    public ResponseEntity<?> update(@RequestParam(value = "id") Integer id, @RequestBody MatriculaDTO dto) {
+    public ResponseEntity<?> update(@RequestParam(value = "id") Integer id, @RequestBody MatriculaInputDTO dto) {
         if (dto == null) {
             return ResponseEntity.badRequest()
                     .body(new ApiResponse<>(400, "La matricula no puede ser nula", null));
         }
 
         try {
-            Matricula aux = getMatricula(dto);
+            Matricula aux = getMatriculaEntity(dto);
             aux.setId(id);
             service.update(aux);
 
             Matricula dbItem = service.findById(id);
             
-            MatriculaDTO result = getMatriculaRecord(dbItem);
+            MatriculaOutputDTO result = getMatriculaDTO(dbItem);
 
 
             return ResponseEntity.ok(new ApiResponse<>(200, "Matricula actualizada correctamente", result));
@@ -81,8 +77,8 @@ public class MatriculaRESTControllerV3 extends MatriculaAbstractUtils  {
     @GetMapping
     @PreAuthorize("hasRol('ROLE_ADMIN')")
     public ResponseEntity<?> getAll() {
-        List<MatriculaDTO> filteredList = service.findAll().stream().map(
-                this::getMatriculaRecord).toList();
+        List<MatriculaOutputDTO> filteredList = service.findAll().stream().map(
+                this::getMatriculaDTO).toList();
 
         if (filteredList.isEmpty()) {
             String message = "No se encontraron matriculas registradas";
@@ -102,13 +98,13 @@ public class MatriculaRESTControllerV3 extends MatriculaAbstractUtils  {
         Matricula aux = service.findById(id);
 
         if (aux != null){
-            MatriculaDTO dto = getMatriculaRecord(aux);
+            MatriculaOutputDTO dto = getMatriculaDTO(aux);
             logger.info("Matricula encontrada, status: 204");
-            ApiResponse<MatriculaDTO> response = new ApiResponse<>(200, "Asignatura encontrada", dto);
+            ApiResponse<MatriculaOutputDTO> response = new ApiResponse<>(200, "Asignatura encontrada", dto);
             return ResponseEntity.ok(response);
         }
 
-        ApiResponse<MatriculaDTO> errorResponse = new ApiResponse<>(404, "Asignatura no encontrada", null);
+        ApiResponse<MatriculaOutputDTO> errorResponse = new ApiResponse<>(404, "Asignatura no encontrada", null);
         logger.info("No se ha encontrado la Matricula, status: 404");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }

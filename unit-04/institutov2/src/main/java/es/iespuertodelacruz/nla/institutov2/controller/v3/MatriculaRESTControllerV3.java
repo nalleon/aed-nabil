@@ -2,12 +2,17 @@ package es.iespuertodelacruz.nla.institutov2.controller.v3;
 
 import es.iespuertodelacruz.nla.institutov2.controller.abstracts.MatriculaAbstractUtils;
 import es.iespuertodelacruz.nla.institutov2.controller.interfaces.IControllerV3;
+import es.iespuertodelacruz.nla.institutov2.dto.AsignaturaDTO;
 import es.iespuertodelacruz.nla.institutov2.dto.MatriculaDTO;
+import es.iespuertodelacruz.nla.institutov2.entities.Asignatura;
 import es.iespuertodelacruz.nla.institutov2.entities.Matricula;
 import es.iespuertodelacruz.nla.institutov2.services.MatriculaService;
+import es.iespuertodelacruz.nla.institutov2.utils.ApiResponse;
 import es.iespuertodelacruz.nla.institutov2.utils.Globals;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,77 +22,114 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/instituto/api/v3/matriculas")
 @CrossOrigin
-public class MatriculaRESTControllerV3 extends MatriculaAbstractUtils implements IControllerV3<MatriculaDTO, Integer>  {
+public class MatriculaRESTControllerV3 extends MatriculaAbstractUtils  {
 
     @Autowired
     MatriculaService service;
+    Logger logger = Logger.getLogger(Globals.LOGGER_MATRICULA);
+
 
     @PostMapping
-    @Override
-    public ResponseEntity<?> add(@RequestBody MatriculaDTO matriculaRecord) {
-        if (matriculaRecord != null){
-            Matricula aux = getMatricula(matriculaRecord);
-
-            return ResponseEntity.ok(service.save(aux));
+    @PreAuthorize("hasRol('ROLE_ADMIN')")
+    public ResponseEntity<?> add(@RequestBody MatriculaDTO dto) {
+        if (dto == null) {
+            return ResponseEntity.badRequest()
+                    .body(new ApiResponse<>(400, "Datos de la matricula inválidos", null));
         }
-        return null;
+
+
+
+        Matricula aux = getMatricula(dto);
+        Matricula saved = service.save(aux);
+        MatriculaDTO result = getMatriculaRecord(saved);
+
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new ApiResponse<>(201, "MAtricula creada correctamente", result));
     }
 
 
 
     @PutMapping("/{id}")
-    @Override
+    @PreAuthorize("hasRol('ROLE_ADMIN')")
     public ResponseEntity<?> update(@RequestParam(value = "id") Integer id, @RequestBody MatriculaDTO dto) {
-        if (dto != null){
+        if (dto == null) {
+            return ResponseEntity.badRequest()
+                    .body(new ApiResponse<>(400, "La matricula no puede ser nula", null));
+        }
+
+        try {
             Matricula aux = getMatricula(dto);
             aux.setId(id);
-            return ResponseEntity.ok(service.update(aux));
+            service.update(aux);
+
+            Matricula dbItem = service.findById(id);
+            
+            MatriculaDTO result = getMatriculaRecord(dbItem);
+
+
+            return ResponseEntity.ok(new ApiResponse<>(200, "Matricula actualizada correctamente", result));
+
+        } catch (RuntimeException e) {
+            logger.info("Error al actualizar la matricula: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse<>(500, "Error al intentar actualizar la matricula", null));
         }
-        return null;
     }
 
+
     @GetMapping
-    @Override
-    public ResponseEntity<List<MatriculaDTO>> getAll() {
-        return ResponseEntity.ok(service.findAll().stream().map(matricula ->
-                getMatriculaRecord(matricula)).collect(Collectors.toList()));
+    @PreAuthorize("hasRol('ROLE_ADMIN')")
+    public ResponseEntity<?> getAll() {
+        List<MatriculaDTO> filteredList = service.findAll().stream().map(
+                this::getMatriculaRecord).toList();
+
+        if (filteredList.isEmpty()) {
+            String message = "No se encontraron matriculas registradas";
+            logger.info(message);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .body(new ApiResponse<>(204, message, filteredList));
+        }
+
+        String message = "Lista de matriculas obtenida correctamente";
+        logger.info(message);
+        return ResponseEntity.ok(new ApiResponse<>(200, message, filteredList));
     }
 
     @GetMapping("/{id}")
-    @Override
-    public ResponseEntity<MatriculaDTO> getById(@RequestParam(value = "id")Integer id) {
+    @PreAuthorize("hasRol('ROLE_ADMIN')")
+    public ResponseEntity<?> getById(@RequestParam(value = "id")Integer id) {
         Matricula aux = service.findById(id);
-        Logger logger = Logger.getLogger(Globals.LOGGER_MATRICULA);
-        logger.info("found");
 
         if (aux != null){
-            MatriculaDTO record = getMatriculaRecord(aux);
-            return ResponseEntity.ok(record);
+            MatriculaDTO dto = getMatriculaRecord(aux);
+            logger.info("Matricula encontrada, status: 204");
+            ApiResponse<MatriculaDTO> response = new ApiResponse<>(200, "Asignatura encontrada", dto);
+            return ResponseEntity.ok(response);
         }
 
-        return null;
+        ApiResponse<MatriculaDTO> errorResponse = new ApiResponse<>(404, "Asignatura no encontrada", null);
+        logger.info("No se ha encontrado la Matricula, status: 404");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
 
 
     @DeleteMapping("/{id}")
-    @Override
+    @PreAuthorize("hasRol('ROLE_ADMIN')")
     public ResponseEntity<?> delete(@RequestParam(value = "id") Integer id) {
-        Logger logger = Logger.getLogger(Globals.LOGGER_MATRICULA);
         boolean deleted = service.delete(id);
-        String message = "";
-        int status = 0;
 
-        if(deleted){
-            message = "La matricula ha sido correcŧamente eliminada";
-            status = 204;
-            logger.info(message + ", status: " + status);
-            return ResponseEntity.ok("message: " + message + "\nstatus: " + status);
+        if (deleted) {
+            String message = "La matricula ha sido eliminada correctamente";
+            logger.info(message + ", status: 204");
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .body(new ApiResponse<>(204, message, null));
         } else {
-            message = "La matricula no ha sido eliminada";
-            status = 500;
-            logger.info(message + ", status: " + status);
-            return ResponseEntity.ok("message: " + message + "\nstatus: " + status);
+            String message = "Matricula NO eliminada";
+            logger.info(message + ", status: 500");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse<>(500, message, null));
         }
     }
 }

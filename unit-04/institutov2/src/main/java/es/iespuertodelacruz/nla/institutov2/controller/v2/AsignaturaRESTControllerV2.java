@@ -19,6 +19,8 @@ public class AsignaturaRESTControllerV2 implements IControllerV2<AsignaturaDTO, 
 
     @Autowired
     AsignaturaService service;
+    Logger logger = Logger.getLogger(Globals.LOGGER_ASIGNATURA);
+
 
     @GetMapping
     @Override
@@ -26,18 +28,17 @@ public class AsignaturaRESTControllerV2 implements IControllerV2<AsignaturaDTO, 
         Logger logger = Logger.getLogger(Globals.LOGGER_ASIGNATURA);
         logger.info("Buscando a todas las asignaturas");
         return ResponseEntity.ok(service.findAll().stream().map(asignatura -> new AsignaturaDTO(
-                        asignatura.getId(), asignatura.getCurso(), asignatura.getNombre()))
+                        asignatura.getCurso(), asignatura.getNombre()))
                 .collect(Collectors.toList()));
     }
     @GetMapping("/{id}")
     @Override
     public ResponseEntity<AsignaturaDTO> getById(@RequestParam(value = "id")Integer id) {
-        Logger logger = Logger.getLogger(Globals.LOGGER_ASIGNATURA);
         logger.info("Buscando la asignatura con el id: " + id);
         Asignatura aux = service.findById(id);
 
         if (aux != null){
-            AsignaturaDTO record = new AsignaturaDTO(aux.getId(),
+            AsignaturaDTO record = new AsignaturaDTO(
                     aux.getCurso(), aux.getNombre());
             return ResponseEntity.ok(record);
         }

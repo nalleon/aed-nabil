@@ -53,7 +53,7 @@ public class AsignaturaRESTControllerV3{
 
         dbItem = service.findByNombreCurso(dto.nombre(), dto.curso());
 
-        AsignaturaDTO result = new AsignaturaDTO(dbItem.getId(), dto.curso(), dto.nombre());
+        AsignaturaDTO result = new AsignaturaDTO(dto.curso(), dto.nombre());
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new ApiResponse<>(201, "Asignatura creada correctamente", result));
@@ -80,7 +80,7 @@ public class AsignaturaRESTControllerV3{
 
         service.update(dbItem);
 
-        AsignaturaDTO result = new AsignaturaDTO(dbItem.getId(), dto.curso(), dto.nombre());
+        AsignaturaDTO result = new AsignaturaDTO(dto.curso(), dto.nombre());
 
         return ResponseEntity.ok(new ApiResponse<>(200, "Asignatura actualizado correctamente", result));
 
@@ -90,9 +90,9 @@ public class AsignaturaRESTControllerV3{
     @PreAuthorize("hasRol('ROLE_ADMIN')")
     public ResponseEntity<?> getAll() {
         List<AsignaturaDTO> filteredList =service.findAll().stream().map(
-                asignatura -> 
+                asignatura ->
                         new AsignaturaDTO(
-                            asignatura.getId(), asignatura.getCurso(), asignatura.getNombre())
+                            asignatura.getCurso(), asignatura.getNombre())
                         )
                 .collect(Collectors.toList());
 
@@ -114,8 +114,7 @@ public class AsignaturaRESTControllerV3{
         Asignatura aux = service.findById(id);
 
         if (aux != null){
-            AsignaturaDTO dto = new AsignaturaDTO(aux.getId(),
-                    aux.getCurso(), aux.getNombre());
+            AsignaturaDTO dto = new AsignaturaDTO(aux.getCurso(), aux.getNombre());
             logger.info("Asignatura encontrada, status: 204");
             ApiResponse<AsignaturaDTO> response = new ApiResponse<>(200, "Asignatura encontrada", dto);
             return ResponseEntity.ok(response);
@@ -137,7 +136,7 @@ public class AsignaturaRESTControllerV3{
             return ResponseEntity.status(HttpStatus.NO_CONTENT)
                     .body(new ApiResponse<>(204, message, null));
         } else {
-            String message = "La asignatura no ha sido eliminada, puede que no exista";
+            String message = "Asignatura NO eliminada";
             logger.info(message + ", status: 500");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiResponse<>(500, message, null));

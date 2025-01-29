@@ -7,14 +7,17 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import es.iespuertodelacruz.nla.institutov2.controller.interfaces.IControllerV3;
+import es.iespuertodelacruz.nla.institutov2.dto.AsignaturaDTO;
 import es.iespuertodelacruz.nla.institutov2.dto.UsuarioDTOV2V3;
 import es.iespuertodelacruz.nla.institutov2.dto.UsuarioRegisterDTO;
 import es.iespuertodelacruz.nla.institutov2.entities.Usuario;
 import es.iespuertodelacruz.nla.institutov2.security.AuthService;
 import es.iespuertodelacruz.nla.institutov2.security.JwtService;
 import es.iespuertodelacruz.nla.institutov2.services.UsuarioService;
+import es.iespuertodelacruz.nla.institutov2.utils.ApiResponse;
 import es.iespuertodelacruz.nla.institutov2.utils.Globals;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,14 +37,15 @@ public class UsuarioRESTControllerV3  {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    Logger logger = Logger.getLogger(Globals.LOGGER_ASIGNATURA);
+    Logger logger = Logger.getLogger(Globals.LOGGER_ALUMNO);
 
 
     @PostMapping
     @PreAuthorize("hasRol('ROLE_ADMIN')")
-    public ResponseEntity<?> createUser(UsuarioRegisterDTO registerDTO, String rol) {
-        if(registerDTO == null){
-            return ResponseEntity.badRequest().body("Usuario null");
+    public ResponseEntity<ApiResponse<UsuarioDTOV2V3>> createUser(UsuarioRegisterDTO registerDTO, String rol) {
+        if (registerDTO == null) {
+            return ResponseEntity.badRequest()
+                    .body(new ApiResponse<>(400, "El usuario no puede ser nulo", null));
         }
 
         try {
@@ -60,26 +64,34 @@ public class UsuarioRESTControllerV3  {
 
             UsuarioDTOV2V3 result = new UsuarioDTOV2V3(dbItem.getNombre(), dbItem.getCorreo());
 
-            return ResponseEntity.ok(result);
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(new ApiResponse<>(201, "Usuario creado correctamente", result));
 
-        } catch (RuntimeException e){
-            logger.info("Error tratando de registrar un nuevo usuario: " + e);
-            throw new RuntimeException(e);
+        } catch (RuntimeException e) {
+            logger.info("Error al crear un nuevo usuario: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse<>(500, "Error al intentar registrar el usuario", null));
         }
     }
 
+
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody UsuarioRegisterDTO registerDTO,
-                                    @RequestBody String rol) {
-        if(registerDTO == null){
-            return ResponseEntity.badRequest().body("Usuario null");
+    public ResponseEntity<ApiResponse<UsuarioDTOV2V3>> update(
+            @PathVariable Integer id,
+            @RequestBody UsuarioRegisterDTO registerDTO,
+            @RequestBody String rol) {
+
+        if (registerDTO == null) {
+            return ResponseEntity.badRequest()
+                    .body(new ApiResponse<>(400, "El usuario no puede ser nulo", null));
         }
 
         Usuario dbItem = service.findById(id);
 
-        if(dbItem == null){
-            logger.info("El usuario con nombre" + registerDTO.nombre() + " no existe en BBDD");
-            return ResponseEntity.notFound().build();
+        if (dbItem == null) {
+            logger.info("El usuario con id " + id + " NO existe en BBDD");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse<>(404, "Usuario no encontrado", null));
         }
 
         try {
@@ -96,63 +108,108 @@ public class UsuarioRESTControllerV3  {
 
             UsuarioDTOV2V3 result = new UsuarioDTOV2V3(updatedDbItem.getNombre(), updatedDbItem.getCorreo());
 
-            return ResponseEntity.ok(result);
+            return ResponseEntity.ok(new ApiResponse<>(200, "Usuario actualizado correctamente", result));
 
-        } catch (RuntimeException e){
-            logger.info("Error tratando de modificar un nuevo usuario: " + e);
-            throw new RuntimeException(e);
+        } catch (RuntimeException e) {
+            logger.info("Error al actualizar el usuario: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse<>(500, "Error al intentar actualizar el usuario", null));
         }
     }
 
     
     @GetMapping
     @PreAuthorize("hasRol('ROLE_ADMIN')")
-    public ResponseEntity<List<UsuarioDTOV2V3>> getAll() {
-        return ResponseEntity.ok(service.findAll().stream().map(usuario ->
-                new UsuarioDTOV2V3(usuario.getNombre(), usuario.getCorreo())).collect(Collectors.toList()));
+    public ResponseEntity<?> getAll() {
+        List<UsuarioDTOV2V3> filteredList = service.findAll().stream().map(usuario ->
+                new UsuarioDTOV2V3(usuario.getNombre(), usuario.getCorreo())).collect(Collectors.toList());
+
+        if (filteredList.isEmpty()) {
+            String message = "NO se encontraron usuarios registrados";
+            logger.info(message);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .body(new ApiResponse<>(204, message, filteredList));
+        }
+
+        String message = "Lista de usuarios obtenida correctamente";
+        logger.info(message);
+        return ResponseEntity.ok(new ApiResponse<>(200, message, filteredList));
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRol('ROLE_ADMIN')")
-    public ResponseEntity<UsuarioDTOV2V3> getById(@PathVariable Integer id) {
+    public ResponseEntity<?> getById(@PathVariable Integer id) {
         Usuario aux = service.findById(id);
         if (aux != null){
             UsuarioDTOV2V3 dto =  new UsuarioDTOV2V3(aux.getNombre(), aux.getCorreo());
-            return ResponseEntity.ok(dto);
+
+            logger.info("Usuario encontrado, status: 204");
+            ApiResponse<UsuarioDTOV2V3> response = new ApiResponse<>(200, "Usuario encontrado", dto);
+            return ResponseEntity.ok(response);
         }
 
-        return ResponseEntity.notFound().build();
+        ApiResponse<AsignaturaDTO> errorResponse = new ApiResponse<>(404, "Usuario NO encontrado", null);
+        logger.info("Usuario NO encontrado, status: 404");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
     @GetMapping("/{nombre}")
     @PreAuthorize("hasRol('ROLE_ADMIN')")
-    public ResponseEntity<UsuarioDTOV2V3> getByNombre(@PathVariable String nombre) {
+    public ResponseEntity<?> getByNombre(@PathVariable String nombre) {
         Usuario aux = service.findByNombre(nombre);
+
         if (aux != null){
             UsuarioDTOV2V3 dto =  new UsuarioDTOV2V3(aux.getNombre(), aux.getCorreo());
-            return ResponseEntity.ok(dto);
+
+            logger.info("Usuario encontrado, status: 204");
+            ApiResponse<UsuarioDTOV2V3> response = new ApiResponse<>(200, "Usuario encontrado", dto);
+            return ResponseEntity.ok(response);
         }
 
-        return ResponseEntity.notFound().build();
+        ApiResponse<AsignaturaDTO> errorResponse = new ApiResponse<>(404, "Usuario NO encontrado", null);
+        logger.info("Usuario NO encontrado, status: 404");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
     @GetMapping("/{correo}")
     @PreAuthorize("hasRol('ROLE_ADMIN')")
-    public ResponseEntity<UsuarioDTOV2V3> getByCorreo(@PathVariable String correo) {
+    public ResponseEntity<?> getByCorreo(@PathVariable String correo) {
         Usuario aux = service.findByCorreo(correo);
         if (aux != null){
             UsuarioDTOV2V3 dto =  new UsuarioDTOV2V3(aux.getNombre(), aux.getCorreo());
-            return ResponseEntity.ok(dto);
+
+            logger.info("Usuario encontrado, status: 204");
+            ApiResponse<UsuarioDTOV2V3> response = new ApiResponse<>(200, "Usuario encontrado", dto);
+            return ResponseEntity.ok(response);
         }
 
-        return ResponseEntity.notFound().build();
+        ApiResponse<AsignaturaDTO> errorResponse = new ApiResponse<>(404, "Usuario NO encontrado", null);
+        logger.info("Usuario NO encontrado, status: 404");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
     
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRol('ROLE_ADMIN')")
     public ResponseEntity<?> delete(@PathVariable Integer id) {
-        service.delete(id);
-        return ResponseEntity.noContent().build();
+        if(id == 1){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(
+                    new ApiResponse<>(403, "", null));
+        }
+
+        boolean deleted = service.delete(id);
+
+        if (deleted) {
+            String message = "Usuario eliminado correctamente";
+            logger.info(message + ", status: 204");
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .body(new ApiResponse<>(204, message, null));
+        } else {
+            String message = "Usuario NO eliminado";
+            logger.info(message + ", status: 500");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse<>(500, message, null));
+        }
+        
     }
 }

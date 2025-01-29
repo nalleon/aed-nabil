@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,10 +31,10 @@ public class AlumnoRESTControllerV3 {
     @Autowired AlumnoService service;
     Logger logger = Logger.getLogger(Globals.LOGGER_ALUMNO);
 
-
     private final String RUTA_FOTOS = "uploads/fotos/";
 
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PreAuthorize("hasRol('ROLE_ADMIN')")
     public ResponseEntity<ApiResponse<AlumnoDTOV2>> add(
             @RequestPart(value = "alumno") String alumnoJSON,
             @RequestPart(value = "foto", required = false) MultipartFile foto) throws IOException {
@@ -87,6 +88,7 @@ public class AlumnoRESTControllerV3 {
 
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRol('ROLE_ADMIN')")
     public ResponseEntity<ApiResponse<AlumnoDTOV2>> update(
             @PathVariable("id") String id,
             @RequestPart(value = "alumno") String alumnoJSON,
@@ -140,6 +142,7 @@ public class AlumnoRESTControllerV3 {
 
 
     @GetMapping
+    @PreAuthorize("hasRol('ROLE_ADMIN')")
     public ResponseEntity<?> getAll() {
         List<AlumnoDTOV2> filteredList = service.findAll().stream()
                 .map(alumno -> new AlumnoDTOV2(alumno.getNombre(), alumno.getApellidos()))
@@ -158,6 +161,7 @@ public class AlumnoRESTControllerV3 {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRol('ROLE_ADMIN')")
     public  ResponseEntity<?> getById(@RequestParam(value = "id") String id) {
         Alumno aux = service.findById(id);
 
@@ -173,6 +177,7 @@ public class AlumnoRESTControllerV3 {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRol('ROLE_ADMIN')")
     public ResponseEntity<?> delete(@RequestParam(value = "id") String id) {
         boolean deleted = service.delete(id);
 
@@ -182,7 +187,7 @@ public class AlumnoRESTControllerV3 {
             return ResponseEntity.status(HttpStatus.NO_CONTENT)
                     .body(new ApiResponse<>(204, message, null));
         } else {
-            String message = "El alumno no ha sido eliminado, puede que no exista";
+            String message = "Alumno NO eliminado";
             logger.info(message + ", status: 500");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiResponse<>(500, message, null));

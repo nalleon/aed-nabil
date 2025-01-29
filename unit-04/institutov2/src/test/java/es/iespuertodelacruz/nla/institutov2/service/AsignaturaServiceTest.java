@@ -40,6 +40,12 @@ public class AsignaturaServiceTest extends TestUtilities {
     }
 
     @Test
+    void getOneByNameYearTest() {
+        Assertions.assertNotNull(service.findByNombreCurso("BAE", "1º DAM"), MESSAGE_ERROR);
+    }
+
+
+    @Test
     void addTest() {
         Asignatura itemToAdd = new Asignatura();
         itemToAdd.setNombre("testNombre");

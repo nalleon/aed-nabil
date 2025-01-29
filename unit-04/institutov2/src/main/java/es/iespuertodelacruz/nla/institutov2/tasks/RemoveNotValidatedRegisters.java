@@ -16,7 +16,6 @@ public class RemoveNotValidatedRegisters {
     @Autowired
     private IUsuarioRepository usuarioRepository;
 
-    //cron = "segundo minuto hora día-del-mes mes día-de-la-semana"
     // Usamos * para todo, e ? para informar: sin especificar el día de la semana
     @Scheduled(cron = "0 0 0 * * ?")
     public void remove() {

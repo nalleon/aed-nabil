@@ -1,12 +1,18 @@
 package es.iespuertodelacruz.nla.institutov2.controller.v3;
 
 import es.iespuertodelacruz.nla.institutov2.controller.interfaces.IControllerV3;
+import es.iespuertodelacruz.nla.institutov2.dto.AlumnoDTOV2;
+import es.iespuertodelacruz.nla.institutov2.dto.AsignaturaDTO;
 import es.iespuertodelacruz.nla.institutov2.dto.AsignaturaDTO;
 import es.iespuertodelacruz.nla.institutov2.entities.Asignatura;
+import es.iespuertodelacruz.nla.institutov2.entities.Asignatura;
 import es.iespuertodelacruz.nla.institutov2.services.AsignaturaService;
+import es.iespuertodelacruz.nla.institutov2.utils.ApiResponse;
 import es.iespuertodelacruz.nla.institutov2.utils.Globals;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,80 +22,125 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/instituto/api/v3/asignaturas")
 @CrossOrigin
-public class AsignaturaRESTControllerV3 implements IControllerV3<AsignaturaDTO, Integer> {
+public class AsignaturaRESTControllerV3{
 
     @Autowired
     AsignaturaService service;
+    Logger logger = Logger.getLogger(Globals.LOGGER_ASIGNATURA);
+
 
     @PostMapping
-    @Override
-    public ResponseEntity<?> add(@RequestBody AsignaturaDTO asignaturaRecord) {
-        if (asignaturaRecord != null){
-            Asignatura aux = new Asignatura();
-            aux.setId(asignaturaRecord.id());
-            aux.setNombre(asignaturaRecord.nombre());
-            aux.setCurso(asignaturaRecord.curso());
-            Asignatura result = service.save(aux);
-
-            //return ResponseEntity.ok();
+    @PreAuthorize("hasRol('ROLE_ADMIN')")
+    public ResponseEntity<?> add(@RequestBody AsignaturaDTO dto) {
+        if (dto == null) {
+            return ResponseEntity.badRequest()
+                    .body(new ApiResponse<>(400, "Datos de la asignatura inválidos", null));
         }
-        return null;
+
+        Asignatura dbItem = service.findByNombreCurso(dto.nombre(), dto.curso());
+        if (dbItem != null) {
+            logger.info("La asignatura ya existe");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse<>(404, "Asignatura no encontrada", null));
+        }
+
+
+        Asignatura aux = new Asignatura();
+        aux.setCurso(dto.curso());
+        aux.setNombre(dto.nombre());
+
+        service.save(aux);
+
+        dbItem = service.findByNombreCurso(dto.nombre(), dto.curso());
+
+        AsignaturaDTO result = new AsignaturaDTO(dbItem.getId(), dto.curso(), dto.nombre());
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new ApiResponse<>(201, "Asignatura creada correctamente", result));
     }
 
     @PutMapping("/{id}")
-    @Override
-    public ResponseEntity<?> update(@RequestParam(value = "id") Integer id, @RequestBody AsignaturaDTO asignaturaRecord) {
-        if (asignaturaRecord != null){
-            Asignatura aux = new Asignatura();
-            aux.setId(asignaturaRecord.id());
-            aux.setNombre(asignaturaRecord.nombre());
-            aux.setCurso(asignaturaRecord.curso());
-            return ResponseEntity.ok(service.update(aux));
+    @PreAuthorize("hasRol('ROLE_ADMIN')")
+    public ResponseEntity<?> update(@RequestParam(value = "id") Integer id, @RequestBody AsignaturaDTO dto) {
+
+        if (dto == null) {
+            return ResponseEntity.badRequest()
+                    .body(new ApiResponse<>(400, "Datos de la asignatura inválidos", null));
         }
-        return null;
+
+        Asignatura dbItem = service.findById(id);
+        if (dbItem == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse<>(404, "Asignatura no encontrada", null));
+        }
+
+
+        dbItem.setNombre(dto.nombre());
+        dbItem.setCurso(dto.curso());
+
+        service.update(dbItem);
+
+        AsignaturaDTO result = new AsignaturaDTO(dbItem.getId(), dto.curso(), dto.nombre());
+
+        return ResponseEntity.ok(new ApiResponse<>(200, "Asignatura actualizado correctamente", result));
+
     }
 
     @GetMapping
-    @Override
-    public ResponseEntity<List<AsignaturaDTO>> getAll() {
-        Logger logger = Logger.getLogger(Globals.LOGGER_ASIGNATURA);
-        logger.info("Buscando a todos los alumnos");
-        return ResponseEntity.ok(service.findAll().stream().map(asignatura -> new AsignaturaDTO(
-                asignatura.getId(), asignatura.getCurso(), asignatura.getNombre()))
-                .collect(Collectors.toList()));
+    @PreAuthorize("hasRol('ROLE_ADMIN')")
+    public ResponseEntity<?> getAll() {
+        List<AsignaturaDTO> filteredList =service.findAll().stream().map(
+                asignatura -> 
+                        new AsignaturaDTO(
+                            asignatura.getId(), asignatura.getCurso(), asignatura.getNombre())
+                        )
+                .collect(Collectors.toList());
+
+        if (filteredList.isEmpty()) {
+            String message = "No se encontraron asignaturas registradas";
+            logger.info(message);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .body(new ApiResponse<>(204, message, filteredList));
+        }
+
+        String message = "Lista de asignaturas obtenida correctamente";
+        logger.info(message);
+        return ResponseEntity.ok(new ApiResponse<>(200, message, filteredList));
     }
+    
     @GetMapping("/{id}")
-    @Override
-    public ResponseEntity<AsignaturaDTO> getById(@RequestParam(value = "id")Integer id) {
+    @PreAuthorize("hasRol('ROLE_ADMIN')")
+    public  ResponseEntity<?> getById(@RequestParam(value = "id") Integer id) {
         Asignatura aux = service.findById(id);
 
         if (aux != null){
-            AsignaturaDTO record = new AsignaturaDTO(aux.getId(),
+            AsignaturaDTO dto = new AsignaturaDTO(aux.getId(),
                     aux.getCurso(), aux.getNombre());
-            return ResponseEntity.ok(record);
+            logger.info("Asignatura encontrada, status: 204");
+            ApiResponse<AsignaturaDTO> response = new ApiResponse<>(200, "Asignatura encontrada", dto);
+            return ResponseEntity.ok(response);
         }
 
-        return null;
+        ApiResponse<AsignaturaDTO> errorResponse = new ApiResponse<>(404, "Asignatura no encontrada", null);
+        logger.info("No se ha encontrado la asignatura, status: 404");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
     @DeleteMapping("/{id}")
-    @Override
+    @PreAuthorize("hasRol('ROLE_ADMIN')")
     public ResponseEntity<?> delete(@RequestParam(value = "id") Integer id) {
-        Logger logger = Logger.getLogger(Globals.LOGGER_ASIGNATURA);
         boolean deleted = service.delete(id);
-        String message = "";
-        int status = 0;
 
-        if(deleted){
-            message = "La asignatura ha sido correcŧamente eliminado";
-            status = 204;
-            logger.info(message + ", status: " + status);
-            return ResponseEntity.ok("message: " + message + "\n status: " + status);
+        if (deleted) {
+            String message = "La asignatura ha sido eliminada correctamente";
+            logger.info(message + ", status: 204");
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .body(new ApiResponse<>(204, message, null));
         } else {
-            message = "La asignatura no ha sido eliminado";
-            status = 500;
-            logger.info(message + ", status: " + status);
-            return ResponseEntity.ok("message: " + message + "\n status: " + status);
+            String message = "La asignatura no ha sido eliminada, puede que no exista";
+            logger.info(message + ", status: 500");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse<>(500, message, null));
         }
     }
 }

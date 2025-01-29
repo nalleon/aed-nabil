@@ -37,6 +37,11 @@ public class AsignaturaService implements IServiceGeneric<Asignatura, Integer> {
         return asignaturaRepository.findById(id).orElse(null);
     }
 
+    public Asignatura findByNombreCurso(String nombre, String curso) {
+        return asignaturaRepository.findByNombreCurso(nombre, curso).orElse(null);
+    }
+
+
     @Override
     @Transactional
     public Asignatura save(Asignatura obj) {
@@ -44,6 +49,10 @@ public class AsignaturaService implements IServiceGeneric<Asignatura, Integer> {
             return null;
         }
 
+        Asignatura dbItem = asignaturaRepository.findByNombreCurso(obj.getNombre(), obj.getCurso()).orElse(null);
+        if(dbItem != null){
+            return null;
+        }
 
         List<Matricula> list = new ArrayList<>();
         if(obj.getMatriculas() != null && !obj.getMatriculas().isEmpty()){

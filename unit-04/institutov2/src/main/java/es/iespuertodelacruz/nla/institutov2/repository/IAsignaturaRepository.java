@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import es.iespuertodelacruz.nla.institutov2.entities.Asignatura;
 
+import java.util.Optional;
+
 @Repository
 public interface IAsignaturaRepository extends JpaRepository<Asignatura, Integer>{
     @Modifying
@@ -22,4 +24,11 @@ public interface IAsignaturaRepository extends JpaRepository<Asignatura, Integer
             nativeQuery=true
     )
     int deleteAsignaturaById(@Param("id") Integer id);
+
+    @Query(
+            value="SELECT * FROM asignaturas AS a WHERE a.nombre LIKE %:nombre% AND a.curso LIKE %:curso%",
+            nativeQuery=true
+    )
+    //LIKE %:
+    Optional<Asignatura> findByNombreCurso(@Param("nombre") String nombre, @Param("curso") String curso);
 }

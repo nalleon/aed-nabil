@@ -56,7 +56,6 @@ public class JwtFilter extends OncePerRequestFilter {
                 "configuration/",	"/swagger",
                 "/webjars/", "/instituto/api/login",
                 "/instituto/api/register", "/v3/",
-
                 "/websocket", "/index.html", "/instituto/api/v1/",
                 "/instituto/api/confirmation"
         };

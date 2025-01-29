@@ -33,6 +33,9 @@ public class Alumno implements Serializable {
 	@OneToMany(mappedBy="alumno")
 	private List<Matricula> matriculas;
 
+	@Column(length=255, nullable=true)
+	private String path_foto;
+
 	public Alumno() {
 	}
 
@@ -74,6 +77,14 @@ public class Alumno implements Serializable {
 
 	public void setMatriculas(List<Matricula> matriculas) {
 		this.matriculas = matriculas;
+	}
+
+	public String getPath_foto() {
+		return path_foto;
+	}
+
+	public void setPath_foto(String path_foto) {
+		this.path_foto = path_foto;
 	}
 
 	public Matricula addMatricula(Matricula matricula) {

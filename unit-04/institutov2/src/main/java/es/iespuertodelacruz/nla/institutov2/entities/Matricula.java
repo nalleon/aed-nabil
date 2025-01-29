@@ -31,6 +31,7 @@ public class Matricula implements Serializable {
 	@JsonIgnore
 	private Alumno alumno;
 
+
 	//bi-directional many-to-many association to Asignatura
 	@ManyToMany(mappedBy="matriculas" /*, fetch=FetchType.LAZY*/  )
 	private List<Asignatura> asignaturas;

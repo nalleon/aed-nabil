@@ -11,12 +11,13 @@ CREATE TABLE alumnos(
    dni char(20) NOT NULL,
    nombre char(50) DEFAULT NULL,
    apellidos char(50) DEFAULT NULL,
-   fechanacimiento bigint DEFAULT NULL
+   fechanacimiento bigint DEFAULT NULL,
+   path_foto VARCHAR(255) DEFAULT NULL
 );
-INSERT INTO alumnos (dni, nombre, apellidos, fechanacimiento) VALUES
-('12312312K', 'María Luisa', 'Gutiérrez', 821234400000),
-('12345678Z', 'Ana', 'Martín', 968972400000),
-('87654321X', 'Marcos', 'Afonso Jiménez', 874278000000);
+INSERT INTO alumnos (dni, nombre, apellidos, fechanacimiento, path_foto) VALUES
+('12312312K', 'María Luisa', 'Gutiérrez', 821234400000, null),
+('12345678Z', 'Ana', 'Martín', 968972400000, null),
+('87654321X', 'Marcos', 'Afonso Jiménez', 874278000000, null);
 
 CREATE TABLE alumnosconfoto(
    dni char(20) NOT NULL,
@@ -124,6 +125,6 @@ VALUES (
         'admin@gmail.com',
         'ROLE_ADMIN',
         1,
-        'CHANGE_THIS',
+        'readumineko',
         UNIX_TIMESTAMP()
     );

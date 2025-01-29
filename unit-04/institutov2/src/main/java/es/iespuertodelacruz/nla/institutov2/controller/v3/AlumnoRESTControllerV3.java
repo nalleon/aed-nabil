@@ -1,14 +1,19 @@
 package es.iespuertodelacruz.nla.institutov2.controller.v3;
 
-import es.iespuertodelacruz.nla.institutov2.controller.interfaces.IControllerV3;
 import es.iespuertodelacruz.nla.institutov2.dto.AlumnoDTOV3;
 import es.iespuertodelacruz.nla.institutov2.entities.Alumno;
 import es.iespuertodelacruz.nla.institutov2.services.AlumnoService;
 import es.iespuertodelacruz.nla.institutov2.utils.Globals;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -16,34 +21,47 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/instituto/api/v3/alumnos")
 @CrossOrigin
-public class AlumnoRESTControllerV3 implements IControllerV3<AlumnoDTOV3, String> {
+public class AlumnoRESTControllerV3 {
 
     @Autowired AlumnoService alumnoService;
 
+    private final String RUTA_FOTOS = "uploads/fotos/";
 
-    @PostMapping
-    @Override
-    public ResponseEntity<?> add(@RequestBody AlumnoDTOV3 alumnoRecord) {
-        if (alumnoRecord != null){
-            Alumno aux = new Alumno();
-            aux.setDni(alumnoRecord.dni());
-            aux.setApellidos(alumnoRecord.apellidos());
-            aux.setFechanacimiento(alumnoRecord.fechanacimiento());
-            aux.setNombre(alumnoRecord.nombre());
-            return ResponseEntity.ok(alumnoService.save(aux));
+    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @Api(value = "Agregar un nuevo alumno con foto", consumes = "multipart/form-data")
+    public ResponseEntity<?> add(@RequestPart(value = "alumno") AlumnoDTOV3 dto,
+                                 @RequestPart(value = "foto", required = false)
+                                 MultipartFile foto) throws IOException {
+        if (dto == null){
+            return null;
         }
-        return null;
+        System.out.println("pruebita");
+            Alumno aux = new Alumno();
+            aux.setDni(dto.dni());
+            aux.setApellidos(dto.apellidos());
+            aux.setFechanacimiento(dto.fechanacimiento());
+            aux.setNombre(dto.nombre());
+            if(foto != null && !foto.isEmpty()){
+                String nombreArchivo = dto.dni() + "_" + foto.getOriginalFilename();
+                Path rutaFoto = Paths.get(RUTA_FOTOS + nombreArchivo);
+                Files.createDirectories(rutaFoto.getParent());
+                Files.write(rutaFoto, foto.getBytes());
+
+                aux.setPath_foto(rutaFoto.toString());
+            }
+
+            return ResponseEntity.ok(alumnoService.save(aux));
+
     }
 
     @PutMapping("/{id}")
-    @Override
-    public ResponseEntity<?> update(@RequestParam(value = "id") String id, @RequestBody AlumnoDTOV3 alumnoRecord) {
-        if (alumnoRecord != null){
+    public ResponseEntity<?> update(@RequestParam(value = "id") String id, @RequestBody AlumnoDTOV3 dto) {
+        if (dto != null){
             Alumno aux = new Alumno();
-            aux.setDni(alumnoRecord.dni());
-            aux.setApellidos(alumnoRecord.apellidos());
-            aux.setFechanacimiento(alumnoRecord.fechanacimiento());
-            aux.setNombre(alumnoRecord.nombre());
+            aux.setDni(dto.dni());
+            aux.setApellidos(dto.apellidos());
+            aux.setFechanacimiento(dto.fechanacimiento());
+            aux.setNombre(dto.nombre());
             return ResponseEntity.ok(alumnoService.update(aux));
         }
 
@@ -52,7 +70,6 @@ public class AlumnoRESTControllerV3 implements IControllerV3<AlumnoDTOV3, String
 
 
     @GetMapping
-    @Override
     public ResponseEntity<List<AlumnoDTOV3>> getAll() {
 
 
@@ -61,7 +78,6 @@ public class AlumnoRESTControllerV3 implements IControllerV3<AlumnoDTOV3, String
                 alumno.getNombre())).collect(Collectors.toList()));
     }
     @GetMapping("/{id}")
-    @Override
     public ResponseEntity<AlumnoDTOV3> getById(@RequestParam(value = "id") String id) {
         Alumno aux = alumnoService.findById(id);
 
@@ -75,7 +91,6 @@ public class AlumnoRESTControllerV3 implements IControllerV3<AlumnoDTOV3, String
     }
 
     @DeleteMapping("/{id}")
-    @Override
     public ResponseEntity<?> delete(@RequestParam(value = "id") String id) {
         Logger logger = Logger.getLogger(Globals.LOGGER_ALUMNO);
         boolean deleted = alumnoService.delete(id);

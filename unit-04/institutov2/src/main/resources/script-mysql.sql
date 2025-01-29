@@ -3,7 +3,7 @@ CREATE TABLE `alumnos`(
     nombre CHARACTER(50),
     apellidos CHARACTER(50),
     fechanacimiento BIGINT,
-
+    path_foto VARCHAR(255) DEFAULT NULL,
     CONSTRAINT pk_alumnos PRIMARY KEY(dni)
 );
 
@@ -35,9 +35,9 @@ CREATE TABLE `asignaturas_matriculas`(
 
 );
 
-INSERT INTO `alumnos` (`dni`, `nombre`, `apellidos`, `fechanacimiento`) VALUES ('12345678Z', 'Ana', 'Martín', '968972400000');
-INSERT INTO `alumnos` (`dni`, `nombre`, `apellidos`, `fechanacimiento`) VALUES ('87654321X', 'Marcos', 'Afonso Jiménez', '874278000000');
-INSERT INTO `alumnos` (`dni`, `nombre`, `apellidos`, `fechanacimiento`) VALUES ('12312312K', 'María Luisa', 'Gutiérrez', '821234400000');
+INSERT INTO `alumnos` (`dni`, `nombre`, `apellidos`, `fechanacimiento`, `path_foto`) VALUES ('12345678Z', 'Ana', 'Martín', '968972400000', null);
+INSERT INTO `alumnos` (`dni`, `nombre`, `apellidos`, `fechanacimiento`, `path_foto`) VALUES ('87654321X', 'Marcos', 'Afonso Jiménez', '874278000000', null);
+INSERT INTO `alumnos` (`dni`, `nombre`, `apellidos`, `fechanacimiento`, `path_foto`) VALUES ('12312312K', 'María Luisa', 'Gutiérrez', '821234400000', null);
 
 
 INSERT INTO `asignaturas` (`id`, `nombre`, `curso`) VALUES (1, 'BAE', '1º DAM');
@@ -75,11 +75,12 @@ INSERT INTO `usuarios` (
         `fecha_creacion`
     )
 VALUES (
-        'b05t46116p',
+        'root',
         '$2a$10$P0fZ.FcD.rBwolLS9P5bAOZETI3K9E5JsiE/NQC82HgkXccYnFvry',
         'admin@gmail.com',
         'ROLE_ADMIN',
         1,
-        'CHANGE_THIS',
+        'readumineko',
         UNIX_TIMESTAMP()
     );
+

@@ -65,7 +65,6 @@ public class UsuarioRESTControllerV2 {
         Usuario aux = service.findById(id);
         if (aux != null){
             UsuarioDTOV2V3 dto =  new UsuarioDTOV2V3(aux.getNombre(), aux.getCorreo());
-
             logger.info("Usuario encontrado, status: 204");
             ApiResponse<UsuarioDTOV2V3> response = new ApiResponse<>(200, "Usuario encontrado", dto);
             return ResponseEntity.ok(response);
@@ -76,7 +75,7 @@ public class UsuarioRESTControllerV2 {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
-    @GetMapping("/{nombre}")
+    @GetMapping("/nombre/{nombre}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> getByNombre(@PathVariable String nombre) {
         Usuario aux = service.findByNombre(nombre);
@@ -94,7 +93,7 @@ public class UsuarioRESTControllerV2 {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
-    @GetMapping("/{correo}")
+    @GetMapping("correo/{correo}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> getByCorreo(@PathVariable String correo) {
         Usuario aux = service.findByCorreo(correo);

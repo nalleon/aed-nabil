@@ -150,7 +150,7 @@ public class UsuarioRESTControllerV3  {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
-    @GetMapping("/{nombre}")
+    @GetMapping("nombre/{nombre}")
     @PreAuthorize("hasRol('ROLE_ADMIN')")
     public ResponseEntity<?> getByNombre(@PathVariable String nombre) {
         Usuario aux = service.findByNombre(nombre);
@@ -168,7 +168,7 @@ public class UsuarioRESTControllerV3  {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
-    @GetMapping("/{correo}")
+    @GetMapping("correo/{correo}")
     @PreAuthorize("hasRol('ROLE_ADMIN')")
     public ResponseEntity<?> getByCorreo(@PathVariable String correo) {
         Usuario aux = service.findByCorreo(correo);

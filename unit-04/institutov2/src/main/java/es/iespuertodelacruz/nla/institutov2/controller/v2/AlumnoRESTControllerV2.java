@@ -2,6 +2,7 @@ package es.iespuertodelacruz.nla.institutov2.controller.v2;
 
 import es.iespuertodelacruz.nla.institutov2.dto.AlumnoDTOV2;
 import es.iespuertodelacruz.nla.institutov2.dto.AlumnoDTOV3;
+import es.iespuertodelacruz.nla.institutov2.dto.AlumnoOutputDTOV3;
 import es.iespuertodelacruz.nla.institutov2.entities.Alumno;
 import es.iespuertodelacruz.nla.institutov2.services.AlumnoService;
 import es.iespuertodelacruz.nla.institutov2.utils.ApiResponse;
@@ -60,6 +61,27 @@ public class AlumnoRESTControllerV2 {
 
         ApiResponse<AlumnoDTOV2> errorResponse = new ApiResponse<>(404, "Alumno no encontrado", null);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    }
+
+
+    @GetMapping("/nombre/{nombre}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public  ResponseEntity<?> getByNombre(@PathVariable("nombre") String nombre) {
+        List<AlumnoOutputDTOV3> filteredList = service.findByNombre(nombre).stream()
+                .map(alumno -> new AlumnoOutputDTOV3(alumno.getDni(), alumno.getNombre(), alumno.getApellidos()))
+                .toList();
+
+        if (filteredList.isEmpty()) {
+            String message = "No se encontraron alumnos registrados";
+            logger.info(message);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .body(new ApiResponse<>(204, message, filteredList));
+        }
+
+        String message = "Lista de alumnos obtenida correctamente";
+        logger.info(message);
+        return ResponseEntity.ok(new ApiResponse<>(200, message, filteredList));
+
     }
 
 }

@@ -51,6 +51,7 @@ public class AlumnoRESTControllerV3 {
         try {
             dto = objectMapper.readValue(alumnoJSON, AlumnoDTOV3.class);
         } catch (Exception e) {
+            logger.info(alumnoJSON);
             return ResponseEntity.badRequest()
                     .body(new ApiResponse<>(400, "Error al procesar el JSON del alumno", null));
         }
@@ -184,9 +185,16 @@ public class AlumnoRESTControllerV3 {
                 .map(alumno -> new AlumnoOutputDTOV3(alumno.getDni(), alumno.getNombre(), alumno.getApellidos()))
                 .toList();
 
-        ApiResponse<List<AlumnoOutputDTOV3>> response = new ApiResponse<>(200, "Alumno encontrado", filteredList);
-        return ResponseEntity.ok(response);
+        if (filteredList.isEmpty()) {
+            String message = "No se encontraron alumnos registrados";
+            logger.info(message);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .body(new ApiResponse<>(204, message, filteredList));
+        }
 
+        String message = "Lista de alumnos obtenida correctamente";
+        logger.info(message);
+        return ResponseEntity.ok(new ApiResponse<>(200, message, filteredList));
     }
 
     @DeleteMapping("/{id}")

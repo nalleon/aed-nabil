@@ -19,6 +19,10 @@ public class AlumnoService implements IServiceGeneric<Alumno, String> {
 		return repository.findAll();
 	}
 
+	public List<Alumno> findByNombre(String nombre) {
+		return repository.findByNombre(nombre);
+	}
+
 	@Override
 	public Alumno findById(String id) {
 		return repository.findById(id).orElse(null);

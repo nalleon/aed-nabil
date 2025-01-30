@@ -3,6 +3,7 @@ package es.iespuertodelacruz.nla.institutov2.controller.v3;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import es.iespuertodelacruz.nla.institutov2.dto.AlumnoDTOV2;
 import es.iespuertodelacruz.nla.institutov2.dto.AlumnoDTOV3;
+import es.iespuertodelacruz.nla.institutov2.dto.AlumnoOutputDTOV3;
 import es.iespuertodelacruz.nla.institutov2.entities.Alumno;
 import es.iespuertodelacruz.nla.institutov2.services.AlumnoService;
 import es.iespuertodelacruz.nla.institutov2.utils.ApiResponse;
@@ -144,8 +145,8 @@ public class AlumnoRESTControllerV3 {
     @GetMapping
     @PreAuthorize("hasRol('ROLE_ADMIN')")
     public ResponseEntity<?> getAll() {
-        List<AlumnoDTOV2> filteredList = service.findAll().stream()
-                .map(alumno -> new AlumnoDTOV2(alumno.getNombre(), alumno.getApellidos()))
+        List<AlumnoOutputDTOV3> filteredList = service.findAll().stream()
+                .map(alumno -> new AlumnoOutputDTOV3(alumno.getDni(), alumno.getNombre(), alumno.getApellidos()))
                 .collect(Collectors.toList());
 
         if (filteredList.isEmpty()) {
@@ -166,9 +167,9 @@ public class AlumnoRESTControllerV3 {
         Alumno aux = service.findById(id);
 
         if (aux != null){
-            AlumnoDTOV2 dto = new AlumnoDTOV2(aux.getNombre(),
+            AlumnoOutputDTOV3 dto = new AlumnoOutputDTOV3(aux.getDni(), aux.getNombre(),
                     aux.getApellidos());
-            ApiResponse<AlumnoDTOV2> response = new ApiResponse<>(200, "Alumno encontrado", dto);
+            ApiResponse<AlumnoOutputDTOV3> response = new ApiResponse<>(200, "Alumno encontrado", dto);
             return ResponseEntity.ok(response);
         }
 
@@ -176,9 +177,21 @@ public class AlumnoRESTControllerV3 {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
+    @GetMapping("/nombre/{nombre}")
+    @PreAuthorize("hasRol('ROLE_ADMIN')")
+    public  ResponseEntity<?> getByNombre(@PathVariable("nombre") String nombre) {
+        List<AlumnoOutputDTOV3> filteredList = service.findByNombre(nombre).stream()
+                .map(alumno -> new AlumnoOutputDTOV3(alumno.getDni(), alumno.getNombre(), alumno.getApellidos()))
+                .toList();
+
+        ApiResponse<List<AlumnoOutputDTOV3>> response = new ApiResponse<>(200, "Alumno encontrado", filteredList);
+        return ResponseEntity.ok(response);
+
+    }
+
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRol('ROLE_ADMIN')")
-    public ResponseEntity<?> delete(@RequestParam(value = "id") String id) {
+    public ResponseEntity<?> delete(@PathVariable("id") String id) {
         boolean deleted = service.delete(id);
 
         if (deleted) {

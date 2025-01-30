@@ -23,9 +23,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-
-
-
+import static java.lang.Integer.parseInt;
 
 
 @Component
@@ -83,14 +81,15 @@ public class JwtFilter extends OncePerRequestFilter {
             try {
                 Map<String, String> mapInfoToken = jwtTokenManager.validateAndGetClaims(token);
 
+                System.out.println(mapInfoToken);
                 //System.out.println(mapInfoToken);
                 final String nombreusuario=mapInfoToken.get("username");
 
                 final String rol = mapInfoToken.get("role");
 
-                final Boolean verificado = Boolean.valueOf(mapInfoToken.get("verificado"));
+                final String verificado = mapInfoToken.get("verificado");
 
-                if (verificado == null || !verificado) {
+                if ("0".equals(verificado)) {
                     response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                     response.getWriter().write("Account not verified");
                     return;

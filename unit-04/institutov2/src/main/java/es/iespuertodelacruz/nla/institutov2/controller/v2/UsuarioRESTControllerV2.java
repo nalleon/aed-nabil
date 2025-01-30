@@ -1,6 +1,7 @@
 package es.iespuertodelacruz.nla.institutov2.controller.v2;
 
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -8,9 +9,11 @@ import es.iespuertodelacruz.nla.institutov2.dto.AsignaturaDTO;
 import es.iespuertodelacruz.nla.institutov2.dto.UsuarioDTOV2V3;
 import es.iespuertodelacruz.nla.institutov2.dto.UsuarioUpdateDTO;
 import es.iespuertodelacruz.nla.institutov2.entities.Usuario;
+import es.iespuertodelacruz.nla.institutov2.security.JwtService;
 import es.iespuertodelacruz.nla.institutov2.services.UsuarioService;
 import es.iespuertodelacruz.nla.institutov2.utils.ApiResponse;
 import es.iespuertodelacruz.nla.institutov2.utils.Globals;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +23,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import static es.iespuertodelacruz.nla.institutov2.security.JwtFilter.authHeader;
+import static es.iespuertodelacruz.nla.institutov2.security.JwtFilter.authHeaderTokenPrefix;
 
 @RestController
 @CrossOrigin
@@ -31,6 +37,9 @@ public class UsuarioRESTControllerV2 {
     private UsuarioService service;
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JwtService jwtTokenManager;
 
     @GetMapping
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
@@ -106,11 +115,21 @@ public class UsuarioRESTControllerV2 {
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> update(
             @PathVariable Integer id,
-            @RequestBody UsuarioUpdateDTO dto) {
+            @RequestBody UsuarioUpdateDTO dto,
+            HttpServletRequest request) {
 
         if (dto == null) {
             return ResponseEntity.badRequest()
                     .body(new ApiResponse<>(400, "El usuario no puede ser nulo", null));
+        }
+
+        String header = request.getHeader(authHeader);
+
+        String auxNombre = "";
+        if (header != null && header.startsWith(authHeaderTokenPrefix)) {
+            String token = header.substring(authHeaderTokenPrefix.length());
+            Map<String, String> mapInfoToken = jwtTokenManager.validateAndGetClaims(token);
+            auxNombre = mapInfoToken.get("username");
         }
 
         Usuario dbItem = service.findById(id);
@@ -119,6 +138,12 @@ public class UsuarioRESTControllerV2 {
             logger.info("El usuario con id " + id + " NO existe en BBDD");
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new ApiResponse<>(404, "Usuario no encontrado", null));
+        }
+
+        if(!auxNombre.equals(dbItem.getNombre())) {
+            logger.info("El usuario con id " + id + " NO puede modificar a otro");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(new ApiResponse<>(403, "Permiso denegado", null));
         }
 
         try {

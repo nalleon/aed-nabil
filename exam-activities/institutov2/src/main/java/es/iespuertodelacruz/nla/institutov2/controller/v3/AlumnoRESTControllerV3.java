@@ -6,6 +6,7 @@ import es.iespuertodelacruz.nla.institutov2.dto.AlumnoDTOV3;
 import es.iespuertodelacruz.nla.institutov2.dto.AlumnoOutputDTOV3;
 import es.iespuertodelacruz.nla.institutov2.entities.Alumno;
 import es.iespuertodelacruz.nla.institutov2.services.AlumnoService;
+import es.iespuertodelacruz.nla.institutov2.services.FileStorageService;
 import es.iespuertodelacruz.nla.institutov2.utils.ApiResponse;
 import es.iespuertodelacruz.nla.institutov2.utils.Globals;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import org.springframework.core.io.Resource;
 
 /**
  * @author Nabil Leon Alvarez <@nalleon>
@@ -33,6 +36,9 @@ import java.util.stream.Collectors;
 public class AlumnoRESTControllerV3 {
 
     @Autowired AlumnoService service;
+    @Autowired
+    FileStorageService storageService;
+
     Logger logger = Logger.getLogger(Globals.LOGGER_ALUMNO);
 
     private final String RUTA_FOTOS = "uploads/fotos/";
@@ -216,5 +222,54 @@ public class AlumnoRESTControllerV3 {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiResponse<>(500, message, null));
         }
+    }
+
+    @PostMapping(value = "/upload/{dni}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> uploadFile(@RequestParam("dni") String dni, @RequestParam("file") MultipartFile file) {
+        String message = "";
+        try {
+            String namefile = storageService.save(file);
+            message = "" + namefile;
+
+            Alumno alumno = service.findById(dni);
+
+            alumno.setPath_foto(namefile);
+            service.update(alumno);
+
+            return ResponseEntity.status(HttpStatus.OK).body(message);
+        } catch (Exception e) {
+            message = "Could not upload the file: " + file.getOriginalFilename()
+                    + ". Error: " + e.getMessage();
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
+        }
+    }
+
+    @GetMapping("/img/{filename}")
+    public ResponseEntity<?> getFiles(@PathVariable String filename) {
+        Resource resource = storageService.get(filename);
+        // Try to determine file's content type
+        String contentType = null;
+        try {
+            contentType = URLConnection.guessContentTypeFromStream(resource.getInputStream());
+        } catch (IOException ex) {
+            System.out.println("Could not determine file type.");
+        }
+        // Fallback to the default content type if type could not be determined
+        if (contentType == null) {
+            contentType = "application/octet-stream";
+        }
+        String headerValue = "attachment"
+                ;
+        filename="" +
+        resource.getFilename() + "";
+        return ResponseEntity.
+                ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(
+                        org.springframework.http.HttpHeaders.
+                                CONTENT_DISPOSITION,
+                        headerValue
+                )
+                .body(resource);
     }
 }

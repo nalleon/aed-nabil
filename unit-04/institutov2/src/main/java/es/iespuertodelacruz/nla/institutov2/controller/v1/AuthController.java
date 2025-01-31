@@ -9,6 +9,7 @@ import es.iespuertodelacruz.nla.institutov2.security.AuthService;
 import es.iespuertodelacruz.nla.institutov2.security.JwtService;
 import es.iespuertodelacruz.nla.institutov2.services.MailService;
 import es.iespuertodelacruz.nla.institutov2.services.UsuarioService;
+import es.iespuertodelacruz.nla.institutov2.utils.ApiResponse;
 import es.iespuertodelacruz.nla.institutov2.utils.Globals;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -67,7 +68,7 @@ public class AuthController {
      * @return mensaje de que el correo de verificacion llegará
      */
     @PostMapping("/register")
-    public String register(@RequestBody UsuarioRegisterDTO registerDTO ) {
+    public ResponseEntity<?> register(@RequestBody UsuarioRegisterDTO registerDTO ) {
 
         authService.register(registerDTO.nombre(), registerDTO.password(), registerDTO.correo());
 
@@ -81,8 +82,9 @@ public class AuthController {
         String[] senders = {registerDTO.correo()};
         mailService.send(senders, "Confirmacion de usuario", confirmationUrl);
 
-        return "En breves momentos, le llegara un correo de verificacion";
-    }
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new ApiResponse<>(201, "En breves momentos, le llegara un correo de verificacion",
+                        null));}
 
     /**
      * Funcion para confirmar y validar un usuario a traves de su correo electronico

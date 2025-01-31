@@ -29,6 +29,5 @@ public interface IAsignaturaRepository extends JpaRepository<Asignatura, Integer
             value="SELECT * FROM asignaturas AS a WHERE a.nombre LIKE %:nombre% AND a.curso LIKE %:curso%",
             nativeQuery=true
     )
-    //LIKE %:
     Optional<Asignatura> findByNombreCurso(@Param("nombre") String nombre, @Param("curso") String curso);
 }

@@ -93,10 +93,43 @@ public class UsuarioRESTControllerV2 {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
+    @GetMapping("/rol/{nombre}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public ResponseEntity<?> getRolPropio(@PathVariable String nombre, HttpServletRequest request) {
+        Usuario dbItem = service.findByNombre(nombre);
+
+        String header = request.getHeader(authHeader);
+
+        String auxNombre = "";
+        if (header != null && header.startsWith(authHeaderTokenPrefix)) {
+            String token = header.substring(authHeaderTokenPrefix.length());
+            Map<String, String> mapInfoToken = jwtTokenManager.validateAndGetClaims(token);
+            auxNombre = mapInfoToken.get("username");
+        }
+
+        if (dbItem == null) {
+            logger.info("El usuario con nombre " + nombre + " NO existe en BBDD");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse<>(404, "Usuario no encontrado", null));
+        }
+
+        if(!auxNombre.equals(dbItem.getNombre())) {
+            logger.info("El usuario con nombre " + nombre + " NO puede ver el rol de a otro");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(new ApiResponse<>(403, "Permiso denegado", null));
+        }
+
+        logger.info("Usuario encontrado, status: 200");
+        ApiResponse<?> response = new ApiResponse<>(200, "Usuario encontrado", dbItem.getRol());
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("correo/{correo}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> getByCorreo(@PathVariable String correo) {
         Usuario aux = service.findByCorreo(correo);
+
+
         if (aux != null){
             UsuarioDTOV2V3 dto =  new UsuarioDTOV2V3(aux.getNombre(), aux.getCorreo());
 
@@ -105,7 +138,7 @@ public class UsuarioRESTControllerV2 {
             return ResponseEntity.ok(response);
         }
 
-        ApiResponse<AsignaturaDTO> errorResponse = new ApiResponse<>(404, "Usuario NO encontrado", null);
+        ApiResponse<UsuarioDTOV2V3> errorResponse = new ApiResponse<>(404, "Usuario NO encontrado", null);
         logger.info("Usuario NO encontrado, status: 404");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }

@@ -164,7 +164,7 @@ public class AlumnoRESTControllerV3 {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRol('ROLE_ADMIN')")
-    public  ResponseEntity<?> getById(@RequestParam(value = "id") String id) {
+    public  ResponseEntity<?> getById(@PathVariable(value = "id") String id) {
         Alumno aux = service.findById(id);
 
         if (aux != null){

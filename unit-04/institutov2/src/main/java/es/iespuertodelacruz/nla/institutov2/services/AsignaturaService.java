@@ -32,6 +32,10 @@ public class AsignaturaService implements IServiceGeneric<Asignatura, Integer> {
         return asignaturaRepository.findAll();
     }
 
+    public List<Asignatura> findAllByNombreCurso(String nombre, String curso) {
+        return asignaturaRepository.findAllNombreCurso(nombre, curso);
+    }
+
     @Override
     public Asignatura findById(Integer id) {
         return asignaturaRepository.findById(id).orElse(null);

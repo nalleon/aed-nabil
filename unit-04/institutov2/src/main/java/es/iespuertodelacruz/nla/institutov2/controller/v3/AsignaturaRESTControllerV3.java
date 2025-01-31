@@ -82,6 +82,35 @@ public class AsignaturaRESTControllerV3{
 
     }
 
+    @PutMapping("/nombre/{nombre}/curso/{curso}")
+    @PreAuthorize("hasRol('ROLE_ADMIN')")
+    public ResponseEntity<?> updateByNombreCurso(@PathVariable(value = "nombre") String nombre,
+                                                 @PathVariable(value = "curso") String curso,
+                                                 @RequestBody AsignaturaDTO dto) {
+
+        if (dto == null) {
+            return ResponseEntity.badRequest()
+                    .body(new ApiResponse<>(400, "Datos de la asignatura inválidos", null));
+        }
+
+        Asignatura dbItem = service.findByNombreCurso(nombre, curso);
+        if (dbItem == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse<>(404, "Asignatura no encontrada", null));
+        }
+
+
+        dbItem.setNombre(dto.nombre());
+        dbItem.setCurso(dto.curso());
+
+        service.update(dbItem);
+
+        AsignaturaDTO result = new AsignaturaDTO(dto.curso(), dto.nombre());
+
+        return ResponseEntity.ok(new ApiResponse<>(200, "Asignatura actualizado correctamente", result));
+
+    }
+
     @GetMapping
     @PreAuthorize("hasRol('ROLE_ADMIN')")
     public ResponseEntity<?> getAll() {
@@ -121,9 +150,9 @@ public class AsignaturaRESTControllerV3{
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
-    @GetMapping("/{nombre}/{curso}")
+    @GetMapping("nombre/{nombre}/curso/{curso}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public  ResponseEntity<?> getByNombreCurso(@RequestParam(value = "nombre") String nombre, @RequestParam(value = "curso") String curso) {
+    public  ResponseEntity<?> getByNombreCurso(@PathVariable(value = "nombre") String nombre, @PathVariable(value = "curso") String curso) {
         Asignatura aux = service.findByNombreCurso(nombre, curso);
 
         if (aux != null){
@@ -137,6 +166,31 @@ public class AsignaturaRESTControllerV3{
         logger.info("No se ha encontrado la asignatura, status: 404");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
+
+
+    @GetMapping("all/nombre/{nombre}/curso/{curso}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public  ResponseEntity<?> getAllByNombreCurso(@PathVariable(value = "nombre") String nombre,
+                                                  @PathVariable(value = "curso") String curso) {
+        List<AsignaturaDTO> filteredList =service.findAllByNombreCurso(nombre,curso).stream().map(
+                        asignatura ->
+                                new AsignaturaDTO(
+                                        asignatura.getCurso(), asignatura.getNombre())
+                )
+                .collect(Collectors.toList());
+
+        if (filteredList.isEmpty()) {
+            String message = "No se encontraron asignaturas registradas";
+            logger.info(message);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .body(new ApiResponse<>(204, message, filteredList));
+        }
+
+        String message = "Lista de asignaturas obtenida correctamente";
+        logger.info(message);
+        return ResponseEntity.ok(new ApiResponse<>(200, message, filteredList));
+    }
+
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRol('ROLE_ADMIN')")

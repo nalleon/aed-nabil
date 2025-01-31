@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d0c92603-d2c7-46be-9e99-c8411d8cba98" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../unit-04/class-notes/ApiPrueba202425/src/main/java/es/iespuertodelacruz/jc/apiprueba202425/controllers/UsuarioControllerV1.java" beforeDir="false" afterPath="$PROJECT_DIR$/../unit-04/class-notes/ApiPrueba202425/src/main/java/es/iespuertodelacruz/jc/apiprueba202425/controllers/UsuarioControllerV1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/class-notes/ApiPrueba202425/src/main/java/es/iespuertodelacruz/jc/apiprueba202425/controllers/UsuarioControllerV3.java" beforeDir="false" afterPath="$PROJECT_DIR$/../unit-04/class-notes/ApiPrueba202425/src/main/java/es/iespuertodelacruz/jc/apiprueba202425/controllers/UsuarioControllerV3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/META-INF/persistence.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/Institutov2Application.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/config/DatabaseConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/config/MailConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/config/SwaggerConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/config/TaskConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/controller/abstracts/MatriculaAbstractUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/controller/v1/AuthController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/controller/v2/AlumnoRESTControllerV2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/controller/v2/AsignaturaRESTControllerV2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/controller/v2/UsuarioRESTControllerV2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/controller/v3/AlumnoRESTControllerV3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/controller/v3/AsignaturaRESTControllerV3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/controller/v3/MatriculaRESTControllerV3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/controller/v3/UsuarioRESTControllerV3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/dto/AlumnoDTOV2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/dto/AlumnoDTOV3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/dto/AlumnoOutputDTOV3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/dto/AsignaturaDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/dto/MatriculaInputDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/dto/MatriculaOutputDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/dto/UsuarioDTOV2V3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/dto/UsuarioLoginDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/dto/UsuarioRegisterDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/dto/UsuarioUpdateDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/entities/Alumno.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/entities/Asignatura.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/entities/DateToLongConverter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/entities/Matricula.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/entities/Usuario.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/repository/IAlumnoRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/repository/IAsignaturaRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/repository/IMatriculaRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/repository/IUsuarioRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/security/AuthService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/security/JwtFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/security/JwtService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/security/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/services/AlumnoService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/services/AsignaturaService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/services/MailService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/services/MatriculaService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/services/UsuarioService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/services/interfaces/IServiceGeneric.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/tasks/RemoveNotValidatedRegisters.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/utils/ApiResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/java/es/iespuertodelacruz/nla/institutov2/utils/Globals.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/main/resources/script-mysql.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/test/java/es/iespuertodelacruz/nla/institutov2/Institutov2ApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/test/java/es/iespuertodelacruz/nla/institutov2/service/AlumnoServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/test/java/es/iespuertodelacruz/nla/institutov2/service/AsignaturaServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/test/java/es/iespuertodelacruz/nla/institutov2/service/MatriculaServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/test/java/es/iespuertodelacruz/nla/institutov2/service/UsuarioServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/test/java/es/iespuertodelacruz/nla/institutov2/utils/TestUtilities.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/src/test/resources/institutotest.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit-04/institutov2/uploads/fotos/string2_icon.png" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="2sPeqCduJygMR5noyUoz1r0uy9T" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/nabil/git-repos/aed-nabil/exam-activities/institutov2"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d0c92603-d2c7-46be-9e99-c8411d8cba98" name="Changes" comment="" />
+      <created>1738361825661</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1738361825661</updated>
+    </task>
+    <servers />
+  </component>
+</project>

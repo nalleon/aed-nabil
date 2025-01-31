@@ -31,7 +31,7 @@ public class UsuarioControllerV3 {
     
     
     @GetMapping
-    //@PreAuthorize("hasRole('ROLE_ADMIN')")
+    PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<Usuario> listarUsuarios() {
         return usuarioRepository.findAll();
     }

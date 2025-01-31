@@ -26,11 +26,6 @@ public class UsuarioControllerV1 {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-
-  
-    
-    
-    
     @GetMapping
     //@PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> listarUsuarios() {

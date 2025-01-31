@@ -155,4 +155,30 @@ public class AsignaturaRESTControllerV3{
                     .body(new ApiResponse<>(500, message, null));
         }
     }
+
+    @DeleteMapping("nombre/{nombre}/curso/{curso}")
+    @PreAuthorize("hasRol('ROLE_ADMIN')")
+    public ResponseEntity<?> deleteByNombreCurso(@PathVariable(value = "nombre") String nombre, @PathVariable(value = "curso") String curso) {
+        Asignatura aux = service.findByNombreCurso(nombre, curso);
+
+        if(aux == null){
+            ApiResponse<AsignaturaDTO> errorResponse = new ApiResponse<>(404, "Asignatura no encontrada", null);
+            logger.info("No se ha encontrado la asignatura, status: 404");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+        }
+
+        boolean deleted = service.delete(aux.getId());
+
+        if (deleted) {
+            String message = "La asignatura "+ nombre + "del curso " + curso +" sido eliminada correctamente";
+            logger.info(message + ", status: 204");
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .body(new ApiResponse<>(204, message, null));
+        } else {
+            String message = "Asignatura NO eliminada";
+            logger.info(message + ", status: 500");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse<>(500, message, null));
+        }
+    }
 }

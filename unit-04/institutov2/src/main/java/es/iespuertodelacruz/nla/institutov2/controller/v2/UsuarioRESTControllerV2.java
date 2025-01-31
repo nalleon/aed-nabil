@@ -45,7 +45,6 @@ public class UsuarioRESTControllerV2 {
     private JwtService jwtTokenManager;
 
     @GetMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> getAll() {
         List<UsuarioDTOV2V3> filteredList = service.findAll().stream().map(usuario ->
                 new UsuarioDTOV2V3(usuario.getNombre(), usuario.getCorreo())).collect(Collectors.toList());
@@ -63,7 +62,6 @@ public class UsuarioRESTControllerV2 {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> getById(@PathVariable Integer id) {
         Usuario aux = service.findById(id);
         if (aux != null){
@@ -79,7 +77,6 @@ public class UsuarioRESTControllerV2 {
     }
 
     @GetMapping("/nombre/{nombre}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> getByNombre(@PathVariable String nombre) {
         Usuario aux = service.findByNombre(nombre);
 
@@ -97,7 +94,6 @@ public class UsuarioRESTControllerV2 {
     }
 
     @GetMapping("/rol/{nombre}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> getRolPropio(@PathVariable String nombre, HttpServletRequest request) {
         Usuario dbItem = service.findByNombre(nombre);
 
@@ -128,7 +124,6 @@ public class UsuarioRESTControllerV2 {
     }
 
     @GetMapping("correo/{correo}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> getByCorreo(@PathVariable String correo) {
         Usuario aux = service.findByCorreo(correo);
 
@@ -147,7 +142,6 @@ public class UsuarioRESTControllerV2 {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> update(
             @PathVariable Integer id,
             @RequestBody UsuarioUpdateDTO dto,

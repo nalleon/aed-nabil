@@ -32,7 +32,6 @@ public class AlumnoRESTControllerV2 {
     Logger logger = Logger.getLogger(Globals.LOGGER_ALUMNO);
 
     @GetMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> getAll() {
         List<AlumnoDTOV2> filteredList = service.findAll().stream()
                 .map(alumno -> new AlumnoDTOV2(alumno.getNombre(), alumno.getApellidos()))
@@ -51,7 +50,6 @@ public class AlumnoRESTControllerV2 {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public  ResponseEntity<?> getById(@RequestParam(value = "id") String id) {
         Alumno aux = service.findById(id);
 
@@ -68,7 +66,6 @@ public class AlumnoRESTControllerV2 {
 
 
     @GetMapping("/nombre/{nombre}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public  ResponseEntity<?> getByNombre(@PathVariable("nombre") String nombre) {
         List<AlumnoOutputDTOV3> filteredList = service.findByNombre(nombre).stream()
                 .map(alumno -> new AlumnoOutputDTOV3(alumno.getDni(), alumno.getNombre(), alumno.getApellidos()))

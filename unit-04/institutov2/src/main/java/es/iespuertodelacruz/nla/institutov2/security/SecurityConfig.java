@@ -37,18 +37,17 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-
                         .requestMatchers(
                                 "/", "/swagger-ui.html",
                                 "/swagger-ui/**", "/v2/**",
                                 "/configuration/**",	"/swagger*/**",
                                 "/webjars/**", "/instituto/api/login",
                                 "/instituto/api/register", "/v3/**",
-                                "/websocket*/**", "/index.html", "/instituto/api/v1/asignaturas",
+                                "/websocket*/**", "/index.html",
                                 "/instituto/api/confirmation/**"
                         ).permitAll()
 
-                        .requestMatchers("/instituto/api/v2/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/instituto/api/v2/**").authenticated()
                         .requestMatchers("/instituto/api/v3/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )

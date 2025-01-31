@@ -28,7 +28,6 @@ public class AsignaturaRESTControllerV2  {
     Logger logger = Logger.getLogger(Globals.LOGGER_ASIGNATURA);
 
     @GetMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> getAll() {
         List<AsignaturaDTO> filteredList =service.findAll().stream().map(
                         asignatura ->
@@ -50,7 +49,6 @@ public class AsignaturaRESTControllerV2  {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public  ResponseEntity<?> getById(@RequestParam(value = "id") Integer id) {
         Asignatura aux = service.findById(id);
 
@@ -68,7 +66,6 @@ public class AsignaturaRESTControllerV2  {
 
 
     @GetMapping("/{nombre}/{curso}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public  ResponseEntity<?> getByNombreCurso(@RequestParam(value = "nombre") String nombre, @RequestParam(value = "curso") String curso) {
         Asignatura aux = service.findByNombreCurso(nombre, curso);
 

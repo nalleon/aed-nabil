@@ -3,17 +3,16 @@ package es.iespuertodelacruz.tictactoe.domain.model;
 import es.iespuertodelacruz.tictactoe.domain.Player;
 import es.iespuertodelacruz.tictactoe.domain.enums.Status;
 
-import java.util.Random;
+import java.util.*;
 
 public class Game {
-
-    private char[] playerSymbols = {'x', 'o'};
     private Player player1;
     private Player player2;
     private Player currentTurn;
     private Status gameStatus;
     private String winner;
-    private char[][] board = {{' ', ' ', ' '},{' ', ' ', ' '},{' ', ' ', ' '}};
+    private String[][] board = {{" ", " ", " "},{" ", " ", " "},{" ", " ", " "}};
+    private List<Integer> allowedPositions = new ArrayList<>(Arrays.asList(0,1,-1));
 
     public Game(Player player1, Player player2) {
         this.player1 = player1;
@@ -35,14 +34,39 @@ public class Game {
         return this.player2;
     }
 
+    private void changeTurn(){
+        if (currentTurn.equals(player1)){
+            currentTurn = player2;
+        } else {
+            currentTurn = player1;
+        }
+    }
+    
     private String checkWin(){
 
         return "";
     }
+    
+    private Player hasLine(Player player, int x, int y) {
+        for (int i=0; i< board.length; i++){
+            if(board[i][0].equals(player.symbol()) && board[i][1].equals(player.symbol()) &&
+                    board[i][2].equals(player.symbol())){
+                return player;
+            }
 
-    private Player hasLine(Player player, int i, int j) {
+            if(board[0][i].equals(player.symbol()) && board[1][i].equals(player.symbol()) &&
+                    board[2][i].equals(player.symbol())){
+                return player;
+            }
 
-        return player1;
+
+            if(board[i][0].equals(player.symbol()) && board[0][i].equals(player.symbol()) &&
+                    board[2][i].equals(player.symbol())){
+                return player;
+            }
+        }
+        
+        return null;
     }
 
 }

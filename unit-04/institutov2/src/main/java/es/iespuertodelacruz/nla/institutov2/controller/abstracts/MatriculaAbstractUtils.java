@@ -14,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Nabil Leon Alvarez <@nalleon>
+ */
 public abstract class MatriculaAbstractUtils {
 
     @Autowired

@@ -8,6 +8,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+/**
+ * @author Nabil Leon Alvarez <@nalleon>
+ */
 
 @Repository
 public interface IUsuarioRepository extends JpaRepository<Usuario, Integer> {

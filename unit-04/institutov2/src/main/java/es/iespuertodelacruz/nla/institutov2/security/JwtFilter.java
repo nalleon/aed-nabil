@@ -25,6 +25,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * @author Nabil Leon Alvarez <@nalleon>
+ */
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {

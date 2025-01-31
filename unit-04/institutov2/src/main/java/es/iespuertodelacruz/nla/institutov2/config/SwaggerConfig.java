@@ -12,6 +12,9 @@ import io.swagger.v3.oas.models.security.SecurityRequirement;
 
 
 
+/**
+ * @author Nabil Leon Alvarez <@nalleon>
+ */
 @Configuration
 @OpenAPIDefinition(info = @Info(title = "Api Instituto", version = "v1"))
 public class SwaggerConfig{

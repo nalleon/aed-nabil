@@ -27,6 +27,9 @@ import org.springframework.web.bind.annotation.*;
 import static es.iespuertodelacruz.nla.institutov2.security.JwtFilter.authHeader;
 import static es.iespuertodelacruz.nla.institutov2.security.JwtFilter.authHeaderTokenPrefix;
 
+/**
+ * @author Nabil Leon Alvarez <@nalleon>
+ */
 @RestController
 @CrossOrigin
 @RequestMapping("/instituto/api/v2/usuarios")

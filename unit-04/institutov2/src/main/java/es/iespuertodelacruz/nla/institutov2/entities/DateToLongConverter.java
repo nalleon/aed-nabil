@@ -3,6 +3,9 @@ package es.iespuertodelacruz.nla.institutov2.entities;
 import jakarta.persistence.AttributeConverter;
 
 import java.util.Date;
+/**
+ * @author Nabil Leon Alvarez <@nalleon>
+ */
 
 public class DateToLongConverter implements AttributeConverter<Date, Long> {
     @Override

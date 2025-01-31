@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+
+/**
+ * @author Nabil Leon Alvarez <@nalleon>
+ */
 @RestController
 @CrossOrigin
 @RequestMapping("/instituto/api/v2/asignaturas")

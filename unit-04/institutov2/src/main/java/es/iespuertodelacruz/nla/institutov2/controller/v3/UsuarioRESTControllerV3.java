@@ -21,6 +21,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * @author Nabil Leon Alvarez <@nalleon>
+ */
 @RestController
 @CrossOrigin
 @RequestMapping("/instituto/api/v3/usuarios")

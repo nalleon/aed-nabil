@@ -7,6 +7,9 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 
+/**
+ * @author Nabil Leon Alvarez <@nalleon>
+ */
 @Configuration
 public class DatabaseConfig {
     @Bean

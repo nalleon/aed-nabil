@@ -8,8 +8,9 @@ import es.iespuertodelacruz.nla.institutov2.repository.IUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-
+/**
+ * @author Nabil Leon Alvarez <@nalleon>
+ */
 @Component
 public class RemoveNotValidatedRegisters {
 

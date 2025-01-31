@@ -10,6 +10,9 @@ import org.springframework.stereotype.Repository;
 import es.iespuertodelacruz.nla.institutov2.entities.Alumno;
 import java.util.*;
 import java.util.Optional;
+/**
+ * @author Nabil Leon Alvarez <@nalleon>
+ */
 
 @Repository
 public interface IAlumnoRepository extends JpaRepository<Alumno, String>{

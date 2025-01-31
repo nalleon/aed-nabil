@@ -1,4 +1,7 @@
 package es.iespuertodelacruz.nla.institutov2.utils;
+/**
+ * @author Nabil Leon Alvarez <@nalleon>
+ */
 
 public class ApiResponse <T> {
     /**

@@ -3,6 +3,9 @@ package es.iespuertodelacruz.nla.institutov2.entities;
 import jakarta.persistence.*;
 
 import java.util.Date;
+/**
+ * @author Nabil Leon Alvarez <@nalleon>
+ */
 
 @Entity
 @Table(name="usuarios")

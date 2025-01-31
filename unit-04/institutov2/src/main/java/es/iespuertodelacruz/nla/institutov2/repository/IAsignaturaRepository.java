@@ -10,6 +10,9 @@ import es.iespuertodelacruz.nla.institutov2.entities.Asignatura;
 
 import java.util.List;
 import java.util.Optional;
+/**
+ * @author Nabil Leon Alvarez <@nalleon>
+ */
 
 @Repository
 public interface IAsignaturaRepository extends JpaRepository<Asignatura, Integer>{

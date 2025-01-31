@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.iespuertodelacruz.nla.institutov2.entities.Alumno;
 import es.iespuertodelacruz.nla.institutov2.repository.IAlumnoRepository;
+/**
+ * @author Nabil Leon Alvarez <@nalleon>
+ */
 
 @Service
 public class AlumnoService implements IServiceGeneric<Alumno, String> {

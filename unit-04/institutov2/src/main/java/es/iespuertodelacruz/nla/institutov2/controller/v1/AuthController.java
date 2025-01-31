@@ -21,6 +21,9 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Logger;
 
+/**
+ * @author Nabil Leon Alvarez <@nalleon>
+ */
 @RestController
 @RequestMapping("/instituto/api")
 @CrossOrigin

@@ -7,6 +7,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import es.iespuertodelacruz.nla.institutov2.entities.Matricula;
+/**
+ * @author Nabil Leon Alvarez <@nalleon>
+ */
 
 @Repository
 public interface IMatriculaRepository extends JpaRepository<Matricula, Integer>{

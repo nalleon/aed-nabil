@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+/**
+ * @author Nabil Leon Alvarez <@nalleon>
+ */
 @Service
 public class UsuarioService implements IServiceGeneric<Usuario, Integer> {
     @Autowired

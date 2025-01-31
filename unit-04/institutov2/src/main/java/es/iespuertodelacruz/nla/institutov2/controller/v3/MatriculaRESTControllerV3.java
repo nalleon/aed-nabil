@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.logging.Logger;
 
+/**
+ * @author Nabil Leon Alvarez <@nalleon>
+ */
 @RestController
 @RequestMapping("/instituto/api/v3/matriculas")
 @CrossOrigin

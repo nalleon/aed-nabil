@@ -12,6 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+/**
+ * @author Nabil Leon Alvarez <@nalleon>
+ */
+
 @Service
 public class AsignaturaService implements IServiceGeneric<Asignatura, Integer> {
     public static final String NO_EXISTE_EXCEPTION = "No existe la matricula";

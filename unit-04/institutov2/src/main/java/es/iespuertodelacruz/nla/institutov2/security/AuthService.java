@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.UUID;
 
+/**
+ * @author Nabil Leon Alvarez <@nalleon>
+ */
 
 @Service
 public class AuthService {

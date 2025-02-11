@@ -1,7 +1,7 @@
 package es.iespuertodelacruz.vsa.persona.domain.port.secondary;
 
-import es.iespuertodelacruz.vsa.persona.domain.model.Persona;
-import org.springframework.data.jpa.repository.JpaRepository;
+import es.iespuertodelacruz.vsa.persona.domain.Persona;
+
 import java.util.*;
 public interface IPersonaRepository {
     // extends JpaRepository<Persona, Integer>

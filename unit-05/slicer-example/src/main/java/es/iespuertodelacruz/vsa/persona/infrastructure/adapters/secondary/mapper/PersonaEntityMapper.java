@@ -1,6 +1,6 @@
 package es.iespuertodelacruz.vsa.persona.infrastructure.adapters.secondary.mapper;
 
-import es.iespuertodelacruz.vsa.persona.domain.model.Persona;
+import es.iespuertodelacruz.vsa.persona.domain.Persona;
 import es.iespuertodelacruz.vsa.persona.infrastructure.adapters.secondary.PersonaEntity;
 
 public class PersonaEntityMapper {

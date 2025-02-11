@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.vsa.persona.domain.model;
+package es.iespuertodelacruz.vsa.persona.domain;
 
 public class Persona {
 

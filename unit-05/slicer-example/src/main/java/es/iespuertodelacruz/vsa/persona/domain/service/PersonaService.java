@@ -1,12 +1,13 @@
 package es.iespuertodelacruz.vsa.persona.domain.service;
 
-import es.iespuertodelacruz.vsa.persona.domain.model.Persona;
+import es.iespuertodelacruz.vsa.persona.domain.Persona;
 import es.iespuertodelacruz.vsa.persona.domain.port.primary.IPersonaService;
 import es.iespuertodelacruz.vsa.persona.domain.port.secondary.IPersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class PersonaService implements IPersonaService {
     
     @Autowired

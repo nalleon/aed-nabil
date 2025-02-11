@@ -1,6 +1,6 @@
 package es.iespuertodelacruz.vsa.persona.domain.port.primary;
 
-import es.iespuertodelacruz.vsa.persona.domain.model.Persona;
+import es.iespuertodelacruz.vsa.persona.domain.Persona;
 import org.springframework.stereotype.Service;
 import java.util.*;
 @Service

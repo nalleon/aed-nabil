@@ -3,13 +3,13 @@ package es.iespuertodelacruz.nla.user.infrastructure.adapters.secondary;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+/**
+ * @author Nabil Leon Alvarez <@nalleon>
+ */
 @Repository
-public interface IUserDocumentRepository extends MongoRepository<UserDocument, Integer> {
+public interface IUserDocumentRepository extends MongoRepository<UserDocument, String> {
     UserDocument findByName(String name);
 
-    UserDocument findByStock(int stock);
-
-    UserDocument findByPrice(float stock);
-
+    UserDocument findByEmail(String email);
 
 }

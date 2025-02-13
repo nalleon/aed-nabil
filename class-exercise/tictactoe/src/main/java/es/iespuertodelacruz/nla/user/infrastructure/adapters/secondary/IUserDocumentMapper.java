@@ -6,6 +6,9 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
+/**
+ * @author Nabil Leon Alvarez <@nalleon>
+ */
 @Mapper
 public interface IUserDocumentMapper {
     IUserDocumentMapper INSTANCE = Mappers.getMapper(IUserDocumentMapper.class);

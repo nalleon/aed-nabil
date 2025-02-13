@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @author Nabil Leon Alvarez <@nalleon>
+ */
 @Service
 public class UserDocumentService implements IUserRepository {
     @Autowired

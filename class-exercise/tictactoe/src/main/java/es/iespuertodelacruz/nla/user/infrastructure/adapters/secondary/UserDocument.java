@@ -5,6 +5,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Objects;
 
+/**
+ * @author Nabil Leon Alvarez <@nalleon>
+ */
 @Document
 public class UserDocument {
 

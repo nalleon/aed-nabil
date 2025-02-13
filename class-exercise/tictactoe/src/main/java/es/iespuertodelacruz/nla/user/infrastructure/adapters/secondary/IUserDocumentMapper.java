@@ -13,6 +13,4 @@ public interface IUserDocumentMapper {
     UserDocument toDocument(User domain);
     List<User> toDomainList(List<UserDocument> documents);
     List<UserDocument> toDocumentList(List<User> domains);
-
-
 }

@@ -1,34 +1,42 @@
 package es.iespuertodelacruz.nla.user.domain;
 
 
+import es.iespuertodelacruz.nla.shared.utils.DateToLongConverter;
+import jakarta.persistence.*;
+
+import java.util.Date;
+
 public class User {
-    int id;
-    String name;
-    int stock;
-    float price;
+    private int Id;
+    private String name;
 
-    public User(String name, int stock, float price) {
-        this.name = name;
-        this.stock = stock;
-        this.price = price;
-    }
+    private String password;
 
-    public User(int id, String name, int stock, float price) {
-        this.id = id;
+    private String email;
+
+    private String role;
+
+    private int verified;
+
+    private String verificationToken;
+
+    private Date creationDate;
+
+    public User(String name, String password, String email) {
         this.name = name;
-        this.stock = stock;
-        this.price = price;
+        this.password = password;
+        this.email = email;
     }
 
     /**
      * Getters and setters
      */
     public int getId() {
-        return id;
+        return Id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        Id = id;
     }
 
     public String getName() {
@@ -39,19 +47,52 @@ public class User {
         this.name = name;
     }
 
-    public int getStock() {
-        return stock;
+    public String getPassword() {
+        return password;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public float getPrice() {
-        return price;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPrice(float price) {
-        this.price = price;
+    public void setEmail(String email) {
+        this.email = email;
     }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public int getVerified() {
+        return verified;
+    }
+
+    public void setVerified(int verified) {
+        this.verified = verified;
+    }
+
+    public String getVerificationToken() {
+        return verificationToken;
+    }
+
+    public void setVerificationToken(String verificationToken) {
+        this.verificationToken = verificationToken;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
 }

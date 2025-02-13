@@ -23,25 +23,25 @@ public class UserEntity {
 
 
     @Column(unique = true, nullable=false, length=45)
-    private String nombre;
+    private String name;
 
     @Column(nullable=false, length=200)
     private String password;
 
     @Column(unique = true, nullable=false, length=100)
-    private String correo;
+    private String email;
 
     @Column(nullable=false, length=45)
-    private String rol;
+    private String role;
 
-    private int verificado;
+    private int verified;
 
     @Column(length=255)
-    private String token_verificacion;
+    private String verificationToken;
 
     @Column(nullable=false, length=45)
     @Convert(converter = DateToLongConverter.class)
-    private Date fecha_creacion;
+    private Date creationDate;
 
 
     /**
@@ -55,12 +55,12 @@ public class UserEntity {
         Id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {
@@ -71,43 +71,43 @@ public class UserEntity {
         this.password = password;
     }
 
-    public String getCorreo() {
-        return correo;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getRol() {
-        return rol;
+    public String getRole() {
+        return role;
     }
 
-    public void setRol(String rol) {
-        this.rol = rol;
+    public void setRole(String role) {
+        this.role = role;
     }
 
-    public int getVerificado() {
-        return verificado;
+    public int getVerified() {
+        return verified;
     }
 
-    public void setVerificado(int verificado) {
-        this.verificado = verificado;
+    public void setVerified(int verified) {
+        this.verified = verified;
     }
 
-    public String getToken_verificacion() {
-        return token_verificacion;
+    public String getVerificationToken() {
+        return verificationToken;
     }
 
-    public void setToken_verificacion(String token_verificacion) {
-        this.token_verificacion = token_verificacion;
+    public void setVerificationToken(String verificationToken) {
+        this.verificationToken = verificationToken;
     }
 
-    public Date getFecha_creacion() {
-        return fecha_creacion;
+    public Date getCreationDate() {
+        return creationDate;
     }
 
-    public void setFecha_creacion(Date fecha_creacion) {
-        this.fecha_creacion = fecha_creacion;
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 }

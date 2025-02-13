@@ -12,9 +12,10 @@ import java.util.List;
 public class UserService implements IUserService {
     @Autowired
     IUserRepository repository;
+
     @Override
-    public User add(String name, int stock, float price) {
-        User aux = new User(name, stock, price);
+    public User add(String name, String email, String password) {
+        User aux = new User(name, email, password);
         return repository.save(aux);
     }
 
@@ -26,5 +27,16 @@ public class UserService implements IUserService {
     @Override
     public List<User> findAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public boolean delete(Integer id) {
+        return repository.delete(id);
+    }
+
+    @Override
+    public boolean update(String name, String email, String password) {
+
+        return false;
     }
 }

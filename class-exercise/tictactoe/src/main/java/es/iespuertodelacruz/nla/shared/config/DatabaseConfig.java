@@ -21,7 +21,7 @@ public class DatabaseConfig {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/instituto?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/tictactoe?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC");
         dataSource.setUsername("root");
         dataSource.setPassword("1q2w3e4r");
         return dataSource;
@@ -31,7 +31,7 @@ public class DatabaseConfig {
     public DataSource dataSourceTest() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.h2.Driver");
-        dataSource.setUrl("jdbc:h2:file:/tmp/institutotest;DB_CLOSE_DELAY=-1");
+        dataSource.setUrl("jdbc:h2:file:/tmp/tictactoetest;DB_CLOSE_DELAY=-1");
         dataSource.setUsername("root");
         dataSource.setPassword("1q2w3e4r");
         return dataSource;
@@ -45,6 +45,6 @@ public class DatabaseConfig {
 
     @Bean(name = "mongoTemplate")
     public MongoTemplate mongoTemplateProd(){
-        return new MongoTemplate(new SimpleMongoClientDatabaseFactory(mongoClientProd(), "personagente"));
+        return new MongoTemplate(new SimpleMongoClientDatabaseFactory(mongoClientProd(), "tictactoe"));
     }
 }

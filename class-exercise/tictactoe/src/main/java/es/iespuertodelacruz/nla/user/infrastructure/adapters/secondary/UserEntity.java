@@ -14,7 +14,7 @@ import java.util.Date;
 
 @Entity
 @Table(name="usuarios")
-@NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
+@NamedQuery(name="UserEntity.findAll", query="SELECT u FROM UserEntity u")
 public class UserEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

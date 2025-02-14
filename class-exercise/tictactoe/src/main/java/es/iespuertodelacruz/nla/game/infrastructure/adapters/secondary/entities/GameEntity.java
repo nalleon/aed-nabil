@@ -1,6 +1,7 @@
 package es.iespuertodelacruz.nla.game.infrastructure.adapters.secondary.entities;
 
 import es.iespuertodelacruz.nla.shared.utils.DateToLongConverter;
+import es.iespuertodelacruz.nla.user.domain.User;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -16,29 +17,14 @@ public class GameEntity {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(unique=true, nullable=false)
     private int Id;
+    private User player1;
+    private User player2;
+    private char[][] board;
+    private boolean finished;
 
+    public GameEntity() {
+    }
 
-    @Column(unique = true, nullable=false, length=45, name = "nombre")
-    private String name;
-
-    @Column(nullable=false, length=200)
-    private String password;
-
-    @Column(unique = true, nullable=false, length=100, name = "correo")
-    private String email;
-
-    @Column(nullable=false, length=45, name = "rol")
-    private String role;
-
-    @Column(name = "verificado")
-    private int verified;
-
-    @Column(length=255, name = "token_verificacion")
-    private String verificationToken;
-
-    @Column(nullable=false, length=45, name = "fecha_creacion")
-    @Convert(converter = DateToLongConverter.class)
-    private Date creationDate;
 
 
     /**
@@ -52,59 +38,35 @@ public class GameEntity {
         Id = id;
     }
 
-    public String getName() {
-        return name;
+    public User getPlayer1() {
+        return player1;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPlayer1(User player1) {
+        this.player1 = player1;
     }
 
-    public String getPassword() {
-        return password;
+    public User getPlayer2() {
+        return player2;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPlayer2(User player2) {
+        this.player2 = player2;
     }
 
-    public String getEmail() {
-        return email;
+    public char[][] getBoard() {
+        return board;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setBoard(char[][] board) {
+        this.board = board;
     }
 
-    public String getRole() {
-        return role;
+    public boolean isFinished() {
+        return finished;
     }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public int getVerified() {
-        return verified;
-    }
-
-    public void setVerified(int verified) {
-        this.verified = verified;
-    }
-
-    public String getVerificationToken() {
-        return verificationToken;
-    }
-
-    public void setVerificationToken(String verificationToken) {
-        this.verificationToken = verificationToken;
-    }
-
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
+    public void setFinished(boolean finished) {
+        this.finished = finished;
     }
 }

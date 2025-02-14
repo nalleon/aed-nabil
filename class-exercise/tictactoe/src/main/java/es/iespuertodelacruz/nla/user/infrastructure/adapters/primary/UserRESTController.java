@@ -49,9 +49,7 @@ public class UserRESTController {
         this.passwordEncoder = passwordEncoder;
     }
     @GetMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> getAll() {
-        System.out.println("getall");
         List<UserOutputDTO> filteredList = service.findAll().stream().map(usuario ->
                 new UserOutputDTO(usuario.getName(), usuario.getEmail())).collect(Collectors.toList());
 

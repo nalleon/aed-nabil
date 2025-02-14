@@ -1,42 +1,57 @@
 package es.iespuertodelacruz.nla.user.infrastructure.adapters.secondary.document;
 
+import es.iespuertodelacruz.nla.shared.utils.DateToLongConverter;
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
 import java.util.Objects;
 
 /**
  * @author Nabil Leon Alvarez <@nalleon>
  */
-@Document
+@Document(collection = "usuarios")
 public class UserDocument {
 
     @Id
-    String id;
-    String name;
-    int stock;
-    float price;
+    private String Id;
 
-    public UserDocument() {
-    }
 
-    public UserDocument(String id, String name, int stock, float price) {
-        this.id = id;
-        this.name = name;
-        this.stock = stock;
-        this.price = price;
-    }
+    @Column(unique = true, nullable=false, length=45)
+    private String name;
+
+    @Column(nullable=false, length=200)
+    private String password;
+
+    @Column(unique = true, nullable=false, length=100)
+    private String email;
+
+    @Column(nullable=false, length=45)
+    private String role;
+
+    private int verified;
+
+    @Column(length=255)
+    private String verificationToken;
+
+    @Column(nullable=false, length=45)
+    @Convert(converter = DateToLongConverter.class)
+    private Date creationDate;
+
 
     /**
      * Getters and setters
      */
     public String getId() {
-        return id;
+        return Id;
     }
 
     public void setId(String id) {
-        this.id = id;
+        Id = id;
     }
+
 
     public String getName() {
         return name;
@@ -46,46 +61,80 @@ public class UserDocument {
         this.name = name;
     }
 
-    public int getStock() {
-        return stock;
+    public String getPassword() {
+        return password;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public float getPrice() {
-        return price;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPrice(float price) {
-        this.price = price;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public int getVerified() {
+        return verified;
+    }
+
+    public void setVerified(int verified) {
+        this.verified = verified;
+    }
+
+    public String getVerificationToken() {
+        return verificationToken;
+    }
+
+    public void setVerificationToken(String verificationToken) {
+        this.verificationToken = verificationToken;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     /**
      * Tostring and equals
      */
-
     @Override
     public String toString() {
         return "UserDocument{" +
-                "id=" + id +
+                "Id='" + Id + '\'' +
                 ", name='" + name + '\'' +
-                ", stock=" + stock +
-                ", price=" + price +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", role='" + role + '\'' +
+                ", verified=" + verified +
+                ", verificationToken='" + verificationToken + '\'' +
+                ", creationDate=" + creationDate +
                 '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserDocument that = (UserDocument) o;
-        return Objects.equals(id, that.id);
+        return Objects.equals(Id, that.Id) && Objects.equals(name, that.name) && Objects.equals(email, that.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(Id, name, email);
     }
 }

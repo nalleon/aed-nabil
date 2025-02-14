@@ -1,6 +1,7 @@
 package es.iespuertodelacruz.nla.user.infrastructure.adapters.secondary.document;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -8,8 +9,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface IUserDocumentRepository extends MongoRepository<UserDocument, String> {
-    UserDocument findByName(String name);
+    UserDocument findUserByName(String name);
 
-    UserDocument findByEmail(String email);
+    UserDocument findUserByEmail(String email);
+    int deleteUserById(@Param("id") String id);
 
 }

@@ -54,6 +54,7 @@ public class JwtService {
         infoToken.put("username", claims.get("sub").asString());
         infoToken.put("role", claims.get("role").asString());
 
+        System.out.println(infoToken);
         return infoToken;
     }
 }

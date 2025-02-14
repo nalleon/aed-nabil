@@ -34,12 +34,6 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        //TODO: delete
-        if(true){
-            filterChain.doFilter(request, response);
-            return;
-        }
-
         String path = request.getRequestURI();
 
 
@@ -49,7 +43,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 "/configuration/","/swagger/",
                 "/webjars/", "/api/v1/auth/",
                 "/websocket/", "/index.html",
-                "/services/", "api/v1/"
+                "/services/", "/api/v1/"
         );
 
         for (String ruta : rutasPermitidas) {

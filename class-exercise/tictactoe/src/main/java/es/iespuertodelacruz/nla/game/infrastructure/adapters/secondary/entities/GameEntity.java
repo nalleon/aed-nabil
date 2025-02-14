@@ -9,8 +9,8 @@ import java.util.Date;
  */
 
 @Entity
-@Table(name="usuarios")
-@NamedQuery(name="UserEntity.findAll", query="SELECT u FROM UserEntity u")
+@Table(name="partidas")
+@NamedQuery(name="GameEntity.findAll", query="SELECT u FROM GameEntity u")
 public class GameEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

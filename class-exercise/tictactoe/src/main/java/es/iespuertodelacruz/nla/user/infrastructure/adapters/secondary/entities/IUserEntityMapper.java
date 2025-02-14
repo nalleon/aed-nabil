@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.nla.user.infrastructure.adapters.secondary;
+package es.iespuertodelacruz.nla.user.infrastructure.adapters.secondary.entities;
 
 import es.iespuertodelacruz.nla.user.domain.User;
 import org.mapstruct.Mapper;

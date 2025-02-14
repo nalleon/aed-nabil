@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.nla.user.infrastructure.adapters.secondary;
+package es.iespuertodelacruz.nla.user.infrastructure.adapters.secondary.document;
 
 import jakarta.persistence.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

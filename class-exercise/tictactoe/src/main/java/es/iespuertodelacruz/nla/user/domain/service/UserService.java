@@ -37,6 +37,8 @@ public class UserService implements IUserService {
     @Override
     public boolean update(String name, String email, String password) {
 
+        User aux = new User(name, email, password);
+
         return false;
     }
 }

@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.nla.user.infrastructure.adapters.secondary;
+package es.iespuertodelacruz.nla.user.infrastructure.adapters.secondary.document;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;

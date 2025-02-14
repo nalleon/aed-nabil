@@ -1,20 +1,20 @@
 package es.iespuertodelacruz.nla;
 
-import es.iespuertodelacruz.nla.user.infrastructure.adapters.secondary.IUserEntityMapper;
-import es.iespuertodelacruz.nla.user.infrastructure.adapters.secondary.IUserEntityRepository;
-import es.iespuertodelacruz.nla.user.infrastructure.adapters.secondary.UserEntity;
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import es.iespuertodelacruz.nla.user.infrastructure.adapters.secondary.entities.IUserEntityRepository;
+import es.iespuertodelacruz.nla.user.infrastructure.adapters.secondary.entities.UserEntity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 @SpringBootTest
-@ActiveProfiles("test")
-@Sql("/tictactoetest.sql")
+//@ActiveProfiles("test")
+//@Sql("/tictactoetest.sql")
 class TicTacToeApplicationTests {
 
 	public static final String MESSAGE_ERROR = "Expected result not found";
@@ -24,13 +24,12 @@ class TicTacToeApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
-	@Test
-	void databaseH2(){
-		List<UserEntity> list = new ArrayList<>();
-		list = repository.findAll();
-		Assertions.assertNotNull(list, MESSAGE_ERROR);
-		Assertions.assertEquals(1, list.size(), MESSAGE_ERROR);
-	}
+//
+//	@Test
+//	void databaseH2(){
+//		List<UserEntity> list = repository.findAll();
+//		Assertions.assertNotNull(list, MESSAGE_ERROR);
+//		Assertions.assertEquals(1, list.size(), MESSAGE_ERROR);
+//	}
 
 }

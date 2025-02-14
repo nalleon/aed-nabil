@@ -8,6 +8,8 @@ public interface IUserRepository {
     User save(User user);
     List<User> findAll();
     User findById(Integer id);
+    User findByUserame(String username);
+    User findByEmail(String email);
     boolean delete(Integer id);
     boolean update(User user);
 }

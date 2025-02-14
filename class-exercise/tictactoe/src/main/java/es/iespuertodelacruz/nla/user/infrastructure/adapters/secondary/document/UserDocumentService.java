@@ -16,8 +16,6 @@ public class UserDocumentService implements IUserRepository {
     @Autowired
     private IUserDocumentRepository repository;
 
-
-
     @Override
     public User save(User user) {
         if(user == null){

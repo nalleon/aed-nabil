@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.nla.user.infrastructure.adapters.secondary;
+package es.iespuertodelacruz.nla.user.infrastructure.adapters.primary.dto;
 
 import java.io.Serializable;
 

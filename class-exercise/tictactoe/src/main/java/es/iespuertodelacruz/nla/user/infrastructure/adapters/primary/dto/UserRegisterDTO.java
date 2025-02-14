@@ -1,12 +1,12 @@
-package es.iespuertodelacruz.nla.user.infrastructure.adapters.secondary;
-
+package es.iespuertodelacruz.nla.user.infrastructure.adapters.primary.dto;
 import java.io.Serializable;
 
 /**
  * @author Nabil Leon Alvarez <@nalleon>
  */
-public record UserLoginDTO(
+public record UserRegisterDTO(
         String name,
+        String email,
         String password
 ) implements Serializable {
 

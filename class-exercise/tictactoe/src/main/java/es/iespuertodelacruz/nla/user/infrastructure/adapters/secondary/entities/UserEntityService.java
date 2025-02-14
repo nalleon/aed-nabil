@@ -104,6 +104,10 @@ public class UserEntityService implements IUserRepository {
         try {
             dbItem.setPassword(user.getPassword());
             dbItem.setEmail(user.getEmail());
+            if(user.getVerified() != 0){
+                dbItem.setVerified(1);
+            }
+
             return IUserEntityMapper.INSTANCE.toDomain(dbItem);
         }  catch (RuntimeException e){
             throw new RuntimeException("Invalid data");

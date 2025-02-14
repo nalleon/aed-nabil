@@ -25,6 +25,16 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public User findByEmail(String email) {
+        return repository.findByEmail(email);
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return repository.findByUserame(username);
+    }
+
+    @Override
     public List<User> findAll() {
         return repository.findAll();
     }
@@ -37,6 +47,12 @@ public class UserService implements IUserService {
     @Override
     public User update(String name, String email, String password) {
         User aux = new User(name, password, email);
+        return repository.update(aux);
+    }
+
+    @Override
+    public User updateVerify(String name, String email, String password, int verify) {
+        User aux = new User(name, password, email, verify);
         return repository.update(aux);
     }
 }

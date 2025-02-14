@@ -40,6 +40,13 @@ public class User {
         this.email = email;
     }
 
+    public User(String name, String password, String email, int verified) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.verified = verified;
+    }
+
     /**
      * Getters and setters
      */

@@ -37,7 +37,6 @@ public class UserService implements IUserService {
     @Override
     public User update(String name, String email, String password) {
         User aux = new User(name, password, email);
-
         return repository.update(aux);
     }
 }

@@ -11,5 +11,5 @@ public interface IUserRepository {
     User findByUserame(String username);
     User findByEmail(String email);
     boolean delete(Integer id);
-    boolean update(User user);
+    User update(User user);
 }

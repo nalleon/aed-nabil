@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 /**
  * @author Nabil Leon Alvarez <@nalleon>
  */
-@Repository
+//@Repository
 public interface IUserDocumentRepository extends MongoRepository<UserDocument, String> {
     UserDocument findUserByName(String name);
 

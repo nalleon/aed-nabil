@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
-//@ActiveProfiles("test")
-//@Sql("/tictactoetest.sql")
+@ActiveProfiles("test")
+@Sql("/tictactoetest.sql")
 class TicTacToeApplicationTests {
 
 	public static final String MESSAGE_ERROR = "Expected result not found";
@@ -24,12 +24,12 @@ class TicTacToeApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-//
-//	@Test
-//	void databaseH2(){
-//		List<UserEntity> list = repository.findAll();
-//		Assertions.assertNotNull(list, MESSAGE_ERROR);
-//		Assertions.assertEquals(1, list.size(), MESSAGE_ERROR);
-//	}
+
+	@Test
+	void databaseH2(){
+		List<UserEntity> list = repository.findAll();
+		Assertions.assertNotNull(list, MESSAGE_ERROR);
+		Assertions.assertEquals(1, list.size(), MESSAGE_ERROR);
+	}
 
 }

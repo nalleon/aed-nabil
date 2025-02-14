@@ -4,9 +4,12 @@ import es.iespuertodelacruz.nla.user.domain.User;
 import es.iespuertodelacruz.nla.user.domain.port.secondary.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Nabil Leon Alvarez <@nalleon>
@@ -18,6 +21,7 @@ public class UserEntityService implements IUserRepository {
     private IUserEntityRepository repository;
 
     @Override
+    @Transactional
     public User save(User user) {
         if(user == null){
             return null;
@@ -31,6 +35,10 @@ public class UserEntityService implements IUserRepository {
 
         try {
             UserEntity entity = IUserEntityMapper.INSTANCE.toEntity(user);
+            entity.setCreationDate(new Date());
+            entity.setRole("ROLE_USER");
+            entity.setVerificationToken(UUID.randomUUID().toString());
+            entity.setVerified(0);
             UserEntity savedEntity = repository.save(entity);
             return IUserEntityMapper.INSTANCE.toDomain(savedEntity);
         } catch (RuntimeException e){
@@ -75,26 +83,28 @@ public class UserEntityService implements IUserRepository {
     }
 
     @Override
+    @Transactional
     public boolean delete(Integer id) {
         int quantity = repository.deleteUserById(id);
         return quantity > 0;
     }
 
     @Override
-    public boolean update(User user) {
+    @Transactional
+    public User update(User user) {
         if(user == null ){
-            return false;
+            return null;
         }
 
-        UserEntity dbItem = repository.findById(user.getId()).orElse(null);
+        UserEntity dbItem = repository.findUserByName(user.getName()).orElse(null);
         if (dbItem == null){
-            return false;
+            return null;
         }
 
         try {
             dbItem.setPassword(user.getPassword());
             dbItem.setEmail(user.getEmail());
-            return true;
+            return IUserEntityMapper.INSTANCE.toDomain(dbItem);
         }  catch (RuntimeException e){
             throw new RuntimeException("Invalid data");
         }

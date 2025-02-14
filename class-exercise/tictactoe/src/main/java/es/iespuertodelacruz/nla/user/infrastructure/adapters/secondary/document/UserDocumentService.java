@@ -5,18 +5,20 @@ import es.iespuertodelacruz.nla.user.domain.port.secondary.IUserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * @author Nabil Leon Alvarez <@nalleon>
  */
-@Service
+//@Service
 public class UserDocumentService implements IUserRepository {
     @Autowired
     private IUserDocumentRepository repository;
 
     @Override
+    @Transactional
     public User save(User user) {
         if(user == null){
             return null;
@@ -74,26 +76,28 @@ public class UserDocumentService implements IUserRepository {
     }
 
     @Override
+    @Transactional
     public boolean delete(Integer id) {
         int quantity = repository.deleteUserById(id.toString());
         return quantity > 0;
     }
 
     @Override
-    public boolean update(User user) {
+    @Transactional
+    public User update(User user) {
         if(user == null ){
-            return false;
+            return null;
         }
 
         UserDocument dbItem = repository.findUserByName(user.getName());
         if (dbItem == null){
-            return false;
+            return null;
         }
 
         try {
             dbItem.setPassword(user.getPassword());
             dbItem.setEmail(user.getEmail());
-            return true;
+            return IUserDocumentMapper.INSTANCE.toDomain(dbItem);
         }  catch (RuntimeException e){
             throw new RuntimeException("Invalid data");
         }

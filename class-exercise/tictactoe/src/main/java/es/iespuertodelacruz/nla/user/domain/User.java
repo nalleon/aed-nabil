@@ -22,6 +22,18 @@ public class User {
 
     private Date creationDate;
 
+    /**
+     * Default copnstructor of the class
+     */
+    public User() {
+    }
+
+    /**
+     * Constructor of the class
+     * @param name of the user
+     * @param password of the user
+     * @param email of the user
+     */
     public User(String name, String password, String email) {
         this.name = name;
         this.password = password;

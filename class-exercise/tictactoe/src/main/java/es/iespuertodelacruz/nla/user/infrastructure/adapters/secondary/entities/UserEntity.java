@@ -22,24 +22,25 @@ public class UserEntity {
     private int Id;
 
 
-    @Column(unique = true, nullable=false, length=45)
+    @Column(unique = true, nullable=false, length=45, name = "nombre")
     private String name;
 
     @Column(nullable=false, length=200)
     private String password;
 
-    @Column(unique = true, nullable=false, length=100)
+    @Column(unique = true, nullable=false, length=100, name = "correo")
     private String email;
 
-    @Column(nullable=false, length=45)
+    @Column(nullable=false, length=45, name = "rol")
     private String role;
 
+    @Column(name = "verificado")
     private int verified;
 
-    @Column(length=255)
+    @Column(length=255, name = "token_verificacion")
     private String verificationToken;
 
-    @Column(nullable=false, length=45)
+    @Column(nullable=false, length=45, name = "fecha_creacion")
     @Convert(converter = DateToLongConverter.class)
     private Date creationDate;
 

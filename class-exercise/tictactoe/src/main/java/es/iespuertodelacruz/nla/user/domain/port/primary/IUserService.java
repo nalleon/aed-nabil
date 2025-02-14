@@ -9,6 +9,6 @@ public interface IUserService {
     User findById(Integer id);
     List<User> findAll();
     boolean delete(Integer id);
-    boolean update(String name, String email, String password);
+    User update(String name, String email, String password);
 
 }

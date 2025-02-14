@@ -15,7 +15,7 @@ public class UserService implements IUserService {
 
     @Override
     public User add(String name, String email, String password) {
-        User aux = new User(name, email, password);
+        User aux = new User(name, password, email);
         return repository.save(aux);
     }
 
@@ -35,10 +35,9 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public boolean update(String name, String email, String password) {
+    public User update(String name, String email, String password) {
+        User aux = new User(name, password, email);
 
-        User aux = new User(name, email, password);
-
-        return false;
+        return repository.update(aux);
     }
 }

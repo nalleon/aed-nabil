@@ -8,8 +8,6 @@ public interface IGameRepository {
     Game save(Game game);
     List<Game> findAll();
     Game findById(Integer id);
-    Game findByUserame(String username);
-    Game findByEmail(String email);
     boolean delete(Integer id);
     Game update(Game game);
 }

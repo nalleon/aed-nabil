@@ -26,11 +26,6 @@ public class GameEntityService implements IGameRepository {
             return null;
         }
 
-        GameEntity dbItem = repository.findUserByName(game.getName()).orElse(null);
-
-        if(dbItem != null){
-            return null;
-        }
 
         try {
             GameEntity entity = IGameEntityMapper.INSTANCE.toEntity(game);
@@ -61,25 +56,6 @@ public class GameEntityService implements IGameRepository {
         return  null;
     }
 
-    @Override
-    public Game findByUserame(String username) {
-        GameEntity entityFound = repository.findUserByName(username).orElse(null);
-
-        if (entityFound != null){
-            return IGameEntityMapper.INSTANCE.toDomain(entityFound);
-        }
-        return null;
-    }
-
-    @Override
-    public Game findByEmail(String email) {
-        GameEntity entityFound = repository.findUserByEmail(email).orElse(null);
-
-        if (entityFound != null){
-            return IGameEntityMapper.INSTANCE.toDomain(entityFound);
-        }
-        return null;
-    }
 
     @Override
     @Transactional
@@ -95,15 +71,13 @@ public class GameEntityService implements IGameRepository {
             return null;
         }
 
-        GameEntity dbItem = repository.findUserByName(game.getName()).orElse(null);
-        if (dbItem == null){
-            return null;
-        }
+
 
         try {
-            dbItem.setPassword(game.getPassword());
-            dbItem.setEmail(game.getEmail());
-            return IGameEntityMapper.INSTANCE.toDomain(dbItem);
+//            dbItem.setPassword(game.getPassword());
+//            dbItem.setEmail(game.getEmail());
+//            return IGameEntityMapper.INSTANCE.toDomain(dbItem);
+            return null;
         }  catch (RuntimeException e){
             throw new RuntimeException("Invalid data");
         }

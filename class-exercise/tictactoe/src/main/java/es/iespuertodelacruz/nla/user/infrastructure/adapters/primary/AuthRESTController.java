@@ -26,9 +26,6 @@ public class AuthRESTController {
     private MailService mailService;
 
     @Autowired
-    private JwtService jwtService;
-
-    @Autowired
     private AuthService authService;
 
 
@@ -63,7 +60,7 @@ public class AuthRESTController {
         String authToken = user.getVerificationToken();
 
         String confirmationUrl =
-                "http://localhost:8080/instituto/api/confirmation?correo=" + registerDTO.email() + "&token=" + authToken;
+                "http://localhost:8080/api/v1/auth/confirmation?email=" + registerDTO.email() + "&token=" + authToken;
 
         String[] senders = {registerDTO.email()};
         mailService.send(senders, "Confirmacion de usuario", confirmationUrl);

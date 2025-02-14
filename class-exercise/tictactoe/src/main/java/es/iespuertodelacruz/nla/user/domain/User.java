@@ -1,12 +1,9 @@
 package es.iespuertodelacruz.nla.user.domain;
 
-
-import es.iespuertodelacruz.nla.shared.utils.DateToLongConverter;
-import jakarta.persistence.*;
-
+import java.io.Serializable;
 import java.util.Date;
 
-public class User {
+public class User implements Serializable {
     private int Id;
     private String name;
 

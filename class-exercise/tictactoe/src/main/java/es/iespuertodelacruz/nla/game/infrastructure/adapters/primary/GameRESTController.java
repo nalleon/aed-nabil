@@ -37,18 +37,17 @@ public class GameRESTController {
 
     @GetMapping
     public ResponseEntity<?> getAll() {
-//        List<GameDTO> filteredList = service.findAll().stream().map(game ->
-//                new UserOutputDTO(game., usuario.getEmail())).collect(Collectors.toList());
-//
-//        if (filteredList.isEmpty()) {
-//            String message = "There are no users";
-//            return ResponseEntity.status(HttpStatus.NO_CONTENT)
-//                    .body(new ApiResponse<>(204, message, filteredList));
-//        }
-//
-//        String message = "List successfully obtained";
-//        return ResponseEntity.ok(new ApiResponse<>(200, message, filteredList));
-        return null;
+        List<GameDTO> filteredList = service.findAll().stream().map(game ->
+                new GameDTO(game.getPlayer1(), game.getPlayer2(), game.getBoard(), game.isFinished())).collect(Collectors.toList());
+
+        if (filteredList.isEmpty()) {
+            String message = "There are no games";
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .body(new ApiResponse<>(204, message, filteredList));
+        }
+
+        String message = "List successfully obtained";
+        return ResponseEntity.ok(new ApiResponse<>(200, message, filteredList));
     }
 
 

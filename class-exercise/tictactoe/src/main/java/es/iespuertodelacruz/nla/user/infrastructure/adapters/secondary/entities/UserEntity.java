@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.Date;
 /**
  * @author Nabil Leon Alvarez <@nalleon>

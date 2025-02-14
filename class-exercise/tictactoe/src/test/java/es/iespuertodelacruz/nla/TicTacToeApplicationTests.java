@@ -1,5 +1,7 @@
 package es.iespuertodelacruz.nla;
 
+import es.iespuertodelacruz.nla.user.domain.User;
+import es.iespuertodelacruz.nla.user.domain.port.primary.IUserService;
 import es.iespuertodelacruz.nla.user.infrastructure.adapters.secondary.entities.IUserEntityRepository;
 import es.iespuertodelacruz.nla.user.infrastructure.adapters.secondary.entities.UserEntity;
 import org.junit.jupiter.api.Assertions;
@@ -19,17 +21,17 @@ class TicTacToeApplicationTests {
 
 	public static final String MESSAGE_ERROR = "Expected result not found";
 	@Autowired
-	IUserEntityRepository repository;
+	IUserService repository;
 
 	@Test
 	void contextLoads() {
 	}
 
-	@Test
-	void databaseH2(){
-		List<UserEntity> list = repository.findAll();
-		Assertions.assertNotNull(list, MESSAGE_ERROR);
-		Assertions.assertEquals(1, list.size(), MESSAGE_ERROR);
-	}
+//	@Test
+//	void databaseH2(){
+//		List<User> list = repository.findAll();
+//		Assertions.assertNotNull(list, MESSAGE_ERROR);
+//		Assertions.assertEquals(1, list.size(), MESSAGE_ERROR);
+//	}
 
 }

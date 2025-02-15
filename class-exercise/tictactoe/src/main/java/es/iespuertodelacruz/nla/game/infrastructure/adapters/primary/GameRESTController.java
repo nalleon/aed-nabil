@@ -85,4 +85,25 @@ public class GameRESTController {
                     null));
         }
     }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<?> joinSelectedGame(@RequestParam Integer id, @RequestBody UserJoinDTO userDTO) {
+        Game dbItem = gameService.findById(id);
+        User aux = userService.findByUsername(userDTO.name());
+
+        System.out.println(dbItem);
+
+        if (dbItem != null) {
+            System.out.println("JOIN");
+            dbItem.setPlayer2(aux);
+            Game joinedGame = gameService.joinGame(dbItem);
+            return ResponseEntity.ok(new ApiResponse<>(204, "Joined game with id: " + joinedGame.getId(),
+                    null));
+        } else {
+            Game game = gameService.add(aux);
+            return ResponseEntity.ok(new ApiResponse<>(201, "Game with id: " +id+ " not found. " +
+                    "Created new game with id: " + game.getId(),
+                    null));
+        }
+    }
 }

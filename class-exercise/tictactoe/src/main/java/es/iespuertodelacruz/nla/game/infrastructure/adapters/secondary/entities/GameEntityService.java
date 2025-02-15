@@ -18,7 +18,8 @@ import java.util.UUID;
 @Service
 public class GameEntityService implements IGameRepository {
 
-    public static final char[][] NEW_BOARD = new char[][]{{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
+
+
     @Autowired
     private IGameEntityRepository repository;
 
@@ -79,7 +80,8 @@ public class GameEntityService implements IGameRepository {
         }
 
         try {
-            dbItem.setBoard(game.getBoard());
+            String result = mapCharArr(game.getBoard());
+            dbItem.setBoard(result);
             dbItem.setPlayer2(IUserEntityMapper.INSTANCE.toEntity(game.getPlayer2()));
             dbItem.setFinished(game.isFinished());
             return IGameEntityMapper.INSTANCE.toDomain(dbItem);
@@ -87,6 +89,27 @@ public class GameEntityService implements IGameRepository {
             throw new RuntimeException("Invalid data");
         }
 
+    }
+
+    /**
+     * Function to map the board from a char matric to a string
+     * @param board to map
+     * @return string of the result
+     */
+    public String mapCharArr (char [][] board){
+        String result = "";
+
+        for (int i=0; i<3; i++){
+            for (int j=0; j<3; j++){
+                if(i==2 && j==2){
+                    result += board[i][j];
+                } else {
+                    result += board[i][j] + ",";
+                }
+            }
+        }
+
+        return result;
     }
 
     @Override
@@ -116,6 +139,7 @@ public class GameEntityService implements IGameRepository {
 
         try {
             dbItem.setPlayer2(IUserEntityMapper.INSTANCE.toEntity(game.getPlayer2()));
+            dbItem.setBoard("_,_,_,_,_,_,_,_,_");
             return IGameEntityMapper.INSTANCE.toDomain(dbItem);
         }  catch (RuntimeException e){
             throw new RuntimeException("Invalid data");

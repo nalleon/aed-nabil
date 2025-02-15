@@ -28,7 +28,7 @@ public class GameEntity {
     private UserEntity player2;
 
     @Column(name = "board")
-    private char[][] board;
+    private String board;
 
     @Column(name = "finalizado")
     private boolean finished;
@@ -62,11 +62,11 @@ public class GameEntity {
         this.player2 = player2;
     }
 
-    public char[][] getBoard() {
+    public String getBoard() {
         return board;
     }
 
-    public void setBoard(char[][] board) {
+    public void setBoard(String board) {
         this.board = board;
     }
 

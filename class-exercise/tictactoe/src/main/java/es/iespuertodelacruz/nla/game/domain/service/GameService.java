@@ -14,6 +14,7 @@ public class GameService implements IGameService {
     @Autowired
     IGameRepository repository;
 
+    public static final char[][] NEW_BOARD = new char[][]{{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
 
     @Override
     public Game add(User player1) {

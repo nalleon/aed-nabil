@@ -17,15 +17,18 @@ public class GameEntity {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(unique=true, nullable=false)
     private int Id;
+    @Column(name = "jugador1")
     private User player1;
+    @Column(name = "jugador2")
     private User player2;
+
+    @Column(name = "board")
     private char[][] board;
+
+    @Column(name = "finalizado")
     private boolean finished;
 
-    public GameEntity() {
-    }
-
-
+    public GameEntity() {}
 
     /**
      * Getters and setters

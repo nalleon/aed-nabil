@@ -22,9 +22,8 @@ public interface IGameEntityRepository extends JpaRepository<GameEntity, Integer
     )
     int deleteGameById(@Param("id") Integer id);
 
-    @Modifying
     @Query(
-            value="SELECT * FROM partidas AS p WHERE p.jugador2=NULL AND p.finalizado=0",
+            value="SELECT * FROM partidas AS p WHERE p.jugador2 IS NULL AND p.finalizado=0 LIMIT 1",
             nativeQuery=true
     )
     Optional<GameEntity> findOpenGame();

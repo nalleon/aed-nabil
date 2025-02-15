@@ -2,7 +2,9 @@ package es.iespuertodelacruz.nla.game.infrastructure.adapters.secondary.entities
 
 import es.iespuertodelacruz.nla.game.domain.Game;
 import es.iespuertodelacruz.nla.game.domain.port.secondary.IGameRepository;
+import es.iespuertodelacruz.nla.user.domain.User;
 import es.iespuertodelacruz.nla.user.infrastructure.adapters.secondary.entities.IUserEntityMapper;
+import es.iespuertodelacruz.nla.user.infrastructure.adapters.secondary.entities.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +31,7 @@ public class GameEntityService implements IGameRepository {
 
         try {
             GameEntity entity = IGameEntityMapper.INSTANCE.toEntity(game);
-            entity.setBoard(NEW_BOARD);
+            entity.setBoard(null);
             entity.setPlayer2(null);
             entity.setFinished(false);
             GameEntity savedEntity = repository.save(entity);
@@ -80,6 +82,40 @@ public class GameEntityService implements IGameRepository {
             dbItem.setBoard(game.getBoard());
             dbItem.setPlayer2(IUserEntityMapper.INSTANCE.toEntity(game.getPlayer2()));
             dbItem.setFinished(game.isFinished());
+            return IGameEntityMapper.INSTANCE.toDomain(dbItem);
+        }  catch (RuntimeException e){
+            throw new RuntimeException("Invalid data");
+        }
+
+    }
+
+    @Override
+    public Game findOpenGame() {
+        GameEntity found = repository.findOpenGame().orElse(null);
+        if (found == null) {
+            return null;
+        }
+
+        System.out.println("FOUND: " + found);
+
+        return IGameEntityMapper.INSTANCE.toDomain(found);
+    }
+
+    @Override
+    @Transactional
+    public Game joinGame(Game game) {
+        if(game == null){
+            return null;
+        }
+
+        GameEntity dbItem = repository.findById(game.getId()).orElse(null);
+
+        if(dbItem == null){
+            return null;
+        }
+
+        try {
+            dbItem.setPlayer2(IUserEntityMapper.INSTANCE.toEntity(game.getPlayer2()));
             return IGameEntityMapper.INSTANCE.toDomain(dbItem);
         }  catch (RuntimeException e){
             throw new RuntimeException("Invalid data");

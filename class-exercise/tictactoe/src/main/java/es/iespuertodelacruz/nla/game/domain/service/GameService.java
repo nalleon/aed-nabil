@@ -43,4 +43,14 @@ public class GameService implements IGameService {
         return repository.update(aux);
     }
 
+    @Override
+    public Game findOpenGame() {
+        return repository.findOpenGame();
+    }
+
+    @Override
+    public Game joinGame(Game game) {
+        return repository.joinGame(game);
+    }
+
 }

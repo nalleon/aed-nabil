@@ -1,4 +1,5 @@
 SET MODE MySQL;
+DROP TABLE IF EXISTS partidas;
 DROP TABLE IF EXISTS usuarios;
 
 CREATE TABLE usuarios (

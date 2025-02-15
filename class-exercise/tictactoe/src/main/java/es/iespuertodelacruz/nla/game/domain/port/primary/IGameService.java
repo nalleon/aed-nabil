@@ -11,5 +11,6 @@ public interface IGameService {
     List<Game> findAll();
     boolean delete(Integer id);
     Game update(User play1, User player2, char[][] board, boolean finished);
-
+    Game findOpenGame();
+    Game joinGame(Game game);
 }

@@ -2,6 +2,7 @@ package es.iespuertodelacruz.nla.game.infrastructure.adapters.secondary.entities
 
 import es.iespuertodelacruz.nla.shared.utils.DateToLongConverter;
 import es.iespuertodelacruz.nla.user.domain.User;
+import es.iespuertodelacruz.nla.user.infrastructure.adapters.secondary.entities.UserEntity;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -17,10 +18,14 @@ public class GameEntity {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(unique=true, nullable=false)
     private int Id;
-    @Column(name = "jugador1")
-    private User player1;
-    @Column(name = "jugador2")
-    private User player2;
+
+    @ManyToOne
+    @JoinColumn(name="jugador1")
+    private UserEntity player1;
+
+    @JoinColumn(name="jugador2")
+    @ManyToOne
+    private UserEntity player2;
 
     @Column(name = "board")
     private char[][] board;
@@ -41,19 +46,19 @@ public class GameEntity {
         Id = id;
     }
 
-    public User getPlayer1() {
+    public UserEntity getPlayer1() {
         return player1;
     }
 
-    public void setPlayer1(User player1) {
+    public void setPlayer1(UserEntity player1) {
         this.player1 = player1;
     }
 
-    public User getPlayer2() {
+    public UserEntity getPlayer2() {
         return player2;
     }
 
-    public void setPlayer2(User player2) {
+    public void setPlayer2(UserEntity player2) {
         this.player2 = player2;
     }
 

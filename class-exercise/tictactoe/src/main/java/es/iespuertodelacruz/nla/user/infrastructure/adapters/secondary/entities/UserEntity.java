@@ -1,5 +1,6 @@
 package es.iespuertodelacruz.nla.user.infrastructure.adapters.secondary.entities;
 
+import es.iespuertodelacruz.nla.game.infrastructure.adapters.secondary.entities.GameEntity;
 import es.iespuertodelacruz.nla.shared.utils.DateToLongConverter;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -9,6 +10,8 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 /**
  * @author Nabil Leon Alvarez <@nalleon>
  */
@@ -45,6 +48,11 @@ public class UserEntity {
     @Convert(converter = DateToLongConverter.class)
     private Date creationDate;
 
+    @OneToMany(mappedBy="player1")
+    private List<GameEntity> games1;
+
+    @OneToMany(mappedBy="player2")
+    private List<GameEntity> games2;
 
     /**
      * Getters and setters

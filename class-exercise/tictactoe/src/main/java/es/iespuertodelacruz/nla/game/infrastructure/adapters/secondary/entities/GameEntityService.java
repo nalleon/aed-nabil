@@ -2,6 +2,7 @@ package es.iespuertodelacruz.nla.game.infrastructure.adapters.secondary.entities
 
 import es.iespuertodelacruz.nla.game.domain.Game;
 import es.iespuertodelacruz.nla.game.domain.port.secondary.IGameRepository;
+import es.iespuertodelacruz.nla.user.infrastructure.adapters.secondary.entities.IUserEntityMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -77,7 +78,7 @@ public class GameEntityService implements IGameRepository {
 
         try {
             dbItem.setBoard(game.getBoard());
-            dbItem.setPlayer2(game.getPlayer2());
+            dbItem.setPlayer2(IUserEntityMapper.INSTANCE.toEntity(game.getPlayer2()));
             dbItem.setFinished(game.isFinished());
             return IGameEntityMapper.INSTANCE.toDomain(dbItem);
         }  catch (RuntimeException e){

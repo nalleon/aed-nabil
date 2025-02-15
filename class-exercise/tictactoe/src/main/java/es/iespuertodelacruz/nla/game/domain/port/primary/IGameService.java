@@ -12,5 +12,7 @@ public interface IGameService {
     boolean delete(Integer id);
     Game update(User play1, User player2, char[][] board, boolean finished);
     Game findOpenGame();
-    Game joinGame(Game game);
+    Game joinGame(int id, User player2);
+
+    Game play(String na);
 }

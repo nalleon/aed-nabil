@@ -54,10 +54,11 @@ VALUES (
 CREATE TABLE `partidas` (
     id int AUTO_INCREMENT NOT NULL,
     jugador1 int NOT NULL,
-    jugador2 int UNIQUE NULL,
+    jugador2 int NULL,
     board VARCHAR(20) NULL,
     finalizado TINYINT(1) DEFAULT 0,
-    CONSTRAINT pk_partidas PRIMARY KEY(id),
+    CONSTRAINT `pk_partidas` PRIMARY KEY(id),
     CONSTRAINT `fk_jugador1` FOREIGN KEY(`jugador1`) REFERENCES `usuarios`(`id`),
-    CONSTRAINT `fk_jugador2` FOREIGN KEY(`jugador2`) REFERENCES `usuarios`(`id`)
+    CONSTRAINT `fk_jugador2` FOREIGN KEY(`jugador2`) REFERENCES `usuarios`(`id`),
+    CONSTRAINT `uq_partida` UNIQUE (id, jugador1, jugador2)
 );

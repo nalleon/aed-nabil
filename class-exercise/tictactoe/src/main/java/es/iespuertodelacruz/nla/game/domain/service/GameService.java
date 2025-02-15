@@ -50,8 +50,17 @@ public class GameService implements IGameService {
     }
 
     @Override
-    public Game joinGame(Game game) {
-        return repository.joinGame(game);
+    public Game joinGame(int id, User player2) {
+        Game aux = new Game();
+        aux.setId(id);
+        aux.setPlayer2(player2);
+        return repository.joinGame(aux);
     }
+
+    @Override
+    public Game play(String na) {
+        return null;
+    }
+
 
 }

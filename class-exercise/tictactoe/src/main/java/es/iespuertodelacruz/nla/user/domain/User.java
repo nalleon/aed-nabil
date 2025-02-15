@@ -2,6 +2,7 @@ package es.iespuertodelacruz.nla.user.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 public class User implements Serializable {
     private int Id;
@@ -111,4 +112,29 @@ public class User implements Serializable {
         this.creationDate = creationDate;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "Id=" + Id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", role='" + role + '\'' +
+                ", verified=" + verified +
+                ", verificationToken='" + verificationToken + '\'' +
+                ", creationDate=" + creationDate +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Id == user.Id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(Id);
+    }
 }

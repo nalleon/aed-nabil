@@ -3,10 +3,11 @@ package es.iespuertodelacruz.nla.game.domain;
 
 import es.iespuertodelacruz.nla.user.domain.User;
 
-import java.util.Date;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class Game {
-    private int Id;
+    private int id;
     private User player1;
     private User player2;
     private char[][] board;
@@ -29,11 +30,11 @@ public class Game {
      * @return
      */
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public User getPlayer1() {
@@ -66,5 +67,28 @@ public class Game {
 
     public void setFinished(boolean finished) {
         this.finished = finished;
+    }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "Id=" + id +
+                ", player1=" + player1 +
+                ", player2=" + player2 +
+                ", board=" + Arrays.toString(board) +
+                ", finished=" + finished +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Game game = (Game) o;
+        return id == game.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

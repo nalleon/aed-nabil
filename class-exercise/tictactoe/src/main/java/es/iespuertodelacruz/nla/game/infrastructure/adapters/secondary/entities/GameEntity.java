@@ -1,11 +1,10 @@
 package es.iespuertodelacruz.nla.game.infrastructure.adapters.secondary.entities;
 
-import es.iespuertodelacruz.nla.shared.utils.DateToLongConverter;
-import es.iespuertodelacruz.nla.user.domain.User;
 import es.iespuertodelacruz.nla.user.infrastructure.adapters.secondary.entities.UserEntity;
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.util.Objects;
+
 /**
  * @author Nabil Leon Alvarez <@nalleon>
  */
@@ -17,7 +16,7 @@ public class GameEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(unique=true, nullable=false)
-    private int Id;
+    private int id;
 
     @ManyToOne
     @JoinColumn(name="jugador1")
@@ -39,11 +38,11 @@ public class GameEntity {
      * Getters and setters
      */
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public UserEntity getPlayer1() {
@@ -76,5 +75,28 @@ public class GameEntity {
 
     public void setFinished(boolean finished) {
         this.finished = finished;
+    }
+
+    @Override
+    public String toString() {
+        return "GameEntity{" +
+                "Id=" + id +
+                ", player1=" + player1 +
+                ", player2=" + player2 +
+                ", board='" + board + '\'' +
+                ", finished=" + finished +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        GameEntity that = (GameEntity) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

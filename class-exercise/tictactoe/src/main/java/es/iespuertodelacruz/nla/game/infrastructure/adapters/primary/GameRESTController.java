@@ -47,9 +47,6 @@ public class GameRESTController {
     }
 
 
-    @Autowired
-
-
     @GetMapping
     public ResponseEntity<?> getAll() {
         List<GameDTO> filteredList = gameService.findAll().stream().map(game ->
@@ -71,39 +68,43 @@ public class GameRESTController {
         Game dbItem = gameService.findOpenGame();
         User aux = userService.findByUsername(userDTO.name());
 
+        System.out.println("_________________________________");
+        System.out.println(aux);
         System.out.println(dbItem);
+        System.out.println("_________________________________");
+
 
         if (dbItem != null) {
             System.out.println("JOIN");
             dbItem.setPlayer2(aux);
-            Game joinedGame = gameService.joinGame(dbItem);
+            Game joinedGame = gameService.joinGame(dbItem.getId(), aux);
             return ResponseEntity.ok(new ApiResponse<>(204, "Joined game with id: " + joinedGame.getId(),
                     null));
         } else {
             Game game = gameService.add(aux);
-            return ResponseEntity.ok(new ApiResponse<>(201, "Created new game with id: " + game.getId(),
+            return ResponseEntity.ok(new ApiResponse<>(200, "Created new game with id: " + game.getId(),
                     null));
         }
     }
-
-    @PostMapping("/{id}")
-    public ResponseEntity<?> joinSelectedGame(@RequestParam Integer id, @RequestBody UserJoinDTO userDTO) {
-        Game dbItem = gameService.findById(id);
-        User aux = userService.findByUsername(userDTO.name());
-
-        System.out.println(dbItem);
-
-        if (dbItem != null) {
-            System.out.println("JOIN");
-            dbItem.setPlayer2(aux);
-            Game joinedGame = gameService.joinGame(dbItem);
-            return ResponseEntity.ok(new ApiResponse<>(204, "Joined game with id: " + joinedGame.getId(),
-                    null));
-        } else {
-            Game game = gameService.add(aux);
-            return ResponseEntity.ok(new ApiResponse<>(201, "Game with id: " +id+ " not found. " +
-                    "Created new game with id: " + game.getId(),
-                    null));
-        }
-    }
+//
+//    @PostMapping("/{id}")
+//    public ResponseEntity<?> joinSelectedGame(@RequestParam Integer id, @RequestBody UserJoinDTO userDTO) {
+//        Game dbItem = gameService.findById(id);
+//        User aux = userService.findByUsername(userDTO.name());
+//
+//        System.out.println(dbItem);
+//
+//        if (dbItem != null) {
+//            System.out.println("JOIN");
+//            dbItem.setPlayer2(aux);
+//            Game joinedGame = gameService.joinGame(dbItem);
+//            return ResponseEntity.ok(new ApiResponse<>(204, "Joined game with id: " + joinedGame.getId(),
+//                    null));
+//        } else {
+//            Game game = gameService.add(aux);
+//            return ResponseEntity.ok(new ApiResponse<>(200, "Game with id: " +id+ " not found. " +
+//                    "Created new game with id: " + game.getId(),
+//                    null));
+//        }
+//    }
 }

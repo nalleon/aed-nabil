@@ -4,6 +4,7 @@ package es.iespuertodelacruz.nla.game.infrastructure.adapters.primary;
 import es.iespuertodelacruz.nla.game.domain.Game;
 import es.iespuertodelacruz.nla.game.domain.port.primary.IGameService;
 import es.iespuertodelacruz.nla.game.infrastructure.adapters.primary.dto.GameDTO;
+import es.iespuertodelacruz.nla.game.infrastructure.adapters.primary.dto.GamePlayDTO;
 import es.iespuertodelacruz.nla.shared.utils.ApiResponse;
 import es.iespuertodelacruz.nla.user.domain.User;
 import es.iespuertodelacruz.nla.user.domain.port.primary.IUserService;
@@ -86,6 +87,20 @@ public class GameRESTController {
                     null));
         }
     }
+
+
+    @PostMapping("/bet/{id}")
+    public ResponseEntity<?> play(@RequestParam int id, @RequestBody GamePlayDTO dto) {
+
+        Game dbItem = gameService.play(id, dto.playername(), dto.posX(), dto.posY());
+
+        GameDTO result = new GameDTO(dbItem.getPlayer1(), dbItem.getPlayer2(), dbItem.getBoard(), dbItem.isFinished());
+
+        return ResponseEntity.ok(new ApiResponse<>(200, "Played at (" + dto.posX() +", " + dto.posY()+")",
+                result));
+    }
+
+
 //
 //    @PostMapping("/{id}")
 //    public ResponseEntity<?> joinSelectedGame(@RequestParam Integer id, @RequestBody UserJoinDTO userDTO) {

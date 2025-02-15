@@ -4,6 +4,7 @@ import es.iespuertodelacruz.nla.game.domain.Game;
 import es.iespuertodelacruz.nla.game.domain.port.primary.IGameService;
 import es.iespuertodelacruz.nla.game.domain.port.secondary.IGameRepository;
 import es.iespuertodelacruz.nla.user.domain.User;
+import es.iespuertodelacruz.nla.user.domain.port.secondary.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,10 @@ import java.util.List;
 public class GameService implements IGameService {
     @Autowired
     IGameRepository repository;
+
+    @Autowired
+    IUserRepository userRepository;
+
 
     public static final char[][] NEW_BOARD = new char[][]{{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
 
@@ -58,8 +63,17 @@ public class GameService implements IGameService {
     }
 
     @Override
-    public Game play(String na) {
-        return null;
+    public Game play(int id, String playername, int posX, int posY) {
+        Game gameFound = repository.findById(id);
+        User userFound = userRepository.findByUserame(playername);
+        char symbol = 'o';
+
+        if(gameFound.getPlayer1().equals(userFound)){
+            symbol = 'x';
+        }
+
+
+        return repository.play(gameFound, userFound, posX, posY,  symbol);
     }
 
 

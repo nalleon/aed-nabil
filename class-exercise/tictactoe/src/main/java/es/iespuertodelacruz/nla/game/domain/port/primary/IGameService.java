@@ -14,5 +14,5 @@ public interface IGameService {
     Game findOpenGame();
     Game joinGame(int id, User player2);
 
-    Game play(String na);
+    Game play(int id, String playername, int posX, int posY);
 }

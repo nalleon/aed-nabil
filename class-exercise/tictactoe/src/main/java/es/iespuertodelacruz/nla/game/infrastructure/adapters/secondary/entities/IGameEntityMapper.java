@@ -27,7 +27,7 @@ public interface IGameEntityMapper {
 
     @Named("mapBoardToDomain")
     default char[][] mapBoardToDomain(String board) {
-        char[][] result = {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
+        char[][] result = {{'_', '_', '_'}, {'_', '_', '_'}, {'_', '_', '_'}};
 
         if (board == null) {
             return result;

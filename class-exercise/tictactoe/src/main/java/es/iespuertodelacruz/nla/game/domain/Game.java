@@ -91,4 +91,6 @@ public class Game {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
+    //TODO: add check win, check positions
 }

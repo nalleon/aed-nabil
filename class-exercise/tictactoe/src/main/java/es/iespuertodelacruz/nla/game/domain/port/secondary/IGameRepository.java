@@ -13,4 +13,5 @@ public interface IGameRepository {
     Game update(Game game);
     Game findOpenGame();
     Game joinGame(Game game);
+    Game play(Game game, User user, int posX, int posY, char symbol);
 }

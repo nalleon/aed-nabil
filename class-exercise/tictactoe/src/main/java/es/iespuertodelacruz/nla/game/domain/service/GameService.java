@@ -47,6 +47,7 @@ public class GameService implements IGameService {
     @Override
     public Game update(int id, User player1, User player2, char[][] board, boolean finished) {
         Game aux = new Game(id, player1, player2, board, finished);
+        System.out.println(aux);
         return repository.update(aux);
     }
 

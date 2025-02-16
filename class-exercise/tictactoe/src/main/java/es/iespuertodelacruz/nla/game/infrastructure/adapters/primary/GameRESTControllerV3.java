@@ -103,14 +103,12 @@ public class GameRESTControllerV3 {
     public ResponseEntity<?> updateGame(@RequestParam Integer id, @RequestBody GameDTO gameDTO) {
         Game dbItem = gameService.findById(id);
 
-        System.out.println(dbItem);
-
         if (dbItem != null) {
             User player1 = userService.findByUsername(gameDTO.player1());
             User player2 = userService.findByUsername(gameDTO.player2());
 
-            Game joinedGame = gameService.update(id, player1, player2, gameDTO.board(), gameDTO.finished());
-            return ResponseEntity.ok(new ApiResponse<>(204, "Joined game with id: " + joinedGame.getId(),
+            Game update = gameService.update(id, player1, player2, gameDTO.board(), gameDTO.finished());
+            return ResponseEntity.ok(new ApiResponse<>(204, "Updated game with id: " + update.getId(),
                     null));
         }
 
@@ -121,8 +119,6 @@ public class GameRESTControllerV3 {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteGame(@RequestParam Integer id) {
         Game dbItem = gameService.findById(id);
-
-        System.out.println(dbItem);
 
         if (dbItem != null) {
             boolean deleted = gameService.delete(id);

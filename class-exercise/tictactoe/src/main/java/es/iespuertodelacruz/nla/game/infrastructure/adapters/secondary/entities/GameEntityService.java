@@ -55,7 +55,6 @@ public class GameEntityService implements IGameRepository {
         GameEntity entityFound = repository.findById(id).orElse(null);
 
         if (entityFound != null){
-            System.out.println(IGameEntityMapper.INSTANCE.toDomain(entityFound));
             return IGameEntityMapper.INSTANCE.toDomain(entityFound);
         }
         return null;
@@ -76,6 +75,7 @@ public class GameEntityService implements IGameRepository {
             return null;
         }
 
+        System.out.println("_______________________________________________________________");
         GameEntity dbItem = repository.findById(game.getId()).orElse(null);
 
         if(dbItem == null){
@@ -84,6 +84,7 @@ public class GameEntityService implements IGameRepository {
 
         try {
             String result = mapCharArr(game.getBoard());
+            System.out.println(result);
             dbItem.setBoard(result);
             dbItem.setPlayer1(IUserEntityMapper.INSTANCE.toEntity(game.getPlayer1()));
             dbItem.setPlayer2(IUserEntityMapper.INSTANCE.toEntity(game.getPlayer2()));
@@ -101,17 +102,15 @@ public class GameEntityService implements IGameRepository {
      * @return string of the result
      */
     public String mapCharArr (char [][] board){
-        String result = "";
+        StringBuilder result = new StringBuilder();
 
         for (int i=0; i<3; i++){
             for (int j=0; j<3; j++){
-                if(i==2 && j==2){
-                    result += board[i][j];
-                }
+                result.append(board[i][j]);
             }
         }
 
-        return result;
+        return result.toString();
     }
 
     @Override
@@ -120,8 +119,6 @@ public class GameEntityService implements IGameRepository {
         if (found == null) {
             return null;
         }
-
-        System.out.println("FOUND: " + found);
 
         return IGameEntityMapper.INSTANCE.toDomain(found);
     }

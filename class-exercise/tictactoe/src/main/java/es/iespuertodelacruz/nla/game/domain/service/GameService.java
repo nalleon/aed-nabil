@@ -67,6 +67,10 @@ public class GameService implements IGameService {
     public Game play(int id, String playername, int posX, int posY) {
         Game gameFound = repository.findById(id);
 
+        if(gameFound.isFinished()){
+            return null;
+        }
+
         if(gameFound.getPlayer2() == null){
             return null;
         }

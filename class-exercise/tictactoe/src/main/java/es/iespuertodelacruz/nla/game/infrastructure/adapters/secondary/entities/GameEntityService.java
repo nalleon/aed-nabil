@@ -37,7 +37,6 @@ public class GameEntityService implements IGameRepository {
             entity.setPlayer1(IUserEntityMapper.INSTANCE.toEntity(game.getPlayer1()));
             entity.setPlayer2(null);
             entity.setFinished(false);
-            System.out.println(entity);
             GameEntity savedEntity = repository.save(entity);
             return IGameEntityMapper.INSTANCE.toDomain(savedEntity);
         } catch (RuntimeException e){
@@ -56,6 +55,7 @@ public class GameEntityService implements IGameRepository {
         GameEntity entityFound = repository.findById(id).orElse(null);
 
         if (entityFound != null){
+            System.out.println(IGameEntityMapper.INSTANCE.toDomain(entityFound));
             return IGameEntityMapper.INSTANCE.toDomain(entityFound);
         }
         return null;

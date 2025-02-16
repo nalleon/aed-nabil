@@ -1,10 +1,9 @@
 package es.iespuertodelacruz.nla.game.infrastructure.adapters.secondary.entities;
 
 import es.iespuertodelacruz.nla.game.domain.Game;
+import es.iespuertodelacruz.nla.user.domain.User;
 import es.iespuertodelacruz.nla.user.infrastructure.adapters.secondary.entities.IUserEntityMapper;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -15,6 +14,7 @@ import java.util.List;
 @Mapper(uses = {IUserEntityMapper.class})
 public interface IGameEntityMapper {
     IGameEntityMapper INSTANCE = Mappers.getMapper(IGameEntityMapper.class);
+
 
     @Mapping(source = "board", target = "board", qualifiedByName = "mapBoardToDomain")
     Game toDomain(GameEntity entity);
@@ -60,5 +60,30 @@ public interface IGameEntityMapper {
             }
         }
         return result.toString();
+    }
+
+    @AfterMapping
+    default void setTurn(@MappingTarget Game game, GameEntity entity) {
+        game.setCurrentTurn(determineTurn(game));
+    }
+
+    private User determineTurn(Game game) {
+        if (game == null || game.getBoard() == null) {
+            return null;
+        }
+        int counterPlayer1 = 0;
+        int counterPlayer2 = 0;
+
+        for (char[] row : game.getBoard()) {
+            for (char cell : row) {
+                if (cell == 'x') {
+                    counterPlayer1++;
+                }  else if (cell == 'o'){
+                    counterPlayer2++;
+                }
+            }
+        }
+
+        return (counterPlayer1 <= counterPlayer2) ? game.getPlayer1() : game.getPlayer2();
     }
 }

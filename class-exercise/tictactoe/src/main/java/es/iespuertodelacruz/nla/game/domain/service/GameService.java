@@ -25,6 +25,7 @@ public class GameService implements IGameService {
     public Game add(User player1) {
         Game game = new Game();
         game.setPlayer1(player1);
+        game.setCurrentTurn(player1);
         return repository.save(game);
     }
 
@@ -45,7 +46,7 @@ public class GameService implements IGameService {
 
     @Override
     public Game update(User player1, User player2, char[][] board, boolean finished) {
-        Game aux = new Game(player1, player2, board, finished);
+        Game aux = new Game(player1, player2, board, finished, player1);
         return repository.update(aux);
     }
 
@@ -65,7 +66,17 @@ public class GameService implements IGameService {
     @Override
     public Game play(int id, String playername, int posX, int posY) {
         Game gameFound = repository.findById(id);
+
+        if(gameFound.getPlayer2() == null){
+            return null;
+        }
+
         User userFound = userRepository.findByUserame(playername);
+
+        if(!gameFound.getCurrentTurn().equals(userFound)){
+            return null;
+        }
+
         char symbol = 'o';
 
         if(gameFound.getPlayer1().equals(userFound)){
@@ -73,7 +84,9 @@ public class GameService implements IGameService {
         }
 
 
-        return repository.play(gameFound, userFound, posX, posY,  symbol);
+        Game gameAfterPlay = repository.play(gameFound, userFound, posX, posY,  symbol);
+
+        return gameAfterPlay;
     }
 
 

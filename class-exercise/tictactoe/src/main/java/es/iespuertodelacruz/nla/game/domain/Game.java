@@ -12,17 +12,20 @@ public class Game {
     private User player2;
     private char[][] board;
     private boolean finished;
+    private User currentTurn;
+
     /**
      * Default constructor of the class
      */
     public Game() {
     }
 
-    public Game(User player1, User player2, char[][] board, boolean finished) {
+    public Game(User player1, User player2, char[][] board, boolean finished, User currentTurn) {
         this.player1 = player1;
         this.player2 = player2;
         this.board = board;
         this.finished = finished;
+        this.currentTurn = switchTurn(this);
     }
 
     /**
@@ -69,14 +72,23 @@ public class Game {
         this.finished = finished;
     }
 
+    public User getCurrentTurn() {
+        return currentTurn;
+    }
+
+    public void setCurrentTurn(User currentTurn) {
+        this.currentTurn = currentTurn;
+    }
+
     @Override
     public String toString() {
         return "Game{" +
-                "Id=" + id +
+                "id=" + id +
                 ", player1=" + player1 +
                 ", player2=" + player2 +
                 ", board=" + Arrays.toString(board) +
                 ", finished=" + finished +
+                ", currentTurn=" + currentTurn +
                 '}';
     }
 
@@ -90,6 +102,24 @@ public class Game {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
+    }
+
+
+    public User switchTurn(Game game) {
+        int counterPlayer1 = 0;
+        int counterPlayer2 = 0;
+
+        for (char[] row : game.getBoard()) {
+            for (char cell : row) {
+                if (cell == 'x') {
+                    counterPlayer1++;
+                }  else if (cell == 'o'){
+                    counterPlayer2++;
+                }
+            }
+        }
+
+        return (counterPlayer1 <= counterPlayer2) ? game.getPlayer1() : game.getPlayer2();
     }
 
     //TODO: add check win, check positions
@@ -124,6 +154,28 @@ public class Game {
             case 2 -> board[posX][posY] == value && board[posX - 1][posY] == value && board[posX - 2][posY] == value;
             default -> false;
         };
+    }
+
+    public boolean hasLine (int posX, int posY){
+        char value  = board[posX][posY];
+
+        if(value == '_'){
+            return false;
+        }
+
+        if(checkDiagonal(value)){
+            return true;
+        }
+
+        if(checkHorizontal(posX,posY,value)){
+            return true;
+        }
+
+        if(checkVertical(posX,posY,value)){
+            return true;
+        }
+
+        return false;
     }
 
 }

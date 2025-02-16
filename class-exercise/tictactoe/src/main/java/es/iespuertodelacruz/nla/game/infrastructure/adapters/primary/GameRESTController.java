@@ -69,12 +69,6 @@ public class GameRESTController {
         Game dbItem = gameService.findOpenGame();
         User aux = userService.findByUsername(userDTO.name());
 
-        System.out.println("_________________________________");
-        System.out.println(aux);
-        System.out.println(dbItem);
-        System.out.println("_________________________________");
-
-
         if (dbItem != null) {
             System.out.println("JOIN");
             dbItem.setPlayer2(aux);
@@ -93,6 +87,11 @@ public class GameRESTController {
     public ResponseEntity<?> play(@RequestParam int id, @RequestBody GamePlayDTO dto) {
 
         Game dbItem = gameService.play(id, dto.playername(), dto.posX(), dto.posY());
+
+        if(dbItem == null){
+            return ResponseEntity.ok(new ApiResponse<>(403, "Forbidden action",
+                    null));
+        }
 
         GameDTO result = new GameDTO(dbItem.getPlayer1().getName(), dbItem.getPlayer2().getName(), dbItem.getBoard(), dbItem.isFinished());
 

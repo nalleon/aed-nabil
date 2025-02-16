@@ -31,10 +31,11 @@ public class JwtService {
      * @param role to add to the claims
      * @return the token created
      */
-    public String generateToken(String username, String role) {
+    public String generateToken(String username, String role, int verified) {
         return JWT.create()
                 .withSubject(username)
                 .withClaim("role", role)
+                .withClaim("verified", verified)
                 .withExpiresAt(new Date(System.currentTimeMillis() + expiration))
                 .sign(Algorithm.HMAC256(secret));
     }
@@ -53,6 +54,7 @@ public class JwtService {
         Map<String,String> infoToken = new HashMap<String,String>();
         infoToken.put("username", claims.get("sub").asString());
         infoToken.put("role", claims.get("role").asString());
+        infoToken.put("verified", String.valueOf(claims.get("verified").asInt()));
 
         System.out.println(infoToken);
         return infoToken;

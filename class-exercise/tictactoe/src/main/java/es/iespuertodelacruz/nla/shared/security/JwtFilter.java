@@ -65,8 +65,16 @@ public class JwtFilter extends OncePerRequestFilter {
 
                 final String role = mapInfoToken.get("role");
 
-                CustomUserDetails userDetails = new CustomUserDetails(username, role);
+                final String verified = mapInfoToken.get("verified");
 
+                System.out.println("verified: " + verified);
+                if ("0".equals(verified)) {
+                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                    response.getWriter().write("Account not verified yet");
+                    return;
+                }
+
+                CustomUserDetails userDetails = new CustomUserDetails(username, role);
 
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails,

@@ -107,8 +107,6 @@ public class GameEntityService implements IGameRepository {
             for (int j=0; j<3; j++){
                 if(i==2 && j==2){
                     result += board[i][j];
-                } else {
-                    result += board[i][j] + ",";
                 }
             }
         }

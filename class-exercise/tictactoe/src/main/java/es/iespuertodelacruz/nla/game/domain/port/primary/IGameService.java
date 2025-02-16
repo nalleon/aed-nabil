@@ -10,7 +10,7 @@ public interface IGameService {
     Game findById(Integer id);
     List<Game> findAll();
     boolean delete(Integer id);
-    Game update(User play1, User player2, char[][] board, boolean finished);
+    Game update(int id, User play1, User player2, char[][] board, boolean finished);
     Game findOpenGame();
     Game joinGame(int id, User player2);
 

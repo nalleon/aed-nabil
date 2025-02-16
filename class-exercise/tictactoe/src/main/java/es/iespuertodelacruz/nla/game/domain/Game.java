@@ -20,7 +20,19 @@ public class Game {
     public Game() {
     }
 
-    public Game(User player1, User player2, char[][] board, boolean finished, User currentTurn) {
+
+
+    public Game(User player1, User player2, char[][] board, boolean finished) {
+        this.player1 = player1;
+        this.player2 = player2;
+        this.board = board;
+        this.finished = finished;
+        this.currentTurn = switchTurn(this);
+    }
+
+
+    public Game(int id, User player1, User player2, char[][] board, boolean finished) {
+        this.id = id;
         this.player1 = player1;
         this.player2 = player2;
         this.board = board;

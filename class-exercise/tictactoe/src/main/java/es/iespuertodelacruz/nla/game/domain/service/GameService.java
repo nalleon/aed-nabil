@@ -83,10 +83,21 @@ public class GameService implements IGameService {
             symbol = 'x';
         }
 
+        Game afterPlay = repository.play(gameFound, userFound, posX, posY,  symbol);
 
-        Game gameAfterPlay = repository.play(gameFound, userFound, posX, posY,  symbol);
+        if (afterPlay == null){
+            return null;
+        }
 
-        return gameAfterPlay;
+        boolean result = afterPlay.hasLine(afterPlay.getBoard(), posX, posY);
+
+        if (result){
+           afterPlay.setFinished(true);
+           return repository.update(afterPlay);
+        } else {
+            return afterPlay;
+        }
+
     }
 
 

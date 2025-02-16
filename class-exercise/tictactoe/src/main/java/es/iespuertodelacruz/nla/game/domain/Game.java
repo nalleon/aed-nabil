@@ -125,7 +125,7 @@ public class Game {
     //TODO: add check win, check positions
 
 
-    public boolean checkDiagonal (char value) {
+    public boolean checkDiagonal (char[][] board, char value) {
         if(board[0][0] == value && board[1][1] == value && board[2][2] == value){
             return true;
         } else if(board[2][0] == value && board[1][1] == value && board[0][2]== value){
@@ -136,7 +136,7 @@ public class Game {
 
 
 
-    public boolean checkVertical (int posX, int posY, char value) {
+    public boolean checkVertical (char[][] board, int posX, int posY, char value) {
         return switch (posY) {
             case 0 -> board[posX][posY] == value && board[posX][posY + 1] == value && board[posX][posY + 2] == value;
             case 1 -> board[posX][posY] == value && board[posX][posY + 1] == value && board[posX][posY - 1] == value;
@@ -147,7 +147,7 @@ public class Game {
     }
 
 
-    public boolean checkHorizontal (int posX, int posY, char value) {
+    public boolean checkHorizontal (char[][] board,int posX, int posY, char value) {
         return switch (posX) {
             case 0 -> board[posX][posY] == value && board[posX + 1][posY] == value && board[posX + 2][posY] == value;
             case 1 -> board[posX][posY] == value && board[posX + 1][posY] == value && board[posX - 1][posY] == value;
@@ -156,22 +156,22 @@ public class Game {
         };
     }
 
-    public boolean hasLine (int posX, int posY){
+    public boolean hasLine (char[][] board, int posX, int posY){
         char value  = board[posX][posY];
 
         if(value == '_'){
             return false;
         }
 
-        if(checkDiagonal(value)){
+        if(checkDiagonal(board,value)){
             return true;
         }
 
-        if(checkHorizontal(posX,posY,value)){
+        if(checkHorizontal(board,posX,posY,value)){
             return true;
         }
 
-        if(checkVertical(posX,posY,value)){
+        if(checkVertical(board,posX,posY,value)){
             return true;
         }
 

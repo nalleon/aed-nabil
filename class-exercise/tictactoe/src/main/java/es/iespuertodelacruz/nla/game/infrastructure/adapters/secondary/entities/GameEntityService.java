@@ -85,6 +85,7 @@ public class GameEntityService implements IGameRepository {
         try {
             String result = mapCharArr(game.getBoard());
             dbItem.setBoard(result);
+            dbItem.setPlayer1(IUserEntityMapper.INSTANCE.toEntity(game.getPlayer1()));
             dbItem.setPlayer2(IUserEntityMapper.INSTANCE.toEntity(game.getPlayer2()));
             dbItem.setFinished(game.isFinished());
             return IGameEntityMapper.INSTANCE.toDomain(dbItem);
@@ -157,6 +158,10 @@ public class GameEntityService implements IGameRepository {
         }
 
         char[][] auxBoard = game.getBoard();
+
+        if(auxBoard[posX][posY] != '_'){
+            return null;
+        }
 
         auxBoard[posX][posY] = symbol;
 

@@ -84,8 +84,7 @@ public class GameRESTController {
 
 
     @PostMapping("/bet/{id}")
-    public ResponseEntity<?> play(@RequestParam int id, @RequestBody GamePlayDTO dto) {
-
+    public ResponseEntity<?> bet(@RequestParam int id, @RequestBody GamePlayDTO dto) {
         Game dbItem = gameService.play(id, dto.playername(), dto.posX(), dto.posY());
 
         if(dbItem == null){
@@ -95,30 +94,16 @@ public class GameRESTController {
 
         GameDTO result = new GameDTO(dbItem.getPlayer1().getName(), dbItem.getPlayer2().getName(), dbItem.getBoard(), dbItem.isFinished());
 
-        return ResponseEntity.ok(new ApiResponse<>(200, "Played at (" + dto.posX() +", " + dto.posY()+")",
-                result));
+        String message = dto.playername() + " played at (" + dto.posX() +", " + dto.posY()+")";
+
+        if(result.finished()){
+            message = "Game finished with victory for: ";
+            if(dbItem.getCurrentTurn() != dbItem.getPlayer1()){
+                message += dbItem.getPlayer1().getName();
+            }
+            message += dbItem.getPlayer2().getName();
+        }
+
+        return ResponseEntity.ok(new ApiResponse<>(200, message, result));
     }
-
-
-//
-//    @PostMapping("/{id}")
-//    public ResponseEntity<?> joinSelectedGame(@RequestParam Integer id, @RequestBody UserJoinDTO userDTO) {
-//        Game dbItem = gameService.findById(id);
-//        User aux = userService.findByUsername(userDTO.name());
-//
-//        System.out.println(dbItem);
-//
-//        if (dbItem != null) {
-//            System.out.println("JOIN");
-//            dbItem.setPlayer2(aux);
-//            Game joinedGame = gameService.joinGame(dbItem);
-//            return ResponseEntity.ok(new ApiResponse<>(204, "Joined game with id: " + joinedGame.getId(),
-//                    null));
-//        } else {
-//            Game game = gameService.add(aux);
-//            return ResponseEntity.ok(new ApiResponse<>(200, "Game with id: " +id+ " not found. " +
-//                    "Created new game with id: " + game.getId(),
-//                    null));
-//        }
-//    }
 }

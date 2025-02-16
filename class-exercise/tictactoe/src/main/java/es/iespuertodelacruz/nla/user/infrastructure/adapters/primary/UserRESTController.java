@@ -7,6 +7,7 @@ import es.iespuertodelacruz.nla.user.domain.port.primary.IUserService;
 import es.iespuertodelacruz.nla.user.infrastructure.adapters.primary.dto.UserOutputDTO;
 import es.iespuertodelacruz.nla.user.infrastructure.adapters.primary.dto.UserRegisterDTO;
 import es.iespuertodelacruz.nla.user.infrastructure.adapters.primary.dto.UserUpdateInputDTO;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/v3/users")
+@Tag(name="v3", description = "For administrators")
 public class UserRESTController {
 
 

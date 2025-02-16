@@ -8,6 +8,7 @@ import es.iespuertodelacruz.nla.user.domain.User;
 import es.iespuertodelacruz.nla.user.domain.port.primary.IUserService;
 import es.iespuertodelacruz.nla.user.infrastructure.adapters.primary.dto.UserLoginDTO;
 import es.iespuertodelacruz.nla.user.infrastructure.adapters.primary.dto.UserRegisterDTO;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/v1/auth")
+@Tag(name="v1", description = "For authentication")
 public class AuthRESTController {
     /**
      * Properties

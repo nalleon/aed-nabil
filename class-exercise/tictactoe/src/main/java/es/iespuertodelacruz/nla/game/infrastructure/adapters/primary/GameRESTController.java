@@ -51,7 +51,7 @@ public class GameRESTController {
     @GetMapping
     public ResponseEntity<?> getAll() {
         List<GameDTO> filteredList = gameService.findAll().stream().map(game ->
-                new GameDTO(game.getPlayer1(), game.getPlayer2(), game.getBoard(), game.isFinished())).collect(Collectors.toList());
+                new GameDTO(game.getPlayer1().getName(), game.getPlayer2().getName(), game.getBoard(), game.isFinished())).collect(Collectors.toList());
 
         if (filteredList.isEmpty()) {
             String message = "There are no games";
@@ -94,7 +94,7 @@ public class GameRESTController {
 
         Game dbItem = gameService.play(id, dto.playername(), dto.posX(), dto.posY());
 
-        GameDTO result = new GameDTO(dbItem.getPlayer1(), dbItem.getPlayer2(), dbItem.getBoard(), dbItem.isFinished());
+        GameDTO result = new GameDTO(dbItem.getPlayer1().getName(), dbItem.getPlayer2().getName(), dbItem.getBoard(), dbItem.isFinished());
 
         return ResponseEntity.ok(new ApiResponse<>(200, "Played at (" + dto.posX() +", " + dto.posY()+")",
                 result));

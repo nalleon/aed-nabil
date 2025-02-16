@@ -93,4 +93,44 @@ public class Game {
     }
 
     //TODO: add check win, check positions
+
+
+    public boolean checkDiagonal (char value) {
+        if(board[0][0] == value && board[1][1] == value && board[2][2] == value){
+            return true;
+        } else if(board[2][0] == value && board[1][1] == value && board[0][2]== value){
+            return true;
+        }
+        return false;
+    }
+
+
+
+    public boolean checkVertical (int posX, int posY, char value) {
+        switch (posY){
+            case 0:
+                return board[posX][posY] == value && board[posX][posY + 1] == value && board[posX][posY + 2] == value;
+            case 1:
+                return board[posX][posY] == value && board[posX][posY + 1] == value && board[posX][posY - 1] == value;
+            case 2:
+                return board[posX][posY] == value && board[posX][posY - 1] == value && board[posX][posY - 2] == value;
+        }
+
+        return false;
+    }
+
+
+    public boolean checkHorizontal (int posX, int posY, char value) {
+        switch (posY){
+            case 0:
+                return board[posX][posY] == value && board[posX][posY + 1] == value && board[posX][posY + 2] == value;
+            case 1:
+                return board[posX][posY] == value && board[posX][posY + 1] == value && board[posX][posY - 1] == value;
+            case 2:
+                return board[posX][posY] == value && board[posX][posY - 1] == value && board[posX][posY - 2] == value;
+        }
+
+        return false;
+    }
+
 }

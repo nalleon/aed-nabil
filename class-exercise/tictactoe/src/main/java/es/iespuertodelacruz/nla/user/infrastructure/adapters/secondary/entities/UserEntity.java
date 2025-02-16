@@ -49,6 +49,9 @@ public class UserEntity {
     @Convert(converter = DateToLongConverter.class)
     private Date creationDate;
 
+    @Column(nullable=true, length=255, name = "foto_perfil")
+    private String profilePicture;
+
     @OneToMany(mappedBy="player1")
     private List<GameEntity> games1;
 
@@ -120,6 +123,14 @@ public class UserEntity {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
 
     @Override

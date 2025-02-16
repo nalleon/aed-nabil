@@ -8,6 +8,7 @@ CREATE TABLE `usuarios` (
     verificado TINYINT(1) DEFAULT 0,
     token_verificacion CHAR(255),
     fecha_creacion BIGINT NOT NULL,
+    foto_perfil CHAR(255) NULL,
     CONSTRAINT pk_usuarios PRIMARY KEY(id)
 );
 
@@ -18,7 +19,8 @@ INSERT INTO `usuarios` (
         `rol`,
         `verificado`,
         `token_verificacion`,
-        `fecha_creacion`
+        `fecha_creacion`,
+        `foto_perfil`
     )
 VALUES (
         'root',
@@ -27,7 +29,8 @@ VALUES (
         'ROLE_ADMIN',
         1,
         'readumineko',
-        UNIX_TIMESTAMP()
+        UNIX_TIMESTAMP(),
+        NULL
     );
 
 INSERT INTO `usuarios` (
@@ -37,7 +40,8 @@ INSERT INTO `usuarios` (
         `rol`,
         `verificado`,
         `token_verificacion`,
-        `fecha_creacion`
+        `fecha_creacion`,
+        `foto_perfil`
     )
 VALUES (
         'nalleon',
@@ -46,7 +50,8 @@ VALUES (
         'ROLE_USER',
         1,
         'ef34fd1b-c8da-4397-9d7e-06b554a2d617',
-        UNIX_TIMESTAMP()
+        UNIX_TIMESTAMP(),
+        NULL
     );
 
 

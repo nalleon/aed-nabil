@@ -103,4 +103,9 @@ public class UserDocumentService implements IUserRepository {
         }
 
     }
+
+    @Override
+    public User updatePicture(User user) {
+        return null;
+    }
 }

@@ -12,4 +12,5 @@ public interface IUserRepository {
     User findByEmail(String email);
     boolean delete(Integer id);
     User update(User user);
+    User updatePicture(User user);
 }

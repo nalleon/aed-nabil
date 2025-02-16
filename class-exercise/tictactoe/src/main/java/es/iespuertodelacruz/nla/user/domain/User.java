@@ -20,6 +20,8 @@ public class User implements Serializable {
 
     private Date creationDate;
 
+    private String profilePicture;
+
     /**
      * Default copnstructor of the class
      */
@@ -43,6 +45,14 @@ public class User implements Serializable {
         this.password = password;
         this.email = email;
         this.verified = verified;
+    }
+
+
+    public User(String name, String email, String password, String profilePicture) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.profilePicture = profilePicture;
     }
 
     /**
@@ -100,16 +110,12 @@ public class User implements Serializable {
         return verificationToken;
     }
 
-    public void setVerificationToken(String verificationToken) {
-        this.verificationToken = verificationToken;
+    public String getProfilePicture() {
+        return profilePicture;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
 
     @Override
@@ -123,6 +129,7 @@ public class User implements Serializable {
                 ", verified=" + verified +
                 ", verificationToken='" + verificationToken + '\'' +
                 ", creationDate=" + creationDate +
+                ", profilePicture='" + profilePicture + '\'' +
                 '}';
     }
 

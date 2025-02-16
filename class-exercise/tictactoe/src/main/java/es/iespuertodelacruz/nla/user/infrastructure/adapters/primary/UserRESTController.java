@@ -1,6 +1,7 @@
 package es.iespuertodelacruz.nla.user.infrastructure.adapters.primary;
 
 import es.iespuertodelacruz.nla.shared.utils.ApiResponse;
+import es.iespuertodelacruz.nla.shared.utils.FileStorageService;
 import es.iespuertodelacruz.nla.user.domain.User;
 import es.iespuertodelacruz.nla.user.domain.port.primary.IUserService;
 import es.iespuertodelacruz.nla.user.infrastructure.adapters.primary.dto.UserOutputDTO;
@@ -8,10 +9,12 @@ import es.iespuertodelacruz.nla.user.infrastructure.adapters.primary.dto.UserReg
 import es.iespuertodelacruz.nla.user.infrastructure.adapters.primary.dto.UserUpdateInputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
@@ -29,6 +32,8 @@ public class UserRESTController {
      */
     private IUserService service;
 
+    private FileStorageService storageService;
+
     private PasswordEncoder passwordEncoder;
 
     /**
@@ -40,7 +45,16 @@ public class UserRESTController {
         this.service = service;
     }
 
-     /**
+    /**
+     * Setters of the user service
+     * @param storageService of the user
+     */
+    @Autowired
+    public void setStorageService(FileStorageService storageService) {
+        this.storageService = storageService;
+    }
+
+    /**
      * Setters of the user service
      * @param passwordEncoder of the role
      */
@@ -157,5 +171,27 @@ public class UserRESTController {
                     .body(new ApiResponse<>(500, message, null));
         }
 
+    }
+
+
+    @PostMapping(value = "/upload/{username}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> uploadFile(@RequestParam("username") String username, @RequestParam("file") MultipartFile file) {
+        String message = "";
+        try {
+            String namefile = storageService.save(file);
+            message = "" + namefile;
+
+            User aux = service.findByUsername(username);
+
+            aux.setProfilePicture(namefile);
+
+            User result = service.updatePicture(aux.getName(), aux.getEmail(), aux.getPassword(), aux.getProfilePicture());
+
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, message, result));
+        } catch (Exception e) {
+            message = "Could not upload the file: " + file.getOriginalFilename()
+                    + ". Error: " + e.getMessage();
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ApiResponse<>(417, message, null));
+        }
     }
 }

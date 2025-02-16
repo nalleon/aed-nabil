@@ -55,4 +55,10 @@ public class UserService implements IUserService {
         User aux = new User(name, password, email, verify);
         return repository.update(aux);
     }
+
+    @Override
+    public User updatePicture(String name, String email, String password, String picture) {
+        User aux = new User(name, email, password, picture);
+        return repository.updatePicture(aux);
+    }
 }

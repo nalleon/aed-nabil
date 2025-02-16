@@ -114,4 +114,34 @@ public class UserEntityService implements IUserRepository {
         }
 
     }
+
+    @Override
+    @Transactional
+    public User updatePicture(User user) {
+        if(user == null ){
+            return null;
+        }
+
+        UserEntity dbItem = repository.findUserByName(user.getName()).orElse(null);
+
+        System.out.println(dbItem);
+
+        if (dbItem == null){
+            return null;
+        }
+
+        try {
+            dbItem.setProfilePicture(user.getProfilePicture());
+            System.out.println("__________________________________________________________");
+            System.out.println(dbItem);
+            System.out.println(IUserEntityMapper.INSTANCE.toDomain(dbItem));
+            System.out.println("__________________________________________________________");
+
+            UserEntity result = repository.save(dbItem);
+            return IUserEntityMapper.INSTANCE.toDomain(result);
+        }  catch (RuntimeException e){
+            throw new RuntimeException("Invalid data");
+        }
+
+    }
 }

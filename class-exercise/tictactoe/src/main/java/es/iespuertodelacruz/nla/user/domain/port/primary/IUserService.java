@@ -14,5 +14,5 @@ public interface IUserService {
     boolean delete(Integer id);
     User update(String name, String email, String password);
     User updateVerify(String name, String email, String password, int verify);
-
+    User updatePicture(String name, String email, String password, String picture);
 }

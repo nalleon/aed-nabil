@@ -107,30 +107,23 @@ public class Game {
 
 
     public boolean checkVertical (int posX, int posY, char value) {
-        switch (posY){
-            case 0:
-                return board[posX][posY] == value && board[posX][posY + 1] == value && board[posX][posY + 2] == value;
-            case 1:
-                return board[posX][posY] == value && board[posX][posY + 1] == value && board[posX][posY - 1] == value;
-            case 2:
-                return board[posX][posY] == value && board[posX][posY - 1] == value && board[posX][posY - 2] == value;
-        }
+        return switch (posY) {
+            case 0 -> board[posX][posY] == value && board[posX][posY + 1] == value && board[posX][posY + 2] == value;
+            case 1 -> board[posX][posY] == value && board[posX][posY + 1] == value && board[posX][posY - 1] == value;
+            case 2 -> board[posX][posY] == value && board[posX][posY - 1] == value && board[posX][posY - 2] == value;
+            default -> false;
+        };
 
-        return false;
     }
 
 
     public boolean checkHorizontal (int posX, int posY, char value) {
-        switch (posY){
-            case 0:
-                return board[posX][posY] == value && board[posX][posY + 1] == value && board[posX][posY + 2] == value;
-            case 1:
-                return board[posX][posY] == value && board[posX][posY + 1] == value && board[posX][posY - 1] == value;
-            case 2:
-                return board[posX][posY] == value && board[posX][posY - 1] == value && board[posX][posY - 2] == value;
-        }
-
-        return false;
+        return switch (posX) {
+            case 0 -> board[posX][posY] == value && board[posX + 1][posY] == value && board[posX + 2][posY] == value;
+            case 1 -> board[posX][posY] == value && board[posX + 1][posY] == value && board[posX - 1][posY] == value;
+            case 2 -> board[posX][posY] == value && board[posX - 1][posY] == value && board[posX - 2][posY] == value;
+            default -> false;
+        };
     }
 
 }

@@ -17,8 +17,7 @@ public class UserDocument {
 
     @Id
     @Field(name = "id")
-    private int Id;
-
+    private int id;
 
     @Field(name = "nombre")
     private String name;
@@ -51,13 +50,12 @@ public class UserDocument {
      * Getters and setters
      */
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
-
 
     public String getName() {
         return name;
@@ -126,7 +124,7 @@ public class UserDocument {
     @Override
     public String toString() {
         return "UserDocument{" +
-                "Id=" + Id +
+                "Id=" + id +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
@@ -147,11 +145,11 @@ public class UserDocument {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         UserDocument that = (UserDocument) o;
-        return Objects.equals(Id, that.Id) && Objects.equals(name, that.name) && Objects.equals(email, that.email);
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(email, that.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Id, name, email);
+        return Objects.hash(id, name, email);
     }
 }

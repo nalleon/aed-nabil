@@ -53,7 +53,8 @@ public class GameRESTControllerV3 {
     @GetMapping
     public ResponseEntity<?> getAll() {
         List<GameDTO> filteredList = gameService.findAll().stream().map(game ->
-                new GameDTO(game.getPlayer1().getName(), game.getPlayer2().getName(), game.getBoard(), game.isFinished())).collect(Collectors.toList());
+                new GameDTO(game.getPlayer1().getName(), game.getPlayer2().getName(), game.getBoard(),
+                        game.isFinished(), game.getCurrentTurn().getName())).collect(Collectors.toList());
 
         if (filteredList.isEmpty()) {
             String message = "There are no games";

@@ -12,7 +12,8 @@ public record GameDTO(
         String player1,
         String player2,
         char[][] board,
-        boolean finished
+        boolean finished,
+        String turnPlayer
 ) implements Serializable {
 
 }

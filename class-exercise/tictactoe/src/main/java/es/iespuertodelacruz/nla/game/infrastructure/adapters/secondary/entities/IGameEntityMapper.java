@@ -6,6 +6,7 @@ import es.iespuertodelacruz.nla.user.infrastructure.adapters.secondary.entities.
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**

@@ -61,7 +61,7 @@ public class GameRESTController extends AuthCheck {
     @GetMapping
     public ResponseEntity<?> getAll() {
         List<GameDTO> filteredList = gameService.findAll().stream().map(game ->
-                new GameDTO(game.getPlayer1().getName(), game.getPlayer2().getName(), game.getBoard(), game.isFinished())).collect(Collectors.toList());
+                new GameDTO(game.getPlayer1().getName(), game.getPlayer2().getName(), game.getBoard(), game.isFinished(), game.getCurrentTurn().getName())).collect(Collectors.toList());
 
         if (filteredList.isEmpty()) {
             String message = "There are no games";
@@ -77,15 +77,15 @@ public class GameRESTController extends AuthCheck {
     public ResponseEntity<?> checkForOpponent(@PathVariable int id, UserJoinDTO userDTO) {
         Game dbItem = gameService.findById(id);
 
-        if (dbItem != null){
+        if (dbItem != null && !dbItem.isFinished()){
             if(dbItem.getPlayer1().getName().equals(userDTO.name()) && dbItem.getPlayer2() != null){
                 GameDTO result = new GameDTO(dbItem.getPlayer1().getName(), dbItem.getPlayer2().getName(), dbItem.getBoard(),
-                        dbItem.isFinished());
+                        dbItem.isFinished(), dbItem.getCurrentTurn().getName());
                 return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200,
                         "Opponent found with id: " + dbItem.getPlayer2().getId(), result));
             } else if (dbItem.getPlayer2().getName().equals(userDTO.name())){
                 GameDTO result = new GameDTO(dbItem.getPlayer1().getName(), dbItem.getPlayer2().getName(), dbItem.getBoard(),
-                        dbItem.isFinished());
+                        dbItem.isFinished(), dbItem.getCurrentTurn().getName());
                 return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200,
                         "Opponent found with id: " + dbItem.getPlayer2().getId(), result));
             } else {
@@ -95,7 +95,7 @@ public class GameRESTController extends AuthCheck {
         }
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new ApiResponse<>(204,
-                "Game NOT found", null ));
+                "Game NOT found or finished", null ));
     }
 
     @PostMapping
@@ -127,6 +127,28 @@ public class GameRESTController extends AuthCheck {
     }
 
 
+    @PostMapping("/abandonment/{id}")
+    public ResponseEntity<?> abandon(HttpServletRequest request, @PathVariable int id, @RequestBody UserJoinDTO userDTO) {
+
+        ResponseEntity<ApiResponse<?>> check = checkSameUserInRequest(request, userDTO.name());
+        if (check.getStatusCode() != HttpStatus.OK) {
+            return check;
+        }
+
+        Game dbItem = gameService.findById(id);
+
+        if (dbItem != null) {
+
+            Game updated = gameService.update(dbItem.getId(), dbItem.getPlayer1(),dbItem.getPlayer2(), dbItem.getBoard(), true);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(
+                    new ApiResponse<>(202, "The user " + userDTO.name() + " abandoned game with id: " + updated.getId(),
+                    null));
+        }
+
+
+        return ResponseEntity.ok(new ApiResponse<>(200, "Unable to abandon the game with id: " + id, null));
+
+    }
 
 
     @PostMapping("/bet/{id}")
@@ -149,7 +171,8 @@ public class GameRESTController extends AuthCheck {
         }
 
 
-        GameDTO result = new GameDTO(dbItem.getPlayer1().getName(), dbItem.getPlayer2().getName(), dbItem.getBoard(), dbItem.isFinished());
+        GameDTO result = new GameDTO(dbItem.getPlayer1().getName(), dbItem.getPlayer2().getName(), dbItem.getBoard(), dbItem.isFinished(),
+                dbItem.getCurrentTurn().getName());
 
         String message = dto.playername() + " played at (" + dto.posX() +", " + dto.posY()+")";
 

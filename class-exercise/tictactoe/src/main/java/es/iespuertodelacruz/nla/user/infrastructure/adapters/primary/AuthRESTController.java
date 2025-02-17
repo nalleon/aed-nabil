@@ -30,12 +30,6 @@ public class AuthRESTController {
     @Autowired
     private AuthService authService;
 
-
-    /**
-     * Funcion para hacer login
-     * @param loginDTO usuario pàra hacerlo
-     * @return el token si todo va bien, RunTimeException si no
-     */
     @PostMapping("/login")
     public String login(@RequestBody UserLoginDTO loginDTO ) {
         String token = authService.authenticate(loginDTO.name(), loginDTO.password());
@@ -47,11 +41,6 @@ public class AuthRESTController {
         return token;
     }
 
-    /**
-     * Funcion para registrarse
-     * @param registerDTO usuario para hacerlo
-     * @return mensaje de que el correo de verificacion llegará
-     */
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UserRegisterDTO registerDTO ) {
 
@@ -71,11 +60,6 @@ public class AuthRESTController {
                 .body(new ApiResponse<>(201, "En breves momentos, le llegara un correo de verificacion",
                         null));}
 
-    /**
-     * Funcion para confirmar y validar un usuario a traves de su correo electronico
-     * @param email del usuario
-     * @param token del usuario
-     */
     @GetMapping("/confirmation")
     public ResponseEntity<?> confirmation (@RequestParam String email, @RequestParam String token){
         User authUser = service.findByEmail(email);

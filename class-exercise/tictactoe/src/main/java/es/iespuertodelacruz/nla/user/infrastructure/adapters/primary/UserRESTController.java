@@ -21,6 +21,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.io.IOException;
+import java.net.URLConnection;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import org.springframework.core.io.Resource;
 
 @RestController
 @CrossOrigin
@@ -195,5 +204,33 @@ public class UserRESTController {
                     + ". Error: " + e.getMessage();
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ApiResponse<>(417, message, null));
         }
+    }
+
+    @GetMapping("/img/{filename}")
+    public ResponseEntity<?> getFiles(@PathVariable String filename) {
+        Resource resource = storageService.get(filename);
+
+        String contentType = null;
+        try {
+            contentType = URLConnection.guessContentTypeFromStream(resource.getInputStream());
+        } catch (IOException ex) {
+            System.out.println("Could not determine file type.");
+        }
+
+        if (contentType == null) {
+            contentType = "application/octet-stream";
+        }
+        String headerValue = "attachment";
+        filename="" +
+                resource.getFilename() + "";
+        return ResponseEntity.
+                ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(
+                        org.springframework.http.HttpHeaders.
+                                CONTENT_DISPOSITION,
+                        headerValue
+                )
+                .body(resource);
     }
 }

@@ -134,8 +134,16 @@ public class Game {
         return (counterPlayer1 <= counterPlayer2) ? game.getPlayer1() : game.getPlayer2();
     }
 
-    //TODO: add check win, check positions
-
+    public boolean isBoardAvalaible(Game game){
+        for (char[] row : game.getBoard()) {
+            for (char cell : row) {
+                if (cell != '_') {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     public boolean checkDiagonal (char[][] board, char value) {
         if(board[0][0] == value && board[1][1] == value && board[2][2] == value){

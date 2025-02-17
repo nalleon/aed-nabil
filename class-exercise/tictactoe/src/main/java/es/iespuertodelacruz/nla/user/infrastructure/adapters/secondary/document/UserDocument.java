@@ -1,10 +1,10 @@
 package es.iespuertodelacruz.nla.user.infrastructure.adapters.secondary.document;
 
 import es.iespuertodelacruz.nla.shared.utils.DateToLongConverter;
-import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Date;
 import java.util.Objects;
@@ -16,39 +16,45 @@ import java.util.Objects;
 public class UserDocument {
 
     @Id
-    private String Id;
+    @Field(name = "id")
+    private int Id;
 
 
-    @Column(unique = true, nullable=false, length=45)
+    @Field(name = "nombre")
     private String name;
 
-    @Column(nullable=false, length=200)
+    @Field(name = "password")
     private String password;
 
-    @Column(unique = true, nullable=false, length=100)
+    @Field(name = "correo")
     private String email;
 
-    @Column(nullable=false, length=45)
+    @Field(name = "rol")
     private String role;
 
+    @Field(name = "verificado")
     private int verified;
 
-    @Column(length=255)
+    @Field(name = "token_verificacion")
     private String verificationToken;
 
-    @Column(nullable=false, length=45)
+    @Field(name = "fecha_creacion")
     @Convert(converter = DateToLongConverter.class)
     private Date creationDate;
 
+    @Field(name = "foto_perfil")
+    private String profilePicture;
+
+    public UserDocument() {}
 
     /**
      * Getters and setters
      */
-    public String getId() {
+    public int getId() {
         return Id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         Id = id;
     }
 
@@ -109,13 +115,18 @@ public class UserDocument {
         this.creationDate = creationDate;
     }
 
-    /**
-     * Tostring and equals
-     */
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
     @Override
     public String toString() {
         return "UserDocument{" +
-                "Id='" + Id + '\'' +
+                "Id=" + Id +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
@@ -123,8 +134,14 @@ public class UserDocument {
                 ", verified=" + verified +
                 ", verificationToken='" + verificationToken + '\'' +
                 ", creationDate=" + creationDate +
+                ", profilePicture='" + profilePicture + '\'' +
                 '}';
     }
+
+    /**
+     * Tostring and equals
+     */
+
 
     @Override
     public boolean equals(Object o) {

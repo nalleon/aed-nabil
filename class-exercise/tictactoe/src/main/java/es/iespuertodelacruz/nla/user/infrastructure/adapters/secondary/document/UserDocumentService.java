@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Nabil Leon Alvarez <@nalleon>
@@ -16,7 +18,6 @@ import java.util.List;
 public class UserDocumentService implements IUserRepository {
     @Autowired
     private IUserDocumentRepository repository;
-
     @Override
     @Transactional
     public User save(User user) {
@@ -24,7 +25,7 @@ public class UserDocumentService implements IUserRepository {
             return null;
         }
 
-        UserDocument dbItem = repository.findUserByName(user.getName());
+        UserDocument dbItem = repository.findUserByName(user.getName()).orElse(null);
 
         if(dbItem != null){
             return null;
@@ -32,6 +33,10 @@ public class UserDocumentService implements IUserRepository {
 
         try {
             UserDocument document = IUserDocumentMapper.INSTANCE.toDocument(user);
+            document.setCreationDate(new Date());
+            document.setRole("ROLE_USER");
+            document.setVerificationToken(UUID.randomUUID().toString());
+            document.setVerified(0);
             UserDocument savedEntity = repository.save(document);
             return IUserDocumentMapper.INSTANCE.toDomain(savedEntity);
         } catch (RuntimeException e){
@@ -41,36 +46,36 @@ public class UserDocumentService implements IUserRepository {
 
     @Override
     public List<User> findAll() {
-        List<UserDocument> documentList = repository.findAll();
-        return IUserDocumentMapper.INSTANCE.toDomainList(documentList);
+        List<UserDocument> listEntities = repository.findAll();
+        return IUserDocumentMapper.INSTANCE.toDomainList(listEntities);
     }
 
     @Override
     public User findById(Integer id) {
-        UserDocument documentFound = repository.findById(id.toString()).orElse(null);
+        UserDocument entityFound = repository.findById(id).orElse(null);
 
-        if (documentFound != null){
-            return IUserDocumentMapper.INSTANCE.toDomain(documentFound);
+        if (entityFound != null){
+            return IUserDocumentMapper.INSTANCE.toDomain(entityFound);
         }
         return  null;
     }
 
     @Override
     public User findByUserame(String username) {
-        UserDocument documentFound = repository.findUserByName(username);
+        UserDocument entityFound = repository.findUserByName(username).orElse(null);
 
-        if (documentFound != null){
-            return IUserDocumentMapper.INSTANCE.toDomain(documentFound);
+        if (entityFound != null){
+            return IUserDocumentMapper.INSTANCE.toDomain(entityFound);
         }
         return null;
     }
 
     @Override
     public User findByEmail(String email) {
-        UserDocument documentFound = repository.findUserByEmail(email);
+        UserDocument entityFound = repository.findUserByEmail(email).orElse(null);
 
-        if (documentFound != null){
-            return IUserDocumentMapper.INSTANCE.toDomain(documentFound);
+        if (entityFound != null){
+            return IUserDocumentMapper.INSTANCE.toDomain(entityFound);
         }
         return null;
     }
@@ -78,7 +83,7 @@ public class UserDocumentService implements IUserRepository {
     @Override
     @Transactional
     public boolean delete(Integer id) {
-        int quantity = repository.deleteUserById(id.toString());
+        int quantity = repository.deleteUserById(id);
         return quantity > 0;
     }
 
@@ -89,7 +94,7 @@ public class UserDocumentService implements IUserRepository {
             return null;
         }
 
-        UserDocument dbItem = repository.findUserByName(user.getName());
+        UserDocument dbItem = repository.findUserByName(user.getName()).orElse(null);
         if (dbItem == null){
             return null;
         }
@@ -97,6 +102,10 @@ public class UserDocumentService implements IUserRepository {
         try {
             dbItem.setPassword(user.getPassword());
             dbItem.setEmail(user.getEmail());
+            if(user.getVerified() != 0){
+                dbItem.setVerified(1);
+            }
+
             return IUserDocumentMapper.INSTANCE.toDomain(dbItem);
         }  catch (RuntimeException e){
             throw new RuntimeException("Invalid data");
@@ -105,7 +114,27 @@ public class UserDocumentService implements IUserRepository {
     }
 
     @Override
+    @Transactional
     public User updatePicture(User user) {
-        return null;
+        if(user == null ){
+            return null;
+        }
+
+        UserDocument dbItem = repository.findUserByName(user.getName()).orElse(null);
+
+        System.out.println(dbItem);
+
+        if (dbItem == null){
+            return null;
+        }
+
+        try {
+            dbItem.setProfilePicture(user.getProfilePicture());
+            UserDocument result = repository.save(dbItem);
+            return IUserDocumentMapper.INSTANCE.toDomain(result);
+        }  catch (RuntimeException e){
+            throw new RuntimeException("Invalid data");
+        }
+
     }
 }

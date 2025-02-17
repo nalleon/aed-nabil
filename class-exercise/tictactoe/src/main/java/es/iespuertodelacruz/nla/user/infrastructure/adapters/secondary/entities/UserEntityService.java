@@ -132,11 +132,6 @@ public class UserEntityService implements IUserRepository {
 
         try {
             dbItem.setProfilePicture(user.getProfilePicture());
-            System.out.println("__________________________________________________________");
-            System.out.println(dbItem);
-            System.out.println(IUserEntityMapper.INSTANCE.toDomain(dbItem));
-            System.out.println("__________________________________________________________");
-
             UserEntity result = repository.save(dbItem);
             return IUserEntityMapper.INSTANCE.toDomain(result);
         }  catch (RuntimeException e){

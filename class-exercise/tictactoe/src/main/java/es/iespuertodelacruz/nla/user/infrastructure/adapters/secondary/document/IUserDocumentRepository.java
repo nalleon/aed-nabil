@@ -1,17 +1,28 @@
 package es.iespuertodelacruz.nla.user.infrastructure.adapters.secondary.document;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 /**
  * @author Nabil Leon Alvarez <@nalleon>
  */
 //@Repository
-public interface IUserDocumentRepository extends MongoRepository<UserDocument, String> {
-    UserDocument findUserByName(String name);
+public interface IUserDocumentRepository extends MongoRepository<UserDocument, Integer> {
+    @Query(
+            value="SELECT * FROM usuarios WHERE nombre=:name",
+            nativeQuery=true
+    )
+    Optional<UserDocument> findUserByName(@Param("name") String name);
 
-    UserDocument findUserByEmail(String email);
-    int deleteUserById(@Param("id") String id);
+    @Query(
+            value="SELECT * FROM usuarios WHERE email=:email",
+            nativeQuery=true
+    )
+    Optional<UserDocument> findUserByEmail(@Param("email") String email);
+    int deleteUserById(@Param("id") Integer id);
 
 }

@@ -73,7 +73,9 @@ public class GameRESTController extends AuthCheck {
         return ResponseEntity.ok(new ApiResponse<>(200, message, filteredList));
     }
 
-    @GetMapping("/{id}")
+
+
+    @GetMapping("/opponent/{id}")
     public ResponseEntity<?> checkForOpponent(@PathVariable int id, UserJoinDTO userDTO) {
         Game dbItem = gameService.findById(id);
 
@@ -94,8 +96,26 @@ public class GameRESTController extends AuthCheck {
             }
         }
 
+
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new ApiResponse<>(204,
                 "Game NOT found or finished", null ));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findById(@PathVariable int id) {
+        Game dbItem = gameService.findById(id);
+
+        if (dbItem != null ){
+            GameDTO result = new GameDTO(dbItem.getPlayer1().getName(), dbItem.getPlayer2().getName(), dbItem.getBoard(),
+                    dbItem.isFinished(), dbItem.getCurrentTurn().getName());
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200,
+                    "Game with id: " + dbItem.getId() + " is finished", result));
+
+        }
+
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new ApiResponse<>(204,
+                "Game NOT found", null ));
     }
 
     @PostMapping

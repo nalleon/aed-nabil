@@ -73,6 +73,31 @@ public class GameRESTController extends AuthCheck {
         return ResponseEntity.ok(new ApiResponse<>(200, message, filteredList));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> checkForOpponent(@PathVariable int id, UserJoinDTO userDTO) {
+        Game dbItem = gameService.findById(id);
+
+        if (dbItem != null){
+            if(dbItem.getPlayer1().getName().equals(userDTO.name()) && dbItem.getPlayer2() != null){
+                GameDTO result = new GameDTO(dbItem.getPlayer1().getName(), dbItem.getPlayer2().getName(), dbItem.getBoard(),
+                        dbItem.isFinished());
+                return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200,
+                        "Opponent found with id: " + dbItem.getPlayer2().getId(), result));
+            } else if (dbItem.getPlayer2().getName().equals(userDTO.name())){
+                GameDTO result = new GameDTO(dbItem.getPlayer1().getName(), dbItem.getPlayer2().getName(), dbItem.getBoard(),
+                        dbItem.isFinished());
+                return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200,
+                        "Opponent found with id: " + dbItem.getPlayer2().getId(), result));
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse<>(404,
+                        "Opponent NOT found", null));
+            }
+        }
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new ApiResponse<>(204,
+                "Game NOT found", null ));
+    }
+
     @PostMapping
     public ResponseEntity<?> joinCreateOpenGame(HttpServletRequest request, @RequestBody UserJoinDTO userDTO) {
 
@@ -85,6 +110,11 @@ public class GameRESTController extends AuthCheck {
         User aux = userService.findByUsername(userDTO.name());
 
         if (dbItem != null) {
+            if(dbItem.getPlayer1().equals(aux)){
+                return ResponseEntity.status(HttpStatus.CONFLICT).body(new ApiResponse<>(409,
+                        "Can NOT join the same game", null));
+            }
+
             dbItem.setPlayer2(aux);
             Game joinedGame = gameService.joinGame(dbItem.getId(), aux);
             return ResponseEntity.ok(new ApiResponse<>(204, "Joined game with id: " + joinedGame.getId(),

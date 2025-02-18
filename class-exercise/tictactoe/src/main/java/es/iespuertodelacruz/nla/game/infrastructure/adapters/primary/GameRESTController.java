@@ -4,6 +4,7 @@ package es.iespuertodelacruz.nla.game.infrastructure.adapters.primary;
 import es.iespuertodelacruz.nla.game.domain.Game;
 import es.iespuertodelacruz.nla.game.domain.port.primary.IGameService;
 import es.iespuertodelacruz.nla.game.infrastructure.adapters.primary.dto.GameDTO;
+import es.iespuertodelacruz.nla.game.infrastructure.adapters.primary.dto.GameListDTO;
 import es.iespuertodelacruz.nla.game.infrastructure.adapters.primary.dto.GamePlayDTO;
 import es.iespuertodelacruz.nla.shared.security.JwtService;
 import es.iespuertodelacruz.nla.shared.utils.ApiResponse;
@@ -60,8 +61,8 @@ public class GameRESTController extends AuthCheck {
 
     @GetMapping
     public ResponseEntity<?> getAll() {
-        List<GameDTO> filteredList = gameService.findAll().stream().map(game ->
-                new GameDTO(game.getPlayer1().getName(), game.getPlayer2().getName(), game.getBoard(), game.isFinished(), game.getCurrentTurn().getName())).collect(Collectors.toList());
+        List<GameListDTO> filteredList = gameService.findAll().stream().map(game ->
+                new GameListDTO(game.getId(), game.getPlayer1().getName(), game.getPlayer2().getName(), game.getBoard(), game.isFinished(), game.getCurrentTurn().getName())).collect(Collectors.toList());
 
         if (filteredList.isEmpty()) {
             String message = "There are no games";

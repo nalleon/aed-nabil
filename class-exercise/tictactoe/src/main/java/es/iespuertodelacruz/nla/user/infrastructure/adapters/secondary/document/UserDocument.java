@@ -16,8 +16,8 @@ import java.util.Objects;
 public class UserDocument {
 
     @Id
-    @Field(name = "id")
-    private int id;
+    @Field(name = "_id")
+    private String id;
 
     @Field(name = "nombre")
     private String name;
@@ -38,7 +38,6 @@ public class UserDocument {
     private String verificationToken;
 
     @Field(name = "fecha_creacion")
-    @Convert(converter = DateToLongConverter.class)
     private Date creationDate;
 
     @Field(name = "foto_perfil")
@@ -49,11 +48,11 @@ public class UserDocument {
     /**
      * Getters and setters
      */
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

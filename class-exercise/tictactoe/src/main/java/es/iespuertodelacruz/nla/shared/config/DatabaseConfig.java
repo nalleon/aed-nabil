@@ -39,7 +39,7 @@ public class DatabaseConfig {
 
     @Bean
     public MongoClient mongoClientProd(){
-        return MongoClients.create("mongodb://localhost:27017");
+        return MongoClients.create("mongodb://root:1q2w3e4r@localhost:27017");
     }
 
 

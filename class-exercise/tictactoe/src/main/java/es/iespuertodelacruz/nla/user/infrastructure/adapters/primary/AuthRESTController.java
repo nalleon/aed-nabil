@@ -47,8 +47,9 @@ public class AuthRESTController {
         authService.register(registerDTO.name(), registerDTO.password(), registerDTO.email());
 
         User user = service.findByEmail(registerDTO.email());
-
+        System.out.println(user);
         String authToken = user.getVerificationToken();
+
 
         String confirmationUrl =
                 "http://localhost:8080/api/v1/auth/confirmation?email=" + registerDTO.email() + "&token=" + authToken;
@@ -64,6 +65,9 @@ public class AuthRESTController {
     public ResponseEntity<?> confirmation (@RequestParam String email, @RequestParam String token){
         User authUser = service.findByEmail(email);
 
+        System.out.println("________________________________________");
+        System.out.println(authUser);
+        System.out.println("________________________________________");
         if(authUser != null) {
             String tokenDB = authUser.getVerificationToken();
 

@@ -14,7 +14,7 @@ import java.util.UUID;
 /**
  * @author Nabil Leon Alvarez <@nalleon>
  */
-//@Service
+@Service
 public class UserDocumentService implements IUserRepository {
     @Autowired
     private IUserDocumentRepository repository;
@@ -37,8 +37,8 @@ public class UserDocumentService implements IUserRepository {
             document.setRole("ROLE_USER");
             document.setVerificationToken(UUID.randomUUID().toString());
             document.setVerified(0);
-            UserDocument savedEntity = repository.save(document);
-            return IUserDocumentMapper.INSTANCE.toDomain(savedEntity);
+            UserDocument saved = repository.save(document);
+            return IUserDocumentMapper.INSTANCE.toDomain(saved);
         } catch (RuntimeException e){
             throw new RuntimeException("Invalid data");
         }
@@ -52,30 +52,36 @@ public class UserDocumentService implements IUserRepository {
 
     @Override
     public User findById(Integer id) {
-        UserDocument entityFound = repository.findById(id).orElse(null);
+        UserDocument documentFound = repository.findById(id).orElse(null);
 
-        if (entityFound != null){
-            return IUserDocumentMapper.INSTANCE.toDomain(entityFound);
+        if (documentFound != null){
+            return IUserDocumentMapper.INSTANCE.toDomain(documentFound);
         }
         return  null;
     }
 
     @Override
     public User findByUserame(String username) {
-        UserDocument entityFound = repository.findUserByName(username).orElse(null);
+        UserDocument documentFound = repository.findUserByName(username).orElse(null);
 
-        if (entityFound != null){
-            return IUserDocumentMapper.INSTANCE.toDomain(entityFound);
+        if (documentFound != null){
+            return IUserDocumentMapper.INSTANCE.toDomain(documentFound);
         }
+
         return null;
     }
 
     @Override
     public User findByEmail(String email) {
-        UserDocument entityFound = repository.findUserByEmail(email).orElse(null);
+        UserDocument documentFound = repository.findUserByEmail(email).orElse(null);
+        System.out.println("__________________________________");
+        System.out.println(documentFound);
+        System.out.println("__________________________________");
 
-        if (entityFound != null){
-            return IUserDocumentMapper.INSTANCE.toDomain(entityFound);
+        if (documentFound != null){
+            System.out.println("MAPPER: " + IUserDocumentMapper.INSTANCE.toDomain(documentFound));
+
+            return IUserDocumentMapper.INSTANCE.toDomain(documentFound);
         }
         return null;
     }

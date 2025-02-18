@@ -10,7 +10,7 @@ import java.util.Optional;
 /**
  * @author Nabil Leon Alvarez <@nalleon>
  */
-//@Repository
+@Repository
 public interface IUserDocumentRepository extends MongoRepository<UserDocument, Integer> {
     @Query(
             value="SELECT * FROM usuarios WHERE nombre=:name",
@@ -19,7 +19,7 @@ public interface IUserDocumentRepository extends MongoRepository<UserDocument, I
     Optional<UserDocument> findUserByName(@Param("name") String name);
 
     @Query(
-            value="SELECT * FROM usuarios WHERE email=:email",
+            value="SELECT * FROM usuarios WHERE correo=:email",
             nativeQuery=true
     )
     Optional<UserDocument> findUserByEmail(@Param("email") String email);

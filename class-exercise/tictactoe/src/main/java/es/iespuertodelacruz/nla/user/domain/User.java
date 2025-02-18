@@ -23,7 +23,7 @@ public class User implements Serializable {
     private String profilePicture;
 
     /**
-     * Default copnstructor of the class
+     * Default constructor of the class
      */
     public User() {
     }

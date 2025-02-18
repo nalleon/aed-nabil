@@ -14,7 +14,7 @@ import java.util.UUID;
 /**
  * @author Nabil Leon Alvarez <@nalleon>
  */
-@Service
+//@Service
 public class UserEntityService implements IUserRepository {
 
     @Autowired

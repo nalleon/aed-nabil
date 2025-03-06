@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DocumentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Route::get('/documents/{fileId}/edit', [DocumentController::class, 'openDocument'])->name('documents.edit');
+Route::get('documents/create', [DocumentController::class, 'create'])->name('documents.create');
+Route::post('documents', [DocumentController::class, 'store'])->name('documents.store');
+Route::get('documents/edit/{fileName}', [DocumentController::class, 'edit'])->name('documents.edit');

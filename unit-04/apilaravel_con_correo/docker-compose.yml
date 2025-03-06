@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  libreoffice-online:
+    image: libreoffice/online
+    container_name: libreoffice-online
+    ports:
+      - "9980:9980"
+    environment:
+      - "domain=localhost"
+      - "username=admin"
+      - "password=admin"
+    volumes:
+      - ./storage/app/example:/opt/lool/data
+    privileged: true
+    networks:
+      - libreoffice-network
+
+networks:
+  libreoffice-network:
+    driver: bridge
